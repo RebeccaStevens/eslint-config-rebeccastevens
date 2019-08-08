@@ -26,6 +26,7 @@
     "prelint": "yarn generate-eslintrc",
     "lint": "eslint './**/*.ts' --ext .ts",
     "prepublishOnly": "yarn lint && yarn test",
+    "postpublish": "git push --tags && auto-changelog -t keepachangelog && git add CHANGELOG.md && git commit -m \"docs(changelog): update for v$npm_package_version\" && git push",
     "report-coverage": "codecov -f coverage/lcov.info",
     "test": "jest"
   },
@@ -53,6 +54,7 @@
     "@types/node": "^12.7.1",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
+    "auto-changelog": "^1.14.1",
     "codecov": "^3.5.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
