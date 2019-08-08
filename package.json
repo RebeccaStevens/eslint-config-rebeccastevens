@@ -1,6 +1,6 @@
 {
   "name": "@rebeccastevens/eslint-config",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "My ESLint shareable config.",
   "keywords": [
     "eslint config"
