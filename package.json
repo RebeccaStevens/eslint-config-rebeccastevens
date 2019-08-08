@@ -1,0 +1,100 @@
+{
+  "name": "@rebeccastevens/eslint-config",
+  "version": "0.0.0",
+  "description": "My ESLint shareable config.",
+  "keywords": [
+    "eslint config"
+  ],
+  "homepage": "https://github.com/RebeccaStevens/eslint-config-rebeccastevens#readme",
+  "bugs": {
+    "url": "https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues"
+  },
+  "repository": "git@github.com:RebeccaStevens/eslint-config-rebeccastevens.git",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Rebecca Stevens",
+    "email": "rebecca.stevens@outlook.co.nz"
+  },
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "scripts": {
+    "build": "rollup -c",
+    "generate-eslintrc": "ts-node -P tsconfig.tools.json scripts/generate-eslintrc.ts",
+    "prelint": "yarn generate-eslintrc",
+    "lint": "eslint './**/*.ts' --ext .ts",
+    "report-coverage": "codecov -f coverage/lcov.info",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@types/eslint": "^4.16.6",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.7.1",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "codecov": "^3.5.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "deepmerge": "^4.0.0",
+    "eslint": "^6.1.0",
+    "eslint-plugin-eslint-comments": "^3.1.2",
+    "eslint-plugin-functional": "^1.0.0-rc.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-jsdoc": "^15.8.0",
+    "eslint-plugin-markdown": "^1.0.0",
+    "eslint-plugin-optimize-regex": "^1.1.6",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.4.0",
+    "eslint-plugin-unicorn": "^10.0.0",
+    "husky": "^3.0.2",
+    "jest": "^24.8.0",
+    "jest-cli": "^24.8.0",
+    "rollup": "^1.19.4",
+    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.22.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/parser": "*",
+    "eslint": ">=6.0.0",
+    "eslint-plugin-eslint-comments": "*",
+    "eslint-plugin-functional": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-jsdoc": "*",
+    "eslint-plugin-markdown": "*",
+    "eslint-plugin-optimize-regex": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-plugin-simple-import-sort": "*",
+    "eslint-plugin-sonarjs": "*",
+    "eslint-plugin-unicorn": "*"
+  },
+  "greenkeeper": {
+    "label": ":green_heart:"
+  }
+}

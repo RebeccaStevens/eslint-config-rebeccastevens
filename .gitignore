@@ -1,0 +1,11 @@
+# Node
+/node_modules
+
+# Logs
+*.log
+
+# Generated Files
+/.rpt2_cache
+/coverage
+/dist
+/.eslintrc

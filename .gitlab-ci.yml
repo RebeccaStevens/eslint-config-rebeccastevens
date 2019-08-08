@@ -1,0 +1,13 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: node:8.9.3
+  script:
+    - npm install
+    - npm run test
+  only:
+    - branches
+  tags:
+    - docker
