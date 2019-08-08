@@ -69,7 +69,7 @@ export const rules: Linter.Config['rules'] = {
   ],
   'block-scoped-var': 'error',
   'class-methods-use-this': 'error',
-  'complexity': ['error', { max: 30 }],
+  'complexity': 'off',
   'consistent-return': [
     'error',
     {

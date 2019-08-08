@@ -6,6 +6,7 @@ export const settings = {
   ],
 
   rules: {
+    'sonarjs/cognitive-complexity': 'off',
     'sonarjs/no-nested-template-literals': 'off',
     'sonarjs/no-small-switch': 'off',
     'sonarjs/no-useless-cast': 'off'
