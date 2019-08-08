@@ -633,18 +633,20 @@ export const rules: Linter.Config['rules'] = {
       destructuring: 'all'
     }
   ],
-  'prefer-destructuring': ['error', {
-    VariableDeclarator: {
-      array: false,
-      object: true
-    },
-    AssignmentExpression: {
-      array: true,
-      object: true
+  'prefer-destructuring': [
+    'error', {
+      VariableDeclarator: {
+        array: false,
+        object: true
+      },
+      AssignmentExpression: {
+        array: true,
+        object: true
+      }
+    }, {
+      enforceForRenamedProperties: false
     }
-  }, {
-    enforceForRenamedProperties: false
-  }],
+  ],
   'prefer-numeric-literals': 'error',
   'prefer-rest-params': 'error',
   'prefer-spread': 'error',
