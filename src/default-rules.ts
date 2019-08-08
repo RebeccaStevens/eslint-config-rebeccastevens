@@ -534,7 +534,9 @@ export const rules: Linter.Config['rules'] = {
       overrides: {
         '=': 'none',
         '==': 'none',
-        '===': 'none'
+        '===': 'none',
+        '?': 'before',
+        ':': 'before'
       }
     }
   ],
