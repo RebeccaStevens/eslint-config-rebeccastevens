@@ -1,5 +1,9 @@
 export const settings = {
   plugins: ['unicorn'],
 
-  extends: ['plugin:unicorn/recommended']
+  extends: ['plugin:unicorn/recommended'],
+
+  rules: {
+    'unicorn/prevent-abbreviations': 'off'
+  }
 };
