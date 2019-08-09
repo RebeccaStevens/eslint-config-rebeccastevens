@@ -21,6 +21,7 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "rollup -c",
     "generate-eslintrc": "ts-node -P tsconfig.tools.json scripts/generate-eslintrc.ts",
     "prelint": "yarn generate-eslintrc",
@@ -28,7 +29,9 @@
     "prepublishOnly": "yarn lint && yarn test",
     "postpublish": "git push --tags && auto-changelog -t keepachangelog && git add CHANGELOG.md && git commit -m \"docs(changelog): update for v$npm_package_version\" && git push",
     "report-coverage": "codecov -f coverage/lcov.info",
-    "test": "jest"
+    "test": "jest",
+    "preversion": "yarn build",
+    "postversion": "yarn publish --new-version $npm_package_version"
   },
   "husky": {
     "hooks": {
@@ -45,6 +48,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "rimraf": "^2.6.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
