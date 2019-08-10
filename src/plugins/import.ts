@@ -15,5 +15,14 @@ export const settings = {
         'newlines-between': 'always'
       }
     ]
+  },
+
+  settings: {
+    'import/resolver': {
+      typescript: {},
+      node: {
+        extensions: ['.ts', '.tsx', '.d.ts', '.js', '.jsx']
+      }
+    }
   }
 };

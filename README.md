@@ -27,6 +27,7 @@ yarn add -D  \
   eslint-plugin-eslint-comments \
   eslint-plugin-functional \
   eslint-plugin-import \
+  eslint-import-resolver-typescript \
   eslint-plugin-jsdoc \
   eslint-plugin-markdown \
   eslint-plugin-optimize-regex \
