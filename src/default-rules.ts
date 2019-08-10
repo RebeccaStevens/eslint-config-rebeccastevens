@@ -409,7 +409,7 @@ export const rules: Linter.Config['rules'] = {
   'max-nested-callbacks': ['error', 10],
   'max-params': ['error', { max: 6 }],
   'max-statements-per-line': ['error', { max: 1 }],
-  'multiline-comment-style': 'error',
+  'multiline-comment-style': 'off',
   'multiline-ternary': ['error', 'always-multiline'],
   'new-cap': ['error', { newIsCap: true, capIsNew: true }],
   'new-parens': 'error',

@@ -19,7 +19,6 @@ const projectConfig = {
     {
       files: ['*.ts', '*.js'],
       rules: {
-        'multiline-comment-style': 'off',
         'functional/immutable-data': 'off',
         'functional/no-expression-statement': 'off',
         'comma-dangle': 'off'
