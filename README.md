@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@rebeccastevens/eslint-config"><img alt="npm version" src="https://img.shields.io/npm/v/@rebeccastevens/eslint-config.svg?logo=npm&style=flat-square" /></a>
-  <a href="https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions"><img alt="Actions Status" src="https://github.com/RebeccaStevens/eslint-config-rebeccastevens/workflows/Node%20CI/badge.svg?style=flat-square" /></a>
+  <a href="https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions"><img alt="Tests Status" src="https://github.com/RebeccaStevens/eslint-config-rebeccastevens/workflows/Tests/badge.svg?style=flat-square" /></a>
   <a href="https://commitizen.github.io/cz-cli/"><img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square" /></a>
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="BSD 3 Clause license" src="https://img.shields.io/github/license/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square" /></a>
   <br>
