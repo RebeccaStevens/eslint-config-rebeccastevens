@@ -7,6 +7,9 @@ import libConfig from '../src';
 // Project specific config.
 const projectConfig = {
   root: true,
+  parserOptions: {
+    project: 'tsconfig.json'
+  },
   env: {
     node: true
   },
