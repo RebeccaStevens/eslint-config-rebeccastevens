@@ -104,8 +104,5 @@
     "eslint-plugin-simple-import-sort": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-unicorn": "*"
-  },
-  "greenkeeper": {
-    "label": ":green_heart:"
   }
 }

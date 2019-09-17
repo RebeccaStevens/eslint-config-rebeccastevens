@@ -9,7 +9,7 @@
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="BSD 3 Clause license" src="https://img.shields.io/github/license/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square" /></a>
   <br>
   <a href="https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens"><img alt="codecov" src="https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens/branch/master/graph/badge.svg?style=flat-square" /></a>
-  <a href="https://greenkeeper.io/"><img alt="greenkeeper" src="https://badges.greenkeeper.io/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square" /></a>
+  <a href="https://dependabot.com/"><img alt="dependabot" src="https://api.dependabot.com/badges/status?host=github&repo=RebeccaStevens/eslint-config-rebeccastevens&style=flat-square" /></a>
   <a href="https://david-dm.org/RebeccaStevens/eslint-config-rebeccastevens"><img alt="dependencies status" src="https://img.shields.io/david/RebeccaStevens/eslint-config-rebeccastevens.svg?logo=david&style=flat-square" /></a>
   <a href="https://david-dm.org/RebeccaStevens/eslint-config-rebeccastevens?type=dev"><img alt="dev dependencies status" src="https://img.shields.io/david/dev/RebeccaStevens/eslint-config-rebeccastevens.svg?logo=david&style=flat-square" /></a>
 </p>
