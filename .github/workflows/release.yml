@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - 'releases/*'
+
+jobs:
+  release:
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      - name: Semantic Release
+        id: semantic
+        uses: codfish/semantic-release-action@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: test output
+        if: steps.semantic.outputs.new-release-published == 'true'
+        run: |
+          echo "$OUTPUTS"
+          echo "$NEW_RELEASE_PUBLISHED"
+          echo "$RELEASE_MAJOR"
+          echo "$RELEASE_MINOR"
+          echo "$RELEASE_PATH"
+        env:
+          OUTPUTS: ${{ toJson(steps.semantic.outputs) }}
