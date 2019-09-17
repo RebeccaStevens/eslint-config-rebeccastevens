@@ -25,7 +25,7 @@
     "build": "rollup -c",
     "generate-eslintrc": "ts-node -P tsconfig.tools.json scripts/generate-eslintrc.ts",
     "prelint": "yarn generate-eslintrc",
-    "lint": "eslint './**/*.ts' --ext .ts",
+    "lint": "eslint \"./**/*.ts\" --ext .ts",
     "prepublishOnly": "yarn lint && yarn test",
     "postpublish": "git push --tags && auto-changelog -t keepachangelog && git add CHANGELOG.md && git commit -m \"docs(changelog): update for v$npm_package_version\" && git push",
     "report-coverage": "codecov -f coverage/lcov.info",
