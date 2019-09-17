@@ -11,18 +11,29 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Repo
+        uses: actions/checkout@v1
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Set up Node v${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: yarn install, lint, and test
+      - name: yarn install
         run: |
           yarn install
+        env:
+          CI: true
+
+      - name: Run tests
+        run: |
           yarn lint
           yarn test
+        env:
+          CI: true
+
+      - name: Report
+        run: |
           yarn report-coverage
         env:
           CI: true
