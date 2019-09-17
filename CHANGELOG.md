@@ -1,3 +1,15 @@
+# [0.2.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.1.5...v0.2.0) (2019-09-17)
+
+
+### Bug Fixes
+
+* **package:** update rimraf to version 3.0.0 ([23dd874](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/23dd874))
+
+
+### Features
+
+* use more of [@typescript-eslint](https://github.com/typescript-eslint) rulesets ([5f6bb0d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/5f6bb0d))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
