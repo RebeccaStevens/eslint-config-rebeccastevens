@@ -49,9 +49,6 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "rimraf": "^3.0.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
@@ -81,6 +78,7 @@
     "husky": "^3.0.2",
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
+    "rimraf": "^3.0.0",
     "rollup": "^1.19.4",
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
