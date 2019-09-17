@@ -1,0 +1,17 @@
+version: 1
+update_configs:
+  - package_manager: javascript
+    directory: /
+    update_schedule: live
+    target_branch: master
+    default_labels:
+      - 'Type: Maintenance'
+      - ':blue_heart:'
+    automerged_updates:
+      - match:
+          dependency_type: production
+          update_type: semver:patch
+      - match:
+          dependency_type: development
+          update_type: semver:minor
+    version_requirement_updates: widen_ranges

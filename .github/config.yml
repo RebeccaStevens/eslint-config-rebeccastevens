@@ -1,0 +1,9 @@
+# Configuration for todo - https://github.com/JasonEtco/todo
+todo:
+  keyword: ["TODO:", "FIXME:"]
+  bodyKeyword: ["BODY:"]
+  label: "To Do"
+  autoAssign: true
+  caseSensitive: true
+  reopenClosed: true
+  exclude: "^(\.github|\.vscode)\/"
