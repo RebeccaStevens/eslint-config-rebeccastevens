@@ -1,0 +1,63 @@
+name: Validate & Release
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      - name: Set up Node v${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: |
+          yarn install
+        env:
+          CI: true
+
+      - name: Run tests
+        run: |
+          yarn lint
+          yarn test
+        env:
+          CI: true
+
+      - name: Report
+        run: |
+          yarn report-coverage
+        env:
+          CI: true
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        if: github.ref == 'refs/heads/master'
+        uses: actions/checkout@v1
+
+      - name: Semantic Release
+        if: github.ref == 'refs/heads/master'
+        id: semantic
+        uses: codfish/semantic-release-action@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Release Output
+        if: github.ref == 'refs/heads/master' && steps.semantic.outputs.new-release-published == 'true'
+        run: |
+          echo "$OUTPUTS"
+          echo "$NEW_RELEASE_PUBLISHED"
+          echo "$RELEASE_MAJOR"."$RELEASE_MINOR"."$RELEASE_PATH"
+        env:
+          OUTPUTS: ${{ toJson(steps.semantic.outputs) }}
