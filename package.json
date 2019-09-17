@@ -50,7 +50,7 @@
     }
   },
   "dependencies": {
-    "rimraf": "^2.6.3"
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
