@@ -6,7 +6,13 @@ export const settings = {
   ],
 
   rules: {
-    '@typescript-eslint/array-type': ['error', 'generic'],
+    '@typescript-eslint/array-type': [
+      'error',
+      {
+        default: 'generic',
+        readonly: 'generic'
+      }
+    ],
     '@typescript-eslint/explicit-function-return-type': [
       'error',
       {
