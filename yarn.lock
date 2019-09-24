@@ -2127,10 +2127,10 @@ eslint-plugin-markdown@^1.0.0:
     unified "^6.1.2"
 
 eslint-plugin-optimize-regex@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-optimize-regex/-/eslint-plugin-optimize-regex-1.1.6.tgz#ffe24e66da6fb9e1261fe7ecf74a5ff570db0066"
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-optimize-regex/-/eslint-plugin-optimize-regex-1.1.7.tgz#9368fe1243efbe034f3cc24acfd5e4b7ddb8eb40"
   dependencies:
-    regexp-tree "0.0.85"
+    regexp-tree "0.1.11"
 
 eslint-plugin-promise@^4.2.1:
   version "4.2.1"
@@ -5698,13 +5698,9 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexp-tree@0.0.85:
-  version "0.0.85"
-  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.0.85.tgz#278ef1946084e9ddd84b26e69828aab69e3c3186"
-  dependencies:
-    cli-table3 "^0.5.0"
-    colors "^1.1.2"
-    yargs "^10.0.3"
+regexp-tree@0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.11.tgz#c9c7f00fcf722e0a56c7390983a7a63dd6c272f3"
 
 regexp-tree@~0.1.1:
   version "0.1.13"
@@ -7195,34 +7191,11 @@ yargs-parser@^13.1.1:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
-yargs-parser@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-8.1.0.tgz#f1376a33b6629a5d063782944da732631e966950"
-  dependencies:
-    camelcase "^4.1.0"
-
 yargs-parser@^9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-9.0.2.tgz#9ccf6a43460fe4ed40a9bb68f48d43b8a68cc077"
   dependencies:
     camelcase "^4.1.0"
-
-yargs@^10.0.3:
-  version "10.1.2"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-10.1.2.tgz#454d074c2b16a51a43e2fb7807e4f9de69ccb5c5"
-  dependencies:
-    cliui "^4.0.0"
-    decamelize "^1.1.1"
-    find-up "^2.1.0"
-    get-caller-file "^1.0.1"
-    os-locale "^2.0.0"
-    require-directory "^2.1.1"
-    require-main-filename "^1.0.1"
-    set-blocking "^2.0.0"
-    string-width "^2.0.0"
-    which-module "^2.0.0"
-    y18n "^3.2.1"
-    yargs-parser "^8.1.0"
 
 yargs@^11.0.0:
   version "11.1.0"
