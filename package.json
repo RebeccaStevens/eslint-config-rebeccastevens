@@ -79,7 +79,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^4.0.0",
     "eslint-plugin-sonarjs": "^0.4.0",
-    "eslint-plugin-unicorn": "^11.0.0",
+    "eslint-plugin-unicorn": "^12.0.0",
     "husky": "^3.0.5",
     "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
