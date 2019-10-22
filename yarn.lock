@@ -2121,8 +2121,8 @@ eslint-plugin-jsdoc@^15.9.2:
     regextras "^0.6.1"
 
 eslint-plugin-markdown@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-markdown/-/eslint-plugin-markdown-1.0.0.tgz#2d381b44fcf367f1bb53ae166eccf111cd4e1174"
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-markdown/-/eslint-plugin-markdown-1.0.1.tgz#9705786310f84dad9cf800bea1eb5c4acafcc13a"
   dependencies:
     object-assign "^4.0.1"
     remark-parse "^5.0.0"
