@@ -1807,8 +1807,8 @@ deepmerge@^3.3.0:
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.3.0.tgz#d3c47fd6f3a93d517b14426b0628a17b0125f5f7"
 
 deepmerge@^4.0.0:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.1.2.tgz#73ab0dac658d5e79baabd8b81ce93f9fc9026e89"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
 
 defaults@^1.0.3:
   version "1.0.3"
