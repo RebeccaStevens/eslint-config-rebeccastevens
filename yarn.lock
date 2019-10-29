@@ -2127,9 +2127,9 @@ eslint-plugin-jest@^22.17.0:
   dependencies:
     "@typescript-eslint/experimental-utils" "^1.13.0"
 
-eslint-plugin-jsdoc@^15.9.2:
-  version "15.12.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-15.12.2.tgz#d8afb762921dbf841bad42d4b2b554de1ece9305"
+eslint-plugin-jsdoc@^16.0.0:
+  version "16.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-16.0.0.tgz#bad3ab01716df2a3a27a1bd0fb7c2f52b066c035"
   dependencies:
     comment-parser "^0.6.2"
     debug "^4.1.1"
