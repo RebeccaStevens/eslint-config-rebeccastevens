@@ -26,6 +26,7 @@
     "generate-eslintrc": "ts-node -P tsconfig.tools.json scripts/generate-eslintrc.ts",
     "prelint": "yarn generate-eslintrc",
     "lint": "eslint \"./**/*.ts\" --ext .ts",
+    "postpublish": "npm publish --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'",
     "report-coverage": "codecov -f coverage/lcov.info",
     "test": "jest"
   },
@@ -106,5 +107,8 @@
     "eslint-plugin-simple-import-sort": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-unicorn": "*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
