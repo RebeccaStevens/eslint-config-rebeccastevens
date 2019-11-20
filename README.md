@@ -65,5 +65,4 @@ yarn add -D  \
 }
 ```
 
-See [ESLint configuration](http://eslint.org/docs/user-guide/configuring) for
-mor information.
+See [ESLint configuration](http://eslint.org/docs/user-guide/configuring) for more information.
