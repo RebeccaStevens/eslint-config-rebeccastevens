@@ -77,6 +77,6 @@ jobs:
 
       - name: Mirror Release
         if: steps.semantic.outputs.new-release-published == 'true'
-        run: npm publish --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'
+        run: npm publish --@RebeccaStevens:registry='https://registry.npmjs.org'
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
