@@ -1,3 +1,13 @@
+# Changelog
+All notable changes to this project will be documented in this file. Dates are displayed in UTC.
+
+## [0.2.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.0...v0.2.1) (2019-11-20)
+
+
+### Bug Fixes
+
+* force publish ([58075c1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/58075c1b1ad4cb8fe08b9ccf798122e18853106d))
+
 # [0.2.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.1.5...v0.2.0) (2019-09-17)
 
 
