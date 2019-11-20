@@ -27,9 +27,7 @@
     "prelint": "yarn generate-eslintrc",
     "lint": "eslint \"./**/*.ts\" --ext .ts",
     "report-coverage": "codecov -f coverage/lcov.info",
-    "test": "jest",
-    "preversion": "yarn build",
-    "postversion": "yarn publish --new-version $npm_package_version"
+    "test": "jest"
   },
   "husky": {
     "hooks": {
