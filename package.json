@@ -106,5 +106,8 @@
     "eslint-plugin-simple-import-sort": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-unicorn": "*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
