@@ -22,6 +22,11 @@ jobs:
         env:
           CI: true
 
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
+
       - name: Run tests
         run: |
           yarn lint
@@ -53,6 +58,12 @@ jobs:
       - name: Install Dependencies
         if: github.ref == 'refs/heads/master'
         run: yarn install
+        env:
+          CI: true
+
+      - name: Build
+        if: github.ref == 'refs/heads/master'
+        run: yarn build
         env:
           CI: true
 
