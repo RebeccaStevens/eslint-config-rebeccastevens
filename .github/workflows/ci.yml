@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  - push
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os:
+          - macOS-latest
+          - ubuntu-latest
+          - windows-latest
+        node-version:
+          - 10
+          - 12
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: yarn install
+        env:
+          CI: true
+
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
+
+      - name: Run tests
+        run: |
+          yarn lint
+          yarn test
+        env:
+          CI: true
+
+      - name: Report
+        run: |
+          yarn report-coverage
+        env:
+          CI: true
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

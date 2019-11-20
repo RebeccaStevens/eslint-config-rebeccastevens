@@ -1,0 +1,62 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install Dependencies
+        run: yarn install
+        env:
+          CI: true
+
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
+
+      - name: Setup git
+        run: |
+          git config user.name "Release Bot"
+          git config user.email noreply@github.com
+
+      # Publish to NPMJS
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: "https://registry.npmjs.org/"
+      - run: |
+          npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          npm config set scope "@RebeccaStevens"
+          npm config list
+        env:
+          CI: true
+      - name: Publish to NPMJS
+        id: semantic
+        uses: codfish/semantic-release-action@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Publish to GitHub Package Registry
+      - if: steps.semantic.outputs.new-release-published == 'true'
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com/
+          scope: "@RebeccaStevens"
+      - name: Publish to GitHub Package Registry
+        if: steps.semantic.outputs.new-release-published == 'true'
+        run: npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.GH_TOKEN }} # Publishing to GPR so use GH Token
