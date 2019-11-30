@@ -2227,9 +2227,9 @@ eslint-plugin-sonarjs@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-sonarjs/-/eslint-plugin-sonarjs-0.5.0.tgz#ce17b2daba65a874c2862213a9e38e8986ad7d7d"
 
-eslint-plugin-unicorn@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-13.0.0.tgz#3d73a17cc34ade1aaa02655ae78bbd8a2053fa81"
+eslint-plugin-unicorn@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-14.0.1.tgz#6fa75872b6c0a4ed82a5f5b5854af3378fc78e41"
   dependencies:
     ci-info "^2.0.0"
     clean-regexp "^1.0.0"
@@ -2243,6 +2243,7 @@ eslint-plugin-unicorn@^13.0.0:
     lodash.topairs "^4.3.0"
     lodash.upperfirst "^4.3.1"
     read-pkg-up "^7.0.0"
+    regexp-tree "^0.1.16"
     regexpp "^3.0.0"
     reserved-words "^0.1.2"
     safe-regex "^2.1.1"
@@ -5852,7 +5853,7 @@ regexp-tree@0.1.11:
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.11.tgz#c9c7f00fcf722e0a56c7390983a7a63dd6c272f3"
 
-regexp-tree@~0.1.1:
+regexp-tree@^0.1.16, regexp-tree@~0.1.1:
   version "0.1.16"
   resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.16.tgz#0715feadb6f766aad7eac5ef4287d2c39acf2fc5"
 
