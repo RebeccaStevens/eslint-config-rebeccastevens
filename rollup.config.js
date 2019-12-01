@@ -40,8 +40,8 @@ const cjs = {
 
   output: {
     dir: './dist',
-    entryFileNames: '[name].js',
-    chunkFileNames: 'common/[hash].js',
+    entryFileNames: '[name].cjs',
+    chunkFileNames: 'common/[hash].cjs',
     format: 'cjs',
     sourcemap: false
   },

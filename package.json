@@ -18,8 +18,12 @@
   "files": [
     "dist/"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.mjs"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c",
