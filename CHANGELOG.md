@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file. Dates are d
 
 ### Bug Fixes
 
+* test release ([ac5b17e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ac5b17e5fe54f6c2262adb2e3c3cdea3606529df))
+
+## [0.2.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.1...v0.2.2) (2019-11-20)
+
+
+### Bug Fixes
+
 * test release ([652927e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/652927eba93ee6d5a2c316e316c627d030e88786))
 
 ## [0.2.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.0...v0.2.1) (2019-11-20)
