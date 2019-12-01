@@ -57,6 +57,6 @@ jobs:
           scope: "@RebeccaStevens"
       - name: Publish to GitHub Package Registry
         if: steps.semantic.outputs.new-release-published == 'true'
-        run: npm publish
+        run: yarn publish --non-interactive --new-version=${{ steps.semantic.outputs.release-version }}
         env:
           NPM_TOKEN: ${{ secrets.GH_TOKEN }} # Publishing to GPR so use GH Token
