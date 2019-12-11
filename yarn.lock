@@ -2164,8 +2164,8 @@ eslint-plugin-eslint-comments@^3.1.2:
     ignore "^5.0.5"
 
 eslint-plugin-functional@^1.0.0-rc.1:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-1.0.0.tgz#8a5537d2a47443b74f1ef329bf5fbaf554cd4d6c"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-1.0.2.tgz#0da4c1bc0ec10db369793e746b5fc194d25a4b62"
   dependencies:
     "@typescript-eslint/experimental-utils" "^1.11.0"
     array.prototype.flatmap "^1.2.1"
