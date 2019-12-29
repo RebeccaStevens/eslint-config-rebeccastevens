@@ -1,7 +1,10 @@
 export const settings = {
   plugins: ['functional'],
 
-  extends: ['plugin:functional/recommended'],
+  extends: [
+    'plugin:functional/external-recommended',
+    'plugin:functional/recommended'
+  ],
 
   rules: {
     'functional/prefer-readonly-type': [

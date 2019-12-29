@@ -2184,9 +2184,9 @@ eslint-plugin-eslint-comments@^3.1.2:
     escape-string-regexp "^1.0.5"
     ignore "^5.0.5"
 
-eslint-plugin-functional@^1.0.0-rc.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-1.0.3.tgz#0aee5b3899c15803f4bd2d0f59540ffc70c6d3f7"
+eslint-plugin-functional@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-2.0.0.tgz#7f3a8fb4182319cddf11c3b8615f8095b2c740c5"
   dependencies:
     "@typescript-eslint/experimental-utils" "^1.11.0"
     array.prototype.flatmap "^1.2.1"
