@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [0.2.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.2...v0.2.3) (2019-12-29)
+
+
+### Bug Fixes
+
+* **functional:** load eslint-plugin-functional's external-recommended ([5fded3f](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/5fded3f9872e5a7ae021c9c593111673ff791bde))
+
 ## [0.2.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.1...v0.2.2) (2019-11-20)
 
 
