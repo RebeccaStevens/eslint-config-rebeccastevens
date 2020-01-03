@@ -146,8 +146,8 @@
     resolve-global "1.0.0"
 
 "@commitlint/config-conventional@^8.2.0":
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-8.3.3.tgz#cb32e291c502b3ea570a80252676da209d7eb34b"
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-8.3.4.tgz#fed13b3711690663b176c1f6b39c205a565618d2"
   dependencies:
     conventional-changelog-conventionalcommits "4.2.1"
 
