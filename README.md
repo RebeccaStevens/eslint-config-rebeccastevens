@@ -1,20 +1,22 @@
-<h1 align="center">My ESLint Config</h1>
+<div align="center">
 
-<p align="center">An ESLint <a href="https://eslint.org/docs/developer-guide/shareable-configs.html">Shareable Config.</a></p>
+# My ESLint Config
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/@rebeccastevens/eslint-config"><img alt="npm version" src="https://img.shields.io/npm/v/@rebeccastevens/eslint-config.svg?logo=npm&style=flat-square" /></a>
-  <a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="BSD 3 Clause license" src="https://img.shields.io/github/license/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square" /></a>
-  <br>
-  <a href="https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions"><img alt="Tests Status" src="https://github.com/RebeccaStevens/eslint-config-rebeccastevens/workflows/Validate%20&%20Release/badge.svg?style=flat-square" /></a>
-  <a href="https://commitizen.github.io/cz-cli/"><img alt="Commitizen friendly" src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square" /></a>
-  <a href="https://github.com/semantic-release/semantic-release"><img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square" /></a>
-  <br>
-  <a href="https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens"><img alt="codecov" src="https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens/branch/master/graph/badge.svg?style=flat-square" /></a>
-  <a href="https://dependabot.com/"><img alt="dependabot" src="https://api.dependabot.com/badges/status?host=github&repo=RebeccaStevens/eslint-config-rebeccastevens&style=flat-square" /></a>
-  <a href="https://david-dm.org/RebeccaStevens/eslint-config-rebeccastevens"><img alt="dependencies status" src="https://img.shields.io/david/RebeccaStevens/eslint-config-rebeccastevens.svg?logo=david&style=flat-square" /></a>
-  <a href="https://david-dm.org/RebeccaStevens/eslint-config-rebeccastevens?type=dev"><img alt="dev dependencies status" src="https://img.shields.io/david/dev/RebeccaStevens/eslint-config-rebeccastevens.svg?logo=david&style=flat-square" /></a>
-</p>
+An [ESLint Shareable Config](https://eslint.org/docs/developer-guide/shareable-configs.html).
+
+[![npm version](https://img.shields.io/npm/v/@rebeccastevens/eslint-config.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/@rebeccastevens/eslint-config)
+[![BSD 3 Clause license](https://img.shields.io/github/license/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square)](https://opensource.org/licenses/BSD-3-Clause)  
+[![Tests Status](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/workflows/CI/badge.svg?style=flat-square)](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](https://commitizen.github.io/cz-cli/)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)  
+[![codecov](https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens/branch/master/graph/badge.svg?style=flat-square)](https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens)
+[![dependabot](https://api.dependabot.com/badges/status?host=github&repo=RebeccaStevens/eslint-config-rebeccastevens&style=flat-square)](https://dependabot.com/)
+[![dependencies status](https://img.shields.io/david/RebeccaStevens/eslint-config-rebeccastevens.svg?logo=david&style=flat-square)](https://david-dm.org/RebeccaStevens/eslint-config-rebeccastevens)
+[![dev dependencies status](https://img.shields.io/david/dev/RebeccaStevens/eslint-config-rebeccastevens.svg?logo=david&style=flat-square)](https://david-dm.org/RebeccaStevens/eslint-config-rebeccastevens?type=dev)
+
+An [ESLint](http://eslint.org) plugin to disable mutation and promote functional programming in JavaScript and TypeScript.
+
+</div>
 
 <br>
 
