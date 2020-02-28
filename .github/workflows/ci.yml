@@ -10,7 +10,6 @@ jobs:
         os:
           - macOS-latest
           - ubuntu-latest
-          - windows-latest
         node-version:
           - 10
           - 12
