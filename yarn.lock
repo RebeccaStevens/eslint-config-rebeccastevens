@@ -2601,10 +2601,11 @@ eslint-plugin-markdown@^1.0.0:
     unified "^6.1.2"
 
 eslint-plugin-optimize-regex@^1.1.6:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-optimize-regex/-/eslint-plugin-optimize-regex-1.1.7.tgz#9368fe1243efbe034f3cc24acfd5e4b7ddb8eb40"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-optimize-regex/-/eslint-plugin-optimize-regex-1.2.0.tgz#c13bd6c716cce4c5001ee8b7af073f2e0609e030"
+  integrity sha512-pzpF7bGsdXVPue/ubLqS0UbBGuBajxh2fO8OmBDoN0SHrxEBKf8WOAxkOI80lBb81yiZs7hj6ZxlflbrV3YrsA==
   dependencies:
-    regexp-tree "0.1.11"
+    regexp-tree "^0.1.20"
 
 eslint-plugin-promise@^4.2.1:
   version "4.2.1"
@@ -6282,11 +6283,7 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexp-tree@0.1.11:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.11.tgz#c9c7f00fcf722e0a56c7390983a7a63dd6c272f3"
-
-regexp-tree@^0.1.21, regexp-tree@~0.1.1:
+regexp-tree@^0.1.20, regexp-tree@^0.1.21, regexp-tree@~0.1.1:
   version "0.1.21"
   resolved "https://registry.yarnpkg.com/regexp-tree/-/regexp-tree-0.1.21.tgz#55e2246b7f7d36f1b461490942fa780299c400d7"
   integrity sha512-kUUXjX4AnqnR8KRTCrayAo9PzYMRKmVoGgaz2tBuz0MF3g1ZbGebmtW0yFHfFK9CmBjQKeYIgoL22pFLBJY7sw==
