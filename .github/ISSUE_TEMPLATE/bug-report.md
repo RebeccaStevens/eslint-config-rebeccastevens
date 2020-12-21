@@ -1,20 +1,28 @@
 ---
-name: Bug Report
-about: Create a report to help us improve
+name: "\U0001F41B Bug Report"
+about: Report a bug to help us fix it
 title: ''
-labels: 'Status: Triage'
+labels: 'Type: Bug', 'Status: Triage'
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+# The Problem
 
-**To Reproduce**
-Steps to reproduce the behavior:
+<!-- Why the issue was filed? -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Expected behavior
 
-**Additional context**
-Add any other context about the problem here.
+<!-- What you expected to happen? -->
+
+## Actual behavior
+
+<!-- What actually happened? -->
+
+## Steps to reproduce
+
+<!-- How can someone else make/see it happen -->
+
+## Proposed changes
+
+<!-- If you have a proposed change, workaround or fix, describe the it here -->

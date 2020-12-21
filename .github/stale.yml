@@ -1,0 +1,19 @@
+# Configuration for probot-stale - https://github.com/probot/stale
+daysUntilStale: 90
+daysUntilClose: false
+exemptLabels:
+  - "Status: On Hold"
+  - "Status: In Progress"
+  - "Status: Awaiting Response"
+  - "Status: Blocked"
+  - "Idea"
+  - "Security"
+exemptProjects: false
+exemptMilestones: false
+staleLabel: "Status: Stale"
+markComment: >
+  This issue has been automatically marked as stale because it has not had
+  recent activity.
+unmarkComment: false
+closeComment: false
+limitPerRun: 30

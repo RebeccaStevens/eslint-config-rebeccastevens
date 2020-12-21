@@ -1,32 +1,28 @@
-import { all as deepMerge } from 'deepmerge';
+import { all as deepMerge } from "deepmerge";
 
-import { rules as defaultRules } from './default-rules';
-import { plugins as pluginConfigs } from './plugins';
+import { pluginConfigs } from "@plugins";
+
+import { rules as defaultRules } from "./builtin";
 
 const options = {
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
 
   parserOptions: {
     ecmaVersion: 2019,
     ecmaFeatures: {
       globalReturn: false,
-      impliedStrict: true
+      impliedStrict: true,
     },
-    sourceType: 'module'
+    sourceType: "module",
   },
 
-  extends: [
-    'eslint:recommended'
-  ],
+  extends: ["eslint:recommended"],
 
   env: {
-    es6: true
+    es6: true,
   },
 
-  rules: defaultRules
+  rules: defaultRules,
 };
 
-export default deepMerge([
-  options,
-  ...pluginConfigs
-]);
+export default deepMerge([options, ...pluginConfigs]);

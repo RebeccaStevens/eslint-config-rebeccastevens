@@ -13,106 +13,109 @@ repository:
 
 labels:
   # Priority labels
-  - name: 'Priority: Critical'
+  - name: "Priority: Critical"
     color: ee0701
-    description: 'This should be dealt with ASAP. Not fixing this issue would be a serious error.'
-  - name: 'Priority: High'
+    description: "This should be dealt with ASAP. Not fixing this issue would be a serious error."
+  - name: "Priority: High"
     color: b60205
-    description: 'After critical issues are fixed, these should be dealt with before any further issues.'
-  - name: 'Priority: Medium'
+    description: "After critical issues are fixed, these should be dealt with before any further issues."
+  - name: "Priority: Medium"
     color: 0e8a16
-    description: 'This issue may be useful, and needs some attention.'
-  - name: 'Priority: Low'
+    description: "This issue may be useful, and needs some attention."
+  - name: "Priority: Low"
     color: e4ea8a
-    description: 'Nice addition, maybe... someday...'
+    description: "Nice addition, maybe... someday..."
 
   # Type labels
-  - name: 'Type: Bug'
+  - name: "Type: Bug"
     color: ee0701
-    description: 'Inconsistencies or issues which will cause a problem for users or implementors.'
-  - name: 'Type: Documentation'
+    description: "Inconsistencies or issues which will cause a problem for users or implementors."
+  - name: "Type: Documentation"
     color: 0052cc
-    description: 'Solely about the documentation of the project.'
-  - name: 'Type: Enhancement'
+    description: "Solely about the documentation of the project."
+  - name: "Type: Enhancement"
     color: 1d76db
-    description: 'Enhancement of the code, not introducing new features.'
-  - name: 'Type: Feature'
+    description: "Enhancement of the code, not introducing new features."
+  - name: "Type: Idea"
+    color: fef2c0
+    description: "Marks an idea, which might be excepted and implemented."
+  - name: "Type: Feature"
     color: 0e8a16
-    description: 'New features or options.'
-  - name: 'Type: Discussion'
+    description: "New features or options."
+  - name: "Type: Discussion"
     color: d4c5f9
-    description: 'Marks an issue as a discussion.'
-  - name: 'Type: Maintenance'
+    description: "Marks an issue as a discussion."
+  - name: "Type: Maintenance"
     color: 2af79e
-    description: 'Generic maintenance tasks, e.g., package updates.'
+    description: "Generic maintenance tasks, e.g., package updates."
 
   # Additional markers
-  - name: 'Security'
+  - name: "Security"
     color: ee0701
-    description: 'Marks an security issues that needs to be resolved asap.'
-  - name: 'Idea'
-    color: fef2c0
-    description: 'Marks an idea, which might be excepted and implemented.'
-  - name: 'Accepted'
+    description: "Marks an security issues that needs to be resolved asap."
+  - name: "Accepted"
     color: c2e0c6
-    description: 'This issue or PR has been accepted.'
-  - name: 'Declined'
+    description: "This issue or PR has been accepted."
+  - name: "Declined"
     color: f9d0c4
-    description: 'This issue or PR has been declined.'
+    description: "This issue or PR has been declined."
 
   # Ongoing Status labels
-  - name: 'Status: Triage'
+  - name: "Status: Triage"
     color: fbca04
-    description: 'This issue needs to be triaged.'
-  - name: 'Status: On Hold'
+    description: "This issue needs to be triaged."
+  - name: "Status: On Hold"
     color: cccccc
-    description: 'Issue or PR that has been placed on hold for now.'
-  - name: 'Status: In Progress'
+    description: "Issue or PR that has been placed on hold for now."
+  - name: "Status: In Progress"
     color: fbca04
-    description: 'Issue is currently being resolved by a developer.'
-  - name: 'Status: Stale'
+    description: "Issue is currently being resolved by a developer."
+  - name: "Status: Stale"
     color: fef2c0
-    description: 'There has not been activity on this issue or PR for quite some time.'
-  - name: 'Status: Awaiting Response'
+    description: "There has not been activity on this issue or PR for quite some time."
+  - name: "Status: Awaiting Response"
     color: fef2c0
-    description: 'Issue or PR awaits response from the creator.'
-  - name: 'Status: Blocked'
+    description: "Issue or PR awaits response from the creator."
+  - name: "Status: Blocked"
     color: fef2c0
-    description: 'Progress on this issue is currently not possible.'
+    description: "Progress on this issue is currently not possible."
 
   # Resolution Status labels
-  - name: 'Resolution: Answered'
+  - name: "Resolution: Answered"
     color: e6e6e6
-    description: 'This applies only to Questions and Discussions, and is self-explanatory.'
-  - name: 'Resolution: By Design'
+    description: "This applies only to Questions and Discussions, and is self-explanatory."
+  - name: "Resolution: By Design"
     color: e6e6e6
-    description: 'The behavior reported in the issue is actually correct.'
-  - name: 'Resolution: Duplicate'
+    description: "The behavior reported in the issue is actually correct."
+  - name: "Resolution: Duplicate"
     color: e6e6e6
-    description: 'This issue or pull request already exists'
-  - name: 'Resolution: External'
+    description: "This issue or pull request already exists"
+  - name: "Resolution: External"
     color: e6e6e6
-    description: 'It was a real bug, but not in the code in this repo.'
-  - name: 'Resolution: Invalid'
+    description: "It was a real bug, but not in the code in this repo."
+  - name: "Resolution: Invalid"
     color: e6e6e6
-    description: ''
-  - name: 'Resolution: Not Applicable'
+    description: ""
+  - name: "Resolution: Not Applicable"
     color: e6e6e6
-    description: 'The issue is not relevant to code in this repo and is not an external issue. (Out of scope)'
-  - name: 'Resolution: Not Reproducible'
+    description: "The issue is not relevant to code in this repo and is not an external issue. (Out of scope)"
+  - name: "Resolution: Not Reproducible"
     color: e6e6e6
-    description: 'The bug could not be reproduced.'
+    description: "The bug could not be reproduced."
   - name: "Resolution: Won't Fix"
     color: e6e6e6
-    description: 'A real bug or issue, but the issue is not impactful enough to spend time on.'
-  - name: 'Resolution: Done/Fixed'
+    description: "A real bug or issue, but the issue is not impactful enough to spend time on."
+  - name: "Resolution: Done/Fixed"
     color: c2e0c6
-    description: 'The bug/issue has been fixed/completed.'
+    description: "The bug/issue has been fixed/completed."
 
   # Bots
-  - name: ':blue_heart:'
+  - name: ":blue_heart:"
     color: ffffff
-    description: 'dependabot'
-  - name: 'To Do'
+    description: "Dependabot"
+  - name: "To Do"
     color: fbca04
-    description: 'To do.'
+    description: "To do."
+  - name: "Status: Released"
+    color: c2e0c6
+    description: "It's now live."

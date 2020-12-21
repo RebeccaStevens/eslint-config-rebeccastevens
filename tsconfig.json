@@ -1,24 +1,21 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2020",
     "module": "esnext",
     "lib": ["esnext"],
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {},
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@plugins": ["src/plugins/index"],
+      "@builtin": ["src/builtin"]
+    }
   }
 }

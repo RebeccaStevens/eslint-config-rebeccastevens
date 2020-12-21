@@ -2,42 +2,61 @@ name: CI
 
 on:
   - push
+  - pull_request
 
 jobs:
+  lint:
+    name: Linting Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Run Linting Checks
+        run: yarn lint
+
   test:
     strategy:
+      fail-fast: true
       matrix:
         os:
           - macOS-latest
           - ubuntu-latest
           - windows-latest
-        node-version:
+        node_version:
           - 10
           - 12
-    runs-on: ${{matrix.os}}
+          - 14
+    name: Test with Node ${{ matrix.node_version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
+      - name: Setup NodeJs
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node_version }}
 
       - name: Install Dependencies
-        run: yarn install
-        env:
-          CI: true
+        run: yarn install --frozen-lockfile
 
       - name: Build
         run: yarn build
-        env:
-          CI: true
 
-      - name: Run tests
-        run: |
-          yarn lint
-          yarn test
-        env:
-          CI: true
+      - name: Run Tests
+        run: yarn test
 
       - name: Report
         run: |
