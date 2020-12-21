@@ -35,7 +35,6 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node_version:
-          - 10
           - 12
           - 14
     name: Test with Node ${{ matrix.node_version }} on ${{ matrix.os }}
