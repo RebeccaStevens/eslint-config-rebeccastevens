@@ -1,61 +1,155 @@
-export const settings = {
-  plugins: ['@typescript-eslint'],
+import type { Linter } from "eslint";
+
+export const settings: Linter.Config = {
+  plugins: ["@typescript-eslint"],
 
   extends: [
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
   ],
 
   rules: {
-    '@typescript-eslint/array-type': [
-      'error',
+    "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-require-imports": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "off",
       {
-        default: 'generic',
-        readonly: 'generic'
-      }
+        args: "after-used",
+        argsIgnorePattern: "^_",
+        caughtErrors: "none",
+        ignoreRestSiblings: true,
+        vars: "all",
+      },
     ],
-    '@typescript-eslint/explicit-function-return-type': [
-      'error',
+    "@typescript-eslint/prefer-interface": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        types: {
+          "Object": { message: "Use object instead", fixWith: "object" },
+          "{}": false,
+          "object": false,
+        },
+        extendDefaults: true,
+      },
+    ],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/explicit-function-return-type": [
+      "off",
       {
         allowExpressions: true,
         allowTypedFunctionExpressions: true,
-        allowHigherOrderFunctions: true
-      }
+        allowHigherOrderFunctions: true,
+        allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+      },
     ],
-    '@typescript-eslint/prefer-interface': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-require-imports': 'error',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
+    "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "explicit" }],
+    "@typescript-eslint/naming-convention": [
+      "error",
       {
-        args: 'after-used',
-        argsIgnorePattern: '^_',
-        caughtErrors: 'none',
-        ignoreRestSiblings: true,
-        vars: 'all'
-      }
+        selector: "default",
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
+      },
+      {
+        selector: "variable",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "forbid",
+        trailingUnderscore: "forbid",
+      },
+      {
+        selector: "variableLike",
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
+      },
+      { selector: "memberLike", format: ["camelCase", "PascalCase"] },
+      {
+        selector: "enumMember",
+        format: ["UPPER_CASE"],
+        leadingUnderscore: "forbid",
+        trailingUnderscore: "forbid",
+      },
+      {
+        selector: "typeLike",
+        format: ["PascalCase"],
+        leadingUnderscore: "forbid",
+        trailingUnderscore: "forbid",
+      },
     ],
-    '@typescript-eslint/no-use-before-define': [
-      'error',
+    "@typescript-eslint/no-throw-literal": "error",
+    "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unused-expressions": [
+      "error",
       {
-        functions: true,
+        allowShortCircuit: true,
+        allowTernary: true,
+        allowTaggedTemplates: true,
+      },
+    ],
+    "@typescript-eslint/no-unused-vars-experimental": [
+      "warn",
+      { ignoredNamesRegex: "^_", ignoreArgsIfArgsAfterAreUsed: true },
+    ],
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      {
+        functions: false,
         classes: true,
         variables: true,
-        typedefs: true
-      }
+        typedefs: true,
+      },
     ],
-    '@typescript-eslint/indent': ['error', 2]
+    "@typescript-eslint/prefer-for-of": "warn",
+    "@typescript-eslint/prefer-includes": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/prefer-optional-chain": "warn",
+    "@typescript-eslint/prefer-string-starts-ends-with": "warn",
+    "@typescript-eslint/prefer-ts-expect-error": "warn",
+    "@typescript-eslint/switch-exhaustiveness-check": "warn",
+    "@typescript-eslint/unified-signatures": "warn",
   },
 
   overrides: [
     {
-      files: ['**/*.ts', '**/*.tsx'],
+      files: ["**/*.ts", "**/*.tsx"],
       rules: {
-        'indent': 'off',
-        'no-unused-vars': 'off',
-        'no-use-before-define': 'off'
-      }
-    }
-  ]
+        "camelcase": "off",
+        "indent": "off",
+        "no-constant-condition": "off",
+        "no-unused-expressions": "off",
+        "no-unused-vars": "off",
+        "no-use-before-define": "off",
+
+        "import/no-unresolved": "off",
+        "import/named": "off",
+        "import/default": "off",
+        "import/namespace": "off",
+
+        "node/no-unsupported-features/es-syntax": "off",
+      },
+
+      settings: {
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx"],
+        },
+      },
+    },
+    {
+      files: ["**/*.cjs"],
+      rules: {
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+  ],
 };

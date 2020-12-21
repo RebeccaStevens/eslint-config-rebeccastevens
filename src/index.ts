@@ -1,8 +1,7 @@
 import { all as deepMerge } from "deepmerge";
 
-import { pluginConfigs } from "@plugins";
-
-import { rules as defaultRules } from "./builtin";
+import { rules as builtinRules } from "~/builtin";
+import { pluginConfigs } from "~/plugins";
 
 const options = {
   parser: "@typescript-eslint/parser",
@@ -14,6 +13,7 @@ const options = {
       impliedStrict: true,
     },
     sourceType: "module",
+    extraFileExtensions: [".cjs", ".mjs"],
   },
 
   extends: ["eslint:recommended"],
@@ -22,7 +22,9 @@ const options = {
     es6: true,
   },
 
-  rules: defaultRules,
+  rules: builtinRules,
+
+  ignorePatterns: ["dist/"],
 };
 
 export default deepMerge([options, ...pluginConfigs]);

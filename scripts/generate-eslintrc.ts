@@ -2,29 +2,52 @@
 import { all as deepMerge } from "deepmerge";
 import { promises as fs } from "fs";
 
-import libConfig from "../src";
+import libConfig from "~";
 
 // Project specific config.
 const projectConfig = {
   root: true,
   parserOptions: {
-    project: "tsconfig.json",
+    project: ["tsconfig.json", "tsconfig.eslint.json"],
   },
   env: {
     node: true,
   },
-  rules: {
-    "no-magic-numbers": "off",
-    "sonarjs/no-duplicate-string": "off",
-    "unicorn/prevent-abbreviations": "off",
-  },
+  plugins: ["prettier"],
+  extends: ["plugin:prettier/recommended", "prettier", "prettier/@typescript-eslint"],
   overrides: [
     {
-      files: ["*.ts", "*.js"],
+      files: ["*.{ts,js}"],
       rules: {
         "functional/immutable-data": "off",
+        "functional/functional-parameters": "off",
         "functional/no-expression-statement": "off",
-        "comma-dangle": "off",
+      },
+    },
+    {
+      files: ["scripts/**/*.{ts,js}"],
+      rules: {
+        "functional/no-expression-statemen": "off",
+        "functional/no-throw-statement": "off",
+      },
+    },
+    {
+      files: ["src/**/*.{ts,js}"],
+      rules: {
+        "sonarjs/no-duplicate-string": "off",
+      },
+    },
+    {
+      files: ["tests/**/*.{ts,js}"],
+      env: {
+        jest: true,
+      },
+      plugins: ["jest"],
+      extends: ["plugin:jest/recommended"],
+      rules: {
+        "functional/functional-parameters": "off",
+        "functional/no-expression-statement": "off",
+        "node/no-sync": "off",
       },
     },
   ],
@@ -34,4 +57,6 @@ const projectConfig = {
 const config = deepMerge([libConfig, projectConfig]);
 
 // Write the file.
-fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2));
+fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2)).catch((error) => {
+  throw error;
+});

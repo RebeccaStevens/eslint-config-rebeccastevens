@@ -1,9 +1,11 @@
-export const settings = {
-  plugins: ['unicorn'],
+import type { Linter } from "eslint";
 
-  extends: ['plugin:unicorn/recommended'],
+export const settings: Linter.Config = {
+  plugins: ["unicorn"],
+
+  extends: ["plugin:unicorn/recommended"],
 
   rules: {
-    'unicorn/prevent-abbreviations': 'off'
-  }
+    "unicorn/prevent-abbreviations": "off",
+  },
 };

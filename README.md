@@ -34,6 +34,7 @@ yarn add -D  \
   eslint-import-resolver-typescript \
   eslint-plugin-jsdoc \
   eslint-plugin-markdown \
+  eslint-plugin-node \
   eslint-plugin-optimize-regex \
   eslint-plugin-promise \
   eslint-plugin-simple-import-sort \

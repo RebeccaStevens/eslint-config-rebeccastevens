@@ -1,23 +1,32 @@
-export const settings = {
-  plugins: ['functional'],
+import type { Linter } from "eslint";
 
-  extends: [
-    'plugin:functional/external-recommended',
-    'plugin:functional/recommended'
-  ],
+export const settings: Linter.Config = {
+  plugins: ["functional"],
+
+  extends: ["plugin:functional/external-recommended", "plugin:functional/recommended"],
 
   rules: {
-    'functional/prefer-readonly-type': [
-      'error',
+    "functional/prefer-readonly-type": [
+      "error",
       {
-        allowMutableReturnType: true
-      }
+        allowMutableReturnType: true,
+      },
     ],
-    'functional/no-conditional-statement': [
-      'error',
+    "functional/no-conditional-statement": [
+      "error",
       {
-        allowReturningBranches: true
-      }
-    ]
-  }
+        allowReturningBranches: true,
+      },
+    ],
+  },
+
+  overrides: [
+    {
+      files: ["**/*.cjs"],
+      rules: {
+        "functional/immutable-data": "off",
+        "functional/no-expression-statement": "off",
+      },
+    },
+  ],
 };
