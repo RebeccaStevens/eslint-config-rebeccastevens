@@ -15,6 +15,7 @@ const projectConfig = {
   },
   plugins: ["prettier"],
   extends: ["plugin:prettier/recommended", "prettier", "prettier/@typescript-eslint"],
+  ignorePatterns: ["coverage/"],
   overrides: [
     {
       files: ["*.{ts,js}"],
@@ -39,11 +40,8 @@ const projectConfig = {
     },
     {
       files: ["tests/**/*.{ts,js}"],
-      env: {
-        jest: true,
-      },
-      plugins: ["jest"],
-      extends: ["plugin:jest/recommended"],
+      plugins: ["ava"],
+      extends: ["plugin:ava/recommended"],
       rules: {
         "functional/functional-parameters": "off",
         "functional/no-expression-statement": "off",

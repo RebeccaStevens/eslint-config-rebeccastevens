@@ -5,7 +5,7 @@ node_modules/
 *.log
 
 # Generated Files
-/.rpt2_cache
+/.nyc_output/
 /coverage/
 /dist/
 /.eslintrc
