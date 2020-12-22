@@ -15,85 +15,87 @@
     "name": "Rebecca Stevens",
     "email": "rebecca.stevens@outlook.co.nz"
   },
-  "files": [
-    "dist/"
-  ],
-  "type": "module",
   "exports": {
-    "default": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
+    "./common-overrides": {
+      "import": "./dist/common-overrides.mjs",
+      "require": "./dist/common-overrides.cjs"
+    },
+    "./modern": {
+      "import": "./dist/modern.mjs",
+      "require": "./dist/modern.cjs"
+    },
+    "./typescript": {
+      "import": "./dist/typescript.mjs",
+      "require": "./dist/typescript.cjs"
+    }
   },
-  "main": "dist/index.cjs",
+  "files": [
+    "dist/",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c",
-    "generate-eslintrc": "ts-node -P tsconfig.tools.json scripts/generate-eslintrc.ts",
+    "commit": "cz",
+    "generate-eslintrc": "ts-node -P tsconfig.tools.json -r tsconfig-paths/register scripts/generate-eslintrc.ts",
     "prelint": "yarn generate-eslintrc",
-    "lint": "eslint \"./**/*.ts\" --ext .ts",
+    "lint": "eslint .",
     "report-coverage": "codecov -f coverage/lcov.info",
-    "test": "jest"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
+    "test": "echo no tests"
   },
   "dependencies": {
     "deepmerge": "^4.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-typescript": "^8.1.0",
     "@semantic-release/changelog": "^5.0.0",
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
-    "@semantic-release/github": "^7.0.4",
-    "@semantic-release/npm": "^7.0.3",
+    "@semantic-release/github": "^7.2.0",
+    "@semantic-release/npm": "^7.0.9",
     "@semantic-release/release-notes-generator": "^9.0.1",
-    "@types/eslint": "^6.1.0",
-    "@types/jest": "^25.1.0",
-    "@types/node": "^13.1.1",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "codecov": "^3.5.0",
-    "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.4.0",
-    "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-plugin-eslint-comments": "^3.1.2",
-    "eslint-plugin-functional": "^3.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^23.0.4",
-    "eslint-plugin-jsdoc": "^23.0.1",
-    "eslint-plugin-markdown": "^1.0.0",
-    "eslint-plugin-optimize-regex": "^1.1.6",
+    "@types/eslint": "^7.2.6",
+    "@types/node": "~14.14.14",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "ava": "^3.14.0",
+    "codecov": "^3.8.1",
+    "commitizen": "^4.2.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-ava": "^11.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-functional": "^3.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^30.7.9",
+    "eslint-plugin-markdown": "^1.0.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-optimize-regex": "^1.2.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-sonarjs": "^0.5.0",
-    "eslint-plugin-unicorn": "^19.0.0",
-    "husky": "^4.0.0",
-    "jest": "^25.1.0",
-    "jest-cli": "^26.0.1",
-    "rimraf": "^3.0.0",
-    "rollup": "^2.2.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.27.0",
-    "semantic-release": "^17.0.4",
-    "ts-jest": "^25.2.1",
-    "ts-node": "^8.4.1",
-    "typescript": "^3.6.3"
+    "eslint-plugin-unicorn": "^24.0.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.35.1",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "semantic-release": "^17.3.0",
+    "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.1.3"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "*",
@@ -110,5 +112,8 @@
     "eslint-plugin-simple-import-sort": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-unicorn": "*"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

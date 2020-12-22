@@ -1,17 +1,7 @@
-export const settings = {
-  plugins: ['eslint-comments'],
+import type { Linter } from "eslint";
 
-  extends: [
-    'plugin:eslint-comments/recommended'
-  ],
+export const settings: Linter.Config = {
+  plugins: ["eslint-comments"],
 
-  rules: {
-    'import/order': [
-      'error',
-      {
-        'groups': ['builtin', 'external', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always'
-      }
-    ]
-  }
+  extends: ["plugin:eslint-comments/recommended"],
 };

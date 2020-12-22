@@ -1,0 +1,35 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    ".nyc_output": true,
+    "coverage": true
+  },
+
+  "typescript.tsdk": "./node_modules/typescript/lib",
+
+  "todohighlight.keywords": [
+    {
+      "text": "TODO:",
+      "color": "#FFFFFF",
+      "backgroundColor": "#FFC107",
+      "overviewRulerColor": "#FFC107"
+    },
+    {
+      "text": "FIXME:",
+      "color": "#FFFFFF",
+      "backgroundColor": "#F5003D",
+      "overviewRulerColor": "#f44336"
+    },
+    {
+      "text": "BODY:",
+      "color": "#FFFFFF",
+      "backgroundColor": "#2E7D32",
+      "overviewRulerColor": "transparent"
+    }
+  ]
+}

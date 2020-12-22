@@ -1,37 +1,44 @@
 // Libraries.
-import { all as deepMerge } from 'deepmerge';
-import { promises } from 'fs';
+import { all as deepMerge } from "deepmerge";
+import { promises as fs } from "fs";
 
-import libConfig from '../src';
+import overridesConfig from "~/configs/common-overrides";
+import modernConfig from "~/configs/modern";
+import typescriptConfig from "~/configs/typescript";
 
 // Project specific config.
 const projectConfig = {
   root: true,
   parserOptions: {
-    project: 'tsconfig.json'
+    project: ["tsconfig.json", "tsconfig.eslint.json"],
   },
   env: {
-    node: true
+    node: true,
   },
-  rules: {
-    'no-magic-numbers': 'off',
-    'sonarjs/no-duplicate-string': 'off',
-    'unicorn/prevent-abbreviations': 'off'
-  },
+  plugins: ["prettier"],
+  extends: ["plugin:prettier/recommended", "prettier", "prettier/@typescript-eslint"],
+  ignorePatterns: ["coverage/"],
   overrides: [
     {
-      files: ['*.ts', '*.js'],
+      files: ["src/**/*.{ts,js}"],
       rules: {
-        'functional/immutable-data': 'off',
-        'functional/no-expression-statement': 'off',
-        'comma-dangle': 'off'
-      }
-    }
-  ]
+        "sonarjs/no-duplicate-string": "off",
+      },
+    },
+    {
+      files: ["tests/**/*.{ts,js}"],
+      plugins: ["ava"],
+      extends: ["plugin:ava/recommended"],
+    },
+  ],
 };
 
 // Merged config.
-const config = deepMerge([libConfig, projectConfig]);
+const config = deepMerge([modernConfig, typescriptConfig, overridesConfig, projectConfig], {
+  arrayMerge: (a, b) => [...a, ...b],
+});
 
 // Write the file.
-promises.writeFile('.eslintrc', JSON.stringify(config, undefined, 2));
+fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2)).catch((error) => {
+  throw error;
+});

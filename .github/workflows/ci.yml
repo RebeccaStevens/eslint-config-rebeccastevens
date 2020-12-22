@@ -2,46 +2,63 @@ name: CI
 
 on:
   - push
+  - pull_request
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os:
-          - macOS-latest
-          - ubuntu-latest
-          - windows-latest
-        node-version:
-          - 10
-          - 12
-    runs-on: ${{matrix.os}}
+  lint:
+    name: Linting Checks
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
+      - name: Setup NodeJs
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14
 
       - name: Install Dependencies
-        run: yarn install
-        env:
-          CI: true
+        run: yarn install --frozen-lockfile
 
       - name: Build
         run: yarn build
-        env:
-          CI: true
 
-      - name: Run tests
-        run: |
-          yarn lint
-          yarn test
-        env:
-          CI: true
+      - name: Run Linting Checks
+        run: yarn lint
 
-      - name: Report
-        run: |
-          yarn report-coverage
-        env:
-          CI: true
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  # test:
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       os:
+  #         - macOS-latest
+  #         - ubuntu-latest
+  #         - windows-latest
+  #       node_version:
+  #         - 14
+  #   name: Test with Node ${{ matrix.node_version }} on ${{ matrix.os }}
+  #   runs-on: ${{ matrix.os }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+
+  #     - name: Setup NodeJs
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: ${{ matrix.node_version }}
+
+  #     - name: Install Dependencies
+  #       run: yarn install --frozen-lockfile
+
+  #     - name: Build
+  #       run: yarn build
+
+  #     - name: Run Tests
+  #       run: yarn test
+
+  #     - name: Report
+  #       run: |
+  #         yarn report-coverage
+  #       env:
+  #         CI: true
+  #         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

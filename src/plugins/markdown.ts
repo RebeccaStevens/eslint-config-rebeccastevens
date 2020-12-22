@@ -1,3 +1,5 @@
-export const settings = {
-  plugins: ['markdown']
+import type { Linter } from "eslint";
+
+export const settings: Linter.Config = {
+  plugins: ["markdown"],
 };
