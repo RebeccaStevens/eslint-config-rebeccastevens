@@ -1,6 +1,24 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.0.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.3...v1.0.0) (2020-12-22)
+
+
+### Code Refactoring
+
+* update build process, refactor codebase, update eslint rules ([7b5947e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7b5947ee6891f64c06b7f6b7b0db8e73d2d45f57))
+
+
+### Features
+
+* split into multiple configs ([1b37e76](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/1b37e769214936824c0146bd3211514aeb452d77))
+
+
+### BREAKING CHANGES
+
+* import updates
+* Rules have been updated
+
 ## [0.2.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v0.2.2...v0.2.3) (2019-12-29)
 
 
