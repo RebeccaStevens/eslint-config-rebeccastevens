@@ -16,12 +16,19 @@
     "email": "rebecca.stevens@outlook.co.nz"
   },
   "exports": {
-    "default": "./dist/index.mjs",
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
+    "./common-overrides": {
+      "import": "./dist/common-overrides.mjs",
+      "require": "./dist/common-overrides.cjs"
+    },
+    "./modern": {
+      "import": "./dist/modern.mjs",
+      "require": "./dist/modern.cjs"
+    },
+    "./typescript": {
+      "import": "./dist/typescript.mjs",
+      "require": "./dist/typescript.cjs"
+    }
   },
-  "main": "dist/index.cjs",
-  "module": "lib/index.mjs",
   "files": [
     "dist/",
     "package.json",
@@ -37,7 +44,7 @@
     "prelint": "yarn generate-eslintrc",
     "lint": "eslint .",
     "report-coverage": "codecov -f coverage/lcov.info",
-    "test": "nyc ava"
+    "test": "echo no tests"
   },
   "dependencies": {
     "deepmerge": "^4.0.0"
@@ -55,7 +62,7 @@
     "@semantic-release/npm": "^7.0.9",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/eslint": "^7.2.6",
-    "@types/node": "~12.19.9",
+    "@types/node": "~14.14.14",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "ava": "^3.14.0",
@@ -107,6 +114,6 @@
     "eslint-plugin-unicorn": "*"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   }
 }

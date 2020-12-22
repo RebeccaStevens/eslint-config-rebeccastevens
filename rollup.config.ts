@@ -5,15 +5,18 @@
 import rollupPluginCommonjs from "@rollup/plugin-commonjs";
 import rollupPluginNodeResolve from "@rollup/plugin-node-resolve";
 import rollupPluginTypescript from "@rollup/plugin-typescript";
+import * as fs from "fs";
 import path from "path";
 import type { RollupOptions } from "rollup";
 import rollupPluginAutoExternal from "rollup-plugin-auto-external";
 
-import * as pkg from "./package.json";
+const configDir = "./src/configs/";
+
+const configFiles: ReadonlyArray<string> = fs
+  .readdirSync(configDir)
+  .filter((file) => file !== "index.ts" && file.endsWith(".ts"));
 
 const common: Partial<RollupOptions> = {
-  input: "src/index.ts",
-
   output: {
     dir: "./dist",
     sourcemap: false,
@@ -38,28 +41,49 @@ function getPlugins() {
   ];
 }
 
-const cjs: RollupOptions = {
-  ...common,
+/**
+ * Get the cjs rollup config for the given entry point.
+ */
+function getCjsConfig(filename: string): RollupOptions {
+  return {
+    ...common,
 
-  output: {
-    ...common.output,
-    entryFileNames: path.basename(pkg.main),
-    format: "cjs",
-  },
+    input: `${configDir}${filename}`,
 
-  plugins: getPlugins(),
-};
+    output: {
+      ...common.output,
+      entryFileNames: `${path.basename(filename, ".ts")}.cjs`,
+      format: "cjs",
+    },
 
-const esm: RollupOptions = {
-  ...common,
+    plugins: getPlugins(),
+  };
+}
 
-  output: {
-    ...common.output,
-    entryFileNames: path.basename(pkg.module),
-    format: "esm",
-  },
+/**
+ * Get the esm rollup config for the given entry point.
+ */
+function getEsmConfig(filename: string): RollupOptions {
+  return {
+    ...common,
 
-  plugins: getPlugins(),
-};
+    input: `${configDir}${filename}`,
 
-export default [cjs, esm];
+    output: {
+      ...common.output,
+      entryFileNames: `${path.basename(filename, ".ts")}.mjs`,
+      format: "esm",
+    },
+
+    plugins: getPlugins(),
+  };
+}
+
+/**
+ * Get the rollup config for the given entry point file.
+ */
+function getEntryConfigs(filename: string): Array<RollupOptions> {
+  return [getCjsConfig(filename), getEsmConfig(filename)];
+}
+
+export default configFiles.flatMap((configFile) => getEntryConfigs(configFile));

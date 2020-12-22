@@ -16,7 +16,8 @@
     "paths": {
       "~": ["src"],
       "~/builtin": ["src/builtin"],
-      "~/plugins": ["src/plugins"]
+      "~/configs/*": ["src/configs/*"],
+      "~/plugins/*": ["src/plugins/*"]
     }
   }
 }

@@ -118,38 +118,4 @@ export const settings: Linter.Config = {
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unified-signatures": "warn",
   },
-
-  overrides: [
-    {
-      files: ["**/*.ts", "**/*.tsx"],
-      rules: {
-        "camelcase": "off",
-        "indent": "off",
-        "no-constant-condition": "off",
-        "no-unused-expressions": "off",
-        "no-unused-vars": "off",
-        "no-use-before-define": "off",
-
-        "import/no-unresolved": "off",
-        "import/named": "off",
-        "import/default": "off",
-        "import/namespace": "off",
-
-        "node/no-unsupported-features/es-syntax": "off",
-      },
-
-      settings: {
-        "import/parsers": {
-          "@typescript-eslint/parser": [".ts", ".tsx"],
-        },
-      },
-    },
-    {
-      files: ["**/*.cjs"],
-      rules: {
-        "@typescript-eslint/no-require-imports": "off",
-        "@typescript-eslint/no-var-requires": "off",
-      },
-    },
-  ],
 };

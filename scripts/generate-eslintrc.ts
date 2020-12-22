@@ -2,7 +2,9 @@
 import { all as deepMerge } from "deepmerge";
 import { promises as fs } from "fs";
 
-import libConfig from "~";
+import overridesConfig from "~/configs/common-overrides";
+import modernConfig from "~/configs/modern";
+import typescriptConfig from "~/configs/typescript";
 
 // Project specific config.
 const projectConfig = {
@@ -18,21 +20,6 @@ const projectConfig = {
   ignorePatterns: ["coverage/"],
   overrides: [
     {
-      files: ["*.{ts,js}"],
-      rules: {
-        "functional/immutable-data": "off",
-        "functional/functional-parameters": "off",
-        "functional/no-expression-statement": "off",
-      },
-    },
-    {
-      files: ["scripts/**/*.{ts,js}"],
-      rules: {
-        "functional/no-expression-statemen": "off",
-        "functional/no-throw-statement": "off",
-      },
-    },
-    {
       files: ["src/**/*.{ts,js}"],
       rules: {
         "sonarjs/no-duplicate-string": "off",
@@ -42,17 +29,14 @@ const projectConfig = {
       files: ["tests/**/*.{ts,js}"],
       plugins: ["ava"],
       extends: ["plugin:ava/recommended"],
-      rules: {
-        "functional/functional-parameters": "off",
-        "functional/no-expression-statement": "off",
-        "node/no-sync": "off",
-      },
     },
   ],
 };
 
 // Merged config.
-const config = deepMerge([libConfig, projectConfig]);
+const config = deepMerge([modernConfig, typescriptConfig, overridesConfig, projectConfig], {
+  arrayMerge: (a, b) => [...a, ...b],
+});
 
 // Write the file.
 fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2)).catch((error) => {

@@ -25,7 +25,62 @@ An [ESLint](http://eslint.org) plugin to disable mutation and promote functional
 ```sh
 yarn add -D  \
   eslint \
-  @rebeccastevens/eslint-config \
+  @rebeccastevens/eslint-config
+```
+
+## Usage
+
+### Language
+
+<details>
+  <summary>JavaScript (Modern)</summary>
+
+Install Peer Dependencies:
+
+```sh
+yarn add -D \
+  babel-eslint \
+  eslint-plugin-eslint-comments \
+  eslint-plugin-functional \
+  eslint-plugin-import \
+  eslint-import-resolver-typescript \
+  eslint-plugin-jsdoc \
+  eslint-plugin-markdown \
+  eslint-plugin-node \
+  eslint-plugin-optimize-regex \
+  eslint-plugin-promise \
+  eslint-plugin-simple-import-sort \
+  eslint-plugin-sonarjs \
+  eslint-plugin-unicorn
+```
+
+Configure your project's `.eslintrc` file.
+
+```jsonc
+{
+  "root": true,
+  "extends": ["@rebeccastevens/eslint-config/modern"],
+  "rules": {
+    // Additional, per-project rules...
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts"],
+      "rules": {}
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+  <summary>TypeScript</summary>
+
+Install Peer Dependencies:
+
+```sh
+yarn add -D  \
   @typescript-eslint/parser \
   @typescript-eslint/eslint-plugin \
   eslint-plugin-eslint-comments \
@@ -42,30 +97,30 @@ yarn add -D  \
   eslint-plugin-unicorn
 ```
 
-## Usage
-
-`.eslintrc`
+Configure your project's `.eslintrc` file.
 
 ```jsonc
 {
   "root": true,
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "tsconfig.json"
   },
-  "extends": ["@rebeccastevens/eslint-config"],
+  "extends": [
+    "@rebeccastevens/eslint-config/modern",
+    "@rebeccastevens/eslint-config/typescript"
+  ],
   "rules": {
     // Additional, per-project rules...
   },
   "overrides": [
-    // Additional, per-project overrides...
     {
       "files": ["**/*.test.ts"],
-      "rules": {
-        // ...
-      }
+      "rules": {}
     }
   ]
 }
 ```
+
+</details>
 
 See [ESLint configuration](http://eslint.org/docs/user-guide/configuring) for more information.
