@@ -17,18 +17,12 @@ const projectConfig = {
   },
   plugins: ["prettier"],
   extends: ["plugin:prettier/recommended", "prettier", "prettier/@typescript-eslint"],
-  ignorePatterns: ["coverage/"],
   overrides: [
     {
       files: ["src/**/*.{ts,js}"],
       rules: {
         "sonarjs/no-duplicate-string": "off",
       },
-    },
-    {
-      files: ["tests/**/*.{ts,js}"],
-      plugins: ["ava"],
-      extends: ["plugin:ava/recommended"],
     },
   ],
 };

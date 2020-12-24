@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["jest.config.cjs", "rollup.config.cjs"]
+  "include": ["rollup.config.cjs"]
 }
