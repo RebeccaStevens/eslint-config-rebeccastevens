@@ -6,4 +6,4 @@ todo:
   autoAssign: true
   caseSensitive: true
   reopenClosed: true
-  exclude: "^(\.github|\.vscode)\/"
+  exclude: "^(\\.github|\\.vscode)\\/"

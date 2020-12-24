@@ -6,6 +6,5 @@ node_modules/
 
 # Generated Files
 /.nyc_output/
-/coverage/
 /dist/
 /.eslintrc
