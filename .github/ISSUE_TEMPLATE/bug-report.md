@@ -2,12 +2,10 @@
 name: "\U0001F41B Bug Report"
 about: Report a bug to help us fix it
 title: ''
-labels: 'Type: Bug', 'Status: Triage'
+labels: 'Type: Bug, Status: Triage'
 assignees: ''
-
 ---
-
-# The Problem
+# Bug Report
 
 <!-- Why the issue was filed? -->
 
@@ -25,4 +23,4 @@ assignees: ''
 
 ## Proposed changes
 
-<!-- If you have a proposed change, workaround or fix, describe the it here -->
+<!-- If you have a proposed change, workaround or fix, describe it here -->
