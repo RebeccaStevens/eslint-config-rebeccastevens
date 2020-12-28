@@ -2,11 +2,14 @@
 repository:
   name: eslint-config-rebeccastevens
   description: My eslint config.
+  topics: eslint config
   private: false
   has_issues: true
+  has_projects: true
   has_wiki: false
   has_downloads: true
   default_branch: master
+  allow_auto_merge: true
   allow_squash_merge: false
   allow_merge_commit: true
   allow_rebase_merge: true
@@ -119,3 +122,36 @@ labels:
   - name: "Status: Released"
     color: c2e0c6
     description: "It's now live."
+
+branches:
+  - name: master
+    protection:
+      required_pull_request_reviews: null
+      required_status_checks:
+        strict: true
+        contexts:
+          - "Linting Checks"
+          - "Semantic Pull Request"
+          - "Test with Node 10 on macOS-latest"
+          - "Test with Node 10 on ubuntu-latest"
+          - "Test with Node 10 on windows-latest"
+          - "Test with Node 12 on macOS-latest"
+          - "Test with Node 12 on ubuntu-latest"
+          - "Test with Node 12 on windows-latest"
+          - "Test with Node 14 on macOS-latest"
+          - "Test with Node 14 on ubuntu-latest"
+          - "Test with Node 14 on windows-latest"
+          - "test (macOS-latest, 10)"
+          - "test (macOS-latest, 12)"
+          - "test (ubuntu-latest, 10)"
+          - "test (ubuntu-latest, 12)"
+          - "test (windows-latest, 10)"
+          - "test (windows-latest, 12)"
+      required_linear_history: null
+      enforce_admins: null
+      restrictions:
+        apps: []
+        users: []
+        teams: []
+      allow_force_pushes: false
+      allow_deletions: false
