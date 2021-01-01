@@ -51,6 +51,9 @@ labels:
   - name: "Type: Maintenance"
     color: 2af79e
     description: "Generic maintenance tasks, e.g., package updates."
+  - name: "Type: Question"
+    color: cc317c
+    description: "A general question or how to do something. Not a question about adding/removing/changing features."
 
   # Additional markers
   - name: "Security"
