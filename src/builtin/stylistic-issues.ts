@@ -94,7 +94,8 @@ export const rules: Linter.Config["rules"] = {
   "max-statements-per-line": ["error", { max: 1 }],
   "multiline-comment-style": "off",
   "multiline-ternary": ["error", "always-multiline"],
-  "new-cap": ["error", { newIsCap: true, capIsNew: true }],
+  // This rule is implemented in a not very nice way when it comes to working with 3rd parties.
+  "new-cap": "off",
   "new-parens": "error",
   "newline-per-chained-call": [
     "error",
