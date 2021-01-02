@@ -16,6 +16,8 @@ export const settings: Linter.Config = {
     "@typescript-eslint/no-non-null-assertion": "off",
     // "node" plugin will handle this.
     "@typescript-eslint/no-require-imports": "off",
+    // Don't enable is non-ts files.
+    "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-unused-vars": [
       "off",
       {
@@ -119,4 +121,13 @@ export const settings: Linter.Config = {
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unified-signatures": "warn",
   },
+
+  overrides: [
+    {
+      files: ["**/*.ts", "**/*.tsx"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "error",
+      },
+    },
+  ],
 };
