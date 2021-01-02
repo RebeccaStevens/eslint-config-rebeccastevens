@@ -83,7 +83,7 @@ export const settings: Linter.Config = {
       },
     ],
     "import/unambiguous": "off",
-    "import/no-commonjs": "error",
+    "import/no-commonjs": "off",
     "import/no-amd": "error",
     "import/no-nodejs-modules": "off",
     "import/first": "error",
