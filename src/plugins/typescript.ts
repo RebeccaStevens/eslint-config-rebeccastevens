@@ -14,7 +14,8 @@ export const settings: Linter.Config = {
     "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-require-imports": "error",
+    // "node" plugin will handle this.
+    "@typescript-eslint/no-require-imports": "off",
     "@typescript-eslint/no-unused-vars": [
       "off",
       {
