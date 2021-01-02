@@ -12,7 +12,8 @@ export const settings: Linter.Config = {
     "jsdoc/newline-after-description": "warn",
     "jsdoc/no-types": "warn",
     "jsdoc/require-description": "warn",
-    "jsdoc/require-description-complete-sentence": "warn",
+    // Rule is too strict.
+    "jsdoc/require-description-complete-sentence": "off",
     "jsdoc/require-hyphen-before-param-description": "warn",
     "jsdoc/require-jsdoc": "warn",
     "jsdoc/require-param-description": "warn",
