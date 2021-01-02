@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.2...v1.0.3) (2021-01-02)
+
+
+### Bug Fixes
+
+* turn off rule import/no-commonjs ([e0607bf](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/e0607bf6928ace68850b5dd081c2e102cf69e560))
+
 ## [1.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.1...v1.0.2) (2021-01-02)
 
 
