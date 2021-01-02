@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.1...v1.0.2) (2021-01-02)
+
+
+### Bug Fixes
+
+* disable rule "new-cap" ([9aeceec](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/9aeceecfdb726dd88d01a290a033208145d3c31a))
+* disable rule @typescript-eslint/no-var-requires in non-ts files ([0f1e17a](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0f1e17ad23406d3f5b647d33d8c4d6140b31f42c))
+* disable rule jsdoc/require-description-complete-sentence ([9e1217b](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/9e1217b7240a0f1ba4320089a854d19e6cc5d302))
+* disable rule node/global-require ([9d598cf](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/9d598cfa3c2087c25ea590a2ac293c8cf4b8fad5))
+* disable rules @typescript-eslint/no-require-imports ([7ce18d8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7ce18d876d9ea82fd5ec2a528c179382137ab7bd))
+* opt-in to functional/stylitic rules ([c5d6ae7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c5d6ae761035e5d036d97b38b19e30593481ee7c))
+* update unicorn rules ([4ffd355](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4ffd355da4dc046c970912e63f649b72d8f19b67))
+
 ## [1.0.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.0...v1.0.1) (2020-12-24)
 
 
