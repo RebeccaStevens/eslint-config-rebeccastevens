@@ -8,7 +8,8 @@ export const settings: Linter.Config = {
   rules: {
     "node/callback-return": "error",
     "node/exports-style": ["error", "module.exports"],
-    "node/global-require": "error",
+    // Allow dynamic imports.
+    "node/global-require": "off",
     "node/handle-callback-err": ["error", "^(err|error)$"],
     "node/no-callback-literal": "error",
     "node/no-mixed-requires": [
