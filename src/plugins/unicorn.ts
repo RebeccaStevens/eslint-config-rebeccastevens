@@ -6,6 +6,15 @@ export const settings: Linter.Config = {
   extends: ["plugin:unicorn/recommended"],
 
   rules: {
+    // "eslint-comments/no-unlimited-disable" covers this.
+    "unicorn/no-abusive-eslint-disable": "off",
+    // "eslint-comments/prefer-tacit" covers this.
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-fn-reference-in-iterator": "off",
+    "unicorn/no-nested-ternary": "off",
+    "unicorn/no-null": "off",
+    "unicorn/no-useless-undefined": "off",
     "unicorn/prevent-abbreviations": "off",
   },
 };
