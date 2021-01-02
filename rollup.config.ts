@@ -86,4 +86,4 @@ function getEntryConfigs(filename: string): Array<RollupOptions> {
   return [getCjsConfig(filename), getEsmConfig(filename)];
 }
 
-export default configFiles.flatMap((configFile) => getEntryConfigs(configFile));
+export default configFiles.flatMap(getEntryConfigs);
