@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.4...v1.0.5) (2021-01-05)
+
+
+### Bug Fixes
+
+* **typescript:** update typescript ruels ([ab3f180](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ab3f180ab4daeb3993f373bdbf1fca117a121b59))
+
 ## [1.0.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.3...v1.0.4) (2021-01-05)
 
 
