@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.3...v1.0.4) (2021-01-05)
+
+
+### Bug Fixes
+
+* **import/no-extraneous-dependencies:** update rule options ([25f8ba8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/25f8ba8f40aaa947c535e0b81c24853b10cc4675))
+
 ## [1.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.2...v1.0.3) (2021-01-02)
 
 
