@@ -71,7 +71,7 @@ export const settings: Linter.Config = {
         leadingUnderscore: "allow",
         trailingUnderscore: "forbid",
       },
-      { selector: "memberLike", format: ["camelCase", "PascalCase"] },
+      { selector: "memberLike", format: ["camelCase", "PascalCase", "UPPER_CASE"] },
       {
         selector: "enumMember",
         format: ["UPPER_CASE"],
@@ -110,6 +110,15 @@ export const settings: Linter.Config = {
         classes: true,
         variables: true,
         typedefs: true,
+      },
+    ],
+    "@typescript-eslint/restrict-template-expressions": [
+      "error",
+      {
+        allowNumber: true,
+        allowBoolean: true,
+        allowAny: true,
+        allowNullish: true,
       },
     ],
     "@typescript-eslint/prefer-for-of": "warn",
