@@ -14,7 +14,7 @@ export default {
     {
       files: ["scripts/**/*"],
       rules: {
-        "functional/no-expression-statemen": "off",
+        "functional/no-expression-statement": "off",
         "functional/no-throw-statement": "off",
       },
     },
