@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.5...v1.0.6) (2021-01-06)
+
+
+### Bug Fixes
+
+* **common-overrides:** fix typo ([f0d6a59](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f0d6a5956e17dc7d04351271c8ff89b70db0482b))
+
 ## [1.0.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.4...v1.0.5) (2021-01-05)
 
 
