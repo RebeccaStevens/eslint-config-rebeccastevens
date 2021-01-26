@@ -6,7 +6,7 @@ exemptLabels:
   - "Status: In Progress"
   - "Status: Awaiting Response"
   - "Status: Blocked"
-  - "Idea"
+  - "Type: Idea"
   - "Security"
 exemptProjects: false
 exemptMilestones: false
