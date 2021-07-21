@@ -10,6 +10,7 @@ const baseConfig: Linter.Config = {
     "camelcase": "off",
     "indent": "off",
     "no-constant-condition": "off",
+    "no-shadow": "off",
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
     "no-use-before-define": "off",

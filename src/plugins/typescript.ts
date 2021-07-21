@@ -85,6 +85,14 @@ export const settings: Linter.Config = {
         trailingUnderscore: "forbid",
       },
     ],
+    "@typescript-eslint/no-shadow": [
+      "warn",
+      {
+        builtinGlobals: false,
+        hoist: "never",
+        allow: ["resolve", "reject", "done", "cb"],
+      },
+    ],
     "@typescript-eslint/no-throw-literal": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "@typescript-eslint/no-unsafe-assignment": "off",
