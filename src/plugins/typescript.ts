@@ -112,6 +112,7 @@ export const settings: Linter.Config = {
         typedefs: true,
       },
     ],
+    "@typescript-eslint/restrict-plus-operands": ["error", { checkCompoundAssignments: true }],
     "@typescript-eslint/restrict-template-expressions": [
       "error",
       {
