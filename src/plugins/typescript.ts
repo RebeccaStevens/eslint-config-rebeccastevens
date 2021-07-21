@@ -141,6 +141,12 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
+    "@typescript-eslint/unbound-method": [
+      "error",
+      {
+        ignoreStatic: true,
+      },
+    ],
     "@typescript-eslint/unified-signatures": "warn",
   },
 
