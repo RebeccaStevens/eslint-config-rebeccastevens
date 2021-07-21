@@ -13,6 +13,7 @@ const baseConfig: Linter.Config = {
     "indent": "off",
     "no-constant-condition": "off",
     "no-loop-func": "off",
+    "no-shadow": "off",
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
     "no-use-before-define": "off",
