@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.8...v1.0.9) (2021-07-21)
+
+
+### Bug Fixes
+
+* ignore mutable types in classes ([31e4982](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/31e4982508d5d2590f9026c1000ac69a68195a26))
+
 ## [1.0.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.7...v1.0.8) (2021-07-21)
 
 
