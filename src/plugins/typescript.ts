@@ -122,6 +122,7 @@ export const settings: Linter.Config = {
         typedefs: true,
       },
     ],
+    "@typescript-eslint/non-nullable-type-assertion-style": "error",
     "@typescript-eslint/restrict-template-expressions": [
       "error",
       {
