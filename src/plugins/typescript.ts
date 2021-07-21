@@ -158,7 +158,13 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-includes": "warn",
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
-    "@typescript-eslint/prefer-readonly-parameter-types": "warn",
+    "@typescript-eslint/prefer-readonly-parameter-types": [
+      "warn",
+      {
+        checkParameterProperties: false,
+        ignoreInferredTypes: true,
+      },
+    ],
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
     "@typescript-eslint/promise-function-async": "error",
