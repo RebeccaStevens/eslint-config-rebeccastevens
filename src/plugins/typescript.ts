@@ -40,6 +40,13 @@ export const settings: Linter.Config = {
         extendDefaults: true,
       },
     ],
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      {
+        ignoreArrowShorthand: false,
+        ignoreVoidOperator: true,
+      },
+    ],
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "off",
