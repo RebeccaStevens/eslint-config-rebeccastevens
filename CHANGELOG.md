@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.7...v1.0.8) (2021-07-21)
+
+
+### Bug Fixes
+
+* make rule prefer-readonly-parameter-types more lenient ([c0be938](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c0be9380d597ac09b139f02f017de2cc815a83c3))
+
 ## [1.0.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.6...v1.0.7) (2021-07-21)
 
 
