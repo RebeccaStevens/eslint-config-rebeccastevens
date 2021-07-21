@@ -12,7 +12,18 @@ export const settings: Linter.Config = {
 
   rules: {
     "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      {
+        arrays: "only-multiline",
+        objects: "only-multiline",
+        imports: "only-multiline",
+        exports: "only-multiline",
+        functions: "ignore",
+      },
+    ],
     "@typescript-eslint/consistent-indexed-object-style": "error",
+    "@typescript-eslint/dot-notation": "error",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-non-null-assertion": "off",
     // "node" plugin will handle this.
@@ -94,6 +105,15 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/no-invalid-void-type": "error",
+    "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/no-shadow": [
+      "warn",
+      {
+        builtinGlobals: false,
+        hoist: "never",
+        allow: ["resolve", "reject", "done", "cb"],
+      },
+    ],
     "@typescript-eslint/no-throw-literal": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "@typescript-eslint/no-unnecessary-type-constraint": "error",
