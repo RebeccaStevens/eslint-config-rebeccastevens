@@ -12,7 +12,18 @@ export const settings: Linter.Config = {
 
   rules: {
     "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      {
+        arrays: "only-multiline",
+        objects: "only-multiline",
+        imports: "only-multiline",
+        exports: "only-multiline",
+        functions: "ignore",
+      },
+    ],
     "@typescript-eslint/consistent-indexed-object-style": "error",
+    "@typescript-eslint/dot-notation": "error",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-non-null-assertion": "off",
     // "node" plugin will handle this.
@@ -39,6 +50,13 @@ export const settings: Linter.Config = {
           "object": false,
         },
         extendDefaults: true,
+      },
+    ],
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      {
+        ignoreArrowShorthand: false,
+        ignoreVoidOperator: true,
       },
     ],
     "@typescript-eslint/consistent-type-imports": "error",
@@ -86,8 +104,19 @@ export const settings: Linter.Config = {
         trailingUnderscore: "forbid",
       },
     ],
+    "@typescript-eslint/no-invalid-void-type": "error",
+    "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/no-shadow": [
+      "warn",
+      {
+        builtinGlobals: false,
+        hoist: "never",
+        allow: ["resolve", "reject", "done", "cb"],
+      },
+    ],
     "@typescript-eslint/no-throw-literal": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/no-unnecessary-type-constraint": "error",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
@@ -113,6 +142,8 @@ export const settings: Linter.Config = {
         typedefs: true,
       },
     ],
+    "@typescript-eslint/non-nullable-type-assertion-style": "error",
+    "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/restrict-plus-operands": ["error", { checkCompoundAssignments: true }],
     "@typescript-eslint/restrict-template-expressions": [
       "error",
@@ -127,8 +158,24 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-includes": "warn",
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
+    "@typescript-eslint/prefer-readonly-parameter-types": "warn",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
+    "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/sort-type-union-intersection-members": "error",
+    "@typescript-eslint/strict-boolean-expressions": [
+      "error",
+      {
+        allowString: false,
+        allowNumber: false,
+        allowNullableObject: false,
+        allowNullableBoolean: false,
+        allowNullableString: false,
+        allowNullableNumber: false,
+        allowAny: false,
+        allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+      },
+    ],
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unbound-method": [
       "error",
