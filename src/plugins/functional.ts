@@ -14,6 +14,7 @@ export const settings: Linter.Config = {
       "error",
       {
         allowMutableReturnType: true,
+        ignoreClass: true,
       },
     ],
     "functional/no-conditional-statement": [
