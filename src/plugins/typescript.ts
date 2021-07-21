@@ -12,6 +12,16 @@ export const settings: Linter.Config = {
 
   rules: {
     "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      {
+        arrays: "only-multiline",
+        objects: "only-multiline",
+        imports: "only-multiline",
+        exports: "only-multiline",
+        functions: "ignore",
+      },
+    ],
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-non-null-assertion": "off",
     // "node" plugin will handle this.
