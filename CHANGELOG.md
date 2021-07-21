@@ -1,6 +1,28 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.6...v1.0.7) (2021-07-21)
+
+
+### Bug Fixes
+
+* **comma-dangle:** use typescript version of rule ([2065d6e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2065d6efce4b0d1bf7c7bc7a06ddfca7b98b7563))
+* **consistent-indexed-object-style:** add rule ([c57ef18](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c57ef182eeb6d3c727a16d01651e2b8b51d6e88b))
+* **dot-notation:** use typescript version of rule ([4407aef](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4407aefe9ac256d50ca6f98a41742aa4ee19f7a7))
+* **no-confusing-void-expression:** add rule ([ced5612](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ced56129c2258bc85d0a2a1e2c57b84c629ee89c))
+* **no-invalid-void-type:** add rule ([875bb0c](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/875bb0ce830a1667717354148874325ba4252450))
+* **no-loop-func:** use typescript version of rule ([db7c588](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/db7c588def28d155db445a47d617bed5424edf98))
+* **no-shadow:** use typescript version of rule ([59945b1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/59945b1b1bc0da23b1a56812498f53bd0e836cb4))
+* **no-unnecessary-type-constraint:** add rule ([7e31455](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7e31455efe953f66cdbca9f2b0c15e5520cf539e))
+* **non-nullable-type-assertion-style:** add rule ([273e0db](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/273e0db30a4185279df7a07f8422408a786436e0))
+* **object-curly-spacing:** use typescript version of rule for typescript ([3d0d7eb](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/3d0d7eb859540105a87cc54da003a61a3f19b85a))
+* **prefer-readonly-parameter-types:** add rule ([5d85ce2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/5d85ce29e392c1d34c50bc3d339e74ffd64399a0))
+* **promise-function-async:** add rule ([26927f0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/26927f0f3730ff78358e44c5119ccdd017053cb4))
+* **restrict-plus-operands:** add rule ([f68d08e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f68d08e6e9ddae423d52a18e1ce62bc4c016428d))
+* **sort-type-union-intersection-members:** add rule ([4bfdb58](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4bfdb58e9d207c478dc14f149d801e329113887b))
+* **strict-boolean-expressions:** add rule ([c973802](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c973802db4b9afbe4afe6d609caccfb178ef84fa))
+* **unbound-method:** add rule ([9000402](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/9000402bd71da82476dc3be136dceb1643d05ad4))
+
 ## [1.0.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.5...v1.0.6) (2021-01-06)
 
 
