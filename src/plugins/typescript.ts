@@ -41,6 +41,13 @@ export const settings: Linter.Config = {
         extendDefaults: true,
       },
     ],
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      {
+        ignoreArrowShorthand: false,
+        ignoreVoidOperator: true,
+      },
+    ],
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "off",
@@ -115,6 +122,7 @@ export const settings: Linter.Config = {
         typedefs: true,
       },
     ],
+    "@typescript-eslint/non-nullable-type-assertion-style": "error",
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/restrict-template-expressions": [
       "error",
@@ -132,6 +140,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-readonly-parameter-types": "warn",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
+    "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unbound-method": [
       "error",
