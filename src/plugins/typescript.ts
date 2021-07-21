@@ -12,6 +12,7 @@ export const settings: Linter.Config = {
 
   rules: {
     "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
+    "@typescript-eslint/consistent-indexed-object-style": "error",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-non-null-assertion": "off",
     // "node" plugin will handle this.
