@@ -107,6 +107,13 @@ export const settings: Linter.Config = {
         ignoreVoidOperator: true,
       },
     ],
+    "@typescript-eslint/no-extra-parens": [
+      "error",
+      "all",
+      {
+        nestedBinaryExpressions: false,
+      },
+    ],
     "@typescript-eslint/no-invalid-void-type": "error",
     "@typescript-eslint/no-loop-func": "error",
     "@typescript-eslint/no-loss-of-precision": "error",
