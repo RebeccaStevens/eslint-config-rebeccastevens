@@ -129,6 +129,12 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-ts-expect-error": "warn",
     "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
+    "@typescript-eslint/unbound-method": [
+      "error",
+      {
+        ignoreStatic: true,
+      },
+    ],
     "@typescript-eslint/unified-signatures": "warn",
   },
 
