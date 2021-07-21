@@ -143,6 +143,7 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/non-nullable-type-assertion-style": "error",
+    "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/restrict-template-expressions": [
       "error",
       {
