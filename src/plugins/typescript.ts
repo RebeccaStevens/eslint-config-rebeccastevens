@@ -127,6 +127,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
+    "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unified-signatures": "warn",
   },
