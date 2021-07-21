@@ -85,6 +85,7 @@ export const settings: Linter.Config = {
         trailingUnderscore: "forbid",
       },
     ],
+    "@typescript-eslint/no-loop-func": "error",
     "@typescript-eslint/no-throw-literal": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "@typescript-eslint/no-unsafe-assignment": "off",
