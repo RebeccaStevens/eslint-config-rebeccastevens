@@ -23,6 +23,7 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/consistent-indexed-object-style": "error",
+    "@typescript-eslint/dot-notation": "error",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-non-null-assertion": "off",
     // "node" plugin will handle this.
