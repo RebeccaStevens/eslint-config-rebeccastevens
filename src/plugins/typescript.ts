@@ -112,6 +112,7 @@ export const settings: Linter.Config = {
         typedefs: true,
       },
     ],
+    "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/restrict-template-expressions": [
       "error",
       {

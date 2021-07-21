@@ -13,6 +13,7 @@ const baseConfig: Linter.Config = {
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
     "no-use-before-define": "off",
+    "object-curly-spacing": "off",
   },
 
   overrides: [
