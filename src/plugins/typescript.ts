@@ -162,6 +162,19 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-ts-expect-error": "warn",
     "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/sort-type-union-intersection-members": "error",
+    "@typescript-eslint/strict-boolean-expressions": [
+      "error",
+      {
+        allowString: false,
+        allowNumber: false,
+        allowNullableObject: false,
+        allowNullableBoolean: false,
+        allowNullableString: false,
+        allowNullableNumber: false,
+        allowAny: false,
+        allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+      },
+    ],
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
     "@typescript-eslint/unbound-method": [
       "error",
