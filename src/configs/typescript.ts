@@ -8,6 +8,7 @@ const baseConfig: Linter.Config = {
 
   rules: {
     "camelcase": "off",
+    "dot-notation": "off",
     "indent": "off",
     "no-constant-condition": "off",
     "no-unused-expressions": "off",
