@@ -6,7 +6,7 @@ export const settings: Linter.Config = {
   extends: [
     "plugin:functional/external-recommended",
     "plugin:functional/recommended",
-    "plugin:functional/stylitic",
+    "plugin:functional/stylistic",
   ],
 
   rules: {
