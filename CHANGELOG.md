@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.10](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.9...v1.0.10) (2021-07-22)
+
+
+### Bug Fixes
+
+* use stylistic over stylitic functional ruleset ([68d9560](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/68d956087ce25825bef8760285433eaafe80bbbc))
+
 ## [1.0.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.8...v1.0.9) (2021-07-21)
 
 
