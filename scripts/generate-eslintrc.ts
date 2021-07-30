@@ -33,6 +33,4 @@ const config = deepMerge([modernConfig, typescriptConfig, overridesConfig, proje
 });
 
 // Write the file.
-fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2)).catch((error) => {
-  throw error;
-});
+void fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2));
