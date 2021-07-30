@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.12](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.11...v1.0.12) (2021-07-30)
+
+
+### Bug Fixes
+
+* remove eslint-plugin-simple-import-sort as a peer dep as no longer used ([78d4200](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/78d420025673e42e5528e0d11f25991fccc48252))
+
 ## [1.0.11](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.10...v1.0.11) (2021-07-30)
 
 
