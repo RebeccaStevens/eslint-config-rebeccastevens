@@ -155,7 +155,8 @@ export const rules: Linter.Config["rules"] = {
         "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
     },
     {
-      selector: ':not(ArrowFunctionExpression) > UnaryExpression[operator="void"]',
+      selector:
+        ':not(ArrowFunctionExpression) > UnaryExpression[operator="void"] > :not(CallExpression)',
       message: 'Don\'t use "void".',
     },
   ],
