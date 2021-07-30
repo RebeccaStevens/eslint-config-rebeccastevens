@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.11](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.10...v1.0.11) (2021-07-30)
+
+
+### Bug Fixes
+
+* allow void before call expressions ([932351e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/932351ef856c0062f5e134afda08a80a150588f0))
+
 ## [1.0.10](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.9...v1.0.10) (2021-07-22)
 
 
