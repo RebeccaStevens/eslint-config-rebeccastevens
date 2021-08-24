@@ -11,7 +11,7 @@ export const settings: Linter.Config = {
   ],
 
   rules: {
-    "@typescript-eslint/array-type": ["error", { default: "generic", readonly: "generic" }],
+    "@typescript-eslint/array-type": ["error", { default: "array-simple", readonly: "generic" }],
     "@typescript-eslint/comma-dangle": [
       "error",
       {
