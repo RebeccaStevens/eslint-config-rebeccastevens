@@ -82,7 +82,7 @@ function getEsmConfig(filename: string): RollupOptions {
 /**
  * Get the rollup config for the given entry point file.
  */
-function getEntryConfigs(filename: string): Array<RollupOptions> {
+function getEntryConfigs(filename: string): RollupOptions[] {
   return [getCjsConfig(filename), getEsmConfig(filename)];
 }
 
