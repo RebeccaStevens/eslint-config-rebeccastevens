@@ -22,7 +22,7 @@ export const rules: Linter.Config["rules"] = {
     },
   ],
   "curly": ["error", "all"],
-  "default-case": "error",
+  "default-case": "off",
   "dot-location": ["error", "property"],
   "dot-notation": "error",
   "eqeqeq": ["error", "always", { null: "always" }],
