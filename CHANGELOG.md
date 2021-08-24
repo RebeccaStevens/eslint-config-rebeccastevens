@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.13](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.12...v1.0.13) (2021-08-24)
+
+
+### Bug Fixes
+
+* for simple non-readonly arrays, don't use generic style ([3d480b9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/3d480b9648c7f172e4719c59bc589ad97fffabcc))
+* turn off default-case now that we are checking if exhaustive ([45dea9c](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/45dea9cb74835446e6c7fb8f5788e6f1dd6341ee))
+
 ## [1.0.12](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.11...v1.0.12) (2021-07-30)
 
 
