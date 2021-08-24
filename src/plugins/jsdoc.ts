@@ -15,7 +15,21 @@ export const settings: Linter.Config = {
     // Rule is too strict.
     "jsdoc/require-description-complete-sentence": "off",
     "jsdoc/require-hyphen-before-param-description": "warn",
-    "jsdoc/require-jsdoc": "warn",
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        require: {
+          FunctionDeclaration: false,
+        },
+        contexts: [
+          ":not(TSDeclareFunction) + FunctionDeclaration",
+          "TSDeclareFunction",
+          "TSTypeAliasDeclaration",
+          "TSEnumDeclaration",
+        ],
+        enableFixer: false,
+      },
+    ],
     "jsdoc/require-param-description": "warn",
     "jsdoc/require-param-name": "warn",
     "jsdoc/require-returns-check": "warn",
