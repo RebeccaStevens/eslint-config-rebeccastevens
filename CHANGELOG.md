@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.14](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.13...v1.0.14) (2021-08-24)
+
+
+### Bug Fixes
+
+* update what nodes require jsdoc ([27748d3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/27748d3b470a22957c7abb32168c576dfb19bac4))
+
 ## [1.0.13](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.12...v1.0.13) (2021-08-24)
 
 
