@@ -59,6 +59,7 @@ export const settings: Linter.Config = {
         ignoreVoidOperator: true,
       },
     ],
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/explicit-function-return-type": [
       "off",
