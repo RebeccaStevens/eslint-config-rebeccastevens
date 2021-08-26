@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.0.15](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.14...v1.0.15) (2021-08-26)
+
+
+### Bug Fixes
+
+* use consistent-type-definitions over prefer-type-literal ([adcd4fe](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/adcd4fed4f29cd8d732517e32e113d9828d25777))
+
 ## [1.0.14](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.13...v1.0.14) (2021-08-24)
 
 
