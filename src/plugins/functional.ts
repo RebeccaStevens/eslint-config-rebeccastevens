@@ -23,6 +23,7 @@ export const settings: Linter.Config = {
         allowReturningBranches: true,
       },
     ],
+    "functional/prefer-type-literal": "off",
   },
 
   overrides: [
