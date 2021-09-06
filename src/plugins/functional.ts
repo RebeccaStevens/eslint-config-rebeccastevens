@@ -10,17 +10,17 @@ export const settings: Linter.Config = {
   ],
 
   rules: {
+    "functional/no-conditional-statement": [
+      "error",
+      {
+        allowReturningBranches: true,
+      },
+    ],
     "functional/prefer-readonly-type": [
       "error",
       {
         allowMutableReturnType: true,
         ignoreClass: true,
-      },
-    ],
-    "functional/no-conditional-statement": [
-      "error",
-      {
-        allowReturningBranches: true,
       },
     ],
     "functional/prefer-type-literal": "off",

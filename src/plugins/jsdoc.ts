@@ -18,9 +18,6 @@ export const settings: Linter.Config = {
     "jsdoc/require-jsdoc": [
       "warn",
       {
-        require: {
-          FunctionDeclaration: false,
-        },
         contexts: [
           ":not(TSDeclareFunction) + FunctionDeclaration",
           "TSDeclareFunction",
@@ -28,6 +25,9 @@ export const settings: Linter.Config = {
           "TSEnumDeclaration",
         ],
         enableFixer: false,
+        require: {
+          FunctionDeclaration: false,
+        },
       },
     ],
     "jsdoc/require-param-description": "warn",

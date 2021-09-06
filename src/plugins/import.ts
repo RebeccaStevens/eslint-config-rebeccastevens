@@ -6,43 +6,57 @@ export const settings: Linter.Config = {
   extends: ["plugin:import/errors", "plugin:import/warnings"],
 
   rules: {
-    "import/named": "error",
     "import/default": "error",
+    "import/dynamic-import-chunkname": [
+      "off",
+      {
+        importFunctions: [],
+        webpackChunknameFormat: "[0-9a-zA-Z-_/.]+",
+      },
+    ],
+    "import/export": "error",
+    "import/exports-last": "off",
+    "import/extensions": "off",
+    "import/first": "error",
+    "import/group-exports": "off",
+    "import/max-dependencies": [
+      "off",
+      {
+        max: 10,
+      },
+    ],
+    "import/named": "error",
     "import/namespace": [
       "error",
       {
         allowComputed: true,
       },
     ],
-    "import/no-restricted-paths": "off",
+    "import/newline-after-import": "error",
     "import/no-absolute-path": "error",
-    "import/no-dynamic-require": "error",
-    "import/no-internal-modules": [
+    "import/no-amd": "error",
+    "import/no-anonymous-default-export": [
       "off",
       {
-        allow: [],
+        allowAnonymousClass: false,
+        allowAnonymousFunction: false,
+        allowArray: false,
+        allowArrowFunction: false,
+        allowLiteral: false,
+        allowObject: false,
       },
     ],
-    "import/no-webpack-loader-syntax": "error",
-    "import/no-self-import": "error",
+    "import/no-commonjs": "off",
     "import/no-cycle": [
       "error",
       {
         ignoreExternal: true,
       },
     ],
-    "import/no-useless-path-segments": [
-      "error",
-      {
-        commonjs: true,
-        noUselessIndex: true,
-      },
-    ],
-    "import/no-relative-parent-imports": "warn",
-    "import/export": "error",
-    "import/no-named-as-default": "off",
-    "import/no-named-as-default-member": "error",
+    "import/no-default-export": "off",
     "import/no-deprecated": "warn",
+    "import/no-duplicates": "error",
+    "import/no-dynamic-require": "error",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -71,11 +85,27 @@ export const settings: Linter.Config = {
           "**/webpack.config.{js,cjs,mjs,ts}",
           "**/webpack.config.*.{js,cjs,mjs,ts}",
         ],
-        peerDependencies: false,
         optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
+    "import/no-internal-modules": [
+      "off",
+      {
+        allow: [],
       },
     ],
     "import/no-mutable-exports": "error",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "error",
+    "import/no-named-default": "error",
+    "import/no-named-export": "off",
+    "import/no-namespace": "off",
+    "import/no-nodejs-modules": "off",
+    "import/no-relative-parent-imports": "warn",
+    "import/no-restricted-paths": "off",
+    "import/no-self-import": "error",
+    "import/no-unassigned-import": "error",
     "import/no-unused-modules": [
       "off",
       {
@@ -84,67 +114,37 @@ export const settings: Linter.Config = {
         unusedExports: true,
       },
     ],
-    "import/unambiguous": "off",
-    "import/no-commonjs": "off",
-    "import/no-amd": "error",
-    "import/no-nodejs-modules": "off",
-    "import/first": "error",
-    "import/exports-last": "off",
-    "import/no-duplicates": "error",
-    "import/no-namespace": "off",
-    "import/extensions": "off",
+    "import/no-useless-path-segments": [
+      "error",
+      {
+        commonjs: true,
+        noUselessIndex: true,
+      },
+    ],
+    "import/no-webpack-loader-syntax": "error",
     "import/order": [
       "error",
       {
+        "alphabetize": {
+          caseInsensitive: false,
+          order: "asc",
+        },
         "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
+        "newlines-between": "always",
         "pathGroups": [
           {
-            pattern: "~/**",
             group: "internal",
+            pattern: "~/**",
           },
           {
-            pattern: "@/**",
             group: "internal",
+            pattern: "@/**",
           },
         ],
-        "newlines-between": "always",
-        "alphabetize": {
-          order: "asc",
-          caseInsensitive: false,
-        },
       },
     ],
-    "import/newline-after-import": "error",
     "import/prefer-default-export": "off",
-    "import/max-dependencies": [
-      "off",
-      {
-        max: 10,
-      },
-    ],
-    "import/no-unassigned-import": "error",
-    "import/no-named-default": "error",
-    "import/no-default-export": "off",
-    "import/no-named-export": "off",
-    "import/no-anonymous-default-export": [
-      "off",
-      {
-        allowArray: false,
-        allowArrowFunction: false,
-        allowAnonymousClass: false,
-        allowAnonymousFunction: false,
-        allowLiteral: false,
-        allowObject: false,
-      },
-    ],
-    "import/group-exports": "off",
-    "import/dynamic-import-chunkname": [
-      "off",
-      {
-        importFunctions: [],
-        webpackChunknameFormat: "[0-9a-zA-Z-_/.]+",
-      },
-    ],
+    "import/unambiguous": "off",
   },
 
   overrides: [
