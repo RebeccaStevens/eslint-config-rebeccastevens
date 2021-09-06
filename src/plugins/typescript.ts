@@ -11,45 +11,92 @@ export const settings: Linter.Config = {
   ],
 
   rules: {
-    "@typescript-eslint/array-type": ["error", { default: "array-simple", readonly: "generic" }],
+    "@typescript-eslint/array-type": [
+      "error",
+      {
+        default: "array-simple",
+        readonly: "generic",
+      },
+    ],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        extendDefaults: true,
+        types: {
+          "{}": false,
+          "object": false,
+          "Object": {
+            fixWith: "object",
+            message: "Use object instead",
+          },
+        },
+      },
+    ],
     "@typescript-eslint/comma-dangle": [
       "error",
       {
         arrays: "only-multiline",
-        objects: "only-multiline",
-        imports: "only-multiline",
         exports: "only-multiline",
         functions: "ignore",
+        imports: "only-multiline",
+        objects: "only-multiline",
       },
     ],
     "@typescript-eslint/consistent-indexed-object-style": "error",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/dot-notation": "error",
-    "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/no-non-null-assertion": "off",
-    // "node" plugin will handle this.
-    "@typescript-eslint/no-require-imports": "off",
-    // Don't enable is non-ts files.
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/no-unused-vars": [
+    "@typescript-eslint/explicit-function-return-type": [
       "off",
       {
-        args: "after-used",
-        argsIgnorePattern: "^_",
-        caughtErrors: "none",
-        ignoreRestSiblings: true,
-        vars: "all",
+        allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+        allowExpressions: true,
+        allowHigherOrderFunctions: true,
+        allowTypedFunctionExpressions: true,
       },
     ],
-    "@typescript-eslint/prefer-interface": "off",
-    "@typescript-eslint/ban-types": [
+    "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
-        types: {
-          "Object": { message: "Use object instead", fixWith: "object" },
-          "{}": false,
-          "object": false,
-        },
-        extendDefaults: true,
+        accessibility: "explicit",
+      },
+    ],
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        selector: "default",
+        trailingUnderscore: "forbid",
+      },
+      {
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "forbid",
+        selector: "variable",
+        trailingUnderscore: "forbid",
+      },
+      {
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        selector: "variableLike",
+        trailingUnderscore: "forbid",
+      },
+      {
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        selector: "memberLike",
+      },
+      {
+        format: ["UPPER_CASE"],
+        leadingUnderscore: "forbid",
+        selector: "enumMember",
+        trailingUnderscore: "forbid",
+      },
+      {
+        format: ["PascalCase"],
+        leadingUnderscore: "forbid",
+        selector: "typeLike",
+        trailingUnderscore: "forbid",
       },
     ],
     "@typescript-eslint/no-confusing-void-expression": [
@@ -59,60 +106,16 @@ export const settings: Linter.Config = {
         ignoreVoidOperator: true,
       },
     ],
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-    "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/explicit-function-return-type": [
-      "off",
-      {
-        allowExpressions: true,
-        allowTypedFunctionExpressions: true,
-        allowHigherOrderFunctions: true,
-        allowConciseArrowFunctionExpressionsStartingWithVoid: true,
-      },
-    ],
-    "@typescript-eslint/explicit-member-accessibility": ["error", { accessibility: "explicit" }],
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        selector: "default",
-        format: ["camelCase", "PascalCase"],
-        leadingUnderscore: "allow",
-        trailingUnderscore: "forbid",
-      },
-      {
-        selector: "variable",
-        format: ["camelCase", "PascalCase", "UPPER_CASE"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
-      },
-      {
-        selector: "variableLike",
-        format: ["camelCase", "PascalCase"],
-        leadingUnderscore: "allow",
-        trailingUnderscore: "forbid",
-      },
-      { selector: "memberLike", format: ["camelCase", "PascalCase", "UPPER_CASE"] },
-      {
-        selector: "enumMember",
-        format: ["UPPER_CASE"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
-      },
-      {
-        selector: "typeLike",
-        format: ["PascalCase"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
-      },
-    ],
     "@typescript-eslint/no-invalid-void-type": "error",
     "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-require-imports": "off",
     "@typescript-eslint/no-shadow": [
       "warn",
       {
+        allow: ["resolve", "reject", "done", "cb"],
         builtinGlobals: false,
         hoist: "never",
-        allow: ["resolve", "reject", "done", "cb"],
       },
     ],
     "@typescript-eslint/no-throw-literal": "error",
@@ -126,37 +129,42 @@ export const settings: Linter.Config = {
       "error",
       {
         allowShortCircuit: true,
-        allowTernary: true,
         allowTaggedTemplates: true,
+        allowTernary: true,
+      },
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "off",
+      {
+        args: "after-used",
+        argsIgnorePattern: "^_",
+        caughtErrors: "none",
+        ignoreRestSiblings: true,
+        vars: "all",
       },
     ],
     "@typescript-eslint/no-unused-vars-experimental": [
       "warn",
-      { ignoredNamesRegex: "^_", ignoreArgsIfArgsAfterAreUsed: true },
+      {
+        ignoreArgsIfArgsAfterAreUsed: true,
+        ignoredNamesRegex: "^_",
+      },
     ],
     "@typescript-eslint/no-use-before-define": [
       "error",
       {
-        functions: false,
         classes: true,
-        variables: true,
+        functions: false,
         typedefs: true,
+        variables: true,
       },
     ],
+    "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "error",
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
-    "@typescript-eslint/restrict-plus-operands": ["error", { checkCompoundAssignments: true }],
-    "@typescript-eslint/restrict-template-expressions": [
-      "error",
-      {
-        allowNumber: true,
-        allowBoolean: true,
-        allowAny: true,
-        allowNullish: true,
-      },
-    ],
     "@typescript-eslint/prefer-for-of": "warn",
     "@typescript-eslint/prefer-includes": "warn",
+    "@typescript-eslint/prefer-interface": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-readonly-parameter-types": [
@@ -169,18 +177,33 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
     "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/restrict-plus-operands": [
+      "error",
+      {
+        checkCompoundAssignments: true,
+      },
+    ],
+    "@typescript-eslint/restrict-template-expressions": [
+      "error",
+      {
+        allowAny: true,
+        allowBoolean: true,
+        allowNullish: true,
+        allowNumber: true,
+      },
+    ],
     "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
       {
-        allowString: false,
-        allowNumber: false,
-        allowNullableObject: false,
-        allowNullableBoolean: false,
-        allowNullableString: false,
-        allowNullableNumber: false,
         allowAny: false,
+        allowNullableBoolean: false,
+        allowNullableNumber: false,
+        allowNullableObject: false,
+        allowNullableString: false,
+        allowNumber: false,
         allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: false,
+        allowString: false,
       },
     ],
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
