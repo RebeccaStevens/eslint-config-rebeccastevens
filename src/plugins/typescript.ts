@@ -61,6 +61,7 @@ export const settings: Linter.Config = {
         accessibility: "explicit",
       },
     ],
+    "@typescript-eslint/explicit‑module‑boundary‑types": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/naming-convention": [
       "error",
@@ -108,7 +109,9 @@ export const settings: Linter.Config = {
     ],
     "@typescript-eslint/no-invalid-void-type": "error",
     "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/no-loss-of-precision": "error",
     "@typescript-eslint/no-non-null-assertion": "off",
+    // "node" plugin will handle this.
     "@typescript-eslint/no-require-imports": "off",
     "@typescript-eslint/no-shadow": [
       "warn",
@@ -121,10 +124,11 @@ export const settings: Linter.Config = {
     "@typescript-eslint/no-throw-literal": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "@typescript-eslint/no-unnecessary-type-constraint": "error",
-    "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-argument": "warn",
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+    "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/no-unused-expressions": [
       "error",
       {
@@ -133,21 +137,14 @@ export const settings: Linter.Config = {
         allowTernary: true,
       },
     ],
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
-      "off",
+      "warn",
       {
-        args: "after-used",
-        argsIgnorePattern: "^_",
+        args: "none",
         caughtErrors: "none",
         ignoreRestSiblings: true,
         vars: "all",
-      },
-    ],
-    "@typescript-eslint/no-unused-vars-experimental": [
-      "warn",
-      {
-        ignoreArgsIfArgsAfterAreUsed: true,
-        ignoredNamesRegex: "^_",
       },
     ],
     "@typescript-eslint/no-use-before-define": [
@@ -159,7 +156,7 @@ export const settings: Linter.Config = {
         variables: true,
       },
     ],
-    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-var-requires": "error",
     "@typescript-eslint/non-nullable-type-assertion-style": "error",
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/prefer-for-of": "warn",
@@ -174,6 +171,7 @@ export const settings: Linter.Config = {
         ignoreInferredTypes: true,
       },
     ],
+    "@typescript-eslint/prefer-regexp-exec": "error",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
     "@typescript-eslint/promise-function-async": "error",
@@ -215,13 +213,4 @@ export const settings: Linter.Config = {
     ],
     "@typescript-eslint/unified-signatures": "warn",
   },
-
-  overrides: [
-    {
-      files: ["**/*.ts", "**/*.tsx"],
-      rules: {
-        "@typescript-eslint/no-var-requires": "error",
-      },
-    },
-  ],
 };

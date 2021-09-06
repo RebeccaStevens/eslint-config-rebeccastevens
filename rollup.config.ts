@@ -7,7 +7,7 @@ import rollupPluginNodeResolve from "@rollup/plugin-node-resolve";
 import rollupPluginTypescript from "@rollup/plugin-typescript";
 import * as fs from "fs";
 import path from "path";
-import type { RollupOptions } from "rollup";
+import type { Plugin, RollupOptions } from "rollup";
 import rollupPluginAutoExternal from "rollup-plugin-auto-external";
 
 const configDir = "./src/configs/";
@@ -36,7 +36,7 @@ const common: Partial<RollupOptions> = {
  */
 function getPlugins() {
   return [
-    rollupPluginAutoExternal(),
+    rollupPluginAutoExternal() as Plugin,
     rollupPluginNodeResolve(),
     rollupPluginCommonjs(),
     rollupPluginTypescript({
