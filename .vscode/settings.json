@@ -1,35 +1,30 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.insertSpaces": true,
-  "editor.tabSize": 2,
-
-  "files.trimTrailingWhitespace": true,
   "files.exclude": {
-    ".nyc_output": true,
-    "coverage": true
+    "rollup.config.cjs": true,
   },
-
+  "files.trimTrailingWhitespace": true,
+  "search.exclude": {
+    "**/.git/": true,
+    ".vscode/": true,
+    "dist/": true,
+    "rollup.config.cjs": true,
+    "yarn.lock": true,
+  },
   "typescript.tsdk": "./node_modules/typescript/lib",
-
-  "todohighlight.keywords": [
-    {
-      "text": "TODO:",
-      "color": "#FFFFFF",
-      "backgroundColor": "#FFC107",
-      "overviewRulerColor": "#FFC107"
-    },
-    {
-      "text": "FIXME:",
-      "color": "#FFFFFF",
-      "backgroundColor": "#F5003D",
-      "overviewRulerColor": "#f44336"
-    },
-    {
-      "text": "BODY:",
-      "color": "#FFFFFF",
-      "backgroundColor": "#2E7D32",
-      "overviewRulerColor": "transparent"
-    }
-  ]
+  "files.associations": {
+    ".markdownlint.json": "jsonc",
+    ".markdownlintignore": "ignore"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false,
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": false,
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
 }

@@ -1,4 +1,4 @@
-import { all as deepMerge } from "deepmerge";
+import { deepmerge } from "deepmerge-ts";
 import type { Linter } from "eslint";
 
 import { rules as builtinRules } from "~/builtin";
@@ -37,7 +37,7 @@ const baseConfig: Linter.Config = {
   ignorePatterns: ["dist/"],
 };
 
-export default deepMerge([
+export default deepmerge(
   baseConfig,
   eslintComments,
   functional,
@@ -48,5 +48,5 @@ export default deepMerge([
   optimizeRegex,
   promise,
   sonarjs,
-  unicorn,
-]) as Linter.Config;
+  unicorn
+);

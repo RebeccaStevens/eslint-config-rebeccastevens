@@ -16,9 +16,9 @@ jobs:
           persist-credentials: false
 
       - name: Setup NodeJs
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: "lts/*"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -26,15 +26,10 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Setup git
-        run: |
-          git config user.name "Release Bot"
-          git config user.email noreply@github.com
-
       # Publish to NPMJS
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: "lts/*"
           registry-url: "https://registry.npmjs.org/"
       - name: Publish to NPMJS
         id: semantic
@@ -45,9 +40,9 @@ jobs:
 
       # Publish to GitHub Package Registry
       - if: steps.semantic.outputs.new-release-published == 'true'
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: "lts/*"
           registry-url: https://npm.pkg.github.com/
       - name: Publish to GitHub Package Registry
         if: steps.semantic.outputs.new-release-published == 'true'

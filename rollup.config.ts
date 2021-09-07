@@ -25,7 +25,9 @@ const common: Partial<RollupOptions> = {
 
   treeshake: {
     annotations: true,
+    moduleSideEffects: [],
     propertyReadSideEffects: false,
+    unknownGlobalSideEffects: false,
   },
 };
 
@@ -37,7 +39,9 @@ function getPlugins() {
     rollupPluginAutoExternal(),
     rollupPluginNodeResolve(),
     rollupPluginCommonjs(),
-    rollupPluginTypescript(),
+    rollupPluginTypescript({
+      tsconfig: "tsconfig.build.json",
+    }),
   ];
 }
 

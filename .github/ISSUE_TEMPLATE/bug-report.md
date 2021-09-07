@@ -1,10 +1,11 @@
 ---
 name: "\U0001F41B Bug Report"
 about: Report a bug to help us fix it
-title: ''
-labels: 'Type: Bug, Status: Triage'
-assignees: ''
+title: ""
+labels: "Type: Bug, Status: Triage"
+assignees: ""
 ---
+
 # Bug Report
 
 <!-- Why the issue was filed? -->

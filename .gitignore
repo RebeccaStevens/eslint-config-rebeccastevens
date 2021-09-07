@@ -5,6 +5,5 @@ node_modules/
 *.log
 
 # Generated Files
-/.nyc_output/
 /dist/
 /.eslintrc
