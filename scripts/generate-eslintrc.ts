@@ -1,5 +1,5 @@
 // Libraries.
-import { all as deepMerge } from "deepmerge";
+import { deepmerge } from "deepmerge-ts";
 import { promises as fs } from "fs";
 
 import overridesConfig from "~/configs/common-overrides";
@@ -10,13 +10,14 @@ import typescriptConfig from "~/configs/typescript";
 const projectConfig = {
   root: true,
   parserOptions: {
-    project: ["tsconfig.json", "tsconfig.eslint.json"],
+    project: "tsconfig.json",
   },
   env: {
     node: true,
   },
+  ignorePatterns: ["/dist/", "/**/*.cjs", "/**/*.js"],
   plugins: ["prettier"],
-  extends: ["plugin:prettier/recommended", "prettier", "prettier/@typescript-eslint"],
+  extends: ["plugin:prettier/recommended", "prettier"],
   overrides: [
     {
       files: ["src/**/*.{ts,js}"],
@@ -28,9 +29,12 @@ const projectConfig = {
 };
 
 // Merged config.
-const config = deepMerge([modernConfig, typescriptConfig, overridesConfig, projectConfig], {
-  arrayMerge: (a, b) => [...a, ...b],
-});
+const config = deepmerge(
+  modernConfig,
+  typescriptConfig,
+  overridesConfig,
+  projectConfig
+);
 
 // Write the file.
 void fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2));

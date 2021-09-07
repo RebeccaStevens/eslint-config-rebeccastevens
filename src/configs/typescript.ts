@@ -1,4 +1,4 @@
-import { all as deepMerge } from "deepmerge";
+import { deepmerge } from "deepmerge-ts";
 import type { Linter } from "eslint";
 
 import { settings as typescript } from "~/plugins/typescript";
@@ -40,4 +40,4 @@ const baseConfig: Linter.Config = {
   ],
 };
 
-export default deepMerge([baseConfig, typescript]) as Linter.Config;
+export default deepmerge(baseConfig, typescript);

@@ -129,7 +129,13 @@ export const settings: Linter.Config = {
           caseInsensitive: false,
           order: "asc",
         },
-        "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
+        "groups": [
+          ["builtin", "external"],
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+        ],
         "newlines-between": "always",
         "pathGroups": [
           {
