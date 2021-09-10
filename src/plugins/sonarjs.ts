@@ -7,7 +7,7 @@ export const settings: Linter.Config = {
 
   rules: {
     "sonarjs/cognitive-complexity": "off",
-    "sonarjs/no-nested-template-literals": "off",
+    "sonarjs/no-duplicate-string": ["error", 5],
     "sonarjs/no-small-switch": "off",
     "sonarjs/no-useless-cast": "off",
   },
