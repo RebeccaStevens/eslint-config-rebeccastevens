@@ -130,7 +130,8 @@ export const settings: Linter.Config = {
           order: "asc",
         },
         "groups": [
-          ["builtin", "external"],
+          "builtin",
+          "external",
           "internal",
           "parent",
           "sibling",
