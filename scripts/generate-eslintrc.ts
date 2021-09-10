@@ -1,6 +1,6 @@
-// Libraries.
-import { deepmerge } from "deepmerge-ts";
 import { promises as fs } from "fs";
+
+import { deepmerge } from "deepmerge-ts";
 
 import overridesConfig from "~/configs/common-overrides";
 import modernConfig from "~/configs/modern";

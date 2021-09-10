@@ -2,11 +2,12 @@
  * Rollup Config.
  */
 
+import * as fs from "fs";
+import path from "path";
+
 import rollupPluginCommonjs from "@rollup/plugin-commonjs";
 import rollupPluginNodeResolve from "@rollup/plugin-node-resolve";
 import rollupPluginTypescript from "@rollup/plugin-typescript";
-import * as fs from "fs";
-import path from "path";
 import type { Plugin, RollupOptions } from "rollup";
 import rollupPluginAutoExternal from "rollup-plugin-auto-external";
 
