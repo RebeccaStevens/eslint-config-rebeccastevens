@@ -1,6 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.1.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.16...v1.1.0) (2021-09-10)
+
+
+### Bug Fixes
+
+* **sonarjs/no-duplicate-string:** increase the number of duplicate strings needed to trigger rule ([581fd1e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/581fd1e1c1da16f98f0ed41a52e9fe6453cff6c9))
+* split builtins from externals ([7151110](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7151110303b032aacbffde7f37b2347a5ab1c30f))
+
+
+### Features
+
+* update ecma version ([f95e9e1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f95e9e1ca7c225858d03d246778a6d099909f217))
+* update markdown config ([c9300ed](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c9300ed1bbd2ce97aae7ace955df0a2664bbe0b7))
+* update unicorn rules ([684fa41](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/684fa410bef1b7a13a060041dfaf385aa027777e))
+
 ## [1.0.16](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.15...v1.0.16) (2021-09-10)
 
 
