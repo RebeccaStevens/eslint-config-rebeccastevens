@@ -7,3 +7,5 @@ updates:
     labels:
       - "Type: Maintenance"
       - ":blue_heart:"
+    ignore:
+      - dependency-name: "@types/node"
