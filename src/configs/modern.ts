@@ -17,7 +17,7 @@ const baseConfig: Linter.Config = {
   parser: "babel-eslint",
 
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2021,
     ecmaFeatures: {
       globalReturn: false,
       impliedStrict: true,
