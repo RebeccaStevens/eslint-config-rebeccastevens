@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.1.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.0...v1.1.1) (2021-09-11)
+
+
+### Bug Fixes
+
+* remove rules that aren't ready for ts ([77dcde1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/77dcde179189d7201b14d6d974929b37609363ff))
+
 # [1.1.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.0.16...v1.1.0) (2021-09-10)
 
 
