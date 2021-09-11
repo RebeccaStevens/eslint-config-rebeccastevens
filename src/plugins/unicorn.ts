@@ -14,13 +14,13 @@ export const settings: Linter.Config = {
     "unicorn/no-nested-ternary": "off",
     "unicorn/no-null": "off",
     "unicorn/no-useless-undefined": "off",
-    "unicorn/prefer-at": [
-      "error",
-      {
-        checkAllIndexAccess: true,
-      },
-    ],
-    "unicorn/prefer-object-has-own": "error",
+    // "unicorn/prefer-at": [
+    //   "error",
+    //   {
+    //     checkAllIndexAccess: true,
+    //   },
+    // ],
+    // "unicorn/prefer-object-has-own": "error",
     "unicorn/prefer-string-replace-all": "error",
     "unicorn/prefer-top-level-await": "error",
     "unicorn/prevent-abbreviations": "off",
