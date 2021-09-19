@@ -10,6 +10,20 @@ export const settings: Linter.Config = {
   ],
 
   rules: {
+    "functional/no-let": [
+      "error",
+      {
+        ignorePattern: "^mutable",
+      },
+    ],
+    "functional/immutable-data": [
+      "error",
+      {
+        ignoreAccessorPattern: "**.mutable*.**",
+        ignoreClass: "fieldsOnly",
+        ignoreImmediateMutation: true,
+      },
+    ],
     "functional/no-conditional-statement": [
       "error",
       {
