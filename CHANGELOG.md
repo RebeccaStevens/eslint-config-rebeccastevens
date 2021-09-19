@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.1.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.1...v1.1.2) (2021-09-19)
+
+
+### Bug Fixes
+
+* allow mutations of things prefixed with mutable ([6ed77e4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/6ed77e4f5681d204611b3461732f8ed9ec5fea83))
+
 ## [1.1.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.0...v1.1.1) (2021-09-11)
 
 
