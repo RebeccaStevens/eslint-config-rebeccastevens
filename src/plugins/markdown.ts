@@ -48,8 +48,10 @@ export const settings: Linter.Config = {
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/switch-exhaustiveness-check": "off",
         "@typescript-eslint/unbound-method": "off",
+        "functional/functional-parameters": "off",
         "functional/immutable-data": "off",
         "functional/no-class": "off",
+        "functional/no-expression-statement": "off",
         "functional/no-let": "off",
         "functional/no-loop-statement": "off",
         "functional/no-return-void": "off",
@@ -71,7 +73,6 @@ export const settings: Linter.Config = {
         "sonarjs/no-extra-arguments": "off",
         "sonarjs/no-unused-collection": "off",
         "unicorn/prefer-optional-catch-binding": "off",
-        "unicorn/prefer-ternary": "off",
         "unicorn/prefer-top-level-await": "off",
 
         "dot-notation": "error",
