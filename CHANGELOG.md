@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.1.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.2...v1.1.3) (2021-09-21)
+
+
+### Bug Fixes
+
+* turn off all type-checking eslint rules for markdown ([#854](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/854)) ([2605f92](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2605f925467654e1cf0a61c4c8f35924cb6fe2ee))
+
 ## [1.1.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.1...v1.1.2) (2021-09-19)
 
 
