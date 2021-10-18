@@ -190,6 +190,7 @@ export const settings: Linter.Config = {
         allowNumber: true,
       },
     ],
+    "@typescript-eslint/space-infix-ops": "error",
     "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
