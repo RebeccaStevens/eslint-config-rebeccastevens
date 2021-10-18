@@ -37,7 +37,6 @@ export const settings: Linter.Config = {
         ignoreClass: true,
       },
     ],
-    "functional/prefer-type-literal": "off",
   },
 
   overrides: [
