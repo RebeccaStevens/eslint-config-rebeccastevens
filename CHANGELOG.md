@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.1.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.4...v1.1.5) (2021-10-18)
+
+
+### Bug Fixes
+
+* **no-extra-parens:** use typescript version of rule when in typescript ([#867](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/867)) ([ba4547e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ba4547eb5f5343befd60883480ee21862af3ee1b))
+* **space-infix-ops:** use typescript version of space-infix-ops for t… ([#868](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/868)) ([e526697](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/e52669724305c042d9ef910121546ed5bd197b12))
+* **type-annotation-spacing:** add rule ([#866](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/866)) ([2604984](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/260498492a37e0d27d7420a3aa5e781e0aa7c8e1))
+
 ## [1.1.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.3...v1.1.4) (2021-09-21)
 
 
