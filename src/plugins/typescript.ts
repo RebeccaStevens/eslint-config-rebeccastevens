@@ -213,6 +213,7 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/switch-exhaustiveness-check": "warn",
+    "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unbound-method": [
       "error",
       {
