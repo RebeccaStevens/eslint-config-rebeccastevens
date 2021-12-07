@@ -24,6 +24,10 @@
       "import": "./dist/modern.mjs",
       "require": "./dist/modern.cjs"
     },
+    "./script": {
+      "import": "./dist/script.mjs",
+      "require": "./dist/script.cjs"
+    },
     "./typescript": {
       "import": "./dist/typescript.mjs",
       "require": "./dist/typescript.cjs"
