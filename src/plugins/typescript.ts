@@ -198,7 +198,7 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/space-infix-ops": "error",
-    "@typescript-eslint/sort-type-union-intersection-members": "error",
+    "@typescript-eslint/sort-type-union-intersection-members": "off",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
       {
