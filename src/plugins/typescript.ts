@@ -172,7 +172,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-readonly-parameter-types": [
-      "warn",
+      "error",
       {
         checkParameterProperties: false,
         ignoreInferredTypes: true,
