@@ -29,6 +29,7 @@ export const settings: Linter.Config = {
         allowReturningBranches: true,
       },
     ],
+    "functional/no-try-statement": "off",
     "functional/prefer-readonly-type": [
       "error",
       {
