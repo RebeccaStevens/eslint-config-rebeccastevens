@@ -172,7 +172,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-readonly-parameter-types": [
-      "warn",
+      "error",
       {
         checkParameterProperties: false,
         ignoreInferredTypes: true,
@@ -181,7 +181,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-regexp-exec": "error",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",
-    "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/promise-function-async": "off",
     "@typescript-eslint/restrict-plus-operands": [
       "error",
       {
@@ -198,7 +198,7 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/space-infix-ops": "error",
-    "@typescript-eslint/sort-type-union-intersection-members": "error",
+    "@typescript-eslint/sort-type-union-intersection-members": "off",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
       {
@@ -221,5 +221,6 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/unified-signatures": "warn",
+    "@typescript-eslint/no-redeclare": "error",
   },
 };

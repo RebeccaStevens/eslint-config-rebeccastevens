@@ -11,7 +11,7 @@ export const settings: Linter.Config = {
     "promise/no-promise-in-callback": "error",
     "promise/no-return-in-finally": "error",
     "promise/prefer-await-to-callbacks": "warn",
-    "promise/prefer-await-to-then": "warn",
+    "promise/prefer-await-to-then": "off",
     "promise/valid-params": "error",
   },
 };

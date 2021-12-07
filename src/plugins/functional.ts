@@ -6,7 +6,6 @@ export const settings: Linter.Config = {
   extends: [
     "plugin:functional/external-recommended",
     "plugin:functional/recommended",
-    "plugin:functional/stylistic",
   ],
 
   rules: {
@@ -30,6 +29,7 @@ export const settings: Linter.Config = {
         allowReturningBranches: true,
       },
     ],
+    "functional/no-try-statement": "off",
     "functional/prefer-readonly-type": [
       "error",
       {
