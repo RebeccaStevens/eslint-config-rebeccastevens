@@ -1,6 +1,26 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.2.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.5...v1.2.0) (2021-12-07)
+
+
+### Bug Fixes
+
+* add ts version of rule no-redeclare ([eaa92ac](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/eaa92aca6592ccfd2bc80f03fc966c8499c9deaa))
+* increase severity of prefer-readonly-parameter-types rule ([807acf4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/807acf494b0064af40a1aca11f362a024174a6f7))
+* turn off consistent-return in ts environment ([5cc95bf](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/5cc95bf2fe2784ed37a553413e94e19f3ecca2fc))
+* turn off no-try-statement ([01168ad](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/01168adfe7dac707974bc45a8e6a3d6089832d3c))
+* turn off no-warning-comments ([78150eb](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/78150eb466467371e08724297b6ed353c69ead85))
+* turn off prefer-await-to-then ([abeab1a](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/abeab1ab0d02c57470eef48eb63aec05420f6873))
+* turn off prefer-tacit ([c26c1d6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c26c1d6a2a168fbf999cbc7930ba66bfaeb40a37))
+* turn off promise-function-async ([01e413d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/01e413daf5a5c04badbb9fe87166584a1e1eb1f2))
+* turn off sort-type-union-intersection-members" ([88c3567](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/88c356746053d623c1f1220fad450ac43dc4f3ae))
+
+
+### Features
+
+* add config for srcipting ([458fcf6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/458fcf68baf2ee4af20a4d4ed3fba7f34bb84271))
+
 ## [1.1.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.4...v1.1.5) (2021-10-18)
 
 
