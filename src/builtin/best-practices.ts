@@ -138,7 +138,7 @@ export const rules: Linter.Config["rules"] = {
   "no-useless-escape": "error",
   "no-useless-return": "error",
   "no-void": "off",
-  "no-warning-comments": "warn",
+  "no-warning-comments": "off",
   "no-with": "error",
   "prefer-named-capture-group": "off",
   "prefer-promise-reject-errors": "error",
