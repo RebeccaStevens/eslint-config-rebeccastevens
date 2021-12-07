@@ -221,5 +221,6 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/unified-signatures": "warn",
+    "@typescript-eslint/no-redeclare": "error",
   },
 };

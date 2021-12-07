@@ -16,6 +16,7 @@ const baseConfig: Linter.Config = {
     "no-extra-parens": "off",
     "no-loop-func": "off",
     "no-loss-of-precision": "off",
+    "no-redeclare": "off",
     "no-shadow": "off",
     "no-unused-expressions": "off",
     "no-unused-vars": "off",
