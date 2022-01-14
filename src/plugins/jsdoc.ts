@@ -21,7 +21,7 @@ export const settings: Linter.Config = {
         contexts: [
           ":not(TSDeclareFunction) + FunctionDeclaration",
           "TSDeclareFunction",
-          "TSTypeAliasDeclaration",
+          "ExportNamedDeclaration > TSTypeAliasDeclaration",
           "TSEnumDeclaration",
         ],
         enableFixer: false,
