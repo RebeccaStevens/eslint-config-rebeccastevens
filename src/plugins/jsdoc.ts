@@ -22,6 +22,7 @@ export const settings: Linter.Config = {
           ":not(TSDeclareFunction) + FunctionDeclaration",
           "TSDeclareFunction",
           "ExportNamedDeclaration > TSTypeAliasDeclaration",
+          "ExportNamedDeclaration > TSInterfaceDeclaration",
           "TSEnumDeclaration",
         ],
         enableFixer: false,
