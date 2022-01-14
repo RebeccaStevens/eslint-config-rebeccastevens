@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.2.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.2.0...v1.2.1) (2022-01-14)
+
+
+### Bug Fixes
+
+* **jsdoc/require-jsdoc:** only require jsdocs on types when they are exported ([0ebcdf8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0ebcdf8cdc37e1bc6441bbdf96001e7f35dfac1c))
+* **jsdoc/require-jsdoc:** require jsdocs for exported interfaces ([cec3e26](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/cec3e26ed6d6b0588b4f4680b2e24eb0b05c4b9e))
+
 # [1.2.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.1.5...v1.2.0) (2021-12-07)
 
 
