@@ -19,7 +19,8 @@ export const settings: Linter.Config = {
       "warn",
       {
         contexts: [
-          ":not(TSDeclareFunction) + FunctionDeclaration",
+          ":not(ExportNamedDeclaration) > FunctionDeclaration:not(TSDeclareFunction + FunctionDeclaration)",
+          "ExportNamedDeclaration > FunctionDeclaration:not(ExportNamedDeclaration:has(TSDeclareFunction) + ExportNamedDeclaration > FunctionDeclaration)",
           "TSDeclareFunction",
           "ExportNamedDeclaration > TSTypeAliasDeclaration",
           "ExportNamedDeclaration > TSInterfaceDeclaration",
