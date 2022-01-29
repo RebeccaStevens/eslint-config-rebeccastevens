@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.2.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.2.1...v1.2.2) (2022-01-29)
+
+
+### Bug Fixes
+
+* **@typescript-eslint/prefer-readonly-parameter-types:** treat methods as readonly ([a0a1af7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/a0a1af7995dae9cc5bd9697d8c585a275c0118bc))
+* **jsdoc/require-jsdoc:** ensure exported function declaration also require jsdoc ([8d647d1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/8d647d1096079586041e2a50fce83503effd81ea))
+
 ## [1.2.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.2.0...v1.2.1) (2022-01-14)
 
 
