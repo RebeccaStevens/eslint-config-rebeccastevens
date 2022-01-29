@@ -176,6 +176,7 @@ export const settings: Linter.Config = {
       {
         checkParameterProperties: false,
         ignoreInferredTypes: true,
+        treatMethodsAsReadonly: true,
       },
     ],
     "@typescript-eslint/prefer-regexp-exec": "error",
