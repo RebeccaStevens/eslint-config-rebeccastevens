@@ -22,6 +22,10 @@ yarn add -D  \
   @rebeccastevens/eslint-config
 ```
 
+```sh
+npx install-peerdeps @rebeccastevens/eslint-config --dev -o -Y
+```
+
 ## Usage
 
 ### Language
