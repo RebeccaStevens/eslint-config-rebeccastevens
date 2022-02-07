@@ -28,6 +28,10 @@
       "import": "./dist/script.mjs",
       "require": "./dist/script.cjs"
     },
+    "./test": {
+      "import": "./dist/test.mjs",
+      "require": "./dist/test.cjs"
+    },
     "./typescript": {
       "import": "./dist/typescript.mjs",
       "require": "./dist/typescript.cjs"

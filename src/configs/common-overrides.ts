@@ -4,27 +4,20 @@ export default {
   overrides: [
     {
       files: ["*"],
+      extends: ["@rebeccastevens/eslint-config/script"],
       rules: {
-        "functional/immutable-data": "off",
         "functional/functional-parameters": "off",
-        "functional/no-expression-statement": "off",
+        "functional/immutable-data": "off",
         "node/no-sync": "off",
       },
     },
     {
       files: ["scripts/**/*"],
-      rules: {
-        "functional/no-expression-statement": "off",
-        "functional/no-throw-statement": "off",
-      },
+      extends: ["@rebeccastevens/eslint-config/script"],
     },
     {
       files: ["{test,tests}/**/*", "**/*.test.*"],
-      rules: {
-        "functional/functional-parameters": "off",
-        "functional/no-expression-statement": "off",
-        "node/no-sync": "off",
-      },
+      extends: ["@rebeccastevens/eslint-config/test"],
     },
   ],
 } as Linter.Config;
