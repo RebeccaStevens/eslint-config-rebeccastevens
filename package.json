@@ -90,6 +90,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-sonarjs": "^0.11.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "eslint-plugin-unicorn": "^40.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^12.1.4",
@@ -118,6 +119,7 @@
     "eslint-plugin-optimize-regex": "*",
     "eslint-plugin-promise": "*",
     "eslint-plugin-sonarjs": "*",
+    "eslint-plugin-tsdoc": "*",
     "eslint-plugin-unicorn": "*"
   },
   "engines": {
