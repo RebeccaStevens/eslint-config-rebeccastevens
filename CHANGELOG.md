@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.3.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.2.2...v1.3.0) (2022-02-07)
+
+
+### Bug Fixes
+
+* allow throw statements inside async functions ([4bc76bf](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4bc76bf167517fd3ab1643a896834238d982ebb5))
+
+
+### Features
+
+* check tsdocs when using typescript ([3b3d586](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/3b3d586ee6d01754c6db6faf2f302e866b1fd7f8))
+* update script config and add test config ([88196bc](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/88196bc1fd5983fa1ff5d610f42c5e7f1a041daf))
+
 ## [1.2.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.2.1...v1.2.2) (2022-01-29)
 
 
