@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.0...v1.3.1) (2022-02-09)
+
+
+### Bug Fixes
+
+* update unicorn rules ([d0bca6e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/d0bca6ee46f296ece9da5b0cb2758a59400996ad))
+
 # [1.3.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.2.2...v1.3.0) (2022-02-07)
 
 
