@@ -60,7 +60,7 @@
     "test": "echo no tests"
   },
   "dependencies": {
-    "deepmerge-ts": "^2.0.1"
+    "deepmerge-ts": "^4.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",

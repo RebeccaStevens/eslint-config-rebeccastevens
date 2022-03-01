@@ -2322,6 +2322,13 @@ deepmerge-ts@^2.0.1:
   dependencies:
     is-plain-object "^5.0.0"
 
+deepmerge-ts@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/deepmerge-ts/-/deepmerge-ts-4.0.0.tgz#c247e6fe759e55e017fef90e9b146aa94e0d0070"
+  integrity sha512-0jtn7P35dD0FbrYT2woSWfOASiyNqDHvgyljZyuDW1eRSFWzRmqiEB6zhaQF4ic8fBugQV0WJcnPhbJOCuX0VA==
+  dependencies:
+    is-plain-object "^5.0.0"
+
 deepmerge@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
