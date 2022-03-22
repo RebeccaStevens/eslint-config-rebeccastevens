@@ -145,7 +145,7 @@ export const settings: Linter.Config = {
   },
 
   settings: {
-    "import/internal-regex": "^(?:@|~).+",
+    "import/internal-regex": "^(?:@|~)\\/.+",
   },
 
   overrides: [
