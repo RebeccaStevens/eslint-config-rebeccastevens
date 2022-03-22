@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.2...v1.3.3) (2022-03-22)
+
+
+### Bug Fixes
+
+* upadte functional rules ([19ed80d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/19ed80dfcd99fedf3de686dbc6e06b5ab3b63f5e))
+* update import rules ([2382357](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/238235709d74a76c0ee1b53fc3c691f72074ea91))
+
 ## [1.3.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.1...v1.3.2) (2022-03-22)
 
 
