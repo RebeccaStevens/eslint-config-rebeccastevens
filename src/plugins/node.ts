@@ -25,6 +25,7 @@ export const settings: Linter.Config = {
     "node/no-process-exit": "error",
     "node/no-sync": "error",
     "node/no-unpublished-import": "warn",
+    "node/no-unsupported-features/es-syntax": "off",
     "node/prefer-global/buffer": ["error", "always"],
     "node/prefer-global/console": ["error", "always"],
     "node/prefer-global/process": ["error", "always"],

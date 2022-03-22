@@ -1,6 +1,7 @@
 import type { Linter } from "eslint";
 
 import { rules as bestPractices } from "./best-practices";
+import { rules as deprecated } from "./deprecated";
 import { rules as es6 } from "./es6";
 import { rules as possibleErrors } from "./possible-errors";
 import { rules as strict } from "./strict";
@@ -14,4 +15,5 @@ export const rules: Linter.Config["rules"] = {
   ...strict,
   ...stylisticIssues,
   ...variables,
+  ...deprecated,
 };

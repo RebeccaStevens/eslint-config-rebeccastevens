@@ -6,12 +6,6 @@ const useObjectDefineProperty = "Please use Object.defineProperty instead.";
 
 export const rules: Linter.Config["rules"] = {
   "accessor-pairs": "error",
-  "array-callback-return": [
-    "error",
-    {
-      allowImplicit: false,
-    },
-  ],
   "block-scoped-var": "error",
   "class-methods-use-this": "error",
   "complexity": "off",
