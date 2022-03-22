@@ -26,6 +26,22 @@ const baseConfig: Linter.Config = {
     "space-infix-ops": "off",
   },
 
+  settings: {
+    "import/extensions": [
+      ".js",
+      ".ts",
+      ".jsx",
+      ".tsx",
+      ".mjs",
+      ".mts",
+      ".cjs",
+      ".cts",
+    ],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx", ".mts", ".cts"],
+    },
+  },
+
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
@@ -36,11 +52,6 @@ const baseConfig: Linter.Config = {
         "import/namespace": "off",
 
         "node/no-unsupported-features/es-syntax": "off",
-      },
-      settings: {
-        "import/parsers": {
-          "@typescript-eslint/parser": [".ts", ".tsx"],
-        },
       },
     },
   ],

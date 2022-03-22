@@ -138,20 +138,14 @@ export const settings: Linter.Config = {
           "index",
         ],
         "newlines-between": "always",
-        "pathGroups": [
-          {
-            group: "internal",
-            pattern: "~/**",
-          },
-          {
-            group: "internal",
-            pattern: "@/**",
-          },
-        ],
       },
     ],
     "import/prefer-default-export": "off",
     "import/unambiguous": "off",
+  },
+
+  settings: {
+    "import/internal-regex": "^(?:@|~).+",
   },
 
   overrides: [
