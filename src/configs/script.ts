@@ -5,6 +5,7 @@ const baseConfig: Linter.Config = {
     "functional/no-conditional-statement": "off",
     "functional/no-expression-statement": "off",
     "functional/no-loop-statement": "off",
+    "functional/no-return-void": "off",
     "functional/no-throw-statement": "off",
     "node/no-process-exit": "off",
     "node/no-sync": "off",
