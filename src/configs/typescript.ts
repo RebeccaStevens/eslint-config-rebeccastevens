@@ -44,7 +44,7 @@ const baseConfig: Linter.Config = {
 
   overrides: [
     {
-      files: ["**/*.ts", "**/*.tsx"],
+      files: ["**/*.{ts,tsx,mts,cts}"],
       rules: {
         "import/no-unresolved": "off",
         "import/named": "off",
@@ -52,6 +52,15 @@ const baseConfig: Linter.Config = {
         "import/namespace": "off",
 
         "node/no-unsupported-features/es-syntax": "off",
+      },
+    },
+    {
+      files: "**/*.d.{ts,mts,cts}",
+      rules: {
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+
+        "init-declarations": "off",
       },
     },
   ],
