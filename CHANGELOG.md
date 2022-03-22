@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.4...v1.3.5) (2022-03-22)
+
+
+### Bug Fixes
+
+* turn off no-return-void for scripts ([7888b8d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7888b8d12c3b10f55d84c47009c9432ace68837b))
+
 ## [1.3.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.3...v1.3.4) (2022-03-22)
 
 
