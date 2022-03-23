@@ -23,6 +23,7 @@ export default {
       files: ["**/*.{cjs,cts}"],
       rules: {
         "@typescript-eslint/no-var-requires": "off",
+        "import/no-dynamic-require": "off",
         "node/no-missing-require": "off",
         "unicorn/prefer-module": "off",
       },
