@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.7...v1.3.8) (2022-03-23)
+
+
+### Bug Fixes
+
+* update commonjs overrides ([ee917f0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ee917f0ee45841e85032301f0855c7c179c6463f))
+
 ## [1.3.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.6...v1.3.7) (2022-03-23)
 
 
