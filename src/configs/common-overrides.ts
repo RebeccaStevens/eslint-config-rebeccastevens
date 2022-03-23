@@ -22,8 +22,9 @@ export default {
     {
       files: ["**/*.{cjs,cts}"],
       rules: {
-        "unicorn/prefer-module": "off",
         "@typescript-eslint/no-var-requires": "off",
+        "node/no-missing-require": "off",
+        "unicorn/prefer-module": "off",
       },
     },
   ],
