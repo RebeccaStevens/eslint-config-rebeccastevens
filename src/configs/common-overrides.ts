@@ -19,5 +19,12 @@ export default {
       files: ["{test,tests}/**/*", "**/*.test.*"],
       extends: ["@rebeccastevens/eslint-config/test"],
     },
+    {
+      files: ["**/*.{cjs,cts}"],
+      rules: {
+        "unicorn/prefer-module": "off",
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
   ],
 } as Linter.Config;
