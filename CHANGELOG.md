@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.10](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.9...v1.3.10) (2022-04-02)
+
+
+### Bug Fixes
+
+* allow "m_" prefix to mark something as mutable ([0c5c0d4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0c5c0d44c09c359ff6f7660c0820fff614ad15d6))
+* remove tsdoc ([a811527](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/a8115278d708793ff76681b033d9c0b18a2a6fff))
+
 ## [1.3.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.8...v1.3.9) (2022-03-23)
 
 
