@@ -162,15 +162,7 @@ export const rules: Linter.Config["rules"] = {
   ],
   "no-tabs": "error",
   "no-trailing-spaces": "error",
-  "no-underscore-dangle": [
-    "error",
-    {
-      allow: [],
-      allowAfterThis: false,
-      allowAfterSuper: false,
-      enforceInMethodNames: true,
-    },
-  ],
+  "no-underscore-dangle": "off",
   "no-unneeded-ternary": "error",
   "no-whitespace-before-property": "error",
   "nonblock-statement-body-position": [
