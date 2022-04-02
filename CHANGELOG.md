@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.11](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.10...v1.3.11) (2022-04-02)
+
+
+### Bug Fixes
+
+* turn off init-declarations ([49068ef](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/49068ef73c410ee86f1335f3c78ef11bc10c53a2))
+
 ## [1.3.10](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.9...v1.3.10) (2022-04-02)
 
 
