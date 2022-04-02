@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.12](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.11...v1.3.12) (2022-04-02)
+
+
+### Bug Fixes
+
+* allow underscore dangle ([c92396b](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c92396bdeda2732c34d60311a4ae74da1dac6c27))
+
 ## [1.3.11](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.10...v1.3.11) (2022-04-02)
 
 
