@@ -76,6 +76,14 @@ export const settings: Linter.Config = {
         leadingUnderscore: "forbid",
         selector: "variable",
         trailingUnderscore: "forbid",
+        prefix: ["m_"],
+      },
+      {
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "forbid",
+        selector: "variable",
+        trailingUnderscore: "forbid",
+        modifiers: ["const"],
       },
       {
         format: ["camelCase", "PascalCase"],
@@ -86,6 +94,11 @@ export const settings: Linter.Config = {
       {
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         selector: "memberLike",
+      },
+      {
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        selector: "memberLike",
+        prefix: ["m_"],
       },
       {
         format: ["UPPER_CASE"],

@@ -8,7 +8,7 @@ export const settings: Linter.Config = {
     "functional/immutable-data": [
       "error",
       {
-        ignoreAccessorPattern: "**.mutable*.**",
+        ignoreAccessorPattern: ["**.mutable*.**", "**.m_*.**"],
         ignoreClass: "fieldsOnly",
         ignoreImmediateMutation: true,
       },
@@ -22,7 +22,8 @@ export const settings: Linter.Config = {
     "functional/no-let": [
       "error",
       {
-        ignorePattern: "^mutable",
+        allowInForLoopInit: true,
+        ignorePattern: ["^mutable", "^m_"],
       },
     ],
     "functional/no-loop-statement": "error",
