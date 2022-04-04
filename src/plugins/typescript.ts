@@ -72,6 +72,12 @@ export const settings: Linter.Config = {
         trailingUnderscore: "forbid",
       },
       {
+        selector: "variableLike",
+        format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
+      },
+      {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         leadingUnderscore: "forbid",
@@ -86,23 +92,13 @@ export const settings: Linter.Config = {
         modifiers: ["const"],
       },
       {
-        selector: "variableLike",
-        format: ["camelCase", "PascalCase"],
-        leadingUnderscore: "allow",
-        trailingUnderscore: "forbid",
-      },
-      {
         selector: "memberLike",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         prefix: ["m_", "M_"],
       },
       {
-        selector: "objectLiteralProperty",
-        format: null,
-      },
-      {
-        selector: "objectLiteralMethod",
-        format: null,
+        selector: ["classMethod", "typeMethod"],
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
       },
       {
         selector: "enumMember",
@@ -115,6 +111,10 @@ export const settings: Linter.Config = {
         format: ["PascalCase"],
         leadingUnderscore: "forbid",
         trailingUnderscore: "forbid",
+      },
+      {
+        selector: ["objectLiteralProperty", "objectLiteralMethod"],
+        format: null,
       },
     ],
     "@typescript-eslint/no-confusing-void-expression": [
