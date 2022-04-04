@@ -61,7 +61,7 @@ export const settings: Linter.Config = {
         accessibility: "explicit",
       },
     ],
-    "@typescript-eslint/explicit‑module‑boundary‑types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/naming-convention": [
       "error",
