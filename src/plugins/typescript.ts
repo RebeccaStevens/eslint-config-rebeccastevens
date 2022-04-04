@@ -68,27 +68,19 @@ export const settings: Linter.Config = {
       {
         selector: "default",
         format: ["camelCase", "PascalCase"],
-        leadingUnderscore: "allow",
-        trailingUnderscore: "forbid",
       },
       {
         selector: "variableLike",
         format: ["camelCase", "PascalCase"],
-        leadingUnderscore: "allow",
-        trailingUnderscore: "forbid",
       },
       {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
         prefix: ["m_", "M_"],
       },
       {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
         modifiers: ["const"],
       },
       {
@@ -102,20 +94,21 @@ export const settings: Linter.Config = {
         prefix: ["m_", "M_"],
       },
       {
+        selector: "memberLike",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        modifiers: ["readonly"],
+      },
+      {
         selector: ["classMethod", "typeMethod"],
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
       },
       {
         selector: "enumMember",
         format: ["UPPER_CASE"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
       },
       {
         selector: "typeLike",
         format: ["PascalCase"],
-        leadingUnderscore: "forbid",
-        trailingUnderscore: "forbid",
       },
       {
         selector: ["objectLiteralProperty", "objectLiteralMethod"],
