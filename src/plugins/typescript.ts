@@ -92,6 +92,11 @@ export const settings: Linter.Config = {
         modifiers: ["const"],
       },
       {
+        selector: "variable",
+        format: null,
+        modifiers: ["destructured"],
+      },
+      {
         selector: "memberLike",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         prefix: ["m_", "M_"],
