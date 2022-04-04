@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.14](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.13...v1.3.14) (2022-04-04)
+
+
+### Bug Fixes
+
+* fix dash character ([5b8a1c7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/5b8a1c7f8954863825ead368ba5d5045d585f923))
+* tweak naming-convention ([1df2ea5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/1df2ea5f5fd68b84a9de4976e5a3b87e5e606227))
+
 ## [1.3.13](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.12...v1.3.13) (2022-04-04)
 
 
