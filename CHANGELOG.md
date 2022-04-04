@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.15](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.14...v1.3.15) (2022-04-04)
+
+
+### Bug Fixes
+
+* tweak naming-convention ([3fa91b2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/3fa91b2f8aa49f2bbf24b916dad0fafe63f20551))
+
 ## [1.3.14](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.13...v1.3.14) (2022-04-04)
 
 
