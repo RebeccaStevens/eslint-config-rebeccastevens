@@ -99,7 +99,7 @@ export const settings: Linter.Config = {
         modifiers: ["readonly"],
       },
       {
-        selector: ["classMethod", "typeMethod"],
+        selector: ["classMethod", "typeMethod", "typeProperty"],
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
       },
       {
