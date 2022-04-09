@@ -68,20 +68,28 @@ export const settings: Linter.Config = {
       {
         selector: "default",
         format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "variableLike",
         format: ["camelCase", "PascalCase"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         prefix: ["m_", "M_"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         modifiers: ["const"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "variable",
@@ -92,23 +100,33 @@ export const settings: Linter.Config = {
         selector: "memberLike",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         prefix: ["m_", "M_"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "memberLike",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         modifiers: ["readonly"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: ["classMethod", "typeMethod", "typeProperty"],
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "enumMember",
         format: ["UPPER_CASE"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: "typeLike",
         format: ["PascalCase"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
       },
       {
         selector: ["objectLiteralProperty", "objectLiteralMethod"],
