@@ -118,7 +118,7 @@ export const settings: Linter.Config = {
       },
       {
         selector: "enumMember",
-        format: ["UPPER_CASE"],
+        format: ["PascalCase", "UPPER_CASE"],
         leadingUnderscore: "allow",
         trailingUnderscore: "forbid",
       },
