@@ -131,12 +131,7 @@ export const rules: Linter.Config["rules"] = {
   "no-negated-condition": "off",
   "no-nested-ternary": "off",
   "no-new-object": "error",
-  "no-plusplus": [
-    "error",
-    {
-      allowForLoopAfterthoughts: true,
-    },
-  ],
+  "no-plusplus": "off",
   "no-restricted-syntax": [
     "error",
     {
