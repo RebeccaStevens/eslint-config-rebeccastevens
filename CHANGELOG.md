@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.20](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.19...v1.3.20) (2022-04-17)
+
+
+### Bug Fixes
+
+* allow plusplus ([4fd2635](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4fd2635cdaabb866ecd8d6b1abe85aeb3207b7be))
+* loosen promise rules ([517b196](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/517b19684057561d21dc846d896f6260056e1915))
+
 ## [1.3.19](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.18...v1.3.19) (2022-04-13)
 
 
