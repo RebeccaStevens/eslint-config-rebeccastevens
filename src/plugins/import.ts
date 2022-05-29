@@ -62,14 +62,14 @@ export const settings: Linter.Config = {
       {
         bundledDependencies: false,
         devDependencies: [
-          "*.{js,cjs,mjs,ts,jsx,tsx}",
+          "*.{js,cjs,mjs,ts,cts,mts,jsx,tsx}",
           "scripts/**",
           "spec/**",
           "test/**",
           "tests/**",
           "**/__mocks__/**",
           "**/__tests__/**",
-          "**/*{.,_}{test,spec}.{js,cjs,mjs,ts,jsx,tsx}",
+          "**/*{.,_}{test,spec}.{js,cjs,mjs,ts,cts,mts,jsx,tsx}",
           "**/Gruntfile{,.{js,cjs,mjs,ts}}",
           "**/gulpfile.{js,cjs,mjs,ts}",
           "**/gulpfile.*.{js,cjs,mjs,ts}",
