@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.21](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.20...v1.3.21) (2022-05-29)
+
+
+### Bug Fixes
+
+* **import/no-extraneous-dependencies:** support cts and mts extension ([50daeb3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/50daeb381d64b9a40cb8a5ae6f80b690f10fca68))
+
 ## [1.3.20](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.19...v1.3.20) (2022-04-17)
 
 
