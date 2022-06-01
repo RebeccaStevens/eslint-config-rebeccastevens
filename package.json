@@ -63,7 +63,7 @@
     "deepmerge-ts": "^4.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.1.0",
+    "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^16.0.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
