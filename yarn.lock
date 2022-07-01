@@ -2387,11 +2387,9 @@ deep-is@^0.1.3:
   integrity sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==
 
 deepmerge-ts@^4.0.0, deepmerge-ts@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/deepmerge-ts/-/deepmerge-ts-4.0.3.tgz#495b11315d082fc715e101a1b0e41cbb136becfb"
-  integrity sha512-kRBBqKdfhdZ+LEBkyE0Y7Yu7Lm277HOKpVmpecaEzzD3Krne9uO13Wqi7sNJ9S4FDmCgwjiWj8UhXo5OgjOIwg==
-  dependencies:
-    is-plain-object "^5.0.0"
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/deepmerge-ts/-/deepmerge-ts-4.2.1.tgz#104fe27c91abde4597bad1dcfd00a7a8be22d532"
+  integrity sha512-xzJLiUo4z1dD2nggSfaMvHo5qWLoy/JVa9rKuktC6FrQQEBI8Qnj7KwuCYZhqBoGOOpGqs6+3MR2ZhSMcTr4BA==
 
 deepmerge@^4.2.2:
   version "4.2.2"
