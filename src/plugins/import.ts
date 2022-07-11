@@ -60,7 +60,7 @@ export const settings: Linter.Config = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        bundledDependencies: false,
+        bundledDependencies: true,
         devDependencies: [
           "*.{js,cjs,mjs,ts,cts,mts,jsx,tsx}",
           "scripts/**",
@@ -85,8 +85,8 @@ export const settings: Linter.Config = {
           "**/webpack.config.{js,cjs,mjs,ts}",
           "**/webpack.config.*.{js,cjs,mjs,ts}",
         ],
-        optionalDependencies: false,
-        peerDependencies: false,
+        optionalDependencies: true,
+        peerDependencies: true,
       },
     ],
     "import/no-internal-modules": [
