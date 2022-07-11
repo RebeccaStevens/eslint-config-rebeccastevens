@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.22](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.21...v1.3.22) (2022-07-11)
+
+
+### Bug Fixes
+
+* allow bundledDependency, optionalDependency and peerDependency imports ([7c20742](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7c20742b6b4ccd51df7c64eb2f749a05fd57681f))
+
 ## [1.3.21](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.20...v1.3.21) (2022-05-29)
 
 
