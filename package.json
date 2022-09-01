@@ -98,7 +98,7 @@
     "eslint-plugin-unicorn": "^41.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "markdownlint-cli": "^0.31.0",
+    "markdownlint-cli": "^0.32.2",
     "nyc": "^15.1.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
