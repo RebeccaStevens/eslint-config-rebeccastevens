@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.3.23](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.22...v1.3.23) (2022-09-08)
+
+
+### Bug Fixes
+
+* allow "index" in paths ([42d142f](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/42d142f4bea4393b3ec52362ba782e2504c8bcf9))
+
 ## [1.3.22](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.3.21...v1.3.22) (2022-07-11)
 
 
