@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup NodeJs
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
 
@@ -27,7 +27,7 @@ jobs:
         run: yarn build
 
       # Publish to NPMJS
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
           registry-url: "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@ jobs:
 
       # Publish to GitHub Package Registry
       - if: steps.semantic.outputs.new-release-published == 'true'
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
           registry-url: https://npm.pkg.github.com/
