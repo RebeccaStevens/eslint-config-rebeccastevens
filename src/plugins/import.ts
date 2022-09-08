@@ -118,7 +118,7 @@ export const settings: Linter.Config = {
       "error",
       {
         commonjs: true,
-        noUselessIndex: true,
+        noUselessIndex: false,
       },
     ],
     "import/no-webpack-loader-syntax": "error",
