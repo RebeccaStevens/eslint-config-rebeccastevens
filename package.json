@@ -45,16 +45,14 @@
     "README.md"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "rollup -c",
+    "build": "rimraf dist && rollup -c",
     "check-format": "prettier --list-different \"./**/*.{md,ts,yml}\"",
     "check-spelling": "cspell --config=.cspell.json \"**/*.{md,ts}\"",
     "cz": "git-cz",
     "format": "prettier --write \"./**/*.{md,ts,yml}\"",
     "generate-eslintrc": "ts-node -P scripts/tsconfig.json -r tsconfig-paths/register scripts/generate-eslintrc.ts",
     "lint": "yarn lint:js && yarn lint:md",
-    "prelint:js": "yarn generate-eslintrc",
-    "lint:js": "eslint .",
+    "lint:js": "yarn generate-eslintrc && eslint .",
     "lint:md": "markdownlint \"**/*.md\" --config=.markdownlint.json --ignore-path=.markdownlintignore",
     "prepare": "husky install",
     "test": "echo no tests"
@@ -113,6 +111,7 @@
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
+    "eslint": ">=8.0.0",
     "eslint-import-resolver-typescript": "*",
     "eslint-plugin-eslint-comments": "*",
     "eslint-plugin-functional": "*",
@@ -124,8 +123,7 @@
     "eslint-plugin-promise": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-tsdoc": "*",
-    "eslint-plugin-unicorn": "*",
-    "eslint": ">=8.0.0"
+    "eslint-plugin-unicorn": "*"
   },
   "engines": {
     "node": "^14.17.0 || >=16.0.0"
