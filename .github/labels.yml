@@ -24,7 +24,7 @@
   description: "Enhancement of the code, not introducing new features."
 - name: "Type: Idea"
   color: fef2c0
-  description: "Marks an idea, which might be excepted and implemented."
+  description: "Marks an idea, which might be accepted and implemented."
 - name: "Type: Feature"
   color: 0e8a16
   description: "New features or options."
@@ -68,6 +68,9 @@
 - name: "Status: Awaiting Response"
   color: fef2c0
   description: "Issue or PR awaits response from the creator."
+- name: "Status: Awaiting Feedback"
+  color: fef2c0
+  description: "Issue or PR awaits feedback from the community."
 - name: "Status: Blocked"
   color: fef2c0
   description: "Progress on this issue is currently not possible."
@@ -94,14 +97,20 @@
 - name: "Resolution: Won't Fix"
   color: e6e6e6
   description: "A real bug or issue, but the issue is not impactful enough to spend time on."
-- name: "Resolution: Done/Fixed"
+- name: "Resolution: Fixed"
   color: c2e0c6
-  description: "The bug/issue has been fixed/completed."
+  description: "The issue has been fixed."
+- name: "Resolution: Added"
+  color: c2e0c6
+  description: "This has been added to the project."
 
 # Bots
 - name: ":blue_heart:"
   color: ffffff
-  description: "Dependabot"
+  description: "Renovate"
 - name: "Status: Released"
   color: c2e0c6
   description: "It's now live."
+- name: "Status: Released on Next"
+  color: fef2c0
+  description: "It's now live on the next branch."
