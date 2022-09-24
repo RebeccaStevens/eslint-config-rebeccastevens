@@ -1,19 +1,13 @@
 import type { Linter } from "eslint";
 
-import { rules as bestPractices } from "./best-practices";
 import { rules as deprecated } from "./deprecated";
-import { rules as es6 } from "./es6";
-import { rules as possibleErrors } from "./possible-errors";
-import { rules as strict } from "./strict";
-import { rules as stylisticIssues } from "./stylistic-issues";
-import { rules as variables } from "./variables";
+import { rules as layout } from "./layout+formatting";
+import { rules as possibleProblems } from "./possible-problems";
+import { rules as suggestions } from "./suggestions";
 
 export const rules: Linter.Config["rules"] = {
-  ...bestPractices,
-  ...es6,
-  ...possibleErrors,
-  ...strict,
-  ...stylisticIssues,
-  ...variables,
+  ...possibleProblems,
+  ...suggestions,
+  ...layout,
   ...deprecated,
 };

@@ -204,14 +204,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/prefer-interface": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
-    "@typescript-eslint/prefer-readonly-parameter-types": [
-      "error",
-      {
-        checkParameterProperties: false,
-        ignoreInferredTypes: true,
-        treatMethodsAsReadonly: true,
-      },
-    ],
+    "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/prefer-regexp-exec": "error",
     "@typescript-eslint/prefer-string-starts-ends-with": "warn",
     "@typescript-eslint/prefer-ts-expect-error": "warn",

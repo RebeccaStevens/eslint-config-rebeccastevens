@@ -23,7 +23,6 @@ export const settings: Linter.Config = {
       },
     ],
     "unicorn/prefer-json-parse-buffer": "off",
-    "unicorn/prefer-object-has-own": "error",
     "unicorn/prefer-string-replace-all": "error",
     "unicorn/prefer-top-level-await": "error",
     "unicorn/prevent-abbreviations": "off",

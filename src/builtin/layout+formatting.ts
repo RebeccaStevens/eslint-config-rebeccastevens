@@ -2,6 +2,8 @@ import type { Linter } from "eslint";
 
 export const rules: Linter.Config["rules"] = {
   "array-bracket-spacing": ["error", "never"],
+  "arrow-parens": ["error", "always"],
+  "arrow-spacing": ["error", { before: true, after: true }],
   "block-spacing": ["error", "always"],
   "brace-style": "error",
   "capitalized-comments": "off",
@@ -19,12 +21,14 @@ export const rules: Linter.Config["rules"] = {
   "comma-style": ["error", "last"],
   "computed-property-spacing": "error",
   "consistent-this": "off",
+  "dot-location": ["error", "property"],
   "eol-last": "error",
   "func-call-spacing": ["error", "never"],
   "func-name-matching": "error",
   "func-names": ["error", "as-needed"],
   "func-style": ["error", "declaration", { allowArrowFunctions: true }],
   "function-paren-newline": "off",
+  "generator-star-spacing": ["error", "after"],
   "implicit-arrow-linebreak": "off",
   "indent": [
     "error",
@@ -160,6 +164,12 @@ export const rules: Linter.Config["rules"] = {
   "no-underscore-dangle": "off",
   "no-unneeded-ternary": "error",
   "no-whitespace-before-property": "error",
+  "no-multi-spaces": [
+    "error",
+    {
+      ignoreEOLComments: true,
+    },
+  ],
   "nonblock-statement-body-position": [
     "error",
     "beside",
@@ -230,6 +240,7 @@ export const rules: Linter.Config["rules"] = {
       allowTemplateLiterals: true,
     },
   ],
+  "rest-spread-spacing": ["error", "never"],
   "semi": ["error", "always"],
   "semi-spacing": ["error", { before: false, after: true }],
   "semi-style": ["error", "last"],
@@ -267,7 +278,15 @@ export const rules: Linter.Config["rules"] = {
     },
   ],
   "switch-colon-spacing": ["error", { after: true, before: false }],
+  "template-curly-spacing": ["error", "never"],
   "template-tag-spacing": ["error", "never"],
   "unicode-bom": ["error", "never"],
-  "wrap-regex": "off",
+  "wrap-iife": [
+    "error",
+    "inside",
+    {
+      functionPrototypeMethods: true,
+    },
+  ],
+  "yield-star-spacing": ["error", "after"],
 };
