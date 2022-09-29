@@ -17,7 +17,7 @@ export const rules: Linter.Config["rules"] = {
   ],
   "curly": ["error", "all"],
   "default-case-last": "error",
-  "default-param-last": "error",
+  "default-param-last": "off",
   "dot-notation": "error",
   "eqeqeq": ["error", "always", { null: "always" }],
   "grouped-accessor-pairs": "error",
