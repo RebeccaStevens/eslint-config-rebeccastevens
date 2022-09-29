@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.4.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.1...v1.4.2) (2022-09-29)
+
+
+### Bug Fixes
+
+* turn off default-param-last ([e47adfc](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/e47adfc81d0b168e42cebc2063b61e4084898dd8))
+
 ## [1.4.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.0...v1.4.1) (2022-09-24)
 
 
