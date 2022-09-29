@@ -3,6 +3,8 @@ import type { Linter } from "eslint";
 export const settings: Linter.Config = {
   plugins: ["functional"],
 
+  extends: ["plugin:functional/recommended"],
+
   rules: {
     "functional/no-expression-statement": "error",
     "functional/immutable-data": [
@@ -13,12 +15,6 @@ export const settings: Linter.Config = {
         ignoreImmediateMutation: true,
       },
     ],
-    "functional/no-conditional-statement": [
-      "error",
-      {
-        allowReturningBranches: true,
-      },
-    ],
     "functional/no-let": [
       "error",
       {
@@ -26,24 +22,5 @@ export const settings: Linter.Config = {
         ignorePattern: ["^mutable", "^m_"],
       },
     ],
-    "functional/no-loop-statement": "error",
-    "functional/no-mixed-type": "error",
-    "functional/no-throw-statement": [
-      "error",
-      {
-        allowInAsyncFunctions: true,
-      },
-    ],
-    "functional/no-return-void": "error",
   },
-
-  overrides: [
-    {
-      files: ["**/*.cjs"],
-      rules: {
-        "functional/immutable-data": "off",
-        "functional/no-expression-statement": "off",
-      },
-    },
-  ],
 };
