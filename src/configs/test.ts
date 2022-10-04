@@ -6,10 +6,10 @@ const baseConfig: Linter.Config = {
   rules: {
     "functional/functional-parameters": "off",
     "functional/immutable-data": "warn",
-    "functional/no-conditional-statement": "warn",
-    "functional/no-expression-statement": "off",
-    "functional/no-loop-statement": "warn",
-    "functional/no-throw-statement": "off",
+    "functional/no-conditional-statements": "warn",
+    "functional/no-expression-statements": "off",
+    "functional/no-loop-statements": "warn",
+    "functional/no-throw-statements": "off",
     "node/no-sync": "off",
   },
 };

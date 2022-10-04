@@ -6,12 +6,12 @@ export const settings: Linter.Config = {
   extends: ["plugin:functional/recommended"],
 
   rules: {
-    "functional/no-expression-statement": "error",
+    "functional/no-expression-statements": "error",
     "functional/immutable-data": [
       "error",
       {
         ignoreAccessorPattern: ["**.mutable*.**", "**.m_*.**"],
-        ignoreClass: "fieldsOnly",
+        ignoreClasses: "fieldsOnly",
         ignoreImmediateMutation: true,
       },
     ],
