@@ -90,7 +90,6 @@ yarn add -D  \
   eslint-plugin-optimize-regex \
   eslint-plugin-promise \
   eslint-plugin-sonarjs \
-  eslint-plugin-tsdoc \
   eslint-plugin-unicorn
 ```
 
