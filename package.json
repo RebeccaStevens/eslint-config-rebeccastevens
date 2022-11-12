@@ -113,7 +113,7 @@
     "eslint": ">=8.24.0",
     "eslint-import-resolver-typescript": "*",
     "eslint-plugin-eslint-comments": "*",
-    "eslint-plugin-functional": ">=5.0.0",
+    "eslint-plugin-functional": "5.0.0-beta.12",
     "eslint-plugin-import": "*",
     "eslint-plugin-jsdoc": "*",
     "eslint-plugin-markdown": "*",
