@@ -5,6 +5,15 @@ export const settings: Linter.Config = {
 
   extends: ["plugin:functional/recommended"],
 
+  settings: {
+    immutability: {
+      overrides: [
+        { pattern: "^ReadonlyDeep<.+>$", to: "ReadonlyDeep" },
+        { pattern: "^Immutable<.+>$", to: "Immutable" },
+      ],
+    },
+  },
+
   rules: {
     "functional/no-expression-statements": "error",
     "functional/immutable-data": [
@@ -20,6 +29,40 @@ export const settings: Linter.Config = {
       {
         allowInForLoopInit: true,
         ignorePattern: ["^mutable", "^m_"],
+      },
+    ],
+    "functional/prefer-immutable-types": [
+      "error",
+      {
+        enforcement: "None",
+        ignoreInferredTypes: true,
+        parameters: {
+          enforcement: "ReadonlyDeep",
+        },
+        fixer: {
+          ReadonlyShallow: [
+            {
+              pattern: "^(Array|Map|Set)<(.+)>$",
+              replace: "Readonly$1<$2>",
+            },
+            {
+              pattern: "^(.+)$",
+              replace: "Readonly<$1>",
+            },
+          ],
+          ReadonlyDeep: [
+            {
+              pattern: "^(?:Readonly<(.+)>|(.+))$",
+              replace: "ReadonlyDeep<$1$2>",
+            },
+          ],
+          Immutable: [
+            {
+              pattern: "^(?:Readonly(?:Deep)?<(.+)>|(.+))$",
+              replace: "Immutable<$1$2>",
+            },
+          ],
+        },
       },
     ],
   },
