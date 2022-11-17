@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.4.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.4...v1.4.5) (2022-11-17)
+
+
+### Bug Fixes
+
+* update for latest eslint-plugin-functional beta ([e45fa06](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/e45fa06b5110262d41b10d981572ae81efd808c1))
+
 ## [1.4.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.3...v1.4.4) (2022-10-04)
 
 
