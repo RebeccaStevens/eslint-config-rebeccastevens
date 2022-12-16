@@ -10,5 +10,6 @@ export const settings: Linter.Config = {
     "sonarjs/no-duplicate-string": ["error", 5],
     "sonarjs/no-small-switch": "off",
     "sonarjs/no-useless-cast": "off",
+    "sonarjs/max-switch-cases": "off",
   },
 };
