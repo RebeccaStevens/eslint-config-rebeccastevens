@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.4.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.5...v1.4.6) (2022-12-16)
+
+
+### Bug Fixes
+
+* **sonarjs/max-switch-cases:** turn rule off ([ae23f89](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ae23f89319d9068a8502110cfa93a43b11a1b238))
+
 ## [1.4.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.4...v1.4.5) (2022-11-17)
 
 
