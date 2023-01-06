@@ -101,7 +101,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.67.0",
     "rollup-plugin-auto-external": "^2.0.0",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^20.0.0",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^4.0.0",
     "tslib": "^2.3.1",
