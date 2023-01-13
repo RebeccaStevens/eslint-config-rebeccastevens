@@ -98,7 +98,7 @@
     "markdownlint-cli": "^0.32.2",
     "nyc": "^15.1.0",
     "prettier": "^2.5.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.0",
     "rollup": "^2.67.0",
     "rollup-plugin-auto-external": "^2.0.0",
     "semantic-release": "^19.0.2",
