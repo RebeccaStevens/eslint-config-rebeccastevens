@@ -32,12 +32,13 @@ export const settings: Linter.Config = {
       },
     ],
     "functional/prefer-immutable-types": [
-      "error",
+      "warn",
       {
         enforcement: "None",
         ignoreInferredTypes: true,
+        ignoreNamePattern: ["^m_"],
         parameters: {
-          enforcement: "ReadonlyDeep",
+          enforcement: "ReadonlyShallow",
         },
         fixer: {
           ReadonlyShallow: [
