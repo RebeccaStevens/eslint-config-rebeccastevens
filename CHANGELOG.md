@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.5.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.6...v1.5.0) (2023-01-29)
+
+
+### Bug Fixes
+
+* **functional/prefer-immutable-types:** decrease severity, enforcement and add exception ([2855e16](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2855e167c3114c7a59e47bb2189b485ba49646bc))
+
+
+### Features
+
+* update deps ([1d13853](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/1d1385391599e290ab86d5c17288faf89d6152da))
+
 ## [1.4.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.5...v1.4.6) (2022-12-16)
 
 
