@@ -74,7 +74,7 @@ export const settings: Linter.Config = {
       {
         selector: "variableLike",
         filter: {
-          regex: "_",
+          regex: "_[^_]+",
           match: true,
         },
         format: ["camelCase", "PascalCase"],
