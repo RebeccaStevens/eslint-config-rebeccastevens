@@ -73,6 +73,17 @@ export const settings: Linter.Config = {
       },
       {
         selector: "variableLike",
+        filter: {
+          regex: "_",
+          match: true,
+        },
+        format: ["camelCase", "PascalCase"],
+        prefix: ["m_", "M_"],
+        leadingUnderscore: "allow",
+        trailingUnderscore: "forbid",
+      },
+      {
+        selector: "variableLike",
         format: ["camelCase", "PascalCase"],
         leadingUnderscore: "allow",
         trailingUnderscore: "forbid",
