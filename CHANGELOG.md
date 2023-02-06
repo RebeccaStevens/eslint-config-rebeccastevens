@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.5.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.0...v1.5.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* allow prefixes on parameter names ([d133805](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/d13380548fb932a8efc560c1428926d7e2fc0487))
+
 # [1.5.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.4.6...v1.5.0) (2023-01-29)
 
 
