@@ -45,7 +45,12 @@ export const settings: Linter.Config = {
     "@typescript-eslint/consistent-indexed-object-style": "error",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/dot-notation": "error",
+    "@typescript-eslint/dot-notation": [
+      "error",
+      {
+        allowIndexSignaturePropertyAccess: true,
+      },
+    ],
     "@typescript-eslint/explicit-function-return-type": [
       "off",
       {
