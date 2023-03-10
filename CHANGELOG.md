@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.5.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.2...v1.5.3) (2023-03-10)
+
+
+### Bug Fixes
+
+* allowIndexSignaturePropertyAccess for dot-notation ([a70dcfb](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/a70dcfb142f8ee5ac0d04921ef6e4cbb496117f3))
+
 ## [1.5.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.1...v1.5.2) (2023-02-06)
 
 
