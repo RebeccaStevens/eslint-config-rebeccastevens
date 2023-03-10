@@ -41,7 +41,7 @@ specifiers:
   eslint-plugin-sonarjs: 0.18.0
   eslint-plugin-unicorn: 46.0.0
   husky: 8.0.3
-  knip: 2.0.0-alpha.3
+  knip: 2.0.0-alpha.5
   lint-staged: 13.1.2
   markdownlint-cli: 0.33.0
   nyc: 15.1.0
@@ -100,7 +100,7 @@ devDependencies:
   eslint-plugin-sonarjs: 0.18.0_eslint@8.35.0
   eslint-plugin-unicorn: 46.0.0_eslint@8.35.0
   husky: 8.0.3
-  knip: 2.0.0-alpha.3
+  knip: 2.0.0-alpha.5
   lint-staged: 13.1.2
   markdownlint-cli: 0.33.0
   nyc: 15.1.0
@@ -4704,8 +4704,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /knip/2.0.0-alpha.3:
-    resolution: {integrity: sha512-3Yqf9RbszuVwvJABPyzjCBYf8LkawG2CuFpNOZRDAwus2wtnnupCRQRvZrApqN0h828Ollvk6yQRjvGaV/v7NA==}
+  /knip/2.0.0-alpha.5:
+    resolution: {integrity: sha512-v9jWJcFZsWErVYoEjLtcwU6nTumVM3hhB+GEWiyCimNuhG2Zw5uLmn9NV05Q0OQTlsCtEdmXI3FbC1mBoNsv2g==}
     engines: {node: '>=16.17.0 <17 || >=18.6.0'}
     hasBin: true
     dependencies:
