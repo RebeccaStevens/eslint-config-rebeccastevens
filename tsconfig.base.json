@@ -3,18 +3,19 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
+    "alwaysStrict": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": false,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "module": "ESNext",
     "moduleResolution": "node",
     "newLine": "LF",
     "noEmitOnError": true,
     "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "pretty": true,
@@ -28,6 +29,6 @@
       "~/builtin": ["./builtin"],
       "~/configs/*": ["./configs/*"],
       "~/plugins/*": ["./plugins/*"]
-    },
+    }
   }
 }
