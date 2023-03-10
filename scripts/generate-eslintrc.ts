@@ -15,7 +15,7 @@ const projectConfig = {
   env: {
     node: true,
   },
-  ignorePatterns: ["/dist/", "/**/*.cjs", "/**/*.js"],
+  ignorePatterns: ["/dist/"],
   plugins: ["prettier"],
   extends: ["plugin:prettier/recommended", "prettier"],
   overrides: [
@@ -37,4 +37,4 @@ const config = deepmerge(
 );
 
 // Write the file.
-void fs.writeFile(".eslintrc", JSON.stringify(config, undefined, 2));
+void fs.writeFile(".eslintrc.json", JSON.stringify(config, undefined, 2));

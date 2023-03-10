@@ -4,9 +4,11 @@
 
 An [ESLint Shareable Config](https://eslint.org/docs/developer-guide/shareable-configs.html).
 
-[![npm version](https://img.shields.io/npm/v/@rebeccastevens/eslint-config.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/@rebeccastevens/eslint-config)
-[![BSD 3 Clause license](https://img.shields.io/github/license/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square)](https://opensource.org/licenses/BSD-3-Clause)
-[![Tests Status](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/workflows/CI/badge.svg?style=flat-square)](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions)
+[![npm version](https://img.shields.io/npm/v/@rebeccastevens/eslint-config.svg)](https://www.npmjs.com/package/@rebeccastevens/eslint-config)
+[![CI](https://github.com/RebeccaStevens/template-typescript-node-package/actions/workflows/release.yml/badge.svg)](https://github.com/RebeccaStevens/template-typescript-node-package/actions/workflows/release.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![GitHub Discussions](https://img.shields.io/github/discussions/RebeccaStevens/template-typescript-node-package?style=flat-square)](https://github.com/RebeccaStevens/template-typescript-node-package/discussions)
+[![BSD 3 Clause license](https://img.shields.io/github/license/RebeccaStevens/template-typescript-node-package.svg?style=flat-square)](https://opensource.org/licenses/BSD-3-Clause)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](https://commitizen.github.io/cz-cli/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 
@@ -17,13 +19,13 @@ An [ESLint Shareable Config](https://eslint.org/docs/developer-guide/shareable-c
 ## Installation
 
 ```sh
-yarn add -D  \
+pnpm add -D  \
   eslint \
   @rebeccastevens/eslint-config
 ```
 
 ```sh
-npx install-peerdeps @rebeccastevens/eslint-config --dev -o -Y
+pnpm dlx install-peerdeps @rebeccastevens/eslint-config --dev -o -Y
 ```
 
 ## Usage
@@ -36,7 +38,7 @@ npx install-peerdeps @rebeccastevens/eslint-config --dev -o -Y
 Install Peer Dependencies:
 
 ```sh
-yarn add -D \
+pnpm add -D \
   babel-eslint \
   eslint-plugin-eslint-comments \
   eslint-plugin-functional \
@@ -51,7 +53,7 @@ yarn add -D \
   eslint-plugin-unicorn
 ```
 
-Configure your project's `.eslintrc` file.
+Configure your project's `.eslintrc.json` file.
 
 ```jsonc
 {
@@ -77,7 +79,7 @@ Configure your project's `.eslintrc` file.
 Install Peer Dependencies:
 
 ```sh
-yarn add -D  \
+pnpm add -D  \
   @typescript-eslint/parser \
   @typescript-eslint/eslint-plugin \
   eslint-plugin-eslint-comments \
@@ -93,7 +95,7 @@ yarn add -D  \
   eslint-plugin-unicorn
 ```
 
-Configure your project's `.eslintrc` file.
+Configure your project's `.eslintrc.json` file.
 
 ```jsonc
 {

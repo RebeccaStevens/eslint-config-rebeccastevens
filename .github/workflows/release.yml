@@ -1,51 +1,55 @@
-name: Publish
+name: Release
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: write
+
+concurrency:
+  group: Release
+  cancel-in-progress: false
+
 jobs:
-  publish:
+  lint_js:
+    uses: ./.github/workflows/lint-js.yml
+  lint_knip:
+    uses: ./.github/workflows/lint-knip.yml
+  lint_markdown:
+    uses: ./.github/workflows/lint-markdown.yml
+  lint_spelling:
+    uses: ./.github/workflows/lint-spelling.yml
+  lint_prettier:
+    uses: ./.github/workflows/lint-prettier.yml
+  test:
+    uses: ./.github/workflows/test-js.yml
+  type_check:
+    uses: ./.github/workflows/type-check.yml
+
+  release:
+    needs:
+      - lint_js
+      - lint_knip
+      - lint_markdown
+      - lint_spelling
+      - lint_prettier
+      - test
+      - type_check
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
-
-      - name: Setup NodeJs
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-
-      - name: Install dependencies
-        run: yarn install --immutable --ignore-scripts
+      - uses: ./.github/actions/prepare
 
       - name: Build
-        run: yarn build
+        run: pnpm run build
 
-      # Publish to NPMJS
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org/"
-      - name: Publish to NPMJS
-        id: semantic
-        uses: codfish/semantic-release-action@master
+      - name: Release
+        run: pnpm semantic-release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # Publish to GitHub Package Registry
-      - if: steps.semantic.outputs.new-release-published == 'true'
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-          registry-url: https://npm.pkg.github.com/
-      - name: Publish to GitHub Package Registry
-        if: steps.semantic.outputs.new-release-published == 'true'
-        run: yarn publish --non-interactive --new-version=${{ steps.semantic.outputs.release-version }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}

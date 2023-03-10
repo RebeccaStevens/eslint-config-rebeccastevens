@@ -8,7 +8,7 @@ import * as path from "node:path";
 import rollupPluginCommonjs from "@rollup/plugin-commonjs";
 import rollupPluginNodeResolve from "@rollup/plugin-node-resolve";
 import rollupPluginTypescript from "@rollup/plugin-typescript";
-import type { Plugin, RollupOptions } from "rollup";
+import { type Plugin, type RollupOptions } from "rollup";
 import rollupPluginAutoExternal from "rollup-plugin-auto-external";
 
 const configDir = "./src/configs/";
@@ -37,13 +37,13 @@ const common: Partial<RollupOptions> = {
  */
 function getPlugins() {
   return [
-    rollupPluginAutoExternal() as Plugin,
+    rollupPluginAutoExternal(),
     rollupPluginNodeResolve(),
     rollupPluginCommonjs(),
     rollupPluginTypescript({
       tsconfig: "tsconfig.build.json",
     }),
-  ];
+  ] as Plugin[];
 }
 
 /**

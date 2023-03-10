@@ -1,10 +1,4 @@
 # Node
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 node_modules/
 
 # Logs
@@ -12,4 +6,4 @@ node_modules/
 
 # Generated Files
 /dist/
-/.eslintrc
+/.eslintrc.json
