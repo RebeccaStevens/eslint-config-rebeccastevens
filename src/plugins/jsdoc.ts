@@ -53,7 +53,7 @@ export const settings: Linter.Config = {
     "jsdoc/require-property-name": "warn",
     "jsdoc/require-returns-check": "warn",
     "jsdoc/require-returns-description": "warn",
-    "jsdoc/require-throws": "error",
+    "jsdoc/require-throws": "warn",
     "jsdoc/require-yields": "warn",
     "jsdoc/require-yields-check": "warn",
     "jsdoc/tag-lines": [
