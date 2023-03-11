@@ -28,6 +28,8 @@ pnpm add -D  \
 pnpm dlx install-peerdeps @rebeccastevens/eslint-config --dev -o -Y
 ```
 
+Note: This project doesn't strictly follow semantic versioning so be sure to pin the version you are using.
+
 ## Usage
 
 ### Language
