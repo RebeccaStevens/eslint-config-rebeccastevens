@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.5.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.4...v1.5.5) (2023-03-11)
+
+
+### Bug Fixes
+
+* severity of jsdoc require-throws ([12cf4cd](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/12cf4cdf90a9544c35441da7bed6faa7788bd551))
+* small update to jsdoc rules ([0cab31e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0cab31e6348b9ea1fc4bc3831e51d45621a65b2d))
+
 ## [1.5.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.3...v1.5.4) (2023-03-11)
 
 
