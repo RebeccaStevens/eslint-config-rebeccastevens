@@ -1,7 +1,10 @@
 import { deepmerge } from "deepmerge-ts";
 import type { Linter } from "eslint";
 
-import { rules as builtinRules } from "~/builtin";
+import {
+  rules as builtinRules,
+  overrides as builtinOverrides,
+} from "~/builtin";
 import { settings as eslintComments } from "~/plugins/eslint-comments";
 import { settings as functional } from "~/plugins/functional";
 import { settings as importPlugin } from "~/plugins/import";
@@ -17,24 +20,23 @@ const baseConfig: Linter.Config = {
   parser: "babel-eslint",
 
   parserOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: "latest",
     ecmaFeatures: {
       globalReturn: false,
       impliedStrict: true,
     },
     sourceType: "module",
-    extraFileExtensions: [".cjs", ".mjs"],
   },
 
   extends: ["eslint:recommended"],
 
-  env: {
-    es6: true,
-  },
-
   rules: builtinRules,
 
+  overrides: builtinOverrides,
+
   ignorePatterns: ["dist/"],
+
+  reportUnusedDisableDirectives: true,
 };
 
 export default deepmerge(

@@ -33,36 +33,22 @@ const baseConfig: Linter.Config = {
       ".tsx",
       ".mjs",
       ".mts",
+      ".mtsx",
       ".cjs",
       ".cts",
+      ".ctsx",
     ],
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx", ".mts", ".cts"],
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx",
+        ".mts",
+        ".mtsx",
+        ".cts",
+        ".ctsx",
+      ],
     },
   },
-
-  overrides: [
-    {
-      files: ["**/*.{ts,tsx,mts,cts}"],
-      rules: {
-        "import/no-unresolved": "off",
-        "import/named": "off",
-        "import/default": "off",
-        "import/namespace": "off",
-
-        "node/no-unsupported-features/es-syntax": "off",
-      },
-    },
-    {
-      files: "**/*.d.{ts,mts,cts}",
-      rules: {
-        "@typescript-eslint/consistent-type-definitions": "off",
-        "@typescript-eslint/triple-slash-reference": "off",
-
-        "init-declarations": "off",
-      },
-    },
-  ],
 };
 
 export default deepmerge(baseConfig, typescript);

@@ -290,3 +290,5 @@ export const rules: Linter.Config["rules"] = {
   ],
   "yield-star-spacing": ["error", "after"],
 };
+
+export const overrides: NonNullable<Linter.Config["overrides"]> = [];

@@ -1,3 +1,4 @@
+import { commonJsFiles, typescriptFiles } from "common/files";
 import type { Linter } from "eslint";
 
 export const settings: Linter.Config = {
@@ -150,9 +151,19 @@ export const settings: Linter.Config = {
 
   overrides: [
     {
-      files: ["**/*.cjs"],
+      files: commonJsFiles,
       rules: {
         "import/no-commonjs": "off",
+        "import/no-dynamic-require": "off",
+      },
+    },
+    {
+      files: typescriptFiles,
+      rules: {
+        "import/no-unresolved": "off",
+        "import/named": "off",
+        "import/default": "off",
+        "import/namespace": "off",
       },
     },
   ],

@@ -1,13 +1,32 @@
 import type { Linter } from "eslint";
 
-import { rules as deprecated } from "./deprecated";
-import { rules as layout } from "./layout+formatting";
-import { rules as possibleProblems } from "./possible-problems";
-import { rules as suggestions } from "./suggestions";
+import {
+  rules as deprecatedRules,
+  overrides as deprecatedOverrides,
+} from "./deprecated";
+import {
+  rules as layoutRules,
+  overrides as layoutOverrides,
+} from "./layout+formatting";
+import {
+  rules as possibleProblemsRules,
+  overrides as possibleProblemsOverrides,
+} from "./possible-problems";
+import {
+  rules as suggestionsRules,
+  overrides as suggestionsOverrides,
+} from "./suggestions";
 
 export const rules: Linter.Config["rules"] = {
-  ...possibleProblems,
-  ...suggestions,
-  ...layout,
-  ...deprecated,
+  ...possibleProblemsRules,
+  ...suggestionsRules,
+  ...layoutRules,
+  ...deprecatedRules,
 };
+
+export const overrides: NonNullable<Linter.Config["overrides"]> = [
+  ...deprecatedOverrides,
+  ...layoutOverrides,
+  ...possibleProblemsOverrides,
+  ...suggestionsOverrides,
+];

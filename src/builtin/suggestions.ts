@@ -1,3 +1,4 @@
+import { typescriptDeclarationFiles } from "common/files";
 import type { Linter } from "eslint";
 
 const useNumberIsFinite = "Please use Number.isFinite instead";
@@ -182,3 +183,12 @@ export const rules: Linter.Config["rules"] = {
   "symbol-description": "error",
   "yoda": ["error", "never"],
 };
+
+export const overrides: NonNullable<Linter.Config["overrides"]> = [
+  {
+    files: typescriptDeclarationFiles,
+    rules: {
+      "init-declarations": "off",
+    },
+  },
+];

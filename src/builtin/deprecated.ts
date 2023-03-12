@@ -25,3 +25,5 @@ export const rules: Linter.Config["rules"] = {
   "require-jsdoc": "off",
   "valid-jsdoc": "off",
 };
+
+export const overrides: NonNullable<Linter.Config["overrides"]> = [];

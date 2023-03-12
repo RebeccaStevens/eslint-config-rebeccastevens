@@ -1,3 +1,4 @@
+import { commonJsFiles, typescriptFiles } from "common/files";
 import type { Linter } from "eslint";
 
 export const settings: Linter.Config = {
@@ -36,4 +37,19 @@ export const settings: Linter.Config = {
     "node/prefer-promises/dns": "error",
     "node/prefer-promises/fs": "error",
   },
+
+  overrides: [
+    {
+      files: commonJsFiles,
+      rules: {
+        "node/no-missing-require": "off",
+      },
+    },
+    {
+      files: typescriptFiles,
+      rules: {
+        "node/no-unsupported-features/es-syntax": "off",
+      },
+    },
+  ],
 };

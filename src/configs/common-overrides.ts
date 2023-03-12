@@ -1,3 +1,4 @@
+import { jsxFiles, testFiles } from "common/files";
 import type { Linter } from "eslint";
 
 export default {
@@ -16,16 +17,19 @@ export default {
       extends: ["@rebeccastevens/eslint-config/script"],
     },
     {
-      files: ["{test,tests}/**/*", "**/*.test.*"],
+      files: testFiles,
       extends: ["@rebeccastevens/eslint-config/test"],
     },
     {
-      files: ["**/*.{cjs,cts}"],
-      rules: {
-        "@typescript-eslint/no-var-requires": "off",
-        "import/no-dynamic-require": "off",
-        "node/no-missing-require": "off",
-        "unicorn/prefer-module": "off",
+      files: jsxFiles,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: {
+          globalReturn: false,
+          impliedStrict: true,
+          jsx: true,
+        },
       },
     },
   ],

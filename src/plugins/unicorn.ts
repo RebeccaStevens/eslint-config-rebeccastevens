@@ -1,3 +1,4 @@
+import { commonJsFiles } from "common/files";
 import type { Linter } from "eslint";
 
 export const settings: Linter.Config = {
@@ -27,4 +28,13 @@ export const settings: Linter.Config = {
     "unicorn/prefer-top-level-await": "error",
     "unicorn/prevent-abbreviations": "off",
   },
+
+  overrides: [
+    {
+      files: commonJsFiles,
+      rules: {
+        "unicorn/prefer-module": "off",
+      },
+    },
+  ],
 };

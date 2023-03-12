@@ -82,3 +82,5 @@ export const rules: Linter.Config["rules"] = {
     },
   ],
 };
+
+export const overrides: NonNullable<Linter.Config["overrides"]> = [];

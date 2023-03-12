@@ -1,3 +1,4 @@
+import { commonJsFiles, typescriptDeclarationFiles } from "common/files";
 import type { Linter } from "eslint";
 
 export const settings: Linter.Config = {
@@ -266,4 +267,20 @@ export const settings: Linter.Config = {
     "@typescript-eslint/unified-signatures": "warn",
     "@typescript-eslint/no-redeclare": "error",
   },
+
+  overrides: [
+    {
+      files: commonJsFiles,
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+    {
+      files: typescriptDeclarationFiles,
+      rules: {
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+      },
+    },
+  ],
 };
