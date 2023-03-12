@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.5.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.5...v1.5.6) (2023-03-12)
+
+
+### Bug Fixes
+
+* jsdoc rules for js and ts ([04f2d9d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/04f2d9d3a287872aaafb35c80213ffefd1734e43))
+* update override patterns and minor changes to base config ([cf980df](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/cf980df0941177ab1b6e070df0651dc0544f24da))
+
 ## [1.5.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.4...v1.5.5) (2023-03-11)
 
 
