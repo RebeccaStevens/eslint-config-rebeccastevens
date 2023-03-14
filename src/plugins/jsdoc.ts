@@ -7,17 +7,22 @@ export const settings: Linter.Config = {
   extends: ["plugin:jsdoc/recommended"],
 
   rules: {
+    "jsdoc/check-alignment": "error",
     // waiting on https://github.com/eslint/eslint/issues/14745
-    // "jsdoc/check-examples": "warn",
-    "jsdoc/check-indentation": "warn",
-    "jsdoc/check-line-alignment": "warn",
+    // "jsdoc/check-examples": "error",
+    "jsdoc/check-indentation": "error",
+    "jsdoc/check-line-alignment": "error",
+    "jsdoc/check-param-names": "error",
+    "jsdoc/check-property-names": "error",
+    "jsdoc/check-types": "error",
+    "jsdoc/check-values": "error",
     "jsdoc/no-bad-blocks": "warn",
     "jsdoc/no-defaults": "warn",
-    "jsdoc/require-asterisk-prefix": "warn",
+    "jsdoc/require-asterisk-prefix": "error",
     "jsdoc/require-description": "warn",
     // Rule is too strict.
     // "jsdoc/require-description-complete-sentence": "off",
-    "jsdoc/require-hyphen-before-param-description": "warn",
+    "jsdoc/require-hyphen-before-param-description": "error",
     "jsdoc/require-jsdoc": [
       "warn",
       {
@@ -35,7 +40,11 @@ export const settings: Linter.Config = {
         },
       },
     ],
+    "jsdoc/require-param-name": "error",
+    "jsdoc/require-property-name": "error",
+    "jsdoc/require-returns-check": "error",
     "jsdoc/require-throws": "warn",
+    "jsdoc/require-yields-check": "error",
     "jsdoc/tag-lines": [
       "warn",
       "never",
@@ -48,12 +57,12 @@ export const settings: Linter.Config = {
       files: typescriptFiles,
       rules: {
         "jsdoc/no-types": "warn",
-        "jsdoc/require-param-type": "off",
         "jsdoc/require-param": "off",
-        "jsdoc/require-property-type": "off",
         "jsdoc/require-property": "off",
-        "jsdoc/require-returns-type": "off",
         "jsdoc/require-returns": "off",
+        "jsdoc/require-param-type": "off",
+        "jsdoc/require-property-type": "off",
+        "jsdoc/require-returns-type": "off",
       },
     },
   ],
