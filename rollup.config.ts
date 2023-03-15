@@ -1,14 +1,10 @@
-/**
- * Rollup Config.
- */
-
 import * as fs from "node:fs";
 import * as path from "node:path";
 
 import rollupPluginCommonjs from "@rollup/plugin-commonjs";
 import rollupPluginNodeResolve from "@rollup/plugin-node-resolve";
 import rollupPluginTypescript from "@rollup/plugin-typescript";
-import { type Plugin, type RollupOptions } from "rollup";
+import { type RollupOptions } from "rollup";
 import rollupPluginAutoExternal from "rollup-plugin-auto-external";
 
 const configDir = "./src/configs/";
@@ -32,63 +28,34 @@ const common: Partial<RollupOptions> = {
   },
 };
 
-/**
- * Get new instances of all the common plugins.
- */
-function getPlugins() {
-  return [
-    rollupPluginAutoExternal(),
-    rollupPluginNodeResolve(),
-    rollupPluginCommonjs(),
-    rollupPluginTypescript({
-      tsconfig: "tsconfig.build.json",
-    }),
-  ] as Plugin[];
-}
-
-/**
- * Get the cjs rollup config for the given entry point.
- */
-function getCjsConfig(filename: string): RollupOptions {
+function getConfig(filename: string): RollupOptions {
   return {
     ...common,
 
     input: `${configDir}${filename}`,
 
-    output: {
-      ...common.output,
-      entryFileNames: `${path.basename(filename, ".ts")}.cjs`,
-      format: "cjs",
-    },
+    output: [
+      {
+        ...common.output,
+        entryFileNames: `${path.basename(filename, ".ts")}.cjs`,
+        format: "cjs",
+      },
+      {
+        ...common.output,
+        entryFileNames: `${path.basename(filename, ".ts")}.mjs`,
+        format: "esm",
+      },
+    ],
 
-    plugins: getPlugins(),
+    plugins: [
+      rollupPluginAutoExternal(),
+      rollupPluginNodeResolve(),
+      rollupPluginCommonjs(),
+      rollupPluginTypescript({
+        tsconfig: "tsconfig.build.json",
+      }),
+    ],
   };
 }
 
-/**
- * Get the esm rollup config for the given entry point.
- */
-function getEsmConfig(filename: string): RollupOptions {
-  return {
-    ...common,
-
-    input: `${configDir}${filename}`,
-
-    output: {
-      ...common.output,
-      entryFileNames: `${path.basename(filename, ".ts")}.mjs`,
-      format: "esm",
-    },
-
-    plugins: getPlugins(),
-  };
-}
-
-/**
- * Get the rollup config for the given entry point file.
- */
-function getEntryConfigs(filename: string): RollupOptions[] {
-  return [getCjsConfig(filename), getEsmConfig(filename)];
-}
-
-export default configFiles.flatMap(getEntryConfigs);
+export default configFiles.flatMap((filename) => getConfig(filename));
