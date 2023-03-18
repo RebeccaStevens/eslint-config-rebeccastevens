@@ -64,7 +64,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "deepmerge-ts": "^4.3.0"
+    "deepmerge-ts": "^5.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.4.4",

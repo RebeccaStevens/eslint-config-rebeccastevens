@@ -1,5 +1,4 @@
 import {
-  type DeepMergeBuiltInMetaData,
   type DeepMergeMergeFunctionUtils,
   deepmergeCustom,
 } from "deepmerge-ts";
@@ -65,7 +64,7 @@ function isRuleSettings(meta: Meta | undefined) {
  */
 function mergeRuleSettings(
   values: ReadonlyArray<unknown>,
-  utils: DeepMergeMergeFunctionUtils<Meta, DeepMergeBuiltInMetaData>
+  utils: DeepMergeMergeFunctionUtils<Meta>
 ): Linter.RuleEntry | (typeof utils.actions)[keyof typeof utils.actions] {
   const settingsData = values.findLast(
     (value): value is [unknown, ...unknown[]] =>
