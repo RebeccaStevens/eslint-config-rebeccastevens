@@ -3,7 +3,6 @@
 
 "*.ts":
   - prettier --ignore-unknown --write
-  - pnpm run generate-eslintrc
   - eslint --fix
   - cspell
 

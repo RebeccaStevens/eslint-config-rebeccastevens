@@ -14,6 +14,8 @@ specifiers:
   '@semantic-release/npm': 9.0.2
   '@semantic-release/release-notes-generator': 10.0.3
   '@types/eslint': 8.21.2
+  '@types/eslint-config-prettier': ^6.11.0
+  '@types/eslint-plugin-prettier': ^3.1.0
   '@types/node': 18.15.3
   '@types/rollup-plugin-auto-external': 2.0.2
   '@typescript-eslint/eslint-plugin': 5.55.0
@@ -68,6 +70,8 @@ devDependencies:
   '@semantic-release/npm': 9.0.2_semantic-release@20.1.3
   '@semantic-release/release-notes-generator': 10.0.3_semantic-release@20.1.3
   '@types/eslint': 8.21.2
+  '@types/eslint-config-prettier': 6.11.0
+  '@types/eslint-plugin-prettier': 3.1.0
   '@types/node': 18.15.3
   '@types/rollup-plugin-auto-external': 2.0.2
   '@typescript-eslint/eslint-plugin': 5.55.0_qsnvknysi52qtaxqdyqyohkcku
@@ -1065,6 +1069,16 @@ packages:
 
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: true
+
+  /@types/eslint-config-prettier/6.11.0:
+    resolution: {integrity: sha512-UBuZMZVog9c9jXvArbYtWH570sRWNaU6kEnUAHsHb/+zAufzPT4I+gMkUR2dVPWlqiceoRU1thjUVdGrAWVpCA==}
+    dev: true
+
+  /@types/eslint-plugin-prettier/3.1.0:
+    resolution: {integrity: sha512-6/UIuz99F0IvtDez4U3bRwAmN4VKnuw10Ibblf0iZhtNbmbonMSLqs/qqsXrGIAWvjy+vXqYwOljgtLhrETSMg==}
+    dependencies:
+      '@types/eslint': 8.21.2
     dev: true
 
   /@types/eslint/8.21.2:

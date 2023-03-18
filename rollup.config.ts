@@ -28,6 +28,9 @@ const common: Partial<RollupOptions> = {
   },
 };
 
+/**
+ * Get the rollup config for the given eslint config.
+ */
 function getConfig(filename: string): RollupOptions {
   return {
     ...common,
@@ -58,4 +61,4 @@ function getConfig(filename: string): RollupOptions {
   };
 }
 
-export default configFiles.flatMap((filename) => getConfig(filename));
+export default configFiles.map((filename) => getConfig(filename));

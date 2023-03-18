@@ -1,6 +1,6 @@
 node_modules/
 
 /dist/
-/.eslintrc.json
+/.eslintrc.preview.json
 
 *.log
