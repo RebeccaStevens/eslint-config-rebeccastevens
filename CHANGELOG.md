@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.1...v1.6.2) (2023-03-18)
+
+
+### Bug Fixes
+
+* turn off import/no-cycle ([85fb424](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/85fb424062ffc05a7345ba346a2eca0839767b35))
+
 ## [1.6.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.0...v1.6.1) (2023-03-18)
 
 
