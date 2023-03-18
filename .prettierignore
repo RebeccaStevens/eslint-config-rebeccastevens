@@ -1,5 +1,4 @@
 /CHANGELOG.md
 /dist/
-
-/.eslintrc.json
+/.eslintrc.preview.json
 /pnpm-lock.yaml
