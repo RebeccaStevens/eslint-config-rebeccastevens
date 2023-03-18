@@ -1,5 +1,21 @@
 {
   "$schema": "https://unpkg.com/knip@next/schema.json",
   "entry": ["src/configs/*.ts!"],
-  "project": ["src/**/*.ts!"]
+  "project": ["src/**/*.ts!"],
+  "ignoreDependencies": [
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "eslint",
+    "eslint-import-resolver-typescript",
+    "eslint-plugin-eslint-comments",
+    "eslint-plugin-functional",
+    "eslint-plugin-import",
+    "eslint-plugin-jsdoc",
+    "eslint-plugin-markdown",
+    "eslint-plugin-node",
+    "eslint-plugin-optimize-regex",
+    "eslint-plugin-promise",
+    "eslint-plugin-sonarjs",
+    "eslint-plugin-unicorn"
+  ]
 }
