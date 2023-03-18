@@ -26,6 +26,7 @@
     "baseUrl": "./src",
     "paths": {
       "~": ["."],
+      "~/*": ["./common/*"],
       "~/builtin": ["./builtin"],
       "~/configs/*": ["./configs/*"],
       "~/plugins/*": ["./plugins/*"]

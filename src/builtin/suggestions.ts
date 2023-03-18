@@ -1,5 +1,6 @@
-import { typescriptDeclarationFiles } from "common/files";
 import type { Linter } from "eslint";
+
+import { typescriptDeclarationFiles } from "~/files";
 
 const useNumberIsFinite = "Please use Number.isFinite instead";
 const useNumberIsNan = "Please use Number.isNaN instead";

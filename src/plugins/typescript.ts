@@ -1,11 +1,11 @@
-import { commonJsFiles, typescriptDeclarationFiles } from "common/files";
 import type { Linter } from "eslint";
+
+import { commonJsFiles, typescriptDeclarationFiles } from "~/files";
 
 export const settings: Linter.Config = {
   plugins: ["@typescript-eslint"],
 
   extends: [
-    "plugin:import/typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
