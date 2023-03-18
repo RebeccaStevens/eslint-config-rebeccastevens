@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.0...v1.6.1) (2023-03-18)
+
+
+### Bug Fixes
+
+* use unicorn/import-style instead of import/no-named-as-default-member ([0062d9a](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0062d9a8d0836766c4d73f8812eb1c101ed21341))
+
 # [1.6.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.7...v1.6.0) (2023-03-18)
 
 
