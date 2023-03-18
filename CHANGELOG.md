@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.6.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.7...v1.6.0) (2023-03-18)
+
+
+### Features
+
+* improve config merging and typescript import settings ([#1061](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/1061)) ([e9c7da3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/e9c7da391609055b99836cd98faf2c8255e63db2))
+
 ## [1.5.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.5.6...v1.5.7) (2023-03-14)
 
 
