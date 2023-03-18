@@ -8,7 +8,17 @@ export const settings: Linter.Config = {
   extends: ["plugin:unicorn/recommended"],
 
   rules: {
-    "unicorn/import-style": "off",
+    "unicorn/import-style": [
+      "error",
+      {
+        extendDefaultStyles: false,
+        styles: {
+          typescript: {
+            default: true,
+          },
+        },
+      },
+    ],
     // "eslint-comments/no-unlimited-disable" covers this.
     "unicorn/no-abusive-eslint-disable": "off",
     "unicorn/no-array-callback-reference": "off",
