@@ -49,12 +49,14 @@ export const settings: Linter.Config = {
       },
     ],
     "import/no-commonjs": "off",
-    "import/no-cycle": [
-      "error",
-      {
-        ignoreExternal: true,
-      },
-    ],
+    // Should be safe when bundling.
+    "import/no-cycle": "off",
+    // "import/no-cycle": [
+    //   "error",
+    //   {
+    //     ignoreExternal: true,
+    //   },
+    // ],
     "import/no-default-export": "off",
     "import/no-deprecated": "warn",
     "import/no-duplicates": "error",
