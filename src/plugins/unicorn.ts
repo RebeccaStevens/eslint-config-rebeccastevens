@@ -1,5 +1,6 @@
-import { commonJsFiles } from "common/files";
 import type { Linter } from "eslint";
+
+import { commonJsFiles } from "~/files";
 
 export const settings: Linter.Config = {
   plugins: ["unicorn"],

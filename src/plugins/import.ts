@@ -1,5 +1,6 @@
-import { commonJsFiles, typescriptFiles } from "common/files";
 import type { Linter } from "eslint";
+
+import { commonJsFiles, jsExtensions, typescriptFiles } from "~/files";
 
 export const settings: Linter.Config = {
   plugins: ["import"],
@@ -103,7 +104,7 @@ export const settings: Linter.Config = {
     "import/no-named-export": "off",
     "import/no-namespace": "off",
     "import/no-nodejs-modules": "off",
-    "import/no-relative-parent-imports": "warn",
+    "import/no-relative-parent-imports": "off",
     "import/no-restricted-paths": "off",
     "import/no-self-import": "error",
     "import/no-unassigned-import": "error",
@@ -146,7 +147,13 @@ export const settings: Linter.Config = {
   },
 
   settings: {
+    "import/external-module-folders": ["node_modules"],
     "import/internal-regex": "^(?:@|~)\\/.+",
+    "import/resolver": {
+      node: {
+        extensions: jsExtensions,
+      },
+    },
   },
 
   overrides: [

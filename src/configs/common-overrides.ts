@@ -1,5 +1,6 @@
-import { jsxFiles, testFiles } from "common/files";
 import type { Linter } from "eslint";
+
+import { jsxFiles, testFiles } from "~/files";
 
 export default {
   overrides: [

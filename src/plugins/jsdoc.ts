@@ -1,5 +1,6 @@
-import { typescriptFiles } from "common/files";
 import type { Linter } from "eslint";
+
+import { typescriptFiles } from "~/files";
 
 export const settings: Linter.Config = {
   plugins: ["jsdoc"],

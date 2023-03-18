@@ -1,6 +1,7 @@
-import { deepmerge } from "deepmerge-ts";
 import type { Linter } from "eslint";
 
+import { typescriptExtensions, typescriptSupportedExtensions } from "~/files";
+import { mergeConfigs } from "~/merge-configs";
 import { settings as typescript } from "~/plugins/typescript";
 
 const baseConfig: Linter.Config = {
@@ -26,29 +27,17 @@ const baseConfig: Linter.Config = {
   },
 
   settings: {
-    "import/extensions": [
-      ".js",
-      ".ts",
-      ".jsx",
-      ".tsx",
-      ".mjs",
-      ".mts",
-      ".mtsx",
-      ".cjs",
-      ".cts",
-      ".ctsx",
-    ],
+    "import/extensions": typescriptSupportedExtensions,
+    "import/external-module-folders": ["node_modules", "node_modules/@types"],
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx",
-        ".mts",
-        ".mtsx",
-        ".cts",
-        ".ctsx",
-      ],
+      "@typescript-eslint/parser": typescriptExtensions,
+    },
+    "import/resolver": {
+      typescript: {
+        extensions: typescriptSupportedExtensions,
+      },
     },
   },
 };
 
-export default deepmerge(baseConfig, typescript);
+export default mergeConfigs(baseConfig, typescript);
