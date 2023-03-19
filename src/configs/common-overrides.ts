@@ -5,7 +5,7 @@ import { jsxFiles, testFiles } from "~/files";
 export default {
   overrides: [
     {
-      files: ["*"],
+      files: ["./*"],
       extends: ["@rebeccastevens/eslint-config/script"],
       rules: {
         "functional/functional-parameters": "off",
