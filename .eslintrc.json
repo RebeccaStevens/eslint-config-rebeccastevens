@@ -15,6 +15,9 @@
     "project": ["./tsconfig.json"]
   },
   "ignorePatterns": ["/dist/"],
+  "rules": {
+    "functional/no-throw-statements": "off"
+  },
   "overrides": [
     {
       "files": ["src/**/*.{ts,js}"],
