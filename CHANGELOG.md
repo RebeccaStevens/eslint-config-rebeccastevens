@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.2...v1.6.3) (2023-03-19)
+
+
+### Bug Fixes
+
+* top-level overrides applying to non-top-level files ([2069bdc](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2069bdc627f85d1cb182de47aa6257049de3be21))
+* update test config ([9203df4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/9203df49d6fbd0a8459cfe8e0e4a5c2a455b6a66))
+
 ## [1.6.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.1...v1.6.2) (2023-03-18)
 
 
