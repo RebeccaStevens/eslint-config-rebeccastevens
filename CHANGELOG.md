@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.4...v1.6.5) (2023-03-21)
+
+
+### Bug Fixes
+
+* improve scripts config ([7e9eb0c](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7e9eb0c604fb5808c19ab459b6873d3e9deeba09))
+
 ## [1.6.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.3...v1.6.4) (2023-03-21)
 
 
