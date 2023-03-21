@@ -15,6 +15,7 @@ export const settings: Linter.Config = {
         styles: {
           typescript: {
             default: true,
+            named: true,
           },
         },
       },
