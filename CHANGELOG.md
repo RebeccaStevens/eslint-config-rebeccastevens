@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.3...v1.6.4) (2023-03-21)
+
+
+### Bug Fixes
+
+* allow classes in test files ([091b609](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/091b609332103ce85e25414e2d3cfe52fb0d7e7c))
+* allow named imports from typescript ([376b90e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/376b90e6ffaf247bcc2932fa101aaef233ee9fab))
+
 ## [1.6.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.2...v1.6.3) (2023-03-19)
 
 
