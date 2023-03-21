@@ -8,9 +8,7 @@ export default {
       files: ["./*"],
       extends: ["@rebeccastevens/eslint-config/script"],
       rules: {
-        "functional/functional-parameters": "off",
         "functional/immutable-data": "off",
-        "node/no-sync": "off",
       },
     },
     {
