@@ -14,6 +14,7 @@ const baseConfig: Linter.Config = {
     "eslint-comments/disable-enable-pair": "off",
     "functional/functional-parameters": "off",
     "functional/immutable-data": "warn",
+    "functional/no-classes": "off",
     "functional/no-conditional-statements": "warn",
     "functional/no-expression-statements": "off",
     "functional/no-loop-statements": "warn",
