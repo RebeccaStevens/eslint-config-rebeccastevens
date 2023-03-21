@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.5...v1.6.6) (2023-03-21)
+
+
+### Bug Fixes
+
+* don't require usless jsdoc in js files ([041b24d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/041b24d4b1491652d0d4cb0b7b4d5b6127e1efad))
+
 ## [1.6.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.4...v1.6.5) (2023-03-21)
 
 
