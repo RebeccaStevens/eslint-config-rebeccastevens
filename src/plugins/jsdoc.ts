@@ -42,8 +42,11 @@ export const settings: Linter.Config = {
       },
     ],
     "jsdoc/require-param-name": "error",
+    "jsdoc/require-param": "off",
     "jsdoc/require-property-name": "error",
+    "jsdoc/require-property": "off",
     "jsdoc/require-returns-check": "error",
+    "jsdoc/require-returns": "off",
     "jsdoc/require-throws": "warn",
     "jsdoc/require-yields-check": "error",
     "jsdoc/tag-lines": [
@@ -58,9 +61,6 @@ export const settings: Linter.Config = {
       files: typescriptFiles,
       rules: {
         "jsdoc/no-types": "warn",
-        "jsdoc/require-param": "off",
-        "jsdoc/require-property": "off",
-        "jsdoc/require-returns": "off",
         "jsdoc/require-param-type": "off",
         "jsdoc/require-property-type": "off",
         "jsdoc/require-returns-type": "off",
