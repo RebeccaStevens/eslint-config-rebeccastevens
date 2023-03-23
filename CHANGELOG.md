@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.6...v1.6.7) (2023-03-23)
+
+
+### Bug Fixes
+
+* use @typescript-eslint/no-var-requires in cts files ([76481d9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/76481d9217fec8e4e9b01259d982dabc3ad40047))
+
 ## [1.6.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.5...v1.6.6) (2023-03-21)
 
 
