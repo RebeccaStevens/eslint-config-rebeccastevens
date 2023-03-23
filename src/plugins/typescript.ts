@@ -270,12 +270,6 @@ export const settings: Linter.Config = {
 
   overrides: [
     {
-      files: commonJsFiles,
-      rules: {
-        "@typescript-eslint/no-var-requires": "off",
-      },
-    },
-    {
       files: typescriptDeclarationFiles,
       rules: {
         "@typescript-eslint/consistent-type-definitions": "off",
