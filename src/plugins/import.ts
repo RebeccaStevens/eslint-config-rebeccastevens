@@ -151,7 +151,7 @@ export const settings: Linter.Config = {
 
   settings: {
     "import/external-module-folders": ["node_modules"],
-    "import/internal-regex": "^(?:@|~)\\/.+",
+    "import/internal-regex": "^(?:#|(?:@|~)\\/).*",
     "import/resolver": {
       node: {
         extensions: jsExtensions,
