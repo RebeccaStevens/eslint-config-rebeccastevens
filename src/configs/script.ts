@@ -13,9 +13,9 @@ const baseConfig: Linter.Config = {
     "functional/no-loop-statements": "off",
     "functional/no-return-void": "off",
     "functional/no-throw-statements": "off",
-    "node/no-process-exit": "off",
-    "node/no-sync": "off",
-    "node/no-unpublished-import": "off",
+    "n/no-process-exit": "off",
+    "n/no-sync": "off",
+    "n/no-unpublished-import": "off",
   },
 };
 

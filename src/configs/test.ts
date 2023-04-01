@@ -22,7 +22,7 @@ const baseConfig: Linter.Config = {
     "jsdoc/require-jsdoc": "off",
     "lines-between-class-members": "off",
     "max-classes-per-file": "off",
-    "node/no-sync": "off",
+    "n/no-sync": "off",
     "sonarjs/no-duplicate-string": "off",
     "sonarjs/no-identical-functions": "off",
     "unicorn/consistent-function-scoping": "off",

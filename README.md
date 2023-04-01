@@ -48,7 +48,7 @@ pnpm add -D \
   eslint-import-resolver-typescript \
   eslint-plugin-jsdoc \
   eslint-plugin-markdown \
-  eslint-plugin-node \
+  eslint-plugin-n \
   eslint-plugin-optimize-regex \
   eslint-plugin-promise \
   eslint-plugin-sonarjs \
@@ -90,7 +90,7 @@ pnpm add -D  \
   eslint-import-resolver-typescript \
   eslint-plugin-jsdoc \
   eslint-plugin-markdown \
-  eslint-plugin-node \
+  eslint-plugin-n \
   eslint-plugin-optimize-regex \
   eslint-plugin-promise \
   eslint-plugin-sonarjs \

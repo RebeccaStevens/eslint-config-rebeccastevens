@@ -35,7 +35,7 @@ export const settings: Linter.Config = {
     "unicorn/no-array-reduce": "off",
     "unicorn/no-nested-ternary": "off",
     "unicorn/no-null": "off",
-    // "node/no-process-exit" covers this.
+    // "n/no-process-exit" covers this.
     "unicorn/no-process-exit": "off",
     "unicorn/no-useless-undefined": "off",
     "unicorn/prefer-at": [

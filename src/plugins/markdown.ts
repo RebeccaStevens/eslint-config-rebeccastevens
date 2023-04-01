@@ -61,7 +61,7 @@ export const settings: Linter.Config = {
         "no-invalid-this": "off",
         "no-undef": "off",
         "no-useless-return": "off",
-        "node/handle-callback-err": "off",
+        "n/handle-callback-err": "off",
         "prefer-const": "off",
         "prettier/prettier": "off",
         "sonarjs/no-extra-arguments": "off",
