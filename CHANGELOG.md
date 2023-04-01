@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.8...v1.6.9) (2023-04-01)
+
+
+### Bug Fixes
+
+* allow pascal case file names ([2f2cebd](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2f2cebd3ef20a098c9c230e35193a5d95f8f0c8c))
+
 ## [1.6.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.7...v1.6.8) (2023-04-01)
 
 
