@@ -91,8 +91,8 @@ devDependencies:
     specifier: 2.27.5
     version: 2.27.5(@typescript-eslint/parser@5.55.0)(eslint-import-resolver-typescript@3.5.3)(eslint@8.36.0)
   eslint-plugin-jsdoc:
-    specifier: 40.0.3
-    version: 40.0.3(eslint@8.36.0)
+    specifier: 40.1.1
+    version: 40.1.1(eslint@8.36.0)
   eslint-plugin-markdown:
     specifier: 3.0.0
     version: 3.0.0(eslint@8.36.0)
@@ -1886,7 +1886,7 @@ packages:
     dev: true
 
   /concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /config-chain@1.1.13:
@@ -2592,8 +2592,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-jsdoc@40.0.3(eslint@8.36.0):
-    resolution: {integrity: sha512-4QXkuo4yVFJWsZIvdgFMBs6ZWVGDBZGO06kcgM060/96G8+6Fr7JZWy+Wg0I1C0+qxxfpB+aIepdE29vYxX2kA==}
+  /eslint-plugin-jsdoc@40.1.1(eslint@8.36.0):
+    resolution: {integrity: sha512-KxrQCq9pPt7LNeDBlLlnuJMpDFZnEQTs4e25NrT4u5cWmPw2P7F03F2qwPz0GMdlRZTyMOofuPAdiWytvPubvA==}
     engines: {node: ^14 || ^16 || ^17 || ^18 || ^19}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0
