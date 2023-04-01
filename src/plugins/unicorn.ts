@@ -20,6 +20,15 @@ export const settings: Linter.Config = {
         },
       },
     ],
+    "unicorn/filename-case": [
+      "error",
+      {
+        cases: {
+          kebabCase: true,
+          pascalCase: true,
+        },
+      },
+    ],
     // "eslint-comments/no-unlimited-disable" covers this.
     "unicorn/no-abusive-eslint-disable": "off",
     "unicorn/no-array-callback-reference": "off",
