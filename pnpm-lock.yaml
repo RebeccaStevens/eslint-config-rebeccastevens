@@ -85,8 +85,8 @@ devDependencies:
     specifier: 3.2.0
     version: 3.2.0(eslint@8.36.0)
   eslint-plugin-functional:
-    specifier: 5.0.6
-    version: 5.0.6(eslint@8.36.0)(typescript@5.0.2)
+    specifier: 5.0.7
+    version: 5.0.7(eslint@8.36.0)(typescript@5.0.2)
   eslint-plugin-import:
     specifier: 2.27.5
     version: 2.27.5(@typescript-eslint/parser@5.55.0)(eslint-import-resolver-typescript@3.5.3)(eslint@8.36.0)
@@ -1886,7 +1886,7 @@ packages:
     dev: true
 
   /concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /config-chain@1.1.13:
@@ -2205,15 +2205,9 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
-  /deepmerge-ts@4.3.0:
-    resolution: {integrity: sha512-if3ZYdkD2dClhnXR5reKtG98cwyaRT1NeugQoAPTTfsOpV9kqyeiBF9Qa5RHjemb3KzD5ulqygv6ED3t5j9eJw==}
-    engines: {node: '>=12.4.0'}
-    dev: true
-
   /deepmerge-ts@5.0.0:
     resolution: {integrity: sha512-esq9xUO8+CQCG63IlpkoOBNlpm1m4WBm0NRLFrGL/dcgzqWi1tmTLfG7QTvffqYt6T+dS+xaxrHxdexqGWkV1g==}
     engines: {node: '>=16.0.0'}
-    dev: false
 
   /deepmerge@4.3.0:
     resolution: {integrity: sha512-z2wJZXrmeHdvYJp/Ux55wIjqo81G5Bp4c+oELTW+7ar6SogWHajt5a9gO3s3IDaGSAXjDk0vlQKN3rms8ab3og==}
@@ -2537,8 +2531,8 @@ packages:
       ignore: 5.2.4
     dev: true
 
-  /eslint-plugin-functional@5.0.6(eslint@8.36.0)(typescript@5.0.2):
-    resolution: {integrity: sha512-7/NzMapT2BwveBgSmxL9v14bRm00ZCZsOiAb6VtFNomVWFhxkmYLg3zsH5H+TA9Zm5COsgePUe1c5ABsuW8Akw==}
+  /eslint-plugin-functional@5.0.7(eslint@8.36.0)(typescript@5.0.2):
+    resolution: {integrity: sha512-NJqwvlGvpnjphScwArGAjCWnHWIE7RQfWvl0PYeBn8i9HVzrD8V3ZGt0DpghCzZrFW7B4V644OKB9ZN3SPofFA==}
     engines: {node: '>=16.10.0'}
     peerDependencies:
       eslint: ^8.0.0
@@ -2549,7 +2543,7 @@ packages:
     dependencies:
       '@typescript-eslint/type-utils': 5.55.0(eslint@8.36.0)(typescript@5.0.2)
       '@typescript-eslint/utils': 5.55.0(eslint@8.36.0)(typescript@5.0.2)
-      deepmerge-ts: 4.3.0
+      deepmerge-ts: 5.0.0
       escape-string-regexp: 4.0.0
       eslint: 8.36.0
       is-immutable-type: 1.2.5(@typescript-eslint/type-utils@5.55.0)(@typescript-eslint/utils@5.55.0)(typescript@5.0.2)
