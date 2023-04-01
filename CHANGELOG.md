@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [1.7.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.9...v1.7.0) (2023-04-01)
+
+
+### Features
+
+* switch to eslint-plugin-n ([a32be24](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/a32be24fb761b3c176610813089562d3fa8bedb4))
+
 ## [1.6.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.8...v1.6.9) (2023-04-01)
 
 
