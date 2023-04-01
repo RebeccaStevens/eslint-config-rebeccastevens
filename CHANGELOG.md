@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.6.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.7...v1.6.8) (2023-04-01)
+
+
+### Bug Fixes
+
+* allow assertions statements ([081e628](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/081e6280600741bbdc211f79726e1a6ae4e17681))
+* treat paths starting with # as internal ([376dcaf](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/376dcaf12fe54543aaca51950e3e7e716b91700b))
+
 ## [1.6.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.6.6...v1.6.7) (2023-03-23)
 
 
