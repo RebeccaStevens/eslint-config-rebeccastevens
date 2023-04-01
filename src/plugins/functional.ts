@@ -15,7 +15,12 @@ export const settings: Linter.Config = {
   },
 
   rules: {
-    "functional/no-expression-statements": "error",
+    "functional/no-expression-statements": [
+      "error",
+      {
+        ignorePattern: "^assert",
+      },
+    ],
     "functional/immutable-data": [
       "error",
       {
