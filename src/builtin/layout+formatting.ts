@@ -1,4 +1,4 @@
-import type { Linter } from "eslint";
+import { type Linter } from "eslint";
 
 export const rules: Linter.Config["rules"] = {
   "array-bracket-spacing": ["error", "never"],

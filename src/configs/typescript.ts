@@ -1,4 +1,4 @@
-import type { Linter } from "eslint";
+import { type Linter } from "eslint";
 
 import { typescriptExtensions, typescriptSupportedExtensions } from "~/files";
 import { mergeConfigs } from "~/merge-configs";

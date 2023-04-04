@@ -2,7 +2,7 @@ import {
   type DeepMergeMergeFunctionUtils,
   deepmergeCustom,
 } from "deepmerge-ts";
-import type { Linter } from "eslint";
+import { type Linter } from "eslint";
 
 type Meta = Readonly<{
   keyPath: PropertyKey[];

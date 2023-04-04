@@ -1,4 +1,4 @@
-import type { Linter } from "eslint";
+import { type Linter } from "eslint";
 
 const baseConfig: Linter.Config = {
   extends: ["@rebeccastevens/eslint-config/script"],
