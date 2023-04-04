@@ -5,20 +5,27 @@ import { commonJsFiles, jsExtensions, typescriptFiles } from "~/files";
 export const settings: Linter.Config = {
   plugins: ["import"],
 
-  extends: ["plugin:import/errors", "plugin:import/warnings"],
+  extends: ["plugin:import/recommended"],
 
   rules: {
+    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
     "import/default": "error",
-    "import/dynamic-import-chunkname": [
-      "off",
-      {
-        importFunctions: [],
-        webpackChunknameFormat: "[0-9a-zA-Z-_/.]+",
-      },
-    ],
+    "import/dynamic-import-chunkname": "off",
     "import/export": "error",
     "import/exports-last": "off",
-    "import/extensions": "off",
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        js: "never",
+        ts: "never",
+        cts: "never",
+        cjs: "never",
+        mts: "always",
+        mjs: "always",
+        json: "always",
+      },
+    ],
     "import/first": "error",
     "import/group-exports": "off",
     "import/max-dependencies": [
@@ -37,30 +44,15 @@ export const settings: Linter.Config = {
     "import/newline-after-import": "error",
     "import/no-absolute-path": "error",
     "import/no-amd": "error",
-    "import/no-anonymous-default-export": [
-      "off",
-      {
-        allowAnonymousClass: false,
-        allowAnonymousFunction: false,
-        allowArray: false,
-        allowArrowFunction: false,
-        allowLiteral: false,
-        allowObject: false,
-      },
-    ],
+    "import/no-anonymous-default-export": "off",
     "import/no-commonjs": "off",
     // Should be safe when bundling.
     "import/no-cycle": "off",
-    // "import/no-cycle": [
-    //   "error",
-    //   {
-    //     ignoreExternal: true,
-    //   },
-    // ],
     "import/no-default-export": "off",
     "import/no-deprecated": "warn",
-    "import/no-duplicates": "error",
+    "import/no-duplicates": ["error", { "prefer-inline": true }],
     "import/no-dynamic-require": "error",
+    "import/no-empty-named-blocks": "error",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -93,12 +85,7 @@ export const settings: Linter.Config = {
         peerDependencies: true,
       },
     ],
-    "import/no-internal-modules": [
-      "off",
-      {
-        allow: [],
-      },
-    ],
+    "import/no-internal-modules": "off",
     "import/no-mutable-exports": "error",
     "import/no-named-as-default": "off",
     // using unicorn/import-style for per package control
@@ -111,19 +98,12 @@ export const settings: Linter.Config = {
     "import/no-restricted-paths": "off",
     "import/no-self-import": "error",
     "import/no-unassigned-import": "error",
-    "import/no-unused-modules": [
-      "off",
-      {
-        ignoreExports: [],
-        missingExports: true,
-        unusedExports: true,
-      },
-    ],
+    "import/no-unused-modules": "off",
     "import/no-useless-path-segments": [
       "error",
       {
         commonjs: true,
-        noUselessIndex: false,
+        noUselessIndex: true,
       },
     ],
     "import/no-webpack-loader-syntax": "error",
