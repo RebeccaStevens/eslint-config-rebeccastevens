@@ -85,7 +85,7 @@ export const settings: Linter.Config = {
         },
         format: ["camelCase", "PascalCase"],
         prefix: ["m_", "M_"],
-        leadingUnderscore: "allow",
+        leadingUnderscore: "forbid",
         trailingUnderscore: "forbid",
       },
       {
@@ -98,7 +98,7 @@ export const settings: Linter.Config = {
         selector: "variable",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         prefix: ["m_", "M_"],
-        leadingUnderscore: "allow",
+        leadingUnderscore: "forbid",
         trailingUnderscore: "forbid",
       },
       {
@@ -110,7 +110,7 @@ export const settings: Linter.Config = {
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         modifiers: ["const"],
         prefix: ["m_", "M_"],
-        leadingUnderscore: "allow",
+        leadingUnderscore: "forbid",
         trailingUnderscore: "forbid",
       },
       {
@@ -129,7 +129,19 @@ export const settings: Linter.Config = {
         selector: "memberLike",
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         prefix: ["m_", "M_"],
-        leadingUnderscore: "allow",
+        leadingUnderscore: "forbid",
+        trailingUnderscore: "forbid",
+      },
+      {
+        selector: "memberLike",
+        filter: {
+          regex: "_[^_]+",
+          match: true,
+        },
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        modifiers: ["readonly"],
+        prefix: ["m_", "M_"],
+        leadingUnderscore: "forbid",
         trailingUnderscore: "forbid",
       },
       {

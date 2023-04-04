@@ -81,7 +81,7 @@ export const rules: Linter.Config["rules"] = {
     "error",
     "always",
     {
-      exceptAfterSingleLine: false,
+      exceptAfterSingleLine: true,
     },
   ],
   "max-depth": ["error", 10],

@@ -29,6 +29,7 @@ export const settings: Linter.Config = {
         ignoreImmediateMutation: true,
       },
     ],
+    "functional/no-classes": "off",
     "functional/no-let": [
       "error",
       {
