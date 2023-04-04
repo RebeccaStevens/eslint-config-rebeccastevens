@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.7.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.3...v1.7.4) (2023-04-04)
+
+
+### Bug Fixes
+
+* small fixers ([f001893](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f0018937c32643d3f077b8e96769c5e98f90e69e))
+
 ## [1.7.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.2...v1.7.3) (2023-04-04)
 
 
