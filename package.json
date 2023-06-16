@@ -134,7 +134,7 @@
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-unicorn": "*"
   },
-  "packageManager": "pnpm@8.0.0",
+  "packageManager": "pnpm@8.6.2",
   "engines": {
     "node": ">=18.12.1"
   }
