@@ -52,7 +52,11 @@ export const settings: Linter.Config = {
     "jsdoc/tag-lines": [
       "warn",
       "never",
-      { noEndLines: true, tags: { example: { lines: "always" } } },
+      {
+        applyToEndTag: false,
+        startLines: 1,
+        tags: { example: { lines: "always" } },
+      },
     ],
   },
 
