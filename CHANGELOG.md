@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.7.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.6...v1.7.7) (2023-06-17)
+
+
+### Bug Fixes
+
+* enforce strict version of assert package ([d642905](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/d642905d8b753563076967a2789a7a3c166a1549))
+
 ## [1.7.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.5...v1.7.6) (2023-06-17)
 
 
