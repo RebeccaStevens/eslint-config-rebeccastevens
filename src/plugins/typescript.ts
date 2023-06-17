@@ -203,7 +203,12 @@ export const settings: Linter.Config = {
       },
     ],
     "@typescript-eslint/no-throw-literal": "error",
-    "@typescript-eslint/no-unnecessary-condition": "error",
+    "@typescript-eslint/no-unnecessary-condition": [
+      "error",
+      {
+        allowConstantLoopConditions: true,
+      },
+    ],
     "@typescript-eslint/no-unnecessary-type-constraint": "error",
     "@typescript-eslint/no-unsafe-argument": "warn",
     "@typescript-eslint/no-unsafe-assignment": "warn",
