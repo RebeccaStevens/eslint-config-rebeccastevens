@@ -27,6 +27,32 @@ export const settings: Linter.Config = {
     "n/no-new-require": "error",
     "n/no-path-concat": "error",
     "n/no-process-exit": "error",
+    "n/no-restricted-import": [
+      "error",
+      [
+        {
+          name: "assert",
+          message: "Please use assert/strict instead.",
+        },
+        {
+          name: "node:assert",
+          message: "Please use node:assert/strict instead.",
+        },
+      ],
+    ],
+    "n/no-restricted-require": [
+      "error",
+      [
+        {
+          name: "assert",
+          message: "Please use assert/strict instead.",
+        },
+        {
+          name: "node:assert",
+          message: "Please use node:assert/strict instead.",
+        },
+      ],
+    ],
     "n/no-sync": "error",
     "n/no-unpublished-import": "warn",
     "n/no-unsupported-features/es-syntax": "off",
