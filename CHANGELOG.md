@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.7.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.5...v1.7.6) (2023-06-17)
+
+
+### Bug Fixes
+
+* allowConstantLoopConditions ([4b8199d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4b8199d7fb450649163a3a98a7b061c85e2ff2e5))
+
 ## [1.7.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.4...v1.7.5) (2023-06-16)
 
 
