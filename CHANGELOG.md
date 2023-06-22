@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [1.7.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.7...v1.7.8) (2023-06-22)
+
+
+### Bug Fixes
+
+* **naming-convention:** getters shouldn't be marked mutable ([2b3b11a](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2b3b11a6b8c646f668043a4a08c6719b83f6e3ee))
+
 ## [1.7.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.6...v1.7.7) (2023-06-17)
 
 
