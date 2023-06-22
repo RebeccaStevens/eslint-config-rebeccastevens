@@ -152,7 +152,7 @@ export const settings: Linter.Config = {
         trailingUnderscore: "forbid",
       },
       {
-        selector: ["classMethod", "typeMethod", "typeProperty"],
+        selector: ["accessor", "classMethod", "typeMethod", "typeProperty"],
         format: ["camelCase", "PascalCase", "UPPER_CASE"],
         leadingUnderscore: "allow",
         trailingUnderscore: "forbid",
