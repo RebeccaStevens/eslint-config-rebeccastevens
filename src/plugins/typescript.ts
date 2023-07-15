@@ -8,7 +8,11 @@ export const settings: Linter.Config = {
   extends: [
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/strict",
+    "plugin:@typescript-eslint/strict-type-checked",
+    "plugin:@typescript-eslint/stylistic",
+    "plugin:@typescript-eslint/stylistic-type-checked",
   ],
 
   rules: {
@@ -174,6 +178,7 @@ export const settings: Linter.Config = {
         format: null,
       },
     ],
+    "@typescript-eslint/no-meaningless-void-operator": "off",
     "@typescript-eslint/no-confusing-void-expression": [
       "error",
       {
@@ -209,6 +214,7 @@ export const settings: Linter.Config = {
         allowConstantLoopConditions: true,
       },
     ],
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-unnecessary-type-constraint": "error",
     "@typescript-eslint/no-unsafe-argument": "warn",
     "@typescript-eslint/no-unsafe-assignment": "warn",
@@ -258,7 +264,7 @@ export const settings: Linter.Config = {
     "@typescript-eslint/restrict-plus-operands": [
       "error",
       {
-        checkCompoundAssignments: true,
+        skipCompoundAssignments: true,
       },
     ],
     "@typescript-eslint/restrict-template-expressions": [

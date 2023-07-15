@@ -33,6 +33,7 @@ export const settings: Linter.Config = {
     "unicorn/no-abusive-eslint-disable": "off",
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-array-reduce": "off",
+    "unicorn/no-empty-file": "off",
     "unicorn/no-nested-ternary": "off",
     "unicorn/no-null": "off",
     // "n/no-process-exit" covers this.

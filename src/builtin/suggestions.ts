@@ -36,7 +36,7 @@ export const rules: Linter.Config["rules"] = {
       allowElseIf: false,
     },
   ],
-  "no-empty-function": "error",
+  "no-empty-function": "off",
   "no-eq-null": "error",
   "no-eval": "error",
   "no-extend-native": "error",

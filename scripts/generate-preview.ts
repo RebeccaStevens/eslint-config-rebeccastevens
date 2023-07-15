@@ -13,12 +13,12 @@ const config = mergeConfigs(
   modernConfig,
   typescriptConfig,
   overridesConfig,
-  prettierPluginConfigs.recommended,
-  prettierConfig
+  prettierPluginConfigs!["recommended"]!,
+  prettierConfig,
 );
 
 // Write the file.
 void fs.writeFile(
   ".eslintrc.preview.json",
-  JSON.stringify(config, undefined, 2)
+  JSON.stringify(config, undefined, 2),
 );

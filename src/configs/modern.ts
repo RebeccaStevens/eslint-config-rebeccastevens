@@ -50,5 +50,5 @@ export default mergeConfigs(
   optimizeRegex,
   promise,
   sonarjs,
-  unicorn
+  unicorn,
 );

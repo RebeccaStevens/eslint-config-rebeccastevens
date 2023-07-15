@@ -64,11 +64,11 @@ function isRuleSettings(meta: Meta | undefined) {
  */
 function mergeRuleSettings(
   values: ReadonlyArray<unknown>,
-  utils: DeepMergeMergeFunctionUtils<Meta>
+  utils: DeepMergeMergeFunctionUtils<Meta>,
 ): Linter.RuleEntry | (typeof utils.actions)[keyof typeof utils.actions] {
   const settingsData = values.findLast(
     (value): value is [unknown, ...unknown[]] =>
-      Array.isArray(value) && value.length >= 2
+      Array.isArray(value) && value.length >= 2,
   );
   if (settingsData === undefined) {
     return utils.actions.defaultMerge;
