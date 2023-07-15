@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [2.0.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.8...v2.0.0) (2023-07-15)
+
+
+### Features
+
+* update for typescript-eslint v6 ([5f0509a](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/5f0509a15b29370e5d5621fd37cac84a343711c1))
+
+
+### BREAKING CHANGES
+
+* typescript-eslint v6 now required
+
 ## [1.7.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.7...v1.7.8) (2023-06-22)
 
 
