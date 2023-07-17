@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.0...v2.0.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* immutability overrides setting ([8edd44d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/8edd44dd28e0b809ca2c668287fd6e5780e6d3fe))
+
 # [2.0.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v1.7.8...v2.0.0) (2023-07-15)
 
 
