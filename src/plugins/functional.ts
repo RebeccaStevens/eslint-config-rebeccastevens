@@ -8,8 +8,8 @@ export const settings: Linter.Config = {
   settings: {
     immutability: {
       overrides: [
-        { pattern: "^ReadonlyDeep<.+>$", to: "ReadonlyDeep" },
-        { pattern: "^Immutable<.+>$", to: "Immutable" },
+        { type: "^ReadonlyDeep<.+>$", to: "ReadonlyDeep" },
+        { type: "^Immutable<.+>$", to: "Immutable" },
       ],
     },
   },
