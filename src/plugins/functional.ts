@@ -18,7 +18,7 @@ export const settings: Linter.Config = {
     "functional/no-expression-statements": [
       "error",
       {
-        ignorePattern: "^assert",
+        ignoreCodePattern: "^assert",
       },
     ],
     "functional/immutable-data": [
@@ -34,7 +34,7 @@ export const settings: Linter.Config = {
       "error",
       {
         allowInForLoopInit: true,
-        ignorePattern: ["^mutable", "^m_"],
+        ignoreIdentifierPattern: ["^mutable", "^m_"],
       },
     ],
     "functional/prefer-immutable-types": [
