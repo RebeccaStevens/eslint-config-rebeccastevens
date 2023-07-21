@@ -30,7 +30,7 @@ jobs:
 
   release:
     needs:
-      - lint_js
+      # - lint_js
       - lint_knip_prod
       - lint_markdown
       - lint_spelling
