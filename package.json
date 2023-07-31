@@ -93,7 +93,7 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-import-resolver-typescript": "3.5.5",
     "eslint-plugin-eslint-comments": "3.2.0",
-    "eslint-plugin-functional": "5.0.8",
+    "eslint-plugin-functional": "6.0.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsdoc": "46.4.3",
     "eslint-plugin-markdown": "3.0.0",
