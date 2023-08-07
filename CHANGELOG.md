@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.2...v2.0.3) (2023-08-07)
+
+
+### Bug Fixes
+
+* update sonarjs/no-duplicate-string config ([d1d3f70](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/d1d3f7056e10ea022a805341b1b9202dec3196ed))
+
+
+### Reverts
+
+* Revert "ci: release without linting" ([a5a783c](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/a5a783c153bb6fdf0beb5f89342aacc5d22524ef))
+
 ## [2.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.1...v2.0.2) (2023-07-21)
 
 
