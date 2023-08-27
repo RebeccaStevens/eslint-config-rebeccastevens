@@ -56,6 +56,7 @@ export const settings: Linter.Config = {
       files: commonJsFiles,
       rules: {
         "unicorn/prefer-module": "off",
+        "unicorn/prefer-top-level-await": "off",
       },
     },
   ],
