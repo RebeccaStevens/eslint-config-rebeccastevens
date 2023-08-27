@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.3...v2.0.4) (2023-08-27)
+
+
+### Bug Fixes
+
+* turn off prefer-top-level-await for commonjs ([ab9a037](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ab9a037e54182a9d35d6afc3e0226692d42a83c5))
+
 ## [2.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.2...v2.0.3) (2023-08-07)
 
 
