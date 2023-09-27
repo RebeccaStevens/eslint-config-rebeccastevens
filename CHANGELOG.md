@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.4...v2.0.5) (2023-09-27)
+
+
+### Bug Fixes
+
+* update unified-signatures rule config ([25cc9c1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/25cc9c177f1ad64e255ce5fedfd33a28efc32fdd))
+
 ## [2.0.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.3...v2.0.4) (2023-08-27)
 
 
