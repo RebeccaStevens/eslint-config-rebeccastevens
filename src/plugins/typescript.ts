@@ -299,7 +299,12 @@ export const settings: Linter.Config = {
         ignoreStatic: true,
       },
     ],
-    "@typescript-eslint/unified-signatures": "warn",
+    "@typescript-eslint/unified-signatures": [
+      "error",
+      {
+        ignoreDifferentlyNamedParameters: true,
+      },
+    ],
     "@typescript-eslint/no-redeclare": "error",
   },
 
