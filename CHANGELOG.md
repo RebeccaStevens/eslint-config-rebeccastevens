@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.5...v2.0.6) (2023-10-05)
+
+
+### Bug Fixes
+
+* turn off prefer-destructuring when using typescript ([2f54a2f](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2f54a2f3c8be594027c17a5ded2546014b2dba97))
+
 ## [2.0.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.4...v2.0.5) (2023-09-27)
 
 
