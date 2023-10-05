@@ -23,6 +23,7 @@ const baseConfig: Linter.Config = {
     "no-unused-vars": "off",
     "no-use-before-define": "off",
     "object-curly-spacing": "off",
+    "prefer-destructuring": "off",
     "space-infix-ops": "off",
   },
 
