@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.6...v2.0.7) (2024-01-04)
+
+
+### Bug Fixes
+
+* update import/no-extraneous-dependencies ([2e2ef01](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2e2ef01550957a6fb914d434ed1dc5d6fe7d8fd9))
+
 ## [2.0.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.5...v2.0.6) (2023-10-05)
 
 
