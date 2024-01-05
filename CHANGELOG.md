@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.8...v2.0.9) (2024-01-05)
+
+
+### Bug Fixes
+
+* use string regex ([22e2aa7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/22e2aa7c819ed23fc416ff1d2447e7936c3671d3))
+
 ## [2.0.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.7...v2.0.8) (2024-01-05)
 
 
