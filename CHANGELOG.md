@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.7...v2.0.8) (2024-01-05)
+
+
+### Bug Fixes
+
+* ignore md files for filename-case ([54d651c](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/54d651c7ccd5c99dfa03f69693d59d6d8e23424b))
+
 ## [2.0.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.6...v2.0.7) (2024-01-04)
 
 
