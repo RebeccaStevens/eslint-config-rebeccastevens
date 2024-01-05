@@ -27,7 +27,7 @@ export const settings: Linter.Config = {
           kebabCase: true,
           pascalCase: true,
         },
-        ignore: [/^.*\\.md$/iu],
+        ignore: ["^.*\\.md$"],
       },
     ],
     // "eslint-comments/no-unlimited-disable" covers this.
