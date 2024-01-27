@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [2.0.10](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.9...v2.0.10) (2024-01-27)
+
+
+### Bug Fixes
+
+* allow using labels for loops and switches ([f2cd334](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f2cd33408ddb55d5734ec4da2a38c28da91c5452))
+
 ## [2.0.9](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.8...v2.0.9) (2024-01-05)
 
 
