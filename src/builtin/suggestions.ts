@@ -49,7 +49,13 @@ export const rules: Linter.Config["rules"] = {
   "no-implied-eval": "error",
   "no-invalid-this": "error",
   "no-iterator": "error",
-  "no-labels": "error",
+  "no-labels": [
+    "error",
+    {
+      allowLoop: true,
+      allowSwitch: true,
+    },
+  ],
   "no-lone-blocks": "error",
   "no-loop-func": "error",
   "no-multi-str": "off",
