@@ -17,7 +17,18 @@ export const settings: Linter.Config = {
     "jsdoc/check-property-names": "error",
     "jsdoc/check-types": "error",
     "jsdoc/check-values": "error",
-    "jsdoc/no-bad-blocks": "warn",
+    "jsdoc/no-bad-blocks": [
+      "error",
+      {
+        ignore: [
+          "ts-check",
+          "ts-expect-error",
+          "ts-ignore",
+          "ts-nocheck",
+          "vue-ignore",
+        ],
+      },
+    ],
     "jsdoc/no-defaults": "warn",
     "jsdoc/require-asterisk-prefix": "error",
     "jsdoc/require-description": "warn",

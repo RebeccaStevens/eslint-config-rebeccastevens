@@ -186,6 +186,12 @@ export const settings: Linter.Config = {
         ignoreVoidOperator: true,
       },
     ],
+    "@typescript-eslint/no-empty-interface": [
+      "error",
+      {
+        allowSingleExtends: true,
+      },
+    ],
     "@typescript-eslint/no-extra-parens": [
       "error",
       "all",

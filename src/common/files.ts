@@ -19,5 +19,6 @@ export const typescriptDeclarationFiles = [
 ];
 export const jsxFiles = [`**/*{${jsxExtensions.join(",")}}`];
 export const commonJsFiles = [`**/*{${commonJsExtensions.join(",")}}`];
+export const jsFiles = [`**/*{${jsExtensions.join(",")}}`];
 
 export const testFiles = ["{test,tests}/**/*", "**/*.{spec,test}.*"];

@@ -37,6 +37,8 @@ export const settings: Linter.Config = {
         ignoreIdentifierPattern: ["^mutable", "^m_"],
       },
     ],
+    "functional/no-mixed-types": "off",
+    "functional/functional-parameters": "off",
     "functional/prefer-immutable-types": [
       "warn",
       {

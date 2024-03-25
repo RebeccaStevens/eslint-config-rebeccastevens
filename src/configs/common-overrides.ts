@@ -1,6 +1,6 @@
 import { type Linter } from "eslint";
 
-import { jsxFiles, testFiles } from "~/files";
+import { jsFiles, jsxFiles, testFiles } from "~/files";
 
 export default {
   overrides: [
@@ -18,6 +18,16 @@ export default {
     {
       files: testFiles,
       extends: ["@rebeccastevens/eslint-config/test"],
+    },
+    {
+      files: jsFiles,
+      extends: [
+        "plugin:@typescript-eslint/disable-type-checked",
+        "plugin:functional/disable-type-checked",
+      ],
+      parserOptions: {
+        project: false,
+      },
     },
     {
       files: jsxFiles,

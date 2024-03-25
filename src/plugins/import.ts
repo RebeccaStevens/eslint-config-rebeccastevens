@@ -13,19 +13,7 @@ export const settings: Linter.Config = {
     "import/dynamic-import-chunkname": "off",
     "import/export": "error",
     "import/exports-last": "off",
-    "import/extensions": [
-      "error",
-      "always",
-      {
-        js: "never",
-        ts: "never",
-        cts: "never",
-        cjs: "never",
-        mts: "always",
-        mjs: "always",
-        json: "always",
-      },
-    ],
+    "import/extensions": "off",
     "import/first": "error",
     "import/group-exports": "off",
     "import/max-dependencies": [
@@ -78,6 +66,7 @@ export const settings: Linter.Config = {
           "**/rollup.config.{js,cjs,mjs,ts}",
           "**/rollup.config.*.{js,cjs,mjs,ts}",
           "**/vite.config.{js,cjs,mjs,ts}",
+          "**/vitest.config.{js,cjs,mjs,ts}",
           "**/vue.config.{js,cjs,mjs,ts}",
           "**/webpack.config.{js,cjs,mjs,ts}",
           "**/webpack.config.*.{js,cjs,mjs,ts}",
