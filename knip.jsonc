@@ -1,5 +1,5 @@
 {
-  "$schema": "https://unpkg.com/knip@next/schema.json",
+  "$schema": "node_modules/knip/schema-jsonc.json",
   "entry": ["src/configs/*.ts!"],
   "project": ["src/**/*.ts!"],
   "ignoreDependencies": [
@@ -16,6 +16,6 @@
     "eslint-plugin-optimize-regex",
     "eslint-plugin-promise",
     "eslint-plugin-sonarjs",
-    "eslint-plugin-unicorn"
-  ]
+    "eslint-plugin-unicorn",
+  ],
 }
