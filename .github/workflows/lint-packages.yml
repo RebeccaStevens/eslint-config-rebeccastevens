@@ -1,4 +1,4 @@
-name: Build
+name: Lint Packages
 
 on:
   pull_request:
@@ -6,9 +6,9 @@ on:
   workflow_call:
 
 jobs:
-  build:
+  lint_packages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/prepare
-      - run: pnpm run build
+      - run: pnpm run lint:packages

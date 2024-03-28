@@ -17,28 +17,34 @@ concurrency:
 jobs:
   lint_js:
     uses: ./.github/workflows/lint-js.yml
+  lint_knip_dev:
+    uses: ./.github/workflows/lint-knip-dev.yml
   lint_knip_prod:
     uses: ./.github/workflows/lint-knip-prod.yml
   lint_markdown:
     uses: ./.github/workflows/lint-markdown.yml
-  lint_spelling:
-    uses: ./.github/workflows/lint-spelling.yml
+  lint_packages:
+    uses: ./.github/workflows/lint-packages.yml
   lint_prettier:
     uses: ./.github/workflows/lint-prettier.yml
+  lint_spelling:
+    uses: ./.github/workflows/lint-spelling.yml
   type_check:
     uses: ./.github/workflows/type-check.yml
 
   release:
     needs:
       - lint_js
+      - lint_knip_dev
       - lint_knip_prod
       - lint_markdown
-      - lint_spelling
+      - lint_packages
       - lint_prettier
+      - lint_spelling
       - type_check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
