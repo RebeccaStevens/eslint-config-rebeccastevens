@@ -20,7 +20,7 @@ export async function interopDefault<T>(
 }
 
 export function toArray<T>(value: T | T[]): T[] {
-  return Array.isArray(value) ? (value as T[]) : [value as T];
+  return Array.isArray(value) ? value : [value];
 }
 
 export const parserPlain = {

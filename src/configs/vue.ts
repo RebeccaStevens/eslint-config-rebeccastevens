@@ -94,7 +94,7 @@ export async function vue(
             jsx: true,
           },
           extraFileExtensions: [".vue"],
-          parser: typescript === true ? parserTs : null,
+          parser: typescript ? parserTs : null,
           sourceType: "module",
         },
       },

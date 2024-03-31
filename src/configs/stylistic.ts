@@ -31,7 +31,7 @@ export async function stylistic(
     pluginName: "style",
     quotes,
     semi,
-  } as StylisticCustomizeOptions<true>);
+  } as StylisticCustomizeOptions);
 
   return [
     {
