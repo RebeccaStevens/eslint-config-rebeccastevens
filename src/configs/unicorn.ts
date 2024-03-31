@@ -96,7 +96,7 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
         "unicorn/prefer-math-trunc": "error",
         "unicorn/prefer-modern-dom-apis": "error",
         "unicorn/prefer-modern-math-apis": "error",
-        "unicorn/prefer-module": "error",
+        // "unicorn/prefer-module": "error",
         "unicorn/prefer-native-coercion-functions": "error",
         "unicorn/prefer-negative-index": "error",
         "unicorn/prefer-node-protocol": "error",

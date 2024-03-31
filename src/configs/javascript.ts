@@ -1,7 +1,6 @@
 import { type ESLint } from "eslint";
 import globals from "globals";
 
-import { GLOB_SRC, GLOB_SRC_EXT } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFunctional,
@@ -380,28 +379,14 @@ export async function javascript(
 
         ...(functionalEnforcement === "none"
           ? {}
-          : {
-              "no-param-reassign": "error",
-              "sonar/elseif-without-else": "error",
-            }),
+          : functionalEnforcement === "lite"
+            ? { "no-param-reassign": "error" }
+            : {
+                "no-param-reassign": "error",
+                "sonar/elseif-without-else": "error",
+              }),
 
         ...overrides,
-      },
-    },
-    {
-      files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: "rs:scripts-overrides",
-      rules: {
-        "no-console": "off",
-
-        "functional/no-conditional-statements": "off",
-        "functional/no-expression-statements": "off",
-        "functional/no-loop-statements": "off",
-        "functional/no-return-void": "off",
-        "functional/no-throw-statements": "off",
-
-        "node/no-sync": "off",
-        "node/no-unpublished-import": "off",
       },
     },
   ];

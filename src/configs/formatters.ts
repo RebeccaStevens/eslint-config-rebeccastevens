@@ -18,7 +18,7 @@ import {
   GLOB_TS,
   GLOB_TSX,
   GLOB_YAML,
-} from "..";
+} from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFormatters,
@@ -80,6 +80,7 @@ export async function formatters(
   const turnOffRulesForPrettier = {
     ...configPrettier.rules,
 
+    "no-irregular-whitespace": "off",
     "style/block-spacing": "off",
     "style/brace-style": "off",
     "style/comma-dangle": "off",
@@ -91,6 +92,7 @@ export async function formatters(
     "style/keyword-spacing": "off",
     "style/lines-around-comment": "off",
     "style/member-delimiter-style": "off",
+    "style/newline-per-chained-call": "off",
     "style/no-extra-parens": "off",
     "style/no-extra-semi": "off",
     "style/nonblock-statement-body-position": "off",
@@ -117,7 +119,7 @@ export async function formatters(
     },
   ];
 
-  if (options.js !== undefined && options.js !== false) {
+  if (options.js !== undefined && options.js) {
     configs.push({
       name: "rs:formatter:javascript",
       files: [GLOB_JS, GLOB_JSX],
@@ -134,7 +136,7 @@ export async function formatters(
     });
   }
 
-  if (options.ts !== undefined && options.ts !== false) {
+  if (options.ts !== undefined && options.ts) {
     configs.push({
       name: "rs:formatter:typescript",
       files: [GLOB_TS, GLOB_TSX],
@@ -152,7 +154,7 @@ export async function formatters(
     });
   }
 
-  if (options.yaml !== undefined && options.yaml !== false) {
+  if (options.yaml !== undefined && options.yaml) {
     configs.push({
       name: "rs:formatter:yaml",
       files: [GLOB_YAML],
@@ -173,7 +175,7 @@ export async function formatters(
     });
   }
 
-  if (options.json !== undefined && options.json !== false) {
+  if (options.json !== undefined && options.json) {
     configs.push(
       {
         name: "rs:formatter:json",
@@ -253,7 +255,7 @@ export async function formatters(
     );
   }
 
-  if (options.css !== undefined && options.css !== false) {
+  if (options.css !== undefined && options.css) {
     configs.push(
       {
         name: "rs:formatter:css",
@@ -309,7 +311,7 @@ export async function formatters(
     );
   }
 
-  if (options.html !== undefined && options.html !== false) {
+  if (options.html !== undefined && options.html) {
     configs.push({
       name: "rs:formatter:html",
       files: ["**/*.html"],
@@ -329,7 +331,7 @@ export async function formatters(
     });
   }
 
-  if (options.markdown !== undefined && options.markdown !== false) {
+  if (options.markdown !== undefined && options.markdown) {
     const GLOB_SLIDEV =
       options.slidev === undefined || options.slidev === false
         ? []
@@ -382,7 +384,7 @@ export async function formatters(
     }
   }
 
-  if (options.graphql !== undefined && options.graphql !== false) {
+  if (options.graphql !== undefined && options.graphql) {
     configs.push({
       files: [GLOB_GRAPHQL],
       languageOptions: {

@@ -5,7 +5,7 @@ import {
   GLOB_MARKDOWN,
   GLOB_MARKDOWN_CODE,
   GLOB_MARKDOWN_IN_MARKDOWN,
-} from "..";
+} from "../globs";
 import {
   type FlatConfigItem,
   type OptionsComponentExts,
@@ -31,9 +31,7 @@ export async function markdown(
     interopDefault(import("@typescript-eslint/eslint-plugin")).catch(
       () => undefined,
     ),
-    interopDefault(import("eslint-plugin-functional/flat")).catch(
-      () => undefined,
-    ),
+    interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
   ]);
 
   return [
@@ -71,6 +69,7 @@ export async function markdown(
       ],
       languageOptions: {
         parserOptions: {
+          project: null,
           ecmaFeatures: {
             impliedStrict: true,
           },
@@ -80,49 +79,61 @@ export async function markdown(
         ...pluginTs?.configs["disable-type-checked"]?.rules,
         ...pluginFunctional?.configs.off.rules,
 
-        "import/newline-after-import": "off",
+        "dot-notation": "off",
+        "init-declarations": "off",
         "no-alert": "off",
         "no-console": "off",
+        "no-empty-function": "off",
+        "no-empty": "off",
+        "no-irregular-whitespace": "off",
+        "no-invalid-this": "off",
         "no-labels": "off",
         "no-lone-blocks": "off",
         "no-restricted-syntax": "off",
+        "no-throw-literal": "off",
         "no-undef": "off",
         "no-unused-expressions": "off",
         "no-unused-labels": "off",
         "no-unused-vars": "off",
-        "node/prefer-global/process": "off",
-        "style/comma-dangle": "off",
-        "style/eol-last": "off",
-        "ts/consistent-type-imports": "off",
-        "ts/no-namespace": "off",
-        "ts/no-redeclare": "off",
-        "ts/no-require-imports": "off",
-        "ts/no-unused-vars": "off",
-        "ts/no-use-before-define": "off",
-        "ts/no-var-requires": "off",
-        "unicode-bom": "off",
-        "dot-notation": "off",
-        "import/extensions": "off",
-        "import/no-unresolved": "off",
-        "init-declarations": "off",
-        "jsdoc/require-jsdoc": "off",
-        "n/handle-callback-err": "off",
-        "no-empty-function": "off",
-        "no-empty": "off",
-        "no-invalid-this": "off",
-        "no-throw-literal": "off",
         "no-useless-return": "off",
         "prefer-const": "off",
+        "unicode-bom": "off",
+
+        "import/extensions": "off",
+        "import/newline-after-import": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-unresolved": "off",
+
+        "jsdoc/require-jsdoc": "off",
+
+        "node/handle-callback-err": "off",
+        "node/prefer-global/process": "off",
+
         "prettier/prettier": "off",
-        "sonarjs/no-extra-arguments": "off",
-        "sonarjs/no-unused-collection": "off",
+
+        "sonar/no-extra-arguments": "off",
+        "sonar/no-unused-collection": "off",
+
+        "style/comma-dangle": "off",
+        "style/eol-last": "off",
+
         "ts/consistent-generic-constructors": "off",
+        "ts/consistent-indexed-object-style": "off",
         "ts/consistent-type-definitions": "off",
+        "ts/consistent-type-imports": "off",
         "ts/explicit-member-accessibility": "off",
         "ts/no-empty-function": "off",
         "ts/no-explicit-any": "off",
+        "ts/no-namespace": "off",
+        "ts/no-redeclare": "off",
+        "ts/no-require-imports": "off",
         "ts/no-unused-expressions": "off",
+        "ts/no-unused-vars": "off",
+        "ts/no-use-before-define": "off",
+        "ts/no-var-requires": "off",
+        "ts/prefer-for-of": "off",
         "ts/prefer-function-type": "off",
+
         "unicorn/prefer-optional-catch-binding": "off",
         "unicorn/prefer-top-level-await": "off",
         "unicorn/switch-case-braces": "off",

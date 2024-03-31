@@ -15,11 +15,24 @@ const treeshake = {
 export default {
   input: "src/index.ts",
 
-  output: {
-    file: pkg.exports.import.default,
-    format: "esm",
-    sourcemap: false,
-  },
+  output: [
+    {
+      file: pkg.exports.import,
+      format: "esm",
+      sourcemap: false,
+      generatedCode: {
+        preset: "es2015",
+      },
+    },
+    {
+      file: pkg.exports.import,
+      format: "esm",
+      sourcemap: false,
+      generatedCode: {
+        preset: "es2015",
+      },
+    },
+  ],
 
   plugins: [
     rollupPluginAutoExternal(),

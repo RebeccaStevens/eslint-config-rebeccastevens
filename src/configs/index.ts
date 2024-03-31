@@ -8,6 +8,7 @@ export * from "./jsdoc";
 export * from "./jsonc";
 export * from "./markdown";
 export * from "./node";
+export * from "./overrides";
 export * from "./sort";
 export * from "./stylistic";
 export * from "./test";

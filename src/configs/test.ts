@@ -7,7 +7,7 @@ import {
   type OptionsIsInEditor,
   type OptionsOverrides,
 } from "../types";
-import { loadPackages } from "../utils";
+import { interopDefault, loadPackages } from "../utils";
 
 export async function test(
   options: OptionsFiles & OptionsIsInEditor & OptionsOverrides = {},
@@ -18,6 +18,10 @@ export async function test(
     "eslint-plugin-vitest",
     "eslint-plugin-no-only-tests",
   ])) as [typeof import("eslint-plugin-vitest"), ESLint.Plugin];
+
+  const [pluginFunctional] = await Promise.all([
+    interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
+  ]);
 
   return [
     {
@@ -31,12 +35,27 @@ export async function test(
           },
         },
       },
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
     },
     {
       files,
       name: "rs:test:rules",
       rules: {
+        ...pluginFunctional?.configs.off.rules,
+
         "node/prefer-global/process": "off",
+        "node/no-sync": "off",
+
+        "import/no-named-as-default-member": "off",
+
+        "jsdoc/require-jsdoc": "off",
+
+        "sonar/no-duplicate-string": "off",
+        "sonar/no-identical-functions": "off",
 
         "test/consistent-test-it": [
           "error",
@@ -47,6 +66,17 @@ export async function test(
         "test/no-only-tests": isInEditor ? "off" : "error",
         "test/prefer-hooks-in-order": "error",
         "test/prefer-lowercase-title": "error",
+        "test/valid-expect": "off", // Too many false positives.
+
+        "ts/no-unsafe-argument": "off",
+        "ts/no-unsafe-assignment": "off",
+        "ts/no-unsafe-call": "off",
+        "ts/no-unsafe-member-access": "off",
+        "ts/no-unsafe-return": "off",
+        "ts/no-unused-vars-experimental": "off",
+        "ts/strict-boolean-expressions": "off",
+
+        "unicorn/prefer-module": "off",
 
         ...overrides,
       },

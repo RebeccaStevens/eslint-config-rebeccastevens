@@ -1,6 +1,6 @@
 import { type ESLint } from "eslint";
 
-import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_TS, GLOB_TSX } from "..";
+import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_TS, GLOB_TSX } from "../globs";
 import { type FlatConfigItem, type OptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
@@ -107,7 +107,7 @@ export async function imports(
         "import/no-self-import": "error",
         "import/no-unassigned-import": "error",
         // "import/no-unused-modules": "off",
-        "import/no-unresolved": "error",
+        // "import/no-unresolved": "off",
         "import/no-useless-path-segments": [
           "error",
           {

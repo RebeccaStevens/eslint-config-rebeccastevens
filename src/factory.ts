@@ -13,6 +13,7 @@ import {
   jsonc,
   markdown,
   node,
+  overrides,
   sortTsconfig,
   stylistic,
   test,
@@ -60,6 +61,7 @@ export function rsEslint(
         Boolean(process.env["VSCODE_CWD"]) ||
         Boolean(process.env["JETBRAINS_IDE"]) ||
         Boolean(process.env["VIM"])),
+    ignores: ignoresOptions,
     typescript: typeScriptOptions = isPackageExists("typescript"),
     unocss: unoCSSOptions = isPackageExists("unocss"),
     vue: vueOptions = VuePackages.some((i) => isPackageExists(i)),
@@ -97,21 +99,21 @@ export function rsEslint(
 
   // Base configs
   configs.push(
-    ignores(),
+    ignores(ignoresOptions),
     javascript({
       isInEditor,
       functionalEnforcement,
       overrides: getOverrides(options, "javascript"),
     }),
-    comments(),
-    node(),
-    jsdoc({
-      stylistic: stylisticOptions,
-    }),
     imports({
       stylistic: stylisticOptions,
     }),
+    jsdoc({
+      stylistic: stylisticOptions,
+    }),
+    comments(),
     unicorn(),
+    node(),
   );
 
   if (vueOptions !== false) componentExts.push("vue");
@@ -135,6 +137,18 @@ export function rsEslint(
     );
   }
 
+  if (functionalOptions !== false) {
+    configs.push(
+      functional({
+        ...resolveSubOptions(options, "typescript"),
+        ...resolveSubOptions(options, "functional"),
+        overrides: getOverrides(options, "functional"),
+        functionalEnforcement,
+        stylistic: stylisticOptions,
+      }),
+    );
+  }
+
   if (testOptions !== false) {
     configs.push(
       test({
@@ -151,18 +165,6 @@ export function rsEslint(
         overrides: getOverrides(options, "vue"),
         stylistic: stylisticOptions,
         typescript: Boolean(typeScriptOptions),
-      }),
-    );
-  }
-
-  if (functionalOptions !== false) {
-    configs.push(
-      functional({
-        ...resolveSubOptions(options, "typescript"),
-        ...resolveSubOptions(options, "functional"),
-        overrides: getOverrides(options, "functional"),
-        functionalEnforcement,
-        stylistic: stylisticOptions,
       }),
     );
   }
@@ -221,6 +223,8 @@ export function rsEslint(
       ),
     );
   }
+
+  configs.push(overrides());
 
   let m_pipeline = new FlatConfigPipeline<FlatConfigItem>();
 

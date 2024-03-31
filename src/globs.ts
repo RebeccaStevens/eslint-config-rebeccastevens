@@ -8,6 +8,8 @@ export const GLOB_TS = "**/*.?([cm])ts";
 export const GLOB_TSX = "**/*.?([cm])tsx";
 export const GLOB_DTS = "**/*.d.?([cm])ts";
 
+export const GLOB_TYPINGS = "typings/**/*.?([cm])ts";
+
 export const GLOB_MJS = "**/*.mjs";
 export const GLOB_MTS = "**/*.mts";
 

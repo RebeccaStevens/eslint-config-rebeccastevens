@@ -52,9 +52,11 @@ export type OptionsVue = {
   vueVersion?: 2 | 3;
 } & OptionsOverrides;
 
-export type OptionsTypescript =
+export type OptionsTypescript = (
   | (OptionsTypeScriptWithTypes & OptionsOverrides)
-  | (OptionsTypeScriptParserOptions & OptionsOverrides);
+  | (OptionsTypeScriptParserOptions & OptionsOverrides)
+) &
+  OptionsTypeScriptUnsafeSeverity;
 
 export type OptionsFormatters = {
   js?: boolean;
@@ -108,6 +110,10 @@ export type OptionsTypeScriptWithTypes = {
   tsconfig?: true | string | string[];
 };
 
+export type OptionsTypeScriptUnsafeSeverity = {
+  unsafe?: "off" | "warn" | "error";
+};
+
 export type OptionsHasTypeScript = {
   typescript?: boolean;
 };
@@ -145,6 +151,13 @@ export type OptionsUnoCSS = {
 export type OptionsFunctional = {
   functionalEnforcement?: "none" | "lite" | "default" | "strict";
 };
+
+export type OptionsIgnores =
+  | Linter.FlatConfig["ignores"]
+  | {
+      extend?: boolean;
+      files?: Linter.FlatConfig["ignores"];
+    };
 
 export type OptionsConfig = {
   /**
@@ -234,4 +247,6 @@ export type OptionsConfig = {
    * Automatically rename plugins in the config.
    */
   autoRenamePlugins?: boolean;
+
+  ignores?: OptionsIgnores;
 } & OptionsComponentExts;

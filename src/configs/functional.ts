@@ -1,5 +1,3 @@
-import { type ESLint } from "eslint";
-
 import { GLOB_TS } from "../globs";
 import {
   type FlatConfigItem,
@@ -28,8 +26,8 @@ export async function functional(
   }
 
   const [pluginFunctional] = (await loadPackages([
-    "eslint-plugin-functional/flat",
-  ])) as [(typeof import("eslint-plugin-functional/flat"))["default"]];
+    "eslint-plugin-functional",
+  ])) as [(typeof import("eslint-plugin-functional"))["default"]];
 
   const strictRules = {
     "functional/functional-parameters": "error",
@@ -209,7 +207,7 @@ export async function functional(
     {
       name: "rs:functional",
       plugins: {
-        functional: pluginFunctional as unknown as ESLint.Plugin,
+        functional: pluginFunctional,
       },
       settings: {
         immutability: {
