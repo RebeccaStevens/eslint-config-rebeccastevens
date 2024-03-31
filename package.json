@@ -37,8 +37,8 @@
     "build": "pnpm run build:node",
     "build:node": "rimraf dist && pnpm run typegen && rollup -c rollup.config.ts --configPlugin rollup-plugin-ts",
     "cz": "git-cz",
-    "lint": "pnpm run typegen && pnpm run lint:js && pnpm run lint:md && pnpm run lint:prettier && pnpm run lint:knip && pnpm run lint:spelling && pnpm run lint:packages",
-    "lint-fix": "pnpm run typegen && pnpm run lint:js-fix && pnpm run lint:prettier-fix && pnpm run lint:packages-fix",
+    "lint": "pnpm run typegen && pnpm run lint:js && pnpm run lint:md && pnpm run lint:knip && pnpm run lint:spelling && pnpm run lint:packages",
+    "lint-fix": "pnpm run typegen && pnpm run lint:js-fix && pnpm run lint:packages-fix",
     "lint:js": "eslint .",
     "lint:js-fix": "eslint . --fix",
     "lint:knip": "pnpm run lint:knip:development && pnpm run lint:knip:production",
@@ -47,8 +47,6 @@
     "lint:md": "markdownlint \"**/*.md\" --config=.markdownlint.json --ignore-path=.markdownlintignore",
     "lint:packages": "pnpm dedupe --check",
     "lint:packages-fix": "pnpm dedupe",
-    "lint:prettier": "prettier \"**/*\" --ignore-unknown --list-different",
-    "lint:prettier-fix": "prettier \"**/*\" --ignore-unknown --write",
     "lint:spelling": "cspell \"**\" \".github/**/*\"",
     "prepare": "husky && pnpm run typegen",
     "release": "semantic-release",
@@ -91,7 +89,7 @@
     "eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-format": "0.1.0",
     "eslint-plugin-functional": "6.3.0",
-    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-import-x": "0.5.0",
     "eslint-plugin-jsdoc": "48.2.1",
     "eslint-plugin-jsonc": "2.14.1",
     "eslint-plugin-markdown": "4.0.1",
@@ -101,6 +99,7 @@
     "eslint-plugin-perfectionist": "2.7.0",
     "eslint-plugin-prettier": "5.1.3",
     "eslint-plugin-promise": "6.1.1",
+    "eslint-plugin-regexp": "2.4.0",
     "eslint-plugin-sonarjs": "0.24.0",
     "eslint-plugin-toml": "0.10.0",
     "eslint-plugin-unicorn": "51.0.1",
@@ -145,7 +144,7 @@
     "eslint-plugin-eslint-comments": "*",
     "eslint-plugin-format": "*",
     "eslint-plugin-functional": "*",
-    "eslint-plugin-import": "*",
+    "eslint-plugin-import-x": "*",
     "eslint-plugin-jsdoc": "*",
     "eslint-plugin-jsonc": "*",
     "eslint-plugin-markdown": "*",
@@ -155,6 +154,7 @@
     "eslint-plugin-perfectionist": "*",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-promise": "*",
+    "eslint-plugin-regexp": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-toml": "*",
     "eslint-plugin-unicorn": "*",
@@ -207,7 +207,7 @@
     "eslint-plugin-functional": {
       "optional": true
     },
-    "eslint-plugin-import": {
+    "eslint-plugin-import-x": {
       "optional": true
     },
     "eslint-plugin-jsdoc": {
@@ -235,6 +235,9 @@
       "optional": true
     },
     "eslint-plugin-promise": {
+      "optional": true
+    },
+    "eslint-plugin-regexp": {
       "optional": true
     },
     "eslint-plugin-sonarjs": {

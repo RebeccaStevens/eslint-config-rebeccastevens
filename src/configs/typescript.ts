@@ -97,7 +97,8 @@ export async function typescript(
         pluginTs.configs?.["eslint-recommended"]?.rules),
 
         "no-extra-boolean-cast": "off",
-        "consistent-return": "off", // Don't turn on ts version either
+        "consistent-return": "off", // Don't turn on ts version
+        "import/named": "off",
 
         "ts/array-type": [
           "error",

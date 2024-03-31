@@ -36,6 +36,7 @@ export const defaultPluginRenaming = {
   "@stylistic": "style",
   "@typescript-eslint": "ts",
   "import-x": "import",
+  "optimize-regex": "regexp",
   n: "node",
   sonarjs: "sonar",
   vitest: "test",

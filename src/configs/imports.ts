@@ -9,7 +9,7 @@ export async function imports(
 ): Promise<FlatConfigItem[]> {
   const { stylistic = true } = options;
 
-  const [pluginImport] = (await loadPackages(["eslint-plugin-import"])) as [
+  const [pluginImport] = (await loadPackages(["eslint-plugin-import-x"])) as [
     ESLint.Plugin,
   ];
 
@@ -20,11 +20,19 @@ export async function imports(
         import: pluginImport,
       },
       settings: {
-        "import/external-module-folders": ["node_modules"],
-        "import/internal-regex": "^(?:#|(?:@|~)\\/).*",
-        "import/resolver": {
+        "import-x/external-module-folders": [
+          "node_modules",
+          "node_modules/@types",
+        ],
+        "import-x/internal-regex": "^(?:#|(?:@|~)\\/).*",
+        "import-x/extensions": [".ts", ".tsx", ".js", ".jsx"],
+        "import-x/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
+        },
+        "import-x/resolver": {
+          typescript: true,
           node: {
-            extensions: ["js", "cjs", "mjs", "ts", "cts", "mts", "jsx", "tsx"],
+            extensions: [".ts", ".tsx", ".js", ".jsx"],
           },
         },
       },

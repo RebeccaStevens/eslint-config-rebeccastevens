@@ -14,9 +14,11 @@ jiti
 knip
 litecoin
 lockb
+lookarounds
 monero
 nocheck
 noreply
+nums
 nuxt
 plugh
 quux
