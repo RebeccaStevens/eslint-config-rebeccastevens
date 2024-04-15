@@ -19,6 +19,12 @@ export async function interopDefault<T>(
   return (resolved as any).default ?? resolved;
 }
 
+export function toArray<T>(value: T | ReadonlyArray<T>): ReadonlyArray<T>;
+
+// eslint-disable-next-line functional/prefer-immutable-types
+export function toArray<T>(value: T | T[]): T[];
+
+// eslint-disable-next-line functional/prefer-immutable-types
 export function toArray<T>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value];
 }
@@ -52,26 +58,53 @@ export async function loadPackages<T extends string[]>(
   const missing = packageIds.filter((id) => !isPackageExists(id));
 
   if (missing.length > 0) {
-    const missingString = missing.join(", ");
+    await installPackages(missing);
+  }
+
+  // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-return
+  return Promise.all(packageIds.map((id) => interopDefault(import(id)))) as any;
+}
+
+const installPackagesToLoad = new Set<string>();
+let m_installPackagesTimeout: NodeJS.Timeout | null = null;
+
+/* eslint-disable functional/no-loop-statements */
+async function installPackages(packages: ReadonlyArray<string>) {
+  for (const p of packages) {
+    installPackagesToLoad.add(p);
+  }
+
+  return new Promise<string[]>((resolve) => {
+    if (m_installPackagesTimeout !== null) {
+      clearTimeout(m_installPackagesTimeout);
+    }
+
+    m_installPackagesTimeout = setTimeout(() => {
+      const allPackages = [...installPackagesToLoad.values()];
+      m_installPackagesTimeout = null;
+      installPackagesToLoad.clear();
+      resolve(allPackages);
+    }, 10);
+  }).then(async (allPackages) => {
+    const allPackagesString = allPackages.join(", ");
 
     if (Boolean(process.env["CI"]) || !process.stdout.isTTY) {
-      throw new Error(`Missing packages: ${missingString}`);
+      throw new Error(`Missing packages: ${allPackagesString}`);
     }
 
     const prompt = await import("@clack/prompts");
     const result = await prompt.confirm({
       message:
-        missing.length === 1
-          ? `${missing[0]} is required for this config. Do you want to install it?`
-          : `Packages are required for this config: ${missingString}.\nDo you want to install them?`,
+        allPackages.length === 1
+          ? `${allPackages[0]} is required for this config. Do you want to install it?`
+          : `Packages are required for this config: ${allPackagesString}.\nDo you want to install them?`,
     });
 
-    if (result !== false)
+    if (result !== false) {
       await import("@antfu/install-pkg").then(({ installPackage }) =>
-        installPackage(missing, { dev: true }),
+        installPackage(allPackages, { dev: true }),
       );
-  }
-
-  // eslint-disable-next-line ts/no-unsafe-return
-  return Promise.all(packageIds.map((id) => interopDefault(import(id)))) as any;
+    }
+  });
 }
+/* eslint-enable functional/no-loop-statements */

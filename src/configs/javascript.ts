@@ -4,7 +4,6 @@ import globals from "globals";
 import {
   type FlatConfigItem,
   type OptionsFunctional,
-  type OptionsIsInEditor,
   type OptionsOverrides,
 } from "../types";
 import { loadPackages } from "../utils";
@@ -14,13 +13,9 @@ const useNumberIsNan = "Please use Number.isNaN instead";
 const useObjectDefineProperty = "Please use Object.defineProperty instead.";
 
 export async function javascript(
-  options: OptionsIsInEditor & OptionsOverrides & OptionsFunctional = {},
+  options: OptionsOverrides & OptionsFunctional = {},
 ): Promise<FlatConfigItem[]> {
-  const {
-    isInEditor = false,
-    functionalEnforcement = "none",
-    overrides = {},
-  } = options;
+  const { functionalEnforcement = "none", overrides = {} } = options;
 
   const [pluginRegexp, pluginOptimizeRegex, pluginPromise, pluginSonar] =
     (await loadPackages([
@@ -88,7 +83,11 @@ export async function javascript(
         "max-depth": ["error", 10],
         "new-cap": [
           "error",
-          { capIsNew: false, newIsCap: true, properties: true },
+          {
+            capIsNew: false,
+            newIsCap: true,
+            properties: true,
+          },
         ],
         "no-alert": "error",
         "no-array-constructor": "error",
@@ -99,15 +98,13 @@ export async function javascript(
         "no-class-assign": "error",
         "no-compare-neg-zero": "error",
         "no-cond-assign": ["error", "always"],
-        "no-console": isInEditor
-          ? "off"
-          : ["error", { allow: ["warn", "error"] }],
+        "no-console": ["error", { allow: ["warn", "error"] }],
         "no-const-assign": "error",
         "no-constant-binary-expression": "error",
         "no-constant-condition": "error",
         "no-constructor-return": "error",
         "no-control-regex": "error",
-        "no-debugger": isInEditor ? "off" : "error",
+        "no-debugger": "error",
         "no-delete-var": "error",
         "no-dupe-args": "error",
         "no-dupe-class-members": "error",
@@ -188,15 +185,31 @@ export async function javascript(
             property: "isFinite",
             message: useNumberIsFinite,
           },
-          { object: "self", property: "isFinite", message: useNumberIsFinite },
+          {
+            object: "self",
+            property: "isFinite",
+            message: useNumberIsFinite,
+          },
           {
             object: "window",
             property: "isFinite",
             message: useNumberIsFinite,
           },
-          { object: "global", property: "isNaN", message: useNumberIsNan },
-          { object: "self", property: "isNaN", message: useNumberIsNan },
-          { object: "window", property: "isNaN", message: useNumberIsNan },
+          {
+            object: "global",
+            property: "isNaN",
+            message: useNumberIsNan,
+          },
+          {
+            object: "self",
+            property: "isNaN",
+            message: useNumberIsNan,
+          },
+          {
+            object: "window",
+            property: "isNaN",
+            message: useNumberIsNan,
+          },
           { property: "__defineGetter__", message: useObjectDefineProperty },
           { property: "__defineSetter__", message: useObjectDefineProperty },
         ],
@@ -267,7 +280,11 @@ export async function javascript(
         ],
         "no-use-before-define": [
           "error",
-          { classes: true, functions: false, variables: true },
+          {
+            classes: true,
+            functions: false,
+            variables: true,
+          },
         ],
         "no-useless-call": "error",
         "no-useless-catch": "error",
@@ -284,15 +301,23 @@ export async function javascript(
           "always",
           { avoidQuotes: true, ignoreConstructors: false },
         ],
-        "one-var": ["error", { var: "never", let: "never", const: "never" }],
+        "one-var": [
+          "error",
+          {
+            var: "never",
+            let: "never",
+            const: "never",
+          },
+        ],
         "operator-assignment": ["error", "always"],
         "prefer-arrow-callback": [
           "error",
           { allowNamedFunctions: false, allowUnboundThis: true },
         ],
-        "prefer-const": isInEditor
-          ? "off"
-          : ["error", { destructuring: "all", ignoreReadBeforeAssign: true }],
+        "prefer-const": [
+          "error",
+          { destructuring: "all", ignoreReadBeforeAssign: true },
+        ],
         "prefer-destructuring": [
           "error",
           {
@@ -411,37 +436,33 @@ export async function javascript(
         "promise/param-names": "error",
         "promise/valid-params": "error",
 
-        ...(isInEditor
-          ? {}
-          : {
-              "sonar/no-all-duplicated-branches": "error",
-              "sonar/no-collapsible-if": "error",
-              "sonar/no-collection-size-mischeck": "error",
-              "sonar/no-duplicated-branches": "error",
-              "sonar/no-element-overwrite": "error",
-              // "sonar/no-empty-collection": "error", // Doesn't work with eslint 9 yet
-              // "sonar/no-extra-arguments": "error", // Doesn't work with eslint 9 yet
-              // "sonar/no-gratuitous-expressions": "error", // Doesn't work with eslint 9 yet
-              "sonar/no-identical-conditions": "error",
-              "sonar/no-identical-expressions": "error",
-              "sonar/no-identical-functions": "error",
-              "sonar/no-ignored-return": "error",
-              "sonar/no-inverted-boolean-check": "error",
-              "sonar/no-nested-switch": "error",
-              "sonar/no-nested-template-literals": "error",
-              "sonar/no-one-iteration-loop": "error",
-              "sonar/no-redundant-boolean": "error",
-              // "sonar/no-redundant-jump": "error", // Doesn't work with eslint 9 yet
-              "sonar/no-same-line-conditional": "error",
-              // "sonar/no-unused-collection": "error", // Doesn't work with eslint 9 yet
-              // "sonar/no-use-of-empty-return-value": "error", // Doesn't work with eslint 9 yet
-              "sonar/no-useless-catch": "error",
-              "sonar/non-existent-operator": "error",
-              "sonar/prefer-immediate-return": "error",
-              "sonar/prefer-object-literal": "error",
-              "sonar/prefer-single-boolean-return": "error",
-              "sonar/prefer-while": "error",
-            }),
+        "sonar/no-all-duplicated-branches": "error",
+        "sonar/no-collapsible-if": "error",
+        "sonar/no-collection-size-mischeck": "error",
+        "sonar/no-duplicated-branches": "error",
+        "sonar/no-element-overwrite": "error",
+        // "sonar/no-empty-collection": "error", // Doesn't work with eslint 9 yet
+        // "sonar/no-extra-arguments": "error", // Doesn't work with eslint 9 yet
+        // "sonar/no-gratuitous-expressions": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-identical-conditions": "error",
+        "sonar/no-identical-expressions": "error",
+        "sonar/no-identical-functions": "error",
+        "sonar/no-ignored-return": "error",
+        "sonar/no-inverted-boolean-check": "error",
+        "sonar/no-nested-switch": "error",
+        "sonar/no-nested-template-literals": "error",
+        "sonar/no-one-iteration-loop": "error",
+        "sonar/no-redundant-boolean": "error",
+        // "sonar/no-redundant-jump": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-same-line-conditional": "error",
+        // "sonar/no-unused-collection": "error", // Doesn't work with eslint 9 yet
+        // "sonar/no-use-of-empty-return-value": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-useless-catch": "error",
+        "sonar/non-existent-operator": "error",
+        "sonar/prefer-immediate-return": "error",
+        "sonar/prefer-object-literal": "error",
+        "sonar/prefer-single-boolean-return": "error",
+        "sonar/prefer-while": "error",
 
         ...(functionalEnforcement === "none"
           ? {}

@@ -3,6 +3,7 @@ export * from "./formatters";
 export * from "./functional";
 export * from "./ignores";
 export * from "./imports";
+export * from "./in-editor";
 export * from "./javascript";
 export * from "./jsdoc";
 export * from "./jsonc";

@@ -1,4 +1,4 @@
-import { FlatConfigPipeline } from "eslint-flat-config-utils";
+import { FlatConfigComposer } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
 import {
@@ -8,6 +8,7 @@ import {
   functional,
   ignores,
   imports,
+  inEditor,
   javascript,
   jsdoc,
   jsonc,
@@ -53,7 +54,7 @@ export const defaultPluginRenaming = {
 export function rsEslint(
   options: OptionsConfig & FlatConfigItem = {},
   ...userConfigs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
-): FlatConfigPipeline<FlatConfigItem> {
+): FlatConfigComposer<FlatConfigItem> {
   const {
     autoRenamePlugins = true,
     componentExts = [],
@@ -69,10 +70,10 @@ export function rsEslint(
     test: testOptions = true,
     jsx: jsxOptions = true,
     functional: functionalOptions = true,
-    jsonc: jsoncOptions = true,
-    yaml: yamlOptions = true,
-    toml: tomlOptions = true,
-    markdown: markdownOptions = true,
+    jsonc: jsoncOptions = false,
+    yaml: yamlOptions = false,
+    toml: tomlOptions = false,
+    markdown: markdownOptions = false,
     formatters: formattersOptions = true,
   } = options;
 
@@ -86,8 +87,9 @@ export function rsEslint(
           }
         : StylisticConfigDefaults;
 
-  if (stylisticOptions !== false && !("jsx" in stylisticOptions))
+  if (stylisticOptions !== false && !("jsx" in stylisticOptions)) {
     stylisticOptions.jsx = jsxOptions;
+  }
 
   const functionalEnforcement =
     typeof functionalOptions === "string"
@@ -100,13 +102,15 @@ export function rsEslint(
 
   // Base configs
   configs.push(
-    ignores(ignoresOptions),
+    ignores({
+      ignores: ignoresOptions,
+    }),
     javascript({
-      isInEditor,
       functionalEnforcement,
       overrides: getOverrides(options, "javascript"),
     }),
     imports({
+      ...resolveSubOptions(options, "typescript"),
       stylistic: stylisticOptions,
     }),
     jsdoc({
@@ -117,7 +121,9 @@ export function rsEslint(
     node(),
   );
 
-  if (vueOptions !== false) componentExts.push("vue");
+  if (vueOptions !== false) {
+    componentExts.push("vue");
+  }
 
   if (typeScriptOptions !== false) {
     configs.push(
@@ -153,7 +159,6 @@ export function rsEslint(
   if (testOptions !== false) {
     configs.push(
       test({
-        isInEditor,
         overrides: getOverrides(options, "test"),
       }),
     );
@@ -225,17 +230,22 @@ export function rsEslint(
     );
   }
 
-  configs.push(overrides());
-
-  let m_pipeline = new FlatConfigPipeline<FlatConfigItem>();
-
-  m_pipeline = m_pipeline.append(...configs, ...userConfigs);
-
-  if (autoRenamePlugins) {
-    m_pipeline = m_pipeline.renamePlugins(defaultPluginRenaming);
+  if (isInEditor) {
+    configs.push(inEditor());
   }
 
-  return m_pipeline;
+  configs.push(overrides());
+
+  let m_composer = new FlatConfigComposer<FlatConfigItem>().append(
+    ...configs,
+    ...(userConfigs as any),
+  );
+
+  if (autoRenamePlugins) {
+    m_composer = m_composer.renamePlugins(defaultPluginRenaming);
+  }
+
+  return m_composer;
 }
 
 export type ResolvedOptions<T> = T extends boolean

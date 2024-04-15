@@ -26,9 +26,11 @@ import {
 } from "../types";
 import { loadPackages, parserPlain } from "../utils";
 
+import { StylisticConfigDefaults } from "./stylistic";
+
 export async function formatters(
   opts: OptionsFormatters | true = {},
-  stylistic: StylisticConfig = {},
+  stylistic: StylisticConfig = StylisticConfigDefaults,
 ): Promise<FlatConfigItem[]> {
   const options =
     opts === true
@@ -50,10 +52,11 @@ export async function formatters(
     options.slidev !== false &&
     options.slidev !== undefined &&
     options.markdown !== true
-  )
+  ) {
     throw new Error(
       "`slidev` option only works when `markdown` is enabled with `prettier`",
     );
+  }
 
   const { indent, quotes, semi } = stylistic;
 

@@ -1,17 +1,25 @@
 import { type ESLint } from "eslint";
 
 import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_TS, GLOB_TSX } from "../globs";
-import { type FlatConfigItem, type OptionsStylistic } from "../types";
+import {
+  type FlatConfigItem,
+  type OptionsStylistic,
+  type OptionsTypeScriptParserOptions,
+  type OptionsTypeScriptWithTypes,
+} from "../types";
 import { loadPackages } from "../utils";
 
 export async function imports(
-  options: OptionsStylistic = {},
+  options: OptionsStylistic &
+    OptionsTypeScriptWithTypes &
+    OptionsTypeScriptParserOptions = {},
 ): Promise<FlatConfigItem[]> {
   const { stylistic = true } = options;
 
-  const [pluginImport] = (await loadPackages(["eslint-plugin-import-x"])) as [
-    ESLint.Plugin,
-  ];
+  const [pluginImport] = (await loadPackages([
+    "eslint-plugin-import-x",
+    "eslint-import-resolver-typescript",
+  ])) as [ESLint.Plugin, ESLint.Plugin];
 
   return [
     {
@@ -30,7 +38,13 @@ export async function imports(
           "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
         },
         "import-x/resolver": {
-          typescript: true,
+          typescript:
+            options.tsconfig === undefined
+              ? false
+              : {
+                  alwaysTryTypes: true,
+                  project: options.tsconfig,
+                },
           node: {
             extensions: [".ts", ".tsx", ".js", ".jsx"],
           },
@@ -59,7 +73,7 @@ export async function imports(
           },
         ],
         "import/no-absolute-path": "error",
-        // "import/no-amd": "error", // Doesn't work with eslint 9 yet
+        "import/no-amd": "error",
         // "import/no-anonymous-default-export": "off",
         // "import/no-commonjs": "off",
         // "import/no-cycle": "off",
@@ -103,7 +117,7 @@ export async function imports(
           },
         ],
         // "import/no-internal-modules": "off",
-        // "import/no-mutable-exports": "error", // Doesn't work with eslint 9 yet
+        "import/no-mutable-exports": "error",
         // "import/no-named-as-default": "off",
         // "import/no-named-as-default-member": "off",
         "import/no-named-default": "error",
@@ -130,7 +144,7 @@ export async function imports(
         ...(stylistic === false
           ? {}
           : {
-              // "import/newline-after-import": ["error", { count: 1 }], // Doesn't work with eslint 9 yet
+              "import/newline-after-import": ["error", { count: 1 }],
               "import/order": [
                 "error",
                 {

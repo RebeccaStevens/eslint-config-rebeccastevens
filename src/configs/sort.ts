@@ -33,6 +33,7 @@ export function sortTsconfig(): FlatConfigItem[] {
               "disableSourceOfProjectReferenceRedirect",
               "disableSolutionSearching",
               "disableReferencedProjectLoad",
+
               /* Language and Environment */
               "target",
               "jsx",
@@ -46,6 +47,7 @@ export function sortTsconfig(): FlatConfigItem[] {
               "useDefineForClassFields",
               "emitDecoratorMetadata",
               "experimentalDecorators",
+
               /* Modules */
               "baseUrl",
               "rootDir",
@@ -64,10 +66,12 @@ export function sortTsconfig(): FlatConfigItem[] {
               "allowArbitraryExtensions",
               "allowImportingTsExtensions",
               "allowUmdGlobalAccess",
+
               /* JavaScript Support */
               "allowJs",
               "checkJs",
               "maxNodeModuleJsDepth",
+
               /* Type Checking */
               "strict",
               "strictBindCallApply",
@@ -88,6 +92,7 @@ export function sortTsconfig(): FlatConfigItem[] {
               "noUnusedLocals",
               "noUnusedParameters",
               "useUnknownInCatchVariables",
+
               /* Emit */
               "declaration",
               "declarationDir",
@@ -112,6 +117,7 @@ export function sortTsconfig(): FlatConfigItem[] {
               "sourceMap",
               "sourceRoot",
               "stripInternal",
+
               /* Interop Constraints */
               "allowSyntheticDefaultImports",
               "esModuleInterop",
@@ -119,6 +125,7 @@ export function sortTsconfig(): FlatConfigItem[] {
               "isolatedModules",
               "preserveSymlinks",
               "verbatimModuleSyntax",
+
               /* Completeness */
               "skipDefaultLibCheck",
               "skipLibCheck",

@@ -2,7 +2,15 @@ import assert from "node:assert/strict";
 
 import { type ESLint, type Linter } from "eslint";
 
-import { GLOB_DTS, GLOB_SRC, GLOB_TESTS, GLOB_TS, GLOB_TSX } from "../globs";
+import {
+  GLOB_DTS,
+  GLOB_JS,
+  GLOB_JSX,
+  GLOB_SRC,
+  GLOB_TESTS,
+  GLOB_TS,
+  GLOB_TSX,
+} from "../globs";
 import {
   type FlatConfigItem,
   type OptionsComponentExts,
@@ -99,6 +107,7 @@ export async function typescript(
         "no-extra-boolean-cast": "off",
         "consistent-return": "off", // Don't turn on ts version
         "import/named": "off",
+        "no-undef": "off",
 
         "ts/array-type": [
           "error",
@@ -183,7 +192,11 @@ export async function typescript(
             leadingUnderscore: "allow",
             trailingUnderscore: "forbid",
           },
-          { selector: "variable", format: null, modifiers: ["destructured"] },
+          {
+            selector: "variable",
+            format: null,
+            modifiers: ["destructured"],
+          },
           {
             selector: "memberLike",
             filter: { regex: "^[A-Z0-9_]+$", match: true },
@@ -347,7 +360,12 @@ export async function typescript(
         "no-use-before-define": "off",
         "ts/no-use-before-define": [
           "error",
-          { classes: true, functions: false, typedefs: true, variables: true },
+          {
+            classes: true,
+            functions: false,
+            typedefs: true,
+            variables: true,
+          },
         ],
 
         "no-shadow": "off",
@@ -446,9 +464,10 @@ export async function typescript(
       },
     },
     {
-      files: ["**/*.js", "**/*.cjs"],
       name: "rs:typescript:javascript-overrides",
+      files: [GLOB_JS, GLOB_JSX],
       rules: {
+        "ts/ban-ts-comment": "off",
         "ts/no-require-imports": "off",
         "ts/no-var-requires": "off",
       },

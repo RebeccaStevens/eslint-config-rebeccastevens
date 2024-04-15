@@ -122,7 +122,6 @@ export type OptionsStylistic = {
   stylistic?: boolean | StylisticConfig;
 };
 
-// eslint-disable-next-line functional/readonly-type
 export type StylisticConfig = {} & Pick<
   StylisticCustomizeOptions,
   "indent" | "quotes" | "jsx" | "semi"

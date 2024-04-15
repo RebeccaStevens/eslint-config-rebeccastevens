@@ -4,15 +4,14 @@ import { GLOB_TESTS } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFiles,
-  type OptionsIsInEditor,
   type OptionsOverrides,
 } from "../types";
 import { interopDefault, loadPackages } from "../utils";
 
 export async function test(
-  options: OptionsFiles & OptionsIsInEditor & OptionsOverrides = {},
+  options: OptionsFiles & OptionsOverrides = {},
 ): Promise<FlatConfigItem[]> {
-  const { files = GLOB_TESTS, isInEditor = false, overrides = {} } = options;
+  const { files = GLOB_TESTS, overrides = {} } = options;
 
   const [pluginVitest, pluginNoOnlyTests] = (await loadPackages([
     "eslint-plugin-vitest",
@@ -63,7 +62,7 @@ export async function test(
         ],
         "test/no-identical-title": "error",
         "test/no-import-node-test": "error",
-        "test/no-only-tests": isInEditor ? "off" : "error",
+        "test/no-only-tests": "error",
         "test/prefer-hooks-in-order": "error",
         "test/prefer-lowercase-title": "error",
         "test/valid-expect": "off", // Too many false positives.

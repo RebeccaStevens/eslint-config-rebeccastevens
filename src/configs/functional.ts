@@ -201,6 +201,7 @@ export async function functional(
     ...recommendedRules,
     "functional/no-conditional-statements": "off",
     "functional/no-expression-statements": "off",
+    "functional/no-return-void": "off",
   } satisfies FlatConfigItem["rules"];
 
   return [

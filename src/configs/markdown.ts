@@ -103,6 +103,7 @@ export async function markdown(
         "import/newline-after-import": "off",
         "import/no-extraneous-dependencies": "off",
         "import/no-unresolved": "off",
+        "import/order": "off",
 
         "jsdoc/require-jsdoc": "off",
 

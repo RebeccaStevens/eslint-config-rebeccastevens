@@ -14,9 +14,12 @@ export default rsEslint(
     typescript: {
       tsconfig: "./tsconfig.eslint.json",
     },
-    functional: "lite",
     formatters: true,
+    functional: "lite",
+    jsonc: true,
+    markdown: true,
     stylistic: true,
+    yaml: true,
   },
   {
     rules: {

@@ -185,7 +185,11 @@ export async function stylistic(
         ],
         "style/padded-blocks": [
           "error",
-          { blocks: "never", switches: "never", classes: "never" },
+          {
+            blocks: "never",
+            switches: "never",
+            classes: "never",
+          },
         ],
         "style/quote-props": ["error", "consistent-as-needed"],
         "style/quotes": [
@@ -200,7 +204,11 @@ export async function stylistic(
         "style/space-before-blocks": ["error", "always"],
         "style/space-before-function-paren": [
           "error",
-          { asyncArrow: "always", anonymous: "never", named: "never" },
+          {
+            asyncArrow: "always",
+            anonymous: "never",
+            named: "never",
+          },
         ],
         "style/space-in-parens": ["error", "never"],
         "style/space-infix-ops": "error",

@@ -27,11 +27,13 @@ type PluginVue = ESLint.Plugin & {
 /* eslint-enable ts/naming-convention */
 
 export async function vue(
-  options: OptionsVue &
-    OptionsHasTypeScript &
-    OptionsOverrides &
-    OptionsStylistic &
-    OptionsFiles = {},
+  options: Readonly<
+    OptionsVue &
+      OptionsHasTypeScript &
+      OptionsOverrides &
+      OptionsStylistic &
+      OptionsFiles
+  > = {},
 ): Promise<FlatConfigItem[]> {
   const {
     files = [GLOB_VUE],
