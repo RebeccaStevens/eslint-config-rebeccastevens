@@ -1,6 +1,26 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.0.0-next.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.11...v3.0.0-next.1) (2024-04-15)
+
+
+### Bug Fixes
+
+* build cjs and adjust rules some more ([72b9a18](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/72b9a186305e5c00b30c011558ccb51669736e13))
+* cleanup ([0fae3db](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0fae3dbcc62785001b59800071e29f8b00b5ac3b))
+
+
+### Features
+
+* migrate to eslint 9 and add more plugins ([6f02ef8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/6f02ef83f11380bf84bc51e8d2f07e37833ed8c0))
+* more adjustments ([ba379dd](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ba379dd16a5201de4f5e76810371eebaa21b692b))
+* more rules and fixups ([011f596](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/011f59674b7f5fa6bfe4292cb969b92b5d99f233))
+
+
+### BREAKING CHANGES
+
+* ESLint 9 is now required
+
 ## [2.0.11](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.10...v2.0.11) (2024-03-25)
 
 
