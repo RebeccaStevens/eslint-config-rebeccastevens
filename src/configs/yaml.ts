@@ -10,7 +10,7 @@ import {
 import { loadPackages } from "../utils";
 
 export async function yaml(
-  options: OptionsOverrides & OptionsStylistic & OptionsFiles = {},
+  options: Readonly<OptionsOverrides & OptionsStylistic & OptionsFiles>,
 ): Promise<FlatConfigItem[]> {
   const { files = [GLOB_YAML], overrides = {}, stylistic = true } = options;
 

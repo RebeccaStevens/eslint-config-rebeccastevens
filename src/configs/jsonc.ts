@@ -10,7 +10,7 @@ import {
 import { loadPackages } from "../utils";
 
 export async function jsonc(
-  options: OptionsFiles & OptionsStylistic & OptionsOverrides = {},
+  options: Readonly<OptionsFiles & OptionsStylistic & OptionsOverrides>,
 ): Promise<FlatConfigItem[]> {
   const {
     files = [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],

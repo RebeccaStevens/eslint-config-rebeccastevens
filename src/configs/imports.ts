@@ -10,9 +10,11 @@ import {
 import { loadPackages } from "../utils";
 
 export async function imports(
-  options: OptionsStylistic &
-    OptionsTypeScriptWithTypes &
-    OptionsTypeScriptParserOptions = {},
+  options: Readonly<
+    OptionsStylistic &
+      OptionsTypeScriptWithTypes &
+      OptionsTypeScriptParserOptions
+  >,
 ): Promise<FlatConfigItem[]> {
   const { stylistic = true } = options;
 

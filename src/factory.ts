@@ -15,6 +15,9 @@ import {
   markdown,
   node,
   overrides,
+  promise,
+  regexp,
+  sonar,
   sortTsconfig,
   stylistic,
   test,
@@ -83,13 +86,10 @@ export function rsEslint(
       : typeof options.stylistic === "object"
         ? {
             ...StylisticConfigDefaults,
+            jsx: jsxOptions,
             ...options.stylistic,
           }
         : StylisticConfigDefaults;
-
-  if (stylisticOptions !== false && !("jsx" in stylisticOptions)) {
-    stylisticOptions.jsx = jsxOptions;
-  }
 
   const functionalEnforcement =
     typeof functionalOptions === "string"
@@ -97,6 +97,8 @@ export function rsEslint(
       : typeof functionalOptions === "object"
         ? functionalOptions.functionalEnforcement ?? "default"
         : "default";
+
+  const hasTypeScript = Boolean(typeScriptOptions);
 
   const configs: Array<Awaitable<FlatConfigItem[]>> = [];
 
@@ -116,6 +118,9 @@ export function rsEslint(
     jsdoc({
       stylistic: stylisticOptions,
     }),
+    promise(),
+    regexp(),
+    sonar({ functionalEnforcement }),
     comments(),
     unicorn(),
     node(),
@@ -138,7 +143,8 @@ export function rsEslint(
   if (stylisticOptions !== false) {
     configs.push(
       stylistic({
-        ...stylisticOptions,
+        stylistic: stylisticOptions,
+        typescript: hasTypeScript,
         overrides: getOverrides(options, "stylistic"),
       }),
     );
@@ -170,7 +176,7 @@ export function rsEslint(
         ...resolveSubOptions(options, "vue"),
         overrides: getOverrides(options, "vue"),
         stylistic: stylisticOptions,
-        typescript: Boolean(typeScriptOptions),
+        typescript: hasTypeScript,
       }),
     );
   }
@@ -225,7 +231,7 @@ export function rsEslint(
     configs.push(
       formatters(
         formattersOptions,
-        typeof stylisticOptions === "boolean" ? {} : stylisticOptions,
+        stylisticOptions === false ? {} : stylisticOptions,
       ),
     );
   }
@@ -238,7 +244,7 @@ export function rsEslint(
 
   let m_composer = new FlatConfigComposer<FlatConfigItem>().append(
     ...configs,
-    ...(userConfigs as any),
+    ...userConfigs,
   );
 
   if (autoRenamePlugins) {

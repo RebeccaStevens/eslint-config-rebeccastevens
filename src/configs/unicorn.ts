@@ -3,9 +3,7 @@ import { type ESLint } from "eslint";
 import { type FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
-export async function unicorn(
-  options: unknown = {},
-): Promise<FlatConfigItem[]> {
+export async function unicorn(): Promise<FlatConfigItem[]> {
   const [pluginUnicorn] = (await loadPackages(["eslint-plugin-unicorn"])) as [
     ESLint.Plugin,
   ];

@@ -4,7 +4,7 @@ import { type FlatConfigItem, type OptionsUnoCSS } from "../types";
 import { loadPackages } from "../utils";
 
 export async function unocss(
-  options: OptionsUnoCSS = {},
+  options: Readonly<OptionsUnoCSS>,
 ): Promise<FlatConfigItem[]> {
   const { attributify = true, strict = true } = options;
 

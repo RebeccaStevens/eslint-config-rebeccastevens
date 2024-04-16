@@ -1,6 +1,6 @@
 import { type FlatConfigItem } from "../types";
 
-export function inEditor(options: unknown = {}): FlatConfigItem[] {
+export function inEditor(): FlatConfigItem[] {
   return [
     {
       name: "rs:in-editor",

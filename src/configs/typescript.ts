@@ -23,12 +23,14 @@ import {
 import { loadPackages, toArray } from "../utils";
 
 export async function typescript(
-  options: OptionsFiles &
-    OptionsComponentExts &
-    OptionsOverrides &
-    OptionsTypeScriptWithTypes &
-    OptionsTypeScriptParserOptions &
-    OptionsTypeScriptUnsafeSeverity = {},
+  options: Readonly<
+    OptionsFiles &
+      OptionsComponentExts &
+      OptionsOverrides &
+      OptionsTypeScriptWithTypes &
+      OptionsTypeScriptParserOptions &
+      OptionsTypeScriptUnsafeSeverity
+  >,
 ): Promise<FlatConfigItem[]> {
   const {
     componentExts = [],

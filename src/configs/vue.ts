@@ -33,7 +33,7 @@ export async function vue(
       OptionsOverrides &
       OptionsStylistic &
       OptionsFiles
-  > = {},
+  >,
 ): Promise<FlatConfigItem[]> {
   const {
     files = [GLOB_VUE],

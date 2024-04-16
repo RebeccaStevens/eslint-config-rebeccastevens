@@ -2,7 +2,7 @@ import { GLOB_EXCLUDE } from "../globs";
 import { type FlatConfigItem, type OptionsIgnores } from "../types";
 
 export function ignores(
-  options: Readonly<{ ignores?: OptionsIgnores }> = {},
+  options: Readonly<{ ignores?: OptionsIgnores }>,
 ): FlatConfigItem[] {
   const ignoresOptions = options.ignores;
 
@@ -11,11 +11,9 @@ export function ignores(
       ? [true, ignoresOptions ?? []]
       : [ignoresOptions.extend ?? true, ignoresOptions.files ?? []];
 
-  const ignores = extend ? [...GLOB_EXCLUDE, ...files] : [...files];
-
   return [
     {
-      ignores,
+      ignores: extend ? [...GLOB_EXCLUDE, ...files] : [...files],
     },
   ];
 }

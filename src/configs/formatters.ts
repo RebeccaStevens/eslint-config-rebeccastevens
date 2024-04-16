@@ -26,11 +26,9 @@ import {
 } from "../types";
 import { loadPackages, parserPlain } from "../utils";
 
-import { StylisticConfigDefaults } from "./stylistic";
-
 export async function formatters(
-  opts: OptionsFormatters | true = {},
-  stylistic: StylisticConfig = StylisticConfigDefaults,
+  opts: Readonly<OptionsFormatters | true>,
+  stylistic: Readonly<StylisticConfig>,
 ): Promise<FlatConfigItem[]> {
   const options =
     opts === true

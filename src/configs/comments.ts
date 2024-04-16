@@ -3,9 +3,7 @@ import { type ESLint } from "eslint";
 import { type FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
-export async function comments(
-  options: unknown = {},
-): Promise<FlatConfigItem[]> {
+export async function comments(): Promise<FlatConfigItem[]> {
   const [pluginComments] = (await loadPackages([
     "eslint-plugin-eslint-comments",
   ])) as [ESLint.Plugin];

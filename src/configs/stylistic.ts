@@ -3,12 +3,13 @@ import { type ESLint } from "eslint";
 
 import {
   type FlatConfigItem,
+  type OptionsHasTypeScript,
   type OptionsOverrides,
   type StylisticConfig,
 } from "../types";
 import { loadPackages } from "../utils";
 
-export const StylisticConfigDefaults: StylisticConfig = {
+export const StylisticConfigDefaults: Required<StylisticConfig> = {
   indent: 2,
   jsx: true,
   quotes: "double",
@@ -16,9 +17,20 @@ export const StylisticConfigDefaults: StylisticConfig = {
 };
 
 export async function stylistic(
-  options: StylisticConfig & OptionsOverrides = {},
+  options: Readonly<
+    { stylistic?: StylisticConfig } & OptionsOverrides & OptionsHasTypeScript
+  >,
 ): Promise<FlatConfigItem[]> {
-  const { indent, jsx, overrides = {}, quotes, semi } = options;
+  const {
+    stylistic: {
+      indent = StylisticConfigDefaults.indent,
+      jsx = StylisticConfigDefaults.jsx,
+      quotes = StylisticConfigDefaults.quotes,
+      semi = StylisticConfigDefaults.semi,
+    } = StylisticConfigDefaults,
+    overrides = {},
+    typescript = false,
+  } = options;
 
   const [pluginStylistic] = (await loadPackages([
     "@stylistic/eslint-plugin",
@@ -55,6 +67,14 @@ export async function stylistic(
             functions: "ignore",
             imports: "only-multiline",
             objects: "only-multiline",
+
+            ...(typescript
+              ? {
+                  enums: "only-multiline",
+                  generics: "only-multiline",
+                  tuples: "only-multiline",
+                }
+              : {}),
           },
         ],
         "style/comma-spacing": ["error", { before: false, after: true }],
@@ -64,24 +84,26 @@ export async function stylistic(
         "style/eol-last": "error",
         "style/func-call-spacing": ["error", "never"],
         "style/generator-star-spacing": ["error", "after"],
-        "style/indent": [
-          "error",
-          indent ?? 2,
-          {
-            SwitchCase: 1,
-            VariableDeclarator: 1,
-            outerIIFEBody: 1,
-            MemberExpression: 1,
-            FunctionDeclaration: { parameters: 1, body: 1 },
-            FunctionExpression: { parameters: 1, body: 1 },
-            CallExpression: { arguments: 1 },
-            ArrayExpression: 1,
-            ObjectExpression: 1,
-            ImportDeclaration: 1,
-            flatTernaryExpressions: false,
-            ignoreComments: false,
-          },
-        ],
+        "style/indent": typescript
+          ? "off"
+          : [
+              "error",
+              indent,
+              {
+                SwitchCase: 1,
+                VariableDeclarator: 1,
+                outerIIFEBody: 1,
+                MemberExpression: 1,
+                FunctionDeclaration: { parameters: 1, body: 1 },
+                FunctionExpression: { parameters: 1, body: 1 },
+                CallExpression: { arguments: 1 },
+                ArrayExpression: 1,
+                ObjectExpression: 1,
+                ImportDeclaration: 1,
+                flatTernaryExpressions: false,
+                ignoreComments: false,
+              },
+            ],
         "style/indent-binary-ops": "error",
         "style/key-spacing": [
           "error",
@@ -105,12 +127,32 @@ export async function stylistic(
             allowArrayEnd: true,
             allowClassStart: true,
             allowClassEnd: true,
+
+            ...(typescript
+              ? {
+                  allowEnumEnd: true,
+                  allowEnumStart: true,
+                  allowInterfaceEnd: true,
+                  allowInterfaceStart: true,
+                  allowModuleEnd: true,
+                  allowModuleStart: true,
+                  allowTypeEnd: true,
+                  allowTypeStart: true,
+                }
+              : {}),
           },
         ],
         "style/lines-between-class-members": [
           "error",
           "always",
-          { exceptAfterSingleLine: true },
+          {
+            exceptAfterSingleLine: true,
+            ...(typescript
+              ? {
+                  exceptAfterOverload: true,
+                }
+              : {}),
+          },
         ],
         "style/max-statements-per-line": ["error", { max: 1 }],
         "style/multiline-ternary": ["error", "always-multiline"],
@@ -195,13 +237,13 @@ export async function stylistic(
         "style/quote-props": ["error", "consistent-as-needed"],
         "style/quotes": [
           "error",
-          quotes ?? "double",
+          quotes,
           { avoidEscape: true, allowTemplateLiterals: true },
         ],
         "style/rest-spread-spacing": ["error", "never"],
         "style/semi-spacing": ["error", { before: false, after: true }],
         "style/semi-style": ["error", "last"],
-        "style/semi": ["error", semi === false ? "never" : "always"],
+        "style/semi": ["error", semi ? "always" : "never"],
         "style/space-before-blocks": ["error", "always"],
         "style/space-before-function-paren": [
           "error",
@@ -238,8 +280,13 @@ export async function stylistic(
           { functionPrototypeMethods: true },
         ],
         "style/yield-star-spacing": ["error", "after"],
-        "style/type-annotation-spacing": "error",
-        "style/member-delimiter-style": "error",
+
+        ...(typescript
+          ? {
+              "style/member-delimiter-style": "error",
+              "style/type-annotation-spacing": "error",
+            }
+          : {}),
 
         ...overrides,
       },

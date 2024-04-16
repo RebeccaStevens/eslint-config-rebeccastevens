@@ -9,10 +9,12 @@ import {
 import { loadPackages } from "../utils";
 
 export async function functional(
-  options: OptionsFunctional &
-    OptionsStylistic &
-    OptionsOverrides &
-    OptionsTypeScriptParserOptions = {},
+  options: Readonly<
+    OptionsFunctional &
+      OptionsStylistic &
+      OptionsOverrides &
+      OptionsTypeScriptParserOptions
+  >,
 ): Promise<FlatConfigItem[]> {
   const {
     overrides = {},

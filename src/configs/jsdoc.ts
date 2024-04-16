@@ -4,7 +4,7 @@ import { type FlatConfigItem, type OptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
 export async function jsdoc(
-  options: OptionsStylistic = {},
+  options: Readonly<OptionsStylistic>,
 ): Promise<FlatConfigItem[]> {
   const { stylistic = true } = options;
 

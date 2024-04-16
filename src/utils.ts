@@ -1,5 +1,7 @@
-import { type Awaitable, type FlatConfigItem } from "eslint-flat-config-utils";
+import { type Awaitable } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
+
+import { type FlatConfigItem } from "./types";
 
 /**
  * Combine array and non-array configs into a single array.

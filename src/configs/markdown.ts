@@ -15,7 +15,7 @@ import {
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
-  options: OptionsFiles & OptionsComponentExts & OptionsOverrides = {},
+  options: Readonly<OptionsFiles & OptionsComponentExts & OptionsOverrides>,
 ): Promise<FlatConfigItem[]> {
   const {
     componentExts = [],

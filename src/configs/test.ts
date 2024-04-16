@@ -9,7 +9,7 @@ import {
 import { interopDefault, loadPackages } from "../utils";
 
 export async function test(
-  options: OptionsFiles & OptionsOverrides = {},
+  options: Readonly<OptionsFiles & OptionsOverrides>,
 ): Promise<FlatConfigItem[]> {
   const { files = GLOB_TESTS, overrides = {} } = options;
 
