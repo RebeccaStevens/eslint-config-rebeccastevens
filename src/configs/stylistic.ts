@@ -96,6 +96,7 @@ export async function stylistic(
             beforeLineComment: false,
             afterBlockComment: false,
             afterLineComment: false,
+            afterHashbangComment: true,
             allowBlockStart: true,
             allowBlockEnd: true,
             allowObjectStart: true,

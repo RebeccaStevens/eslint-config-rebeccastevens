@@ -33,7 +33,6 @@
     "eslint-plugin-yml",
     "eslint-processor-vue-blocks",
     "jsonc-eslint-parser",
-    "prettier-plugin-multiline-arrays",
     "prettier-plugin-packagejson",
     "prettier",
     "toml-eslint-parser",
