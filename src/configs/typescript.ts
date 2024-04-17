@@ -22,6 +22,8 @@ import {
 } from "../types";
 import { loadPackages, toArray } from "../utils";
 
+export const defaultFilesTypesAware = [GLOB_TS, GLOB_TSX, GLOB_DTS];
+
 export async function typescript(
   options: Readonly<
     OptionsFiles &
@@ -44,11 +46,7 @@ export async function typescript(
     ...componentExts.map((ext) => `**/*.${ext}`),
   ];
 
-  const filesTypeAware = options.filesTypeAware ?? [
-    GLOB_TS,
-    GLOB_TSX,
-    GLOB_DTS,
-  ];
+  const filesTypeAware = options.filesTypeAware ?? defaultFilesTypesAware;
   const tsconfigPath =
     options.tsconfig === undefined
       ? undefined
@@ -64,13 +62,13 @@ export async function typescript(
 
   function makeParser(
     typeAware: boolean,
-    files: Readonly<string[]>,
-    ignores?: Readonly<string[]>,
+    files: string[],
+    ignores: string[] = [],
   ): FlatConfigItem {
     return {
       name: `rs:typescript:${typeAware ? "type-aware-parser" : "parser"}`,
-      files: [...files],
-      ...(ignores === undefined ? {} : { ignores: [...ignores] }),
+      files,
+      ignores,
       languageOptions: {
         parser: parserTs,
         parserOptions: {
@@ -450,15 +448,15 @@ export async function typescript(
       },
     },
     {
+      name: "rs:typescript:rules-non-type-aware",
       files,
       ignores: filesTypeAware,
-      name: "rs:typescript:rules-non-type-aware",
       rules: ((pluginTs.configs?.["disable-type-checked"] as Linter.FlatConfig)
         .rules ?? {}) as NonNullable<FlatConfigItem["rules"]>,
     },
     {
-      files: GLOB_TESTS,
       name: "rs:typescript:tests-overrides",
+      files: GLOB_TESTS,
       rules: {
         "ts/no-unused-expressions": "off",
         "ts/consistent-type-definitions": "off",

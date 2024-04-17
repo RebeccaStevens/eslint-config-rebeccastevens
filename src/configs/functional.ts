@@ -1,4 +1,3 @@
-import { GLOB_TS } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFunctional,
@@ -7,6 +6,8 @@ import {
   type OptionsTypeScriptParserOptions,
 } from "../types";
 import { loadPackages } from "../utils";
+
+import { defaultFilesTypesAware } from "./typescript";
 
 export async function functional(
   options: Readonly<
@@ -19,7 +20,7 @@ export async function functional(
   const {
     overrides = {},
     stylistic = true,
-    filesTypeAware = [GLOB_TS],
+    filesTypeAware = defaultFilesTypesAware,
     functionalEnforcement = "none",
   } = options;
 

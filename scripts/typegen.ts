@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 
+import { type Linter } from "eslint";
 import { flatConfigsToRulesDTS } from "eslint-typegen/core";
 
 import {
@@ -30,7 +31,7 @@ import {
 } from "../src/configs";
 import { combine } from "../src/utils";
 
-const configs = await combine(
+const configs = (await combine(
   comments(),
   formatters({}, {}),
   functional({}),
@@ -55,7 +56,7 @@ const configs = await combine(
   unocss({}),
   vue({}),
   yaml({}),
-);
+)) as Linter.FlatConfig[];
 
 const dts = await flatConfigsToRulesDTS(configs, {
   includeAugmentation: false,
