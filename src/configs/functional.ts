@@ -111,36 +111,50 @@ export async function functional(
       "warn",
       {
         enforcement: "None",
-        ignoreInferredTypes: true,
-        ignoreNamePattern: ["^[mM]_"],
-        parameters: { enforcement: "ReadonlyShallow" },
-        suggestions: {
-          ReadonlyShallow: [
-            [
+        overrides: [
+          {
+            specifiers: [
               {
-                pattern: "^(Array|Map|Set)<(.+)>$",
-                replace: "Readonly$1<$2>",
+                from: "file",
               },
-              { pattern: "^(.+)$", replace: "Readonly<$1>" },
-            ],
-          ],
-          ReadonlyDeep: [
-            [
               {
-                pattern: "^(?:Readonly<(.+)>|(.+))$",
-                replace: "ReadonlyDeep<$1$2>",
+                from: "lib",
               },
             ],
-          ],
-          Immutable: [
-            [
-              {
-                pattern: "^(?:Readonly(?:Deep)?<(.+)>|(.+))$",
-                replace: "Immutable<$1$2>",
+            options: {
+              ignoreInferredTypes: true,
+              ignoreNamePattern: ["^[mM]_"],
+              parameters: { enforcement: "ReadonlyShallow" },
+              suggestions: {
+                ReadonlyShallow: [
+                  [
+                    {
+                      pattern: "^(Array|Map|Set)<(.+)>$",
+                      replace: "Readonly$1<$2>",
+                    },
+                    { pattern: "^(.+)$", replace: "Readonly<$1>" },
+                  ],
+                ],
+                ReadonlyDeep: [
+                  [
+                    {
+                      pattern: "^(?:Readonly<(.+)>|(.+))$",
+                      replace: "ReadonlyDeep<$1$2>",
+                    },
+                  ],
+                ],
+                Immutable: [
+                  [
+                    {
+                      pattern: "^(?:Readonly(?:Deep)?<(.+)>|(.+))$",
+                      replace: "Immutable<$1$2>",
+                    },
+                  ],
+                ],
               },
-            ],
-          ],
-        },
+            },
+          },
+        ],
       },
     ],
     "functional/type-declaration-immutability": [

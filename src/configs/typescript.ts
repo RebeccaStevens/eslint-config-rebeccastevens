@@ -15,6 +15,7 @@ import {
   type FlatConfigItem,
   type OptionsComponentExts,
   type OptionsFiles,
+  type OptionsFunctional,
   type OptionsOverrides,
   type OptionsTypeScriptParserOptions,
   type OptionsTypeScriptUnsafeSeverity,
@@ -31,10 +32,12 @@ export async function typescript(
       OptionsOverrides &
       OptionsTypeScriptWithTypes &
       OptionsTypeScriptParserOptions &
-      OptionsTypeScriptUnsafeSeverity
+      OptionsTypeScriptUnsafeSeverity &
+      OptionsFunctional
   >,
 ): Promise<FlatConfigItem[]> {
   const {
+    functionalEnforcement = "none",
     componentExts = [],
     overrides = {},
     parserOptions = {},
@@ -138,117 +141,6 @@ export async function typescript(
         "ts/explicit-member-accessibility": [
           "error",
           { accessibility: "explicit" },
-        ],
-        "ts/naming-convention": [
-          "error",
-          {
-            selector: "default",
-            format: ["camelCase", "PascalCase"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variableLike",
-            filter: { regex: "_[^_]+", match: true },
-            format: ["camelCase", "PascalCase"],
-            prefix: ["m_", "M_"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variableLike",
-            format: ["camelCase", "PascalCase"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variable",
-            format: ["camelCase", "PascalCase", "UPPER_CASE"],
-            prefix: ["m_", "M_"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variable",
-            filter: { regex: "^[A-Z0-9_]+$", match: true },
-            format: ["UPPER_CASE"],
-            modifiers: ["const"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variable",
-            filter: { regex: "_[^_]+", match: true },
-            format: ["camelCase", "PascalCase"],
-            modifiers: ["const"],
-            prefix: ["m_", "M_"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variable",
-            format: ["camelCase", "PascalCase", "UPPER_CASE"],
-            modifiers: ["const"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "variable",
-            format: null,
-            modifiers: ["destructured"],
-          },
-          {
-            selector: "memberLike",
-            filter: { regex: "^[A-Z0-9_]+$", match: true },
-            format: ["UPPER_CASE"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "memberLike",
-            format: ["camelCase", "PascalCase"],
-            prefix: ["m_", "M_"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "memberLike",
-            filter: { regex: "_[^_]+", match: true },
-            format: ["camelCase", "PascalCase"],
-            modifiers: ["readonly"],
-            prefix: ["m_", "M_"],
-            leadingUnderscore: "forbid",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "memberLike",
-            format: ["camelCase", "PascalCase", "UPPER_CASE"],
-            modifiers: ["readonly"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: ["accessor", "classMethod", "typeMethod", "typeProperty"],
-            format: ["camelCase", "PascalCase", "UPPER_CASE"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "enumMember",
-            format: ["PascalCase", "UPPER_CASE"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: "typeLike",
-            format: ["PascalCase"],
-            leadingUnderscore: "allow",
-            trailingUnderscore: "forbid",
-          },
-          {
-            selector: ["objectLiteralProperty", "objectLiteralMethod"],
-            format: null,
-          },
         ],
         "ts/no-array-delete": "error",
         "ts/no-base-to-string": "error",
@@ -443,6 +335,127 @@ export async function typescript(
 
         "require-await": "off",
         "ts/require-await": "error",
+
+        ...(functionalEnforcement === "none"
+          ? {}
+          : {
+              "ts/naming-convention": [
+                "error",
+                {
+                  selector: "default",
+                  format: ["camelCase", "PascalCase"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variableLike",
+                  filter: { regex: "_[^_]+", match: true },
+                  format: ["camelCase", "PascalCase"],
+                  prefix: ["m_", "M_"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variableLike",
+                  format: ["camelCase", "PascalCase"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variable",
+                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
+                  prefix: ["m_", "M_"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variable",
+                  filter: { regex: "^[A-Z0-9_]+$", match: true },
+                  format: ["UPPER_CASE"],
+                  modifiers: ["const"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variable",
+                  filter: { regex: "_[^_]+", match: true },
+                  format: ["camelCase", "PascalCase"],
+                  modifiers: ["const"],
+                  prefix: ["m_", "M_"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variable",
+                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
+                  modifiers: ["const"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "variable",
+                  format: null,
+                  modifiers: ["destructured"],
+                },
+                {
+                  selector: "memberLike",
+                  filter: { regex: "^[A-Z0-9_]+$", match: true },
+                  format: ["UPPER_CASE"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "memberLike",
+                  format: ["camelCase", "PascalCase"],
+                  prefix: ["m_", "M_"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "memberLike",
+                  filter: { regex: "_[^_]+", match: true },
+                  format: ["camelCase", "PascalCase"],
+                  modifiers: ["readonly"],
+                  prefix: ["m_", "M_"],
+                  leadingUnderscore: "forbid",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "memberLike",
+                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
+                  modifiers: ["readonly"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: [
+                    "accessor",
+                    "classMethod",
+                    "typeMethod",
+                    "typeProperty",
+                  ],
+                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "enumMember",
+                  format: ["PascalCase", "UPPER_CASE"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: "typeLike",
+                  format: ["PascalCase"],
+                  leadingUnderscore: "allow",
+                  trailingUnderscore: "forbid",
+                },
+                {
+                  selector: ["objectLiteralProperty", "objectLiteralMethod"],
+                  format: null,
+                },
+              ],
+            }),
 
         ...overrides,
       },

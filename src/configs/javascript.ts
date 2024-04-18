@@ -343,7 +343,15 @@ export function javascript(
         ...(functionalEnforcement === "none"
           ? {}
           : {
-              "no-param-reassign": "error",
+              "no-param-reassign": [
+                "error",
+                functionalEnforcement === "lite"
+                  ? { props: false }
+                  : {
+                      props: true,
+                      ignorePropertyModificationsForRegex: ["^[mM]_"],
+                    },
+              ],
             }),
 
         ...overrides,

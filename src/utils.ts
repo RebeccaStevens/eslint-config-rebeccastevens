@@ -1,3 +1,5 @@
+import assert from "node:assert/strict";
+
 import { type Awaitable } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
@@ -68,6 +70,10 @@ export async function loadPackages<T extends string[]>(
 }
 
 const installPackagesToLoad = new Set<string>();
+let m_installPackagesAction: Promise<void> | null = null;
+let m_installPackagesActionResolver:
+  | ((value: string[] | PromiseLike<string[]>) => void)
+  | null = null;
 let m_installPackagesTimeout: NodeJS.Timeout | null = null;
 
 /* eslint-disable functional/no-loop-statements */
@@ -76,37 +82,46 @@ async function installPackages(packages: ReadonlyArray<string>) {
     installPackagesToLoad.add(p);
   }
 
-  return new Promise<string[]>((resolve) => {
-    if (m_installPackagesTimeout !== null) {
-      clearTimeout(m_installPackagesTimeout);
-    }
+  if (m_installPackagesTimeout !== null) {
+    clearTimeout(m_installPackagesTimeout);
+  }
 
-    m_installPackagesTimeout = setTimeout(() => {
-      const allPackages = [...installPackagesToLoad.values()];
-      m_installPackagesTimeout = null;
-      installPackagesToLoad.clear();
-      resolve(allPackages);
-    }, 10);
-  }).then(async (allPackages) => {
-    const allPackagesString = allPackages.join(", ");
+  m_installPackagesTimeout = setTimeout(() => {
+    const allPackages = [...installPackagesToLoad.values()];
+    m_installPackagesTimeout = null;
+    installPackagesToLoad.clear();
+    m_installPackagesAction = null;
+    assert(m_installPackagesActionResolver !== null);
+    m_installPackagesActionResolver(allPackages);
+    m_installPackagesActionResolver = null;
+  }, 10);
 
-    if (Boolean(process.env["CI"]) || !process.stdout.isTTY) {
-      throw new Error(`Missing packages: ${allPackagesString}`);
-    }
+  if (m_installPackagesAction === null) {
+    m_installPackagesAction = new Promise<string[]>((resolve) => {
+      m_installPackagesActionResolver = resolve;
+    }).then(async (allPackages: string[]) => {
+      const allPackagesString = allPackages.join(", ");
 
-    const prompt = await import("@clack/prompts");
-    const result = await prompt.confirm({
-      message:
-        allPackages.length === 1
-          ? `${allPackages[0]} is required for this config. Do you want to install it?`
-          : `Packages are required for this config: ${allPackagesString}.\nDo you want to install them?`,
+      if (Boolean(process.env["CI"]) || !process.stdout.isTTY) {
+        throw new Error(`Missing packages: ${allPackagesString}`);
+      }
+
+      const prompt = await import("@clack/prompts");
+      const result = await prompt.confirm({
+        message:
+          allPackages.length === 1
+            ? `${allPackages[0]} is required for this config. Do you want to install it?`
+            : `Packages are required for this config: ${allPackagesString}.\nDo you want to install them?`,
+      });
+
+      if (result !== false) {
+        await import("@antfu/install-pkg").then(({ installPackage }) =>
+          installPackage(allPackages, { dev: true }),
+        );
+      }
     });
+  }
 
-    if (result !== false) {
-      await import("@antfu/install-pkg").then(({ installPackage }) =>
-        installPackage(allPackages, { dev: true }),
-      );
-    }
-  });
+  return m_installPackagesAction;
 }
 /* eslint-enable functional/no-loop-statements */

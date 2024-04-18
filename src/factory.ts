@@ -135,6 +135,7 @@ export function rsEslint(
       typescript({
         ...resolveSubOptions(options, "typescript"),
         componentExts,
+        functionalEnforcement,
         overrides: getOverrides(options, "typescript"),
       }),
     );

@@ -104,8 +104,8 @@ devDependencies:
     specifier: 0.1.1
     version: 0.1.1(eslint@9.0.0)
   eslint-plugin-functional:
-    specifier: 7.0.0-alpha.0
-    version: 7.0.0-alpha.0(eslint@9.0.0)(typescript@5.4.5)
+    specifier: 7.0.0-alpha.1
+    version: 7.0.0-alpha.1(eslint@9.0.0)(typescript@5.4.5)
   eslint-plugin-import-x:
     specifier: 0.5.0
     version: 0.5.0(eslint@9.0.0)(typescript@5.4.5)
@@ -155,8 +155,8 @@ devDependencies:
     specifier: 1.14.0
     version: 1.14.0(eslint@9.0.0)
   eslint-processor-vue-blocks:
-    specifier: 0.1.1
-    version: 0.1.1(@vue/compiler-sfc@3.4.21)(eslint@9.0.0)
+    specifier: 0.1.2
+    version: 0.1.2(@vue/compiler-sfc@3.4.21)(eslint@9.0.0)
   eslint-typegen:
     specifier: 0.2.3
     version: 0.2.3(eslint@9.0.0)
@@ -3667,8 +3667,8 @@ packages:
       synckit: 0.9.0
     dev: true
 
-  /eslint-plugin-functional@7.0.0-alpha.0(eslint@9.0.0)(typescript@5.4.5):
-    resolution: {integrity: sha512-DvfZkNt/5DH/br5ZCiL5p5+4f/SVQPzt2kajaPfIeUNYuQU3cGlalKNENzss9Fbm74Tdswd9uwDmkTEnUHskpA==}
+  /eslint-plugin-functional@7.0.0-alpha.1(eslint@9.0.0)(typescript@5.4.5):
+    resolution: {integrity: sha512-TybYHDF0HqkTUC2v3inqciBIU0pPAcHcvdtSyrOAh1UohFLA4+VPtVXmVt6jY2X8kihGDJUZQLksNBaLs+WMnw==}
     engines: {node: '>=v18.18.0'}
     peerDependencies:
       eslint: ^9.0.0
@@ -3682,8 +3682,8 @@ packages:
       escape-string-regexp: 4.0.0
       eslint: 9.0.0
       is-immutable-type: 3.1.0(eslint@9.0.0)(typescript@5.4.5)
-      semver: 7.6.0
       ts-api-utils: 1.3.0(typescript@5.4.5)
+      ts-declaration-location: 1.0.0(typescript@5.4.5)
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -3974,11 +3974,11 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-processor-vue-blocks@0.1.1(@vue/compiler-sfc@3.4.21)(eslint@9.0.0):
-    resolution: {integrity: sha512-9+dU5lU881log570oBwpelaJmOfOzSniben7IWEDRYQPPWwlvaV7NhOtsTuUWDqpYT+dtKKWPsgz4OkOi+aZnA==}
+  /eslint-processor-vue-blocks@0.1.2(@vue/compiler-sfc@3.4.21)(eslint@9.0.0):
+    resolution: {integrity: sha512-PfpJ4uKHnqeL/fXUnzYkOax3aIenlwewXRX8jFinA1a2yCFnLgMuiH3xvCgvHHUlV2xJWQHbCTdiJWGwb3NqpQ==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.3.0
-      eslint: ^8.50.0
+      eslint: ^8.50.0 || ^9.0.0
     dependencies:
       '@vue/compiler-sfc': 3.4.21
       eslint: 9.0.0
