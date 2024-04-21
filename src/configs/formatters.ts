@@ -86,6 +86,20 @@ export async function formatters(
     ),
 
     "no-irregular-whitespace": "off",
+    // "style/lines-around-comment": "off",
+    "style/max-len": "off",
+    "style/no-confusing-arrow": "off",
+    "style/no-mixed-operators": "off",
+    "style/no-tabs": "off",
+    "style/quotes": "off",
+    // "style/js/lines-around-comment": "off",
+    // "style/js/max-len": "off",
+    "style/js/no-confusing-arrow": "off",
+    "style/js/no-mixed-operators": "off",
+    "style/js/no-tabs": "off",
+    "style/js/quotes": "off",
+    // "style/ts/lines-around-comment": "off",
+    "style/ts/quotes": "off",
 
     // From https://github.com/prettier/eslint-config-prettier/pull/272
     "style/array-bracket-newline": "off",
