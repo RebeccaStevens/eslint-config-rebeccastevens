@@ -158,7 +158,7 @@ export async function vue(
         "vue/html-indent": ["error", indent],
         "vue/html-quotes": ["error", "double"],
         // "vue/max-attributes-per-line": "off",
-        // "vue/multi-word-component-names": "off",
+        "vue/multi-word-component-names": "error",
         // "vue/no-dupe-keys": "off",
         "vue/no-empty-pattern": "error",
         "vue/no-irregular-whitespace": "error",

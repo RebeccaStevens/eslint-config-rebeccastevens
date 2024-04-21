@@ -55,7 +55,7 @@ export async function regexp(): Promise<FlatConfigItem[]> {
         "regexp/no-super-linear-backtracking": "error",
         "regexp/no-trivially-nested-assertion": "error",
         "regexp/no-trivially-nested-quantifier": "error",
-        "regexp/no-unused-capturing-group": "error",
+        "regexp/no-unused-capturing-group": "warn",
         "regexp/no-useless-assertions": "error",
         "regexp/no-useless-backreference": "error",
         "regexp/no-useless-character-class": "error",
