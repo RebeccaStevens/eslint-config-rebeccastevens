@@ -68,7 +68,7 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
         "unicorn/no-useless-fallback-in-spread": "error",
         "unicorn/no-useless-length-check": "error",
         "unicorn/no-useless-promise-resolve-reject": "error",
-        "unicorn/no-useless-spread": "error",
+        // "unicorn/no-useless-spread": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2018
         "unicorn/no-useless-switch-case": "error",
         "unicorn/no-zero-fractions": "error",
         "unicorn/number-literal-case": "error",
