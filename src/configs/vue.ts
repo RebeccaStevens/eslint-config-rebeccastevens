@@ -47,15 +47,18 @@ export async function vue(
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const [pluginVue, parserVue, processorVueBlocks] = (await loadPackages([
-    "eslint-plugin-vue",
-    "vue-eslint-parser",
-    "eslint-processor-vue-blocks",
-  ])) as [
-    PluginVue,
-    typeof import("vue-eslint-parser"),
-    (typeof import("eslint-processor-vue-blocks"))["default"],
-  ];
+  const [pluginVue, pluginVueI18n, parserVue, processorVueBlocks] =
+    (await loadPackages([
+      "eslint-plugin-vue",
+      "@intlify/eslint-plugin-vue-i18n",
+      "vue-eslint-parser",
+      "eslint-processor-vue-blocks",
+    ])) as [
+      PluginVue,
+      ESLint.Plugin,
+      typeof import("vue-eslint-parser"),
+      (typeof import("eslint-processor-vue-blocks"))["default"],
+    ];
 
   const parserTs = await interopDefault(
     import("@typescript-eslint/parser"),
@@ -84,6 +87,7 @@ export async function vue(
       },
       plugins: {
         vue: pluginVue,
+        "vue-i18n": pluginVueI18n,
       },
     },
     {
@@ -190,6 +194,11 @@ export async function vue(
         // "vue/require-prop-types": "off",
         "vue/space-infix-ops": "error",
         "vue/space-unary-ops": ["error", { nonwords: false, words: true }],
+
+        "vue-i18n/no-html-messages": "warn",
+        "vue-i18n/no-missing-keys": "warn",
+        "vue-i18n/no-raw-text": "warn",
+        "vue-i18n/no-v-html": "warn",
 
         ...(stylistic === false
           ? {}

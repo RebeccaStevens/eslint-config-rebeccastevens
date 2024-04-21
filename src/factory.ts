@@ -37,11 +37,12 @@ import {
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
 export const defaultPluginRenaming = {
+  "@intlify/vue-i18n": "vue-i18n",
   "@stylistic": "style",
   "@typescript-eslint": "ts",
   "import-x": "import",
-  "optimize-regex": "regexp",
   n: "node",
+  "optimize-regex": "regexp",
   sonarjs: "sonar",
   vitest: "test",
   yml: "yaml",

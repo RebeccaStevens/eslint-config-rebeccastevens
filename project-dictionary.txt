@@ -10,6 +10,7 @@ fred
 garply
 grault
 iife
+intlify
 jiti
 knip
 litecoin

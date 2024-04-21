@@ -3,6 +3,7 @@
   "entry": ["src/index.ts!", "tests/**/*.test.ts"],
   "project": ["src/**/*.ts!", "tests/**/*.ts"],
   "ignoreDependencies": [
+    "@intlify/eslint-plugin-vue-i18n",
     "@stylistic/eslint-plugin",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
