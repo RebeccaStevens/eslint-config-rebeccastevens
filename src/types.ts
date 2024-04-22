@@ -5,6 +5,8 @@ import { type ESLint, type Linter } from "eslint";
 import { type Options as VueBlocksOptions } from "eslint-processor-vue-blocks";
 import { type Options as PrettierOptions } from "prettier";
 
+import { type SettingsVueI18nLocaleDir } from "../typings/eslint-plugin-vue-i18n";
+
 import { type RuleOptions } from "./typegen";
 
 export type Awaitable<T> = T | Promise<T>;
@@ -50,6 +52,13 @@ export type OptionsVue = {
    * @default 3
    */
   vueVersion?: 2 | 3;
+
+  i18n?:
+    | {
+        localeDir?: SettingsVueI18nLocaleDir;
+        messageSyntaxVersion?: string;
+      }
+    | false;
 } & OptionsOverrides;
 
 export type OptionsTypescript = (

@@ -10,7 +10,7 @@ import {
   type OptionsStylistic,
   type OptionsVue,
 } from "../types";
-import { interopDefault, loadPackages } from "../utils";
+import { interopDefault, isNotNull, loadPackages } from "../utils";
 
 /* eslint-disable ts/naming-convention */
 type PluginVue = ESLint.Plugin & {
@@ -41,6 +41,7 @@ export async function vue(
     stylistic = true,
     vueVersion = 3,
     typescript = false,
+    i18n = false,
   } = options;
 
   const sfcBlocks = options.sfcBlocks === true ? {} : options.sfcBlocks ?? {};
@@ -89,7 +90,8 @@ export async function vue(
         vue: pluginVue,
         "vue-i18n": pluginVueI18n,
       },
-    },
+    } satisfies FlatConfigItem,
+
     {
       name: "rs:vue:rules",
       files,
@@ -195,11 +197,6 @@ export async function vue(
         "vue/space-infix-ops": "error",
         "vue/space-unary-ops": ["error", { nonwords: false, words: true }],
 
-        "vue-i18n/no-html-messages": "warn",
-        "vue-i18n/no-missing-keys": "warn",
-        "vue-i18n/no-raw-text": "warn",
-        "vue-i18n/no-v-html": "warn",
-
         ...(stylistic === false
           ? {}
           : {
@@ -249,6 +246,21 @@ export async function vue(
 
         ...overrides,
       },
-    },
-  ];
+    } satisfies FlatConfigItem,
+
+    i18n === false
+      ? null
+      : ({
+          name: "rs:vue-i18n:rules",
+          rules: {
+            "vue-i18n/no-html-messages": "error",
+            "vue-i18n/no-missing-keys": "error",
+            "vue-i18n/no-raw-text": "warn",
+            "vue-i18n/no-v-html": "error",
+          },
+          settings: {
+            "vue-i18n": i18n,
+          },
+        } satisfies FlatConfigItem),
+  ].filter(isNotNull);
 }
