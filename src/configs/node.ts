@@ -1,6 +1,6 @@
 import { type ESLint } from "eslint";
 
-import { GLOB_MJS, GLOB_TS } from "../globs";
+import { GLOB_DTS, GLOB_MJS, GLOB_TS, GLOB_TSX } from "../globs";
 import { type FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
@@ -60,7 +60,6 @@ export async function node(): Promise<FlatConfigItem[]> {
         ],
         "node/no-sync": "error",
         "node/no-unpublished-import": "warn",
-        "node/no-unsupported-features/es-syntax": "off",
         "node/prefer-global/buffer": ["error", "never"],
         "node/prefer-global/console": ["error", "always"],
         "node/prefer-global/process": ["error", "always"],
@@ -73,9 +72,18 @@ export async function node(): Promise<FlatConfigItem[]> {
       },
     },
     {
-      files: [GLOB_TS, GLOB_MJS],
+      files: [GLOB_TS, GLOB_TSX, GLOB_DTS, GLOB_MJS],
       rules: {
         "node/no-unsupported-features/es-syntax": "off",
+      },
+    },
+    {
+      files: [GLOB_TS, GLOB_TSX, GLOB_DTS],
+      rules: {
+        "node/no-extraneous-import": "off",
+        "node/no-missing-import": "off",
+        "node/no-restricted-import": "off",
+        "node/no-restricted-require": "off",
       },
     },
   ];
