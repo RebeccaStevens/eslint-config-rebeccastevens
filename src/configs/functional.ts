@@ -22,6 +22,8 @@ export async function functional(
     stylistic = true,
     filesTypeAware = defaultFilesTypesAware,
     functionalEnforcement = "none",
+    ignoreNamePattern = ["^mutable", "^[mM]_"],
+    // ignoreTypePattern = [],
   } = options;
 
   if (functionalEnforcement === "none") {
@@ -71,7 +73,7 @@ export async function functional(
       "error",
       {
         allowInForLoopInit: true,
-        ignoreIdentifierPattern: ["^mutable", "^m_"],
+        ignoreIdentifierPattern: ignoreNamePattern,
       },
     ],
     "functional/no-loop-statements": "error",
@@ -123,7 +125,7 @@ export async function functional(
             ],
             options: {
               ignoreInferredTypes: true,
-              ignoreNamePattern: ["^[mM]_"],
+              ignoreNamePattern,
               parameters: { enforcement: "ReadonlyShallow" },
               suggestions: {
                 ReadonlyShallow: [

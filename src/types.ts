@@ -149,6 +149,8 @@ export type OptionsUnoCSS = {
 
 export type OptionsFunctional = {
   functionalEnforcement?: "none" | "lite" | "default" | "strict";
+  ignoreNamePattern?: string[];
+  // ignoreTypePattern?: string[];
 };
 
 export type OptionsIgnores =
