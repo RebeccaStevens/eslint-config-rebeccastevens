@@ -34,7 +34,7 @@ export async function sonar(
         "sonar/no-inverted-boolean-check": "error",
         "sonar/no-nested-switch": "error",
         "sonar/no-nested-template-literals": "error",
-        "sonar/no-one-iteration-loop": "error",
+        // "sonar/no-one-iteration-loop": "error", // Doesn't work with eslint 9 yet
         "sonar/no-redundant-boolean": "error",
         // "sonar/no-redundant-jump": "error", // Doesn't work with eslint 9 yet
         "sonar/no-same-line-conditional": "error",
