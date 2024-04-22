@@ -10,7 +10,7 @@ import {
   type OptionsStylistic,
   type OptionsVue,
 } from "../types";
-import { interopDefault, isNotNull, loadPackages } from "../utils";
+import { interopDefault, loadPackages } from "../utils";
 
 /* eslint-disable ts/naming-convention */
 type PluginVue = ESLint.Plugin & {
@@ -86,11 +86,16 @@ export async function vue(
           watchEffect: "readonly",
         },
       },
-      plugins: {
-        vue: pluginVue,
-        "vue-i18n": pluginVueI18n,
-      },
-    } satisfies FlatConfigItem,
+      plugins:
+        i18n === false
+          ? {
+              vue: pluginVue,
+            }
+          : {
+              vue: pluginVue,
+              "vue-i18n": pluginVueI18n,
+            },
+    },
 
     {
       name: "rs:vue:rules",
@@ -119,6 +124,13 @@ export async function vue(
                 },
               }),
             ]),
+
+      settings:
+        i18n === false
+          ? {}
+          : {
+              "vue-i18n": i18n,
+            },
       rules: {
         ...pluginVue.configs.base.rules,
 
@@ -197,6 +209,15 @@ export async function vue(
         "vue/space-infix-ops": "error",
         "vue/space-unary-ops": ["error", { nonwords: false, words: true }],
 
+        ...(i18n === false
+          ? {}
+          : {
+              "vue-i18n/no-html-messages": "error",
+              "vue-i18n/no-missing-keys": "error",
+              "vue-i18n/no-raw-text": "warn",
+              "vue-i18n/no-v-html": "error",
+            }),
+
         ...(stylistic === false
           ? {}
           : {
@@ -246,21 +267,6 @@ export async function vue(
 
         ...overrides,
       },
-    } satisfies FlatConfigItem,
-
-    i18n === false
-      ? null
-      : ({
-          name: "rs:vue-i18n:rules",
-          rules: {
-            "vue-i18n/no-html-messages": "error",
-            "vue-i18n/no-missing-keys": "error",
-            "vue-i18n/no-raw-text": "warn",
-            "vue-i18n/no-v-html": "error",
-          },
-          settings: {
-            "vue-i18n": i18n,
-          },
-        } satisfies FlatConfigItem),
-  ].filter(isNotNull);
+    },
+  ];
 }

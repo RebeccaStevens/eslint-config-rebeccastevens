@@ -33,13 +33,6 @@ export function toArray<T>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value];
 }
 
-/**
- * Type guard to test if the given value is not null.
- */
-export function isNotNull<T>(value: T | null): value is T {
-  return value !== null;
-}
-
 export const parserPlain = {
   meta: {
     name: "parser-plain",
