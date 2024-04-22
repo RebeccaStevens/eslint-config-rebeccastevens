@@ -221,6 +221,23 @@ export async function functional(
     "functional/no-conditional-statements": "off",
     "functional/no-expression-statements": "off",
     "functional/no-return-void": "off",
+    "functional/prefer-immutable-types": [
+      "warn",
+      {
+        ...recommendedRules["functional/prefer-immutable-types"][1],
+        overrides: [
+          {
+            ...recommendedRules["functional/prefer-immutable-types"][1]
+              .overrides[0],
+            specifiers: [
+              {
+                from: "file",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   } satisfies FlatConfigItem["rules"];
 
   return [
