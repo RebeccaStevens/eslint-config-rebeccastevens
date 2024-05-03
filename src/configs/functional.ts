@@ -1,6 +1,7 @@
 import {
   type FlatConfigItem,
   type OptionsFunctional,
+  type OptionsMode,
   type OptionsOverrides,
   type OptionsStylistic,
   type OptionsTypeScriptParserOptions,
@@ -14,7 +15,8 @@ export async function functional(
     OptionsFunctional &
       OptionsStylistic &
       OptionsOverrides &
-      OptionsTypeScriptParserOptions
+      OptionsTypeScriptParserOptions &
+      OptionsMode
   >,
 ): Promise<FlatConfigItem[]> {
   const {
@@ -24,6 +26,7 @@ export async function functional(
     functionalEnforcement = "none",
     ignoreNamePattern = ["^mutable", "^[mM]_"],
     // ignoreTypePattern = [],
+    mode = "none",
   } = options;
 
   if (functionalEnforcement === "none") {
@@ -110,7 +113,7 @@ export async function functional(
     "functional/no-return-void": "error",
     "ts/prefer-readonly-parameter-types": "off",
     "functional/prefer-immutable-types": [
-      "warn",
+      mode === "library" ? "warn" : "off",
       {
         enforcement: "None",
         overrides: [
@@ -222,7 +225,7 @@ export async function functional(
     "functional/no-expression-statements": "off",
     "functional/no-return-void": "off",
     "functional/prefer-immutable-types": [
-      "warn",
+      mode === "library" ? "warn" : "off",
       {
         ...recommendedRules["functional/prefer-immutable-types"][1],
         overrides: [

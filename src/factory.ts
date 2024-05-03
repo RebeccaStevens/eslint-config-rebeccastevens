@@ -79,6 +79,7 @@ export function rsEslint(
     toml: tomlOptions = false,
     markdown: markdownOptions = false,
     formatters: formattersOptions = true,
+    mode = "none",
   } = options;
 
   const stylisticOptions =
@@ -160,6 +161,7 @@ export function rsEslint(
         overrides: getOverrides(options, "functional"),
         functionalEnforcement,
         stylistic: stylisticOptions,
+        mode,
       }),
     );
   }

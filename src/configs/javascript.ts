@@ -215,7 +215,6 @@ export function javascript(
         "no-script-url": "error",
         "no-self-assign": ["error", { props: true }],
         "no-self-compare": "error",
-        "no-sequences": "error",
         "no-shadow-restricted-names": "error",
         "no-shadow": [
           "warn",

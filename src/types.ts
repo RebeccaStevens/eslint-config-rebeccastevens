@@ -162,6 +162,10 @@ export type OptionsFunctional = {
   // ignoreTypePattern?: string[];
 };
 
+export type OptionsMode = {
+  mode?: "library" | "application" | "none";
+};
+
 export type OptionsIgnores =
   | Linter.FlatConfig["ignores"]
   | {
@@ -170,6 +174,11 @@ export type OptionsIgnores =
     };
 
 export type OptionsConfig = {
+  /**
+   * What are we linting?
+   */
+  mode?: OptionsMode["mode"];
+
   /**
    * Core rules. Can't be disabled.
    */
