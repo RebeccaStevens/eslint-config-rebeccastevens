@@ -130,36 +130,36 @@ export async function functional(
               ignoreInferredTypes: true,
               ignoreNamePattern,
               parameters: { enforcement: "ReadonlyShallow" },
-              suggestions: {
-                ReadonlyShallow: [
-                  [
-                    {
-                      pattern: "^(Array|Map|Set)<(.+)>$",
-                      replace: "Readonly$1<$2>",
-                    },
-                    { pattern: "^(.+)$", replace: "Readonly<$1>" },
-                  ],
-                ],
-                ReadonlyDeep: [
-                  [
-                    {
-                      pattern: "^(?:Readonly<(.+)>|(.+))$",
-                      replace: "ReadonlyDeep<$1$2>",
-                    },
-                  ],
-                ],
-                Immutable: [
-                  [
-                    {
-                      pattern: "^(?:Readonly(?:Deep)?<(.+)>|(.+))$",
-                      replace: "Immutable<$1$2>",
-                    },
-                  ],
-                ],
-              },
             },
           },
         ],
+        suggestions: {
+          ReadonlyShallow: [
+            [
+              {
+                pattern: "^(Array|Map|Set)<(.+)>$",
+                replace: "Readonly$1<$2>",
+              },
+              { pattern: "^(.+)$", replace: "Readonly<$1>" },
+            ],
+          ],
+          ReadonlyDeep: [
+            [
+              {
+                pattern: "^(?:Readonly<(.+)>|(.+))$",
+                replace: "ReadonlyDeep<$1$2>",
+              },
+            ],
+          ],
+          Immutable: [
+            [
+              {
+                pattern: "^(?:Readonly(?:Deep)?<(.+)>|(.+))$",
+                replace: "Immutable<$1$2>",
+              },
+            ],
+          ],
+        },
       },
     ],
     "functional/type-declaration-immutability": [
