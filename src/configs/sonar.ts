@@ -24,9 +24,9 @@ export async function sonar(
         "sonar/no-collection-size-mischeck": "error",
         "sonar/no-duplicated-branches": "error",
         "sonar/no-element-overwrite": "error",
-        // "sonar/no-empty-collection": "error", // Doesn't work with eslint 9 yet
-        // "sonar/no-extra-arguments": "error", // Doesn't work with eslint 9 yet
-        // "sonar/no-gratuitous-expressions": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-empty-collection": "error",
+        "sonar/no-extra-arguments": "error",
+        "sonar/no-gratuitous-expressions": "error",
         "sonar/no-identical-conditions": "error",
         "sonar/no-identical-expressions": "error",
         "sonar/no-identical-functions": "error",
@@ -34,12 +34,12 @@ export async function sonar(
         "sonar/no-inverted-boolean-check": "error",
         "sonar/no-nested-switch": "error",
         "sonar/no-nested-template-literals": "error",
-        // "sonar/no-one-iteration-loop": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-one-iteration-loop": "error",
         "sonar/no-redundant-boolean": "error",
-        // "sonar/no-redundant-jump": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-redundant-jump": "error",
         "sonar/no-same-line-conditional": "error",
-        // "sonar/no-unused-collection": "error", // Doesn't work with eslint 9 yet
-        // "sonar/no-use-of-empty-return-value": "error", // Doesn't work with eslint 9 yet
+        "sonar/no-unused-collection": "error",
+        "sonar/no-use-of-empty-return-value": "error",
         "sonar/no-useless-catch": "error",
         "sonar/non-existent-operator": "error",
         "sonar/prefer-immediate-return": "error",
