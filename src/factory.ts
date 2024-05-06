@@ -45,6 +45,8 @@ import {
   type FlatConfigItem,
   type OptionsConfig,
   type OptionsTypeScriptParserOptions,
+  type OptionsTypeScriptWithTypes,
+  type OptionsTypescript,
 } from "./types";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
@@ -115,20 +117,17 @@ export function rsEslint(
 
   const hasTypeScript = Boolean(typeScriptOptions);
 
-  const typeScriptSubOptions = resolveSubOptions(options, "typescript");
+  const { filesTypeAware, tsconfig, parserOptions, ...typeScriptSubOptions } =
+    resolveSubOptions(options, "typescript") as OptionsTypescript &
+      OptionsTypeScriptWithTypes &
+      OptionsTypeScriptParserOptions;
+
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
-    filesTypeAware:
-      "filesTypeAware" in typeScriptSubOptions
-        ? typeScriptSubOptions.filesTypeAware
-        : defaultFilesTypesAware,
+    ...typeScriptSubOptions,
+    filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
     parserOptions: {
-      project:
-        "tsconfig" in typeScriptSubOptions
-          ? typeScriptSubOptions.tsconfig
-          : null,
-      ...("parserOptions" in typeScriptSubOptions
-        ? typeScriptSubOptions.parserOptions
-        : {}),
+      project: tsconfig ?? null,
+      ...parserOptions,
     },
   };
 

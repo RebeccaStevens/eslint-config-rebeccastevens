@@ -104,8 +104,8 @@ devDependencies:
     specifier: 0.1.1
     version: 0.1.1(eslint@9.2.0)
   eslint-plugin-functional:
-    specifier: 7.0.0-alpha.3
-    version: 7.0.0-alpha.3(eslint@9.2.0)(typescript@5.4.5)
+    specifier: 7.0.0-alpha.5
+    version: 7.0.0-alpha.5(eslint@9.2.0)(typescript@5.4.5)
   eslint-plugin-import-x:
     specifier: 0.5.0
     version: 0.5.0(eslint@9.2.0)(typescript@5.4.5)
@@ -3497,8 +3497,8 @@ packages:
       synckit: 0.9.0
     dev: true
 
-  /eslint-plugin-functional@7.0.0-alpha.3(eslint@9.2.0)(typescript@5.4.5):
-    resolution: {integrity: sha512-hsCOoE9CNB4GZ9b9GPuMrcQPgnK9k60dmHnngX5i8JYVqO2TYJiPrO7kIvuCgFtRoFmPE45nW95tRWu/hvz3HQ==}
+  /eslint-plugin-functional@7.0.0-alpha.5(eslint@9.2.0)(typescript@5.4.5):
+    resolution: {integrity: sha512-/9YbucLs6PJdwLMez4lwJvPHjbYSRUgZYtYZjci2Jzdy778kOgXMdG39uqGw5KjbERnGcLUGLqiIYFhGxWWzmg==}
     engines: {node: '>=v18.18.0'}
     peerDependencies:
       eslint: ^9.0.0
@@ -3513,7 +3513,7 @@ packages:
       eslint: 9.2.0
       is-immutable-type: 4.0.0(eslint@9.2.0)(typescript@5.4.5)
       ts-api-utils: 1.3.0(typescript@5.4.5)
-      ts-declaration-location: 1.0.0(typescript@5.4.5)
+      ts-declaration-location: 1.0.1(typescript@5.4.5)
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -4818,7 +4818,7 @@ packages:
       '@typescript-eslint/type-utils': 7.8.0(eslint@9.2.0)(typescript@5.4.5)
       eslint: 9.2.0
       ts-api-utils: 1.3.0(typescript@5.4.5)
-      ts-declaration-location: 1.0.0(typescript@5.4.5)
+      ts-declaration-location: 1.0.1(typescript@5.4.5)
       typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
@@ -7131,12 +7131,12 @@ packages:
       typescript: 5.4.5
     dev: true
 
-  /ts-declaration-location@1.0.0(typescript@5.4.5):
-    resolution: {integrity: sha512-/C+R0e1CLF1KtwbE59IFhCg4jLwfU7Puob+uVIl4iUVQhepN/bHmWXy3Gt3mAgvdLQybEZ4yb4qhnJQbphnEgA==}
+  /ts-declaration-location@1.0.1(typescript@5.4.5):
+    resolution: {integrity: sha512-bCWJovNLBiS34rMD1o6AX+INI5n6ujtB9bPp/1a/opc9ExycJKpB/XcgIsVs66RH7SxAbsYcJBkrLrnLcDF0TA==}
     peerDependencies:
       typescript: '>=4.0.0'
     dependencies:
-      fast-glob: 3.3.2
+      minimatch: 9.0.4
       typescript: 5.4.5
     dev: true
 
