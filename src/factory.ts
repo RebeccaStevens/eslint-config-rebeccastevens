@@ -92,7 +92,7 @@ export function rsEslint(
     toml: tomlOptions = false,
     markdown: markdownOptions = false,
     formatters: formattersOptions = true,
-    mode = "none",
+    mode,
   } = options;
 
   const stylisticOptions =

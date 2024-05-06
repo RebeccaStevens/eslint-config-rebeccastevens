@@ -187,7 +187,7 @@ export type OptionsConfig = {
   /**
    * What are we linting?
    */
-  mode: Required<OptionsMode["mode"]>;
+  mode: Required<OptionsMode>["mode"];
 
   /**
    * Core rules. Can't be disabled.

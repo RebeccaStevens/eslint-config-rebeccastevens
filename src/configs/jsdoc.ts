@@ -51,7 +51,7 @@ export async function jsdoc(
           "warn",
           {
             contexts: [
-              ":not(ExportNamedDeclaration) > FunctionDeclaration:not(TSDeclareFunction + FunctionDeclaration)",
+              ":not(:matches(:not(ExportNamedDeclaration) > FunctionDeclaration:not(:matches(TSDeclareFunction + FunctionDeclaration))):not(FunctionDeclaration FunctionDeclaration)) > FunctionDeclaration:not(TSDeclareFunction + FunctionDeclaration)",
               "ExportNamedDeclaration > FunctionDeclaration:not(ExportNamedDeclaration:has(TSDeclareFunction) + ExportNamedDeclaration > FunctionDeclaration)",
               "TSDeclareFunction",
               "ExportNamedDeclaration > TSTypeAliasDeclaration",
