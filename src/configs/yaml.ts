@@ -1,18 +1,19 @@
 import { type ESLint } from "eslint";
 
-import { GLOB_YAML } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFiles,
   type OptionsOverrides,
-  type OptionsStylistic,
+  type RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
 export async function yaml(
-  options: Readonly<OptionsOverrides & OptionsStylistic & OptionsFiles>,
+  options: Readonly<
+    Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>
+  >,
 ): Promise<FlatConfigItem[]> {
-  const { files = [GLOB_YAML], overrides = {}, stylistic = true } = options;
+  const { files, overrides, stylistic } = options;
 
   const { indent = 2, quotes = "single" } =
     typeof stylistic === "boolean" ? {} : stylistic;
@@ -24,6 +25,8 @@ export async function yaml(
     typeof import("eslint-plugin-yml"),
     typeof import("yaml-eslint-parser"),
   ];
+
+  const stylisticEnforcement = stylistic === false ? "off" : "error";
 
   return [
     {
@@ -50,21 +53,20 @@ export async function yaml(
 
         "yaml/vue-custom-block/no-parsing-error": "error",
 
-        ...(stylistic === false
-          ? {}
-          : {
-              "yaml/block-mapping-question-indicator-newline": "error",
-              "yaml/block-sequence-hyphen-indicator-newline": "error",
-              "yaml/flow-mapping-curly-newline": "error",
-              "yaml/flow-mapping-curly-spacing": "error",
-              "yaml/flow-sequence-bracket-newline": "error",
-              "yaml/flow-sequence-bracket-spacing": "error",
-              "yaml/indent": ["error", indent === "tab" ? 2 : indent],
-              "yaml/key-spacing": "error",
-              "yaml/no-tab-indent": "error",
-              "yaml/quotes": ["error", { avoidEscape: true, prefer: quotes }],
-              "yaml/spaced-comment": "error",
-            }),
+        "yaml/block-mapping-question-indicator-newline": stylisticEnforcement,
+        "yaml/block-sequence-hyphen-indicator-newline": stylisticEnforcement,
+        "yaml/flow-mapping-curly-newline": stylisticEnforcement,
+        "yaml/flow-mapping-curly-spacing": stylisticEnforcement,
+        "yaml/flow-sequence-bracket-newline": stylisticEnforcement,
+        "yaml/flow-sequence-bracket-spacing": stylisticEnforcement,
+        "yaml/indent": [stylisticEnforcement, indent === "tab" ? 2 : indent],
+        "yaml/key-spacing": stylisticEnforcement,
+        "yaml/no-tab-indent": stylisticEnforcement,
+        "yaml/quotes": [
+          stylisticEnforcement,
+          { avoidEscape: true, prefer: quotes },
+        ],
+        "yaml/spaced-comment": stylisticEnforcement,
 
         ...overrides,
       },

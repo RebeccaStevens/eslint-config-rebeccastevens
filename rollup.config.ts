@@ -1,13 +1,12 @@
 import { rollupPlugin as rollupPluginDeassert } from "deassert";
 import { type RollupOptions } from "rollup";
-import rollupPluginAutoExternal from "rollup-plugin-auto-external";
 import rollupPluginTs from "rollup-plugin-ts";
 
 import pkg from "./package.json" assert { type: "json" };
 
 const treeshake = {
   annotations: true,
-  moduleSideEffects: [],
+  moduleSideEffects: ["src/typegen.ts"],
   propertyReadSideEffects: false,
   unknownGlobalSideEffects: false,
 } satisfies RollupOptions["treeshake"];
@@ -34,14 +33,19 @@ export default {
     },
   ],
 
+  external: [
+    ...Object.keys(pkg.dependencies),
+    ...Object.keys(pkg.peerDependencies),
+  ],
+
   plugins: [
-    rollupPluginAutoExternal(),
     rollupPluginTs({
       transpileOnly: true,
       tsconfig: "tsconfig.build.json",
     }),
     rollupPluginDeassert({
       include: ["**/*.{js,ts}"],
+      exclude: ["**/*.d.ts"],
     }),
   ],
 

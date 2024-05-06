@@ -25,10 +25,8 @@ export async function interopDefault<T>(
 
 export function toArray<T>(value: T | ReadonlyArray<T>): ReadonlyArray<T>;
 
-// eslint-disable-next-line functional/prefer-immutable-types
 export function toArray<T>(value: T | T[]): T[];
 
-// eslint-disable-next-line functional/prefer-immutable-types
 export function toArray<T>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value];
 }

@@ -3,35 +3,33 @@ import {
   type OptionsFunctional,
   type OptionsMode,
   type OptionsOverrides,
-  type OptionsStylistic,
   type OptionsTypeScriptParserOptions,
+  type RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
-import { defaultFilesTypesAware } from "./typescript";
-
 export async function functional(
   options: Readonly<
-    OptionsFunctional &
-      OptionsStylistic &
-      OptionsOverrides &
-      OptionsTypeScriptParserOptions &
-      OptionsMode
+    Required<
+      OptionsFunctional &
+        RequiredOptionsStylistic &
+        OptionsOverrides &
+        OptionsTypeScriptParserOptions &
+        OptionsMode
+    >
   >,
 ): Promise<FlatConfigItem[]> {
   const {
-    overrides = {},
-    stylistic = true,
-    filesTypeAware = defaultFilesTypesAware,
-    functionalEnforcement = "none",
-    ignoreNamePattern = ["^mutable", "^[mM]_"],
-    // ignoreTypePattern = [],
-    mode = "none",
+    mode,
+    overrides,
+    stylistic,
+    filesTypeAware,
+    functionalEnforcement,
+    ignoreNamePattern,
+    // ignoreTypePattern,
   } = options;
 
-  if (functionalEnforcement === "none") {
-    return [];
-  }
+  const stylisticEnforcement = stylistic === false ? "off" : "error";
 
   const [pluginFunctional] = (await loadPackages([
     "eslint-plugin-functional",
@@ -54,14 +52,9 @@ export async function functional(
     "functional/no-conditional-statements": "error",
     "functional/no-expression-statements": "error",
     "functional/no-return-void": "error",
-
-    ...(stylistic === false
-      ? {}
-      : {
-          "functional/prefer-property-signatures": "error",
-          "functional/prefer-tacit": "error",
-          "functional/readonly-type": "error",
-        }),
+    "functional/prefer-property-signatures": stylisticEnforcement,
+    "functional/prefer-tacit": stylisticEnforcement,
+    "functional/readonly-type": stylisticEnforcement,
   } satisfies FlatConfigItem["rules"];
 
   const recommendedRules = {
@@ -210,13 +203,9 @@ export async function functional(
       },
     ],
 
-    ...(stylistic === false
-      ? {}
-      : {
-          "functional/prefer-property-signatures": "error",
-          "functional/prefer-tacit": "error",
-          "functional/readonly-type": "error",
-        }),
+    "functional/prefer-property-signatures": stylisticEnforcement,
+    "functional/prefer-tacit": stylisticEnforcement,
+    "functional/readonly-type": stylisticEnforcement,
   } satisfies FlatConfigItem["rules"];
 
   const liteRules = {
@@ -259,11 +248,14 @@ export async function functional(
         },
       },
       rules: {
-        ...(functionalEnforcement === "lite"
-          ? liteRules
-          : functionalEnforcement === "strict"
-            ? strictRules
-            : recommendedRules),
+        ...pluginFunctional.configs.off.rules,
+        ...(functionalEnforcement === "none"
+          ? {}
+          : functionalEnforcement === "lite"
+            ? liteRules
+            : functionalEnforcement === "strict"
+              ? strictRules
+              : recommendedRules),
         ...overrides,
       },
     },

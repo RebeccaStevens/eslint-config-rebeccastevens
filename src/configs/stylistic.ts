@@ -18,18 +18,16 @@ export const StylisticConfigDefaults: Required<StylisticConfig> = {
 
 export async function stylistic(
   options: Readonly<
-    { stylistic?: StylisticConfig } & OptionsOverrides & OptionsHasTypeScript
+    Required<
+      { stylistic: Required<StylisticConfig> } & OptionsOverrides &
+        OptionsHasTypeScript
+    >
   >,
 ): Promise<FlatConfigItem[]> {
   const {
-    stylistic: {
-      indent = StylisticConfigDefaults.indent,
-      jsx = StylisticConfigDefaults.jsx,
-      quotes = StylisticConfigDefaults.quotes,
-      semi = StylisticConfigDefaults.semi,
-    } = StylisticConfigDefaults,
-    overrides = {},
-    typescript = false,
+    stylistic: { indent, jsx, quotes, semi },
+    overrides,
+    typescript,
   } = options;
 
   const [pluginStylistic] = (await loadPackages([

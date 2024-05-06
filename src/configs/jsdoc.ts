@@ -1,16 +1,18 @@
 import { type ESLint } from "eslint";
 
-import { type FlatConfigItem, type OptionsStylistic } from "../types";
+import { type FlatConfigItem, type RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
 export async function jsdoc(
-  options: Readonly<OptionsStylistic>,
+  options: Readonly<Required<RequiredOptionsStylistic>>,
 ): Promise<FlatConfigItem[]> {
-  const { stylistic = true } = options;
+  const { stylistic } = options;
 
   const [pluginJSDoc] = (await loadPackages(["eslint-plugin-jsdoc"])) as [
     typeof import("eslint-plugin-jsdoc"),
   ];
+
+  const stylisticEnforcement = stylistic === false ? "off" : "error";
 
   return [
     {
@@ -87,12 +89,8 @@ export async function jsdoc(
         "jsdoc/require-property-description": "warn",
         "jsdoc/require-returns-description": "warn",
 
-        ...(stylistic === false
-          ? {}
-          : {
-              "jsdoc/check-alignment": "error",
-              "jsdoc/multiline-blocks": "error",
-            }),
+        "jsdoc/check-alignment": stylisticEnforcement,
+        "jsdoc/multiline-blocks": stylisticEnforcement,
       },
     },
   ];

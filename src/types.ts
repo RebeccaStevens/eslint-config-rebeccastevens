@@ -7,11 +7,17 @@ import { type Options as PrettierOptions } from "prettier";
 
 import { type SettingsVueI18nLocaleDir } from "../typings/eslint-plugin-vue-i18n";
 
-import { type RuleOptions } from "./typegen";
+import { type RuleOptions as Rules } from "./typegen";
+
+declare module "eslint" {
+  // eslint-disable-next-line ts/no-namespace
+  namespace Linter {
+    // eslint-disable-next-line ts/consistent-type-definitions
+    interface RulesRecord extends Rules {}
+  }
+}
 
 export type Awaitable<T> = T | Promise<T>;
-
-export type Rules = RuleOptions;
 
 export type FlatConfigItem = Omit<Linter.FlatConfig, "plugins" | "rules"> & {
   /**
@@ -128,7 +134,11 @@ export type OptionsHasTypeScript = {
 };
 
 export type OptionsStylistic = {
-  stylistic?: boolean | StylisticConfig;
+  stylistic?: StylisticConfig | false;
+};
+
+export type RequiredOptionsStylistic = {
+  stylistic: Required<StylisticConfig> | false;
 };
 
 export type StylisticConfig = {} & Pick<
@@ -157,7 +167,7 @@ export type OptionsUnoCSS = {
 } & OptionsOverrides;
 
 export type OptionsFunctional = {
-  functionalEnforcement?: "none" | "lite" | "default" | "strict";
+  functionalEnforcement?: "none" | "lite" | "recommended" | "strict";
   ignoreNamePattern?: string[];
   // ignoreTypePattern?: string[];
 };
@@ -167,17 +177,17 @@ export type OptionsMode = {
 };
 
 export type OptionsIgnores =
-  | Linter.FlatConfig["ignores"]
+  | NonNullable<Linter.FlatConfig["ignores"]>
   | {
-      extend?: boolean;
-      files?: Linter.FlatConfig["ignores"];
+      extend: boolean;
+      files: NonNullable<Linter.FlatConfig["ignores"]>;
     };
 
 export type OptionsConfig = {
   /**
    * What are we linting?
    */
-  mode?: OptionsMode["mode"];
+  mode: Required<OptionsMode["mode"]>;
 
   /**
    * Core rules. Can't be disabled.
@@ -269,3 +279,5 @@ export type OptionsConfig = {
 
   ignores?: OptionsIgnores;
 } & OptionsComponentExts;
+
+export { type RuleOptions as Rules } from "./typegen";

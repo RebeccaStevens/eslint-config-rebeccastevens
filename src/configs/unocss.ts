@@ -4,9 +4,9 @@ import { type FlatConfigItem, type OptionsUnoCSS } from "../types";
 import { loadPackages } from "../utils";
 
 export async function unocss(
-  options: Readonly<OptionsUnoCSS>,
+  options: Readonly<Required<OptionsUnoCSS>>,
 ): Promise<FlatConfigItem[]> {
-  const { attributify = true, strict = true } = options;
+  const { attributify, strict } = options;
 
   const [pluginUnoCSS] = (await loadPackages(["@unocss/eslint-plugin"])) as [
     ESLint.Plugin,

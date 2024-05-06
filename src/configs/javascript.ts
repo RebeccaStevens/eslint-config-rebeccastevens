@@ -11,9 +11,9 @@ const useNumberIsNan = "Please use Number.isNaN instead";
 const useObjectDefineProperty = "Please use Object.defineProperty instead.";
 
 export function javascript(
-  options: Readonly<OptionsOverrides & OptionsFunctional>,
+  options: Readonly<Required<OptionsOverrides & OptionsFunctional>>,
 ): FlatConfigItem[] {
-  const { functionalEnforcement = "none", overrides = {} } = options;
+  const { functionalEnforcement, overrides } = options;
 
   return [
     {

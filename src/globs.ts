@@ -86,7 +86,12 @@ export const GLOB_EXCLUDE = [
   "**/*.min.*",
   "**/LICENSE*",
   "**/__snapshots__",
-  "**/auto-import?(s).d.ts",
+  "**/auto-import.ts",
+  "**/auto-import.d.ts",
+  "**/auto-imports.ts",
+  "**/auto-imports.d.ts",
+  "**/components.ts",
   "**/components.d.ts",
+  "**/typegen.ts",
   "**/typegen.d.ts",
 ];

@@ -6,7 +6,6 @@ import {
   GLOB_DTS,
   GLOB_JS,
   GLOB_JSX,
-  GLOB_SRC,
   GLOB_TESTS,
   GLOB_TS,
   GLOB_TSX,
@@ -19,7 +18,6 @@ import {
   type OptionsOverrides,
   type OptionsTypeScriptParserOptions,
   type OptionsTypeScriptUnsafeSeverity,
-  type OptionsTypeScriptWithTypes,
 } from "../types";
 import { loadPackages, toArray } from "../utils";
 
@@ -27,35 +25,32 @@ export const defaultFilesTypesAware = [GLOB_TS, GLOB_TSX, GLOB_DTS];
 
 export async function typescript(
   options: Readonly<
-    OptionsFiles &
-      OptionsComponentExts &
-      OptionsOverrides &
-      OptionsTypeScriptWithTypes &
-      OptionsTypeScriptParserOptions &
-      OptionsTypeScriptUnsafeSeverity &
-      OptionsFunctional
+    Required<
+      OptionsFiles &
+        OptionsComponentExts &
+        OptionsOverrides &
+        OptionsTypeScriptParserOptions &
+        OptionsTypeScriptUnsafeSeverity &
+        OptionsFunctional
+    >
   >,
 ): Promise<FlatConfigItem[]> {
   const {
-    functionalEnforcement = "none",
-    componentExts = [],
-    overrides = {},
-    parserOptions = {},
-    unsafe = "warn",
+    functionalEnforcement,
+    componentExts,
+    overrides,
+    parserOptions,
+    unsafe,
+    files,
+    filesTypeAware,
   } = options;
 
-  const files = options.files ?? [
-    GLOB_SRC,
-    ...componentExts.map((ext) => `**/*.${ext}`),
-  ];
-
-  const filesTypeAware = options.filesTypeAware ?? defaultFilesTypesAware;
   const tsconfigPath =
-    options.tsconfig === undefined
+    parserOptions.project === undefined || parserOptions.project === null
       ? undefined
-      : typeof options.tsconfig === "boolean"
-        ? options.tsconfig
-        : toArray(options.tsconfig);
+      : typeof parserOptions.project === "boolean"
+        ? parserOptions.project
+        : toArray(parserOptions.project);
   const isTypeAware = Boolean(tsconfigPath);
 
   const [pluginTs, parserTs] = (await loadPackages([

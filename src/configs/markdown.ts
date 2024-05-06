@@ -15,13 +15,11 @@ import {
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
-  options: Readonly<OptionsFiles & OptionsComponentExts & OptionsOverrides>,
+  options: Readonly<
+    Required<OptionsFiles & OptionsComponentExts & OptionsOverrides>
+  >,
 ): Promise<FlatConfigItem[]> {
-  const {
-    componentExts = [],
-    files = [GLOB_MARKDOWN],
-    overrides = {},
-  } = options;
+  const { componentExts, files, overrides } = options;
 
   const [pluginMarkdown] = (await loadPackages(["eslint-plugin-markdown"])) as [
     ESLint.Plugin,

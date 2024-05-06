@@ -1,6 +1,5 @@
 import { type ESLint } from "eslint";
 
-import { GLOB_TESTS } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFiles,
@@ -9,9 +8,9 @@ import {
 import { interopDefault, loadPackages } from "../utils";
 
 export async function test(
-  options: Readonly<OptionsFiles & OptionsOverrides>,
+  options: Readonly<Required<OptionsFiles & OptionsOverrides>>,
 ): Promise<FlatConfigItem[]> {
-  const { files = GLOB_TESTS, overrides = {} } = options;
+  const { files, overrides } = options;
 
   const [pluginVitest, pluginNoOnlyTests] = (await loadPackages([
     "eslint-plugin-vitest",

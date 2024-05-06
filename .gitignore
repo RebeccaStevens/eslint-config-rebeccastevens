@@ -2,6 +2,6 @@ node_modules/
 
 /coverage/
 /dist/
-/src/typegen.d.ts
+/src/typegen.ts
 
 *.log

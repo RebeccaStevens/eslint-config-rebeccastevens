@@ -4,7 +4,7 @@ import { type FlatConfigItem, type OptionsFunctional } from "../types";
 import { loadPackages } from "../utils";
 
 export async function sonar(
-  options: Readonly<OptionsFunctional>,
+  options: Readonly<Required<OptionsFunctional>>,
 ): Promise<FlatConfigItem[]> {
   const { functionalEnforcement = "none" } = options;
 
@@ -47,7 +47,7 @@ export async function sonar(
         "sonar/prefer-single-boolean-return": "error",
         "sonar/prefer-while": "error",
 
-        ...(functionalEnforcement === "default" ||
+        ...(functionalEnforcement === "recommended" ||
         functionalEnforcement === "strict"
           ? {
               "sonar/elseif-without-else": "error",

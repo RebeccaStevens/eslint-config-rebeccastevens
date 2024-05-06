@@ -4,6 +4,7 @@ import { isPackageExists } from "local-pkg";
 import {
   StylisticConfigDefaults,
   comments,
+  defaultFilesTypesAware,
   formatters,
   functional,
   ignores,
@@ -29,9 +30,21 @@ import {
   yaml,
 } from "./configs";
 import {
+  GLOB_JSON,
+  GLOB_JSON5,
+  GLOB_JSONC,
+  GLOB_MARKDOWN,
+  GLOB_SRC,
+  GLOB_TESTS,
+  GLOB_TOML,
+  GLOB_VUE,
+  GLOB_YAML,
+} from "./globs";
+import {
   type Awaitable,
   type FlatConfigItem,
   type OptionsConfig,
+  type OptionsTypeScriptParserOptions,
 } from "./types";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
@@ -56,7 +69,7 @@ export const defaultPluginRenaming = {
  * @returns {Promise<FlatConfigItem[]>} The merged ESLint configurations.
  */
 export function rsEslint(
-  options: OptionsConfig & FlatConfigItem = {},
+  options: OptionsConfig,
   ...userConfigs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
 ): FlatConfigComposer<FlatConfigItem> {
   const {
@@ -97,24 +110,47 @@ export function rsEslint(
     typeof functionalOptions === "string"
       ? functionalOptions
       : typeof functionalOptions === "object"
-        ? functionalOptions.functionalEnforcement ?? "default"
-        : "default";
+        ? functionalOptions.functionalEnforcement ?? "recommended"
+        : "recommended";
 
   const hasTypeScript = Boolean(typeScriptOptions);
+
+  const typeScriptSubOptions = resolveSubOptions(options, "typescript");
+  const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
+    filesTypeAware:
+      "filesTypeAware" in typeScriptSubOptions
+        ? typeScriptSubOptions.filesTypeAware
+        : defaultFilesTypesAware,
+    parserOptions: {
+      project:
+        "tsconfig" in typeScriptSubOptions
+          ? typeScriptSubOptions.tsconfig
+          : null,
+      ...("parserOptions" in typeScriptSubOptions
+        ? typeScriptSubOptions.parserOptions
+        : {}),
+    },
+  };
+
+  const functionalConfigOptions = {
+    functionalEnforcement,
+    ignoreNamePattern: ["^mutable", "^[mM]_"],
+    ...resolveSubOptions(options, "functional"),
+  };
 
   const configs: Array<Awaitable<FlatConfigItem[]>> = [];
 
   // Base configs
   configs.push(
     ignores({
-      ignores: ignoresOptions,
+      ignores: ignoresOptions ?? [],
     }),
     javascript({
-      functionalEnforcement,
+      ...functionalConfigOptions,
       overrides: getOverrides(options, "javascript"),
     }),
     imports({
-      ...resolveSubOptions(options, "typescript"),
+      ...typescriptConfigOptions,
       stylistic: stylisticOptions,
     }),
     jsdoc({
@@ -122,7 +158,7 @@ export function rsEslint(
     }),
     promise(),
     regexp(),
-    sonar({ functionalEnforcement }),
+    sonar(functionalConfigOptions),
     comments(),
     unicorn(),
     node(),
@@ -135,9 +171,11 @@ export function rsEslint(
   if (typeScriptOptions !== false) {
     configs.push(
       typescript({
-        ...resolveSubOptions(options, "typescript"),
+        files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
+        unsafe: "warn",
+        ...typescriptConfigOptions,
+        ...functionalConfigOptions,
         componentExts,
-        functionalEnforcement,
         overrides: getOverrides(options, "typescript"),
       }),
     );
@@ -156,10 +194,9 @@ export function rsEslint(
   if (functionalOptions !== false) {
     configs.push(
       functional({
-        ...resolveSubOptions(options, "typescript"),
-        ...resolveSubOptions(options, "functional"),
+        ...typescriptConfigOptions,
+        ...functionalConfigOptions,
         overrides: getOverrides(options, "functional"),
-        functionalEnforcement,
         stylistic: stylisticOptions,
         mode,
       }),
@@ -169,6 +206,7 @@ export function rsEslint(
   if (testOptions !== false) {
     configs.push(
       test({
+        files: GLOB_TESTS,
         overrides: getOverrides(options, "test"),
       }),
     );
@@ -177,6 +215,10 @@ export function rsEslint(
   if (vueOptions !== false) {
     configs.push(
       vue({
+        files: [GLOB_VUE],
+        i18n: false,
+        vueVersion: 3,
+        sfcBlocks: true,
         ...resolveSubOptions(options, "vue"),
         overrides: getOverrides(options, "vue"),
         stylistic: stylisticOptions,
@@ -188,6 +230,8 @@ export function rsEslint(
   if (unoCSSOptions !== false) {
     configs.push(
       unocss({
+        attributify: true,
+        strict: true,
         ...resolveSubOptions(options, "unocss"),
         overrides: getOverrides(options, "unocss"),
       }),
@@ -197,6 +241,7 @@ export function rsEslint(
   if (jsoncOptions !== false) {
     configs.push(
       jsonc({
+        files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
         overrides: getOverrides(options, "jsonc"),
         stylistic: stylisticOptions,
       }),
@@ -207,6 +252,7 @@ export function rsEslint(
   if (yamlOptions !== false) {
     configs.push(
       yaml({
+        files: [GLOB_YAML],
         overrides: getOverrides(options, "yaml"),
         stylistic: stylisticOptions,
       }),
@@ -216,6 +262,7 @@ export function rsEslint(
   if (tomlOptions !== false) {
     configs.push(
       toml({
+        files: [GLOB_TOML],
         overrides: getOverrides(options, "toml"),
         stylistic: stylisticOptions,
       }),
@@ -225,6 +272,7 @@ export function rsEslint(
   if (markdownOptions !== false) {
     configs.push(
       markdown({
+        files: [GLOB_MARKDOWN],
         componentExts,
         overrides: getOverrides(options, "markdown"),
       }),

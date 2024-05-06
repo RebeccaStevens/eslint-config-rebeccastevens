@@ -1,22 +1,19 @@
 import { type ESLint } from "eslint";
 
-import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFiles,
   type OptionsOverrides,
-  type OptionsStylistic,
+  type RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
 export async function jsonc(
-  options: Readonly<OptionsFiles & OptionsStylistic & OptionsOverrides>,
+  options: Readonly<
+    Required<OptionsFiles & RequiredOptionsStylistic & OptionsOverrides>
+  >,
 ): Promise<FlatConfigItem[]> {
-  const {
-    files = [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
-    overrides = {},
-    stylistic = true,
-  } = options;
+  const { files, overrides, stylistic } = options;
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
@@ -24,6 +21,8 @@ export async function jsonc(
     "eslint-plugin-jsonc",
     "jsonc-eslint-parser",
   ])) as [ESLint.Plugin, typeof import("jsonc-eslint-parser")];
+
+  const stylisticEnforcement = stylistic === false ? "off" : "error";
 
   return [
     {
@@ -66,29 +65,25 @@ export async function jsonc(
         "jsonc/valid-json-number": "error",
         "jsonc/vue-custom-block/no-parsing-error": "error",
 
-        ...(stylistic === false
-          ? {}
-          : {
-              "jsonc/array-bracket-spacing": ["error", "never"],
-              "jsonc/comma-dangle": ["error", "never"],
-              "jsonc/comma-style": ["error", "last"],
-              "jsonc/indent": ["error", indent],
-              "jsonc/key-spacing": [
-                "error",
-                { afterColon: true, beforeColon: false },
-              ],
-              "jsonc/object-curly-newline": [
-                "error",
-                { consistent: true, multiline: true },
-              ],
-              "jsonc/object-curly-spacing": ["error", "always"],
-              "jsonc/object-property-newline": [
-                "error",
-                { allowMultiplePropertiesPerLine: true },
-              ],
-              "jsonc/quote-props": "error",
-              "jsonc/quotes": "error",
-            }),
+        "jsonc/array-bracket-spacing": [stylisticEnforcement, "never"],
+        "jsonc/comma-dangle": [stylisticEnforcement, "never"],
+        "jsonc/comma-style": [stylisticEnforcement, "last"],
+        "jsonc/indent": [stylisticEnforcement, indent],
+        "jsonc/key-spacing": [
+          stylisticEnforcement,
+          { afterColon: true, beforeColon: false },
+        ],
+        "jsonc/object-curly-newline": [
+          stylisticEnforcement,
+          { consistent: true, multiline: true },
+        ],
+        "jsonc/object-curly-spacing": [stylisticEnforcement, "always"],
+        "jsonc/object-property-newline": [
+          stylisticEnforcement,
+          { allowMultiplePropertiesPerLine: true },
+        ],
+        "jsonc/quote-props": stylisticEnforcement,
+        "jsonc/quotes": stylisticEnforcement,
 
         ...overrides,
       },

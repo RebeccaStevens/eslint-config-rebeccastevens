@@ -49,6 +49,7 @@ ignorePaths:
   - patches
   - pnpm-lock.yaml
   - project-dictionary.txt
+  - src/typegen.ts
 
 ignoreRegExpList:
   - /\b[a-f0-9]{6}\b/ui # ignore hex color codes

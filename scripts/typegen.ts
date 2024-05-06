@@ -34,32 +34,106 @@ import { combine } from "../src/utils";
 const configs = (await combine(
   comments(),
   formatters({}, {}),
-  functional({}),
-  ignores({}),
-  imports({}),
+  functional({
+    functionalEnforcement: "none",
+    ignoreNamePattern: [],
+    stylistic: false,
+    overrides: undefined,
+    parserOptions: {},
+    filesTypeAware: [],
+    mode: "none",
+  }),
+  ignores({
+    ignores: [],
+  }),
+  imports({
+    stylistic: false,
+    parserOptions: {},
+    filesTypeAware: [],
+  }),
   inEditor(),
-  javascript({}),
-  jsdoc({}),
-  jsonc({}),
-  markdown({}),
+  javascript({
+    overrides: undefined,
+    functionalEnforcement: "none",
+    ignoreNamePattern: [],
+  }),
+  jsdoc({
+    stylistic: false,
+  }),
+  jsonc({
+    files: [],
+    stylistic: false,
+    overrides: undefined,
+  }),
+  markdown({
+    files: [],
+    componentExts: [],
+    overrides: undefined,
+  }),
   node(),
   overrides(),
   promise(),
   regexp(),
-  sonar({}),
+  sonar({
+    functionalEnforcement: "none",
+    ignoreNamePattern: [],
+  }),
   sortTsconfig(),
-  stylistic({}),
-  test({}),
-  toml({}),
-  typescript({}),
+  stylistic({
+    stylistic: {
+      indent: 2,
+      jsx: true,
+      quotes: "double",
+      semi: true,
+    },
+    overrides: undefined,
+    typescript: false
+  }),
+  test({
+    files: [],
+    overrides: undefined,
+  }),
+  toml({
+    overrides: undefined,
+    stylistic: false,
+    files: [],
+  }),
+  typescript({
+    files: [],
+    componentExts: [],
+    overrides: undefined,
+    parserOptions: {},
+    filesTypeAware: [],
+    unsafe: "off",
+    functionalEnforcement: "none",
+    ignoreNamePattern: [],
+  }),
   unicorn(),
-  unocss({}),
-  vue({}),
-  yaml({}),
+  unocss({
+    attributify: false,
+    strict: false,
+    overrides: undefined,
+  }),
+  vue({
+    sfcBlocks: false,
+    vueVersion: 2,
+    i18n: false,
+    overrides: undefined,
+    typescript: false,
+    stylistic: false,
+    files: [],
+  }),
+  yaml({
+    overrides: undefined,
+    stylistic: false,
+    files: [],
+  }),
 )) as Linter.FlatConfig[];
 
 const dts = await flatConfigsToRulesDTS(configs, {
-  includeAugmentation: false,
+  includeIgnoreComments: false,
 });
 
-await fs.writeFile("src/typegen.d.ts", dts);
+const fullDts = `// @ts-nocheck\n${dts}`;
+
+await fs.writeFile("src/typegen.ts", fullDts);

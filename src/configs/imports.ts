@@ -3,25 +3,24 @@ import { type ESLint } from "eslint";
 import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_TS, GLOB_TSX } from "../globs";
 import {
   type FlatConfigItem,
-  type OptionsStylistic,
   type OptionsTypeScriptParserOptions,
-  type OptionsTypeScriptWithTypes,
+  type RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
 export async function imports(
   options: Readonly<
-    OptionsStylistic &
-      OptionsTypeScriptWithTypes &
-      OptionsTypeScriptParserOptions
+    Required<RequiredOptionsStylistic & OptionsTypeScriptParserOptions>
   >,
 ): Promise<FlatConfigItem[]> {
-  const { stylistic = true } = options;
+  const { stylistic, parserOptions } = options;
 
   const [pluginImport] = (await loadPackages([
     "eslint-plugin-import-x",
     "eslint-import-resolver-typescript",
   ])) as [ESLint.Plugin, ESLint.Plugin];
+
+  const stylisticEnforcement = stylistic === false ? "off" : "error";
 
   return [
     {
@@ -40,13 +39,10 @@ export async function imports(
           "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
         },
         "import-x/resolver": {
-          typescript:
-            options.tsconfig === undefined
-              ? false
-              : {
-                  alwaysTryTypes: true,
-                  project: options.tsconfig,
-                },
+          typescript: {
+            alwaysTryTypes: true,
+            project: parserOptions.project,
+          },
           node: {
             extensions: [".ts", ".tsx", ".js", ".jsx"],
           },
@@ -143,29 +139,25 @@ export async function imports(
         // "import/prefer-default-export": "off",
         // "import/unambiguous": "off",
 
-        ...(stylistic === false
-          ? {}
-          : {
-              "import/newline-after-import": ["error", { count: 1 }],
-              "import/order": [
-                "error",
-                {
-                  alphabetize: {
-                    caseInsensitive: false,
-                    order: "asc",
-                  },
-                  groups: [
-                    "builtin",
-                    "external",
-                    "internal",
-                    "parent",
-                    "sibling",
-                    "index",
-                  ],
-                  "newlines-between": "always",
-                },
-              ],
-            }),
+        "import/newline-after-import": [stylisticEnforcement, { count: 1 }],
+        "import/order": [
+          stylisticEnforcement,
+          {
+            alphabetize: {
+              caseInsensitive: false,
+              order: "asc",
+            },
+            groups: [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "index",
+            ],
+            "newlines-between": "always",
+          },
+        ],
       },
     },
     {
@@ -183,19 +175,15 @@ export async function imports(
         "import/default": "off",
         "import/namespace": "off",
 
-        ...(stylistic === false
-          ? {}
-          : {
-              // "ts/no-import-type-side-effects": "off",
-              "ts/consistent-type-imports": [
-                "error",
-                {
-                  prefer: "type-imports",
-                  fixStyle: "inline-type-imports",
-                  disallowTypeAnnotations: false,
-                },
-              ],
-            }),
+        // "ts/no-import-type-side-effects": "off",
+        "ts/consistent-type-imports": [
+          stylisticEnforcement,
+          {
+            prefer: "type-imports",
+            fixStyle: "inline-type-imports",
+            disallowTypeAnnotations: false,
+          },
+        ],
       },
     },
   ];

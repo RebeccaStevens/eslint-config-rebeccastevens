@@ -1,18 +1,19 @@
 import { type ESLint, type Linter } from "eslint";
 
-import { GLOB_TOML } from "../globs";
 import {
   type FlatConfigItem,
   type OptionsFiles,
   type OptionsOverrides,
-  type OptionsStylistic,
+  type RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
 export async function toml(
-  options: Readonly<OptionsOverrides & OptionsStylistic & OptionsFiles>,
+  options: Readonly<
+    Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>
+  >,
 ): Promise<FlatConfigItem[]> {
-  const { files = [GLOB_TOML], overrides = {}, stylistic = true } = options;
+  const { files, overrides, stylistic } = options;
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
@@ -20,6 +21,8 @@ export async function toml(
     "eslint-plugin-toml",
     "toml-eslint-parser",
   ])) as [ESLint.Plugin, Linter.FlatConfigParserModule];
+
+  const stylisticEnforcement = stylistic === false ? "off" : "error";
 
   return [
     {
@@ -47,21 +50,17 @@ export async function toml(
 
         "toml/vue-custom-block/no-parsing-error": "error",
 
-        ...(stylistic === false
-          ? {}
-          : {
-              "toml/array-bracket-newline": "error",
-              "toml/array-bracket-spacing": "error",
-              "toml/array-element-newline": "error",
-              "toml/indent": ["error", indent === "tab" ? 2 : indent],
-              "toml/inline-table-curly-spacing": "error",
-              "toml/key-spacing": "error",
-              "toml/padding-line-between-pairs": "error",
-              "toml/padding-line-between-tables": "error",
-              "toml/quoted-keys": "error",
-              "toml/spaced-comment": "error",
-              "toml/table-bracket-spacing": "error",
-            }),
+        "toml/array-bracket-newline": stylisticEnforcement,
+        "toml/array-bracket-spacing": stylisticEnforcement,
+        "toml/array-element-newline": stylisticEnforcement,
+        "toml/indent": [stylisticEnforcement, indent === "tab" ? 2 : indent],
+        "toml/inline-table-curly-spacing": stylisticEnforcement,
+        "toml/key-spacing": stylisticEnforcement,
+        "toml/padding-line-between-pairs": stylisticEnforcement,
+        "toml/padding-line-between-tables": stylisticEnforcement,
+        "toml/quoted-keys": stylisticEnforcement,
+        "toml/spaced-comment": stylisticEnforcement,
+        "toml/table-bracket-spacing": stylisticEnforcement,
 
         ...overrides,
       },
