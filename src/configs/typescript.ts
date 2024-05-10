@@ -154,7 +154,7 @@ export async function typescript(
         "ts/no-for-in-array": "error",
         "ts/no-invalid-void-type": "error",
         "ts/no-loop-func": "error",
-        "ts/no-meaningless-void-operator": "error",
+        // "ts/no-meaningless-void-operator": "error",
         "ts/no-misused-new": "error",
         "ts/no-misused-promises": "error",
         "ts/no-mixed-enums": "error",
