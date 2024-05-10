@@ -113,7 +113,9 @@ export function rsEslint(
       ? functionalOptions
       : typeof functionalOptions === "object"
         ? functionalOptions.functionalEnforcement ?? "recommended"
-        : "recommended";
+        : functionalOptions
+          ? "recommended"
+          : "none";
 
   const hasTypeScript = Boolean(typeScriptOptions);
 
@@ -190,17 +192,15 @@ export function rsEslint(
     );
   }
 
-  if (functionalOptions !== false) {
-    configs.push(
-      functional({
-        ...typescriptConfigOptions,
-        ...functionalConfigOptions,
-        overrides: getOverrides(options, "functional"),
-        stylistic: stylisticOptions,
-        mode,
-      }),
-    );
-  }
+  configs.push(
+    functional({
+      ...typescriptConfigOptions,
+      ...functionalConfigOptions,
+      overrides: getOverrides(options, "functional"),
+      stylistic: stylisticOptions,
+      mode,
+    }),
+  );
 
   if (testOptions !== false) {
     configs.push(

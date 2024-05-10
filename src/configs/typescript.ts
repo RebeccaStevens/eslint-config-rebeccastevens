@@ -195,7 +195,7 @@ export async function typescript(
         "ts/prefer-literal-enum-member": "error",
         "ts/prefer-nullish-coalescing": "error",
         "ts/prefer-optional-chain": "error",
-        "ts/prefer-readonly-parameter-types": "error",
+        // "ts/prefer-readonly-parameter-types": "error",
         "ts/prefer-reduce-type-parameter": "error",
         "ts/prefer-regexp-exec": "error",
         "ts/prefer-return-this-type": "error",

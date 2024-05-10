@@ -37,7 +37,6 @@ export async function functional(
 
   const strictRules = {
     "functional/functional-parameters": "error",
-    "functional/no-promise-reject": "error",
     "functional/no-throw-statements": "error",
     "functional/no-try-statements": "error",
     "functional/no-let": "error",
@@ -46,7 +45,6 @@ export async function functional(
     "functional/no-loop-statements": "error",
     "functional/immutable-data": "error",
     "functional/prefer-immutable-types": "error",
-    "functional/prefer-readonly-type": "error",
     "functional/type-declaration-immutability": "error",
     "functional/no-mixed-types": "error",
     "functional/no-conditional-statements": "error",
@@ -232,6 +230,11 @@ export async function functional(
     ],
   } satisfies FlatConfigItem["rules"];
 
+  const noneLibraryRules = {
+    "functional/prefer-immutable-types":
+      liteRules["functional/prefer-immutable-types"],
+  };
+
   return [
     {
       name: "rs:functional",
@@ -250,7 +253,9 @@ export async function functional(
       rules: {
         ...pluginFunctional.configs.off.rules,
         ...(functionalEnforcement === "none"
-          ? {}
+          ? mode === "library"
+            ? noneLibraryRules
+            : {}
           : functionalEnforcement === "lite"
             ? liteRules
             : functionalEnforcement === "strict"
