@@ -66,14 +66,17 @@ export async function test(
         "test/prefer-lowercase-title": "error",
         "test/valid-expect": "off", // Too many false positives.
 
+        "ts/consistent-type-definitions": "off",
         "ts/no-unsafe-argument": "off",
         "ts/no-unsafe-assignment": "off",
         "ts/no-unsafe-call": "off",
         "ts/no-unsafe-member-access": "off",
         "ts/no-unsafe-return": "off",
         "ts/no-unused-vars-experimental": "off",
+        "ts/no-unused-vars": "off",
         "ts/strict-boolean-expressions": "off",
 
+        "unicorn/consistent-function-scoping": "off",
         "unicorn/prefer-module": "off",
 
         ...overrides,
