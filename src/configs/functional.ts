@@ -53,7 +53,7 @@ export async function functional(
     "functional/prefer-property-signatures": stylisticEnforcement,
     "functional/prefer-tacit": stylisticEnforcement,
     "functional/readonly-type": stylisticEnforcement,
-  } satisfies FlatConfigItem["rules"];
+  } as const satisfies FlatConfigItem["rules"];
 
   const recommendedRules = {
     "functional/functional-parameters": [
@@ -204,7 +204,7 @@ export async function functional(
     "functional/prefer-property-signatures": stylisticEnforcement,
     "functional/prefer-tacit": stylisticEnforcement,
     "functional/readonly-type": stylisticEnforcement,
-  } satisfies FlatConfigItem["rules"];
+  } as const satisfies FlatConfigItem["rules"];
 
   const liteRules = {
     ...recommendedRules,
@@ -228,12 +228,16 @@ export async function functional(
         ],
       },
     ],
-  } satisfies FlatConfigItem["rules"];
+  } as const satisfies FlatConfigItem["rules"];
 
   const noneLibraryRules = {
     "functional/prefer-immutable-types":
       liteRules["functional/prefer-immutable-types"],
-  };
+    "functional/type-declaration-immutability": [
+      "warn",
+      liteRules["functional/type-declaration-immutability"][1],
+    ],
+  } as const satisfies FlatConfigItem["rules"];
 
   return [
     {
