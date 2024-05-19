@@ -1,4 +1,4 @@
-name: Lint Code
+name: Lint with ESLint
 
 on:
   pull_request:
@@ -6,10 +6,10 @@ on:
   workflow_call:
 
 jobs:
-  lint_js:
+  lint_eslint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/prepare
       - run: pnpm run typegen
-      - run: pnpm run lint:js
+      - run: pnpm run lint:eslint

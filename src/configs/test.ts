@@ -72,7 +72,6 @@ export async function test(
         "ts/no-unsafe-call": "off",
         "ts/no-unsafe-member-access": "off",
         "ts/no-unsafe-return": "off",
-        "ts/no-unused-vars-experimental": "off",
         "ts/no-unused-vars": "off",
         "ts/strict-boolean-expressions": "off",
 

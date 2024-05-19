@@ -51,12 +51,10 @@ export async function jsdoc(
           "warn",
           {
             contexts: [
-              ":not(:matches(:not(ExportNamedDeclaration) > FunctionDeclaration:not(:matches(TSDeclareFunction + FunctionDeclaration))):not(FunctionDeclaration FunctionDeclaration)) > FunctionDeclaration:not(TSDeclareFunction + FunctionDeclaration)",
-              "ExportNamedDeclaration > FunctionDeclaration:not(ExportNamedDeclaration:has(TSDeclareFunction) + ExportNamedDeclaration > FunctionDeclaration)",
-              "TSDeclareFunction",
-              "ExportNamedDeclaration > TSTypeAliasDeclaration",
-              "ExportNamedDeclaration > TSInterfaceDeclaration",
-              "TSEnumDeclaration",
+              ":matches(:matches(ExportDefaultDeclaration, ExportNamedDeclaration) > TSDeclareFunction, ExportDefaultDeclaration > FunctionDeclaration,:matches(ExportNamedDeclaration > FunctionDeclaration):not(ExportNamedDeclaration:has(TSDeclareFunction) + ExportNamedDeclaration > FunctionDeclaration))",
+              ":matches(ExportDefaultDeclaration, ExportNamedDeclaration) > TSTypeAliasDeclaration",
+              ":matches(ExportDefaultDeclaration, ExportNamedDeclaration) > TSInterfaceDeclaration",
+              ":matches(ExportDefaultDeclaration, ExportNamedDeclaration) > TSEnumDeclaration",
             ],
             enableFixer: false,
             require: {
