@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.0.0-next.25](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.0-next.24...v3.0.0-next.25) (2024-05-19)
+
+
+### Features
+
+* more tweaks ([ba947b2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ba947b2cdca219252c6d9cf11f3a84f995fff02f))
+
 # [3.0.0-next.24](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.0-next.23...v3.0.0-next.24) (2024-05-10)
 
 
