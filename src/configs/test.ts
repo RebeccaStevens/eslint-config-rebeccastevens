@@ -52,6 +52,8 @@ export async function test(
 
         "jsdoc/require-jsdoc": "off",
 
+        "regexp/no-super-linear-backtracking": "off",
+
         "sonar/no-duplicate-string": "off",
         "sonar/no-identical-functions": "off",
 
