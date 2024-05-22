@@ -23,6 +23,8 @@ export async function overrides(): Promise<FlatConfigItem[]> {
       rules: {
         ...pluginFunctional?.configs.off.rules,
 
+        "import/no-unassigned-import": "off",
+
         "jsdoc/check-examples": "off",
         "jsdoc/check-indentation": "off",
         "jsdoc/check-line-alignment": "off",
