@@ -128,10 +128,23 @@ export async function functional(
           ReadonlyShallow: [
             [
               {
+                pattern:
+                  "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
+                replace: "readonly $1",
+                message: "Prepend with readonly.",
+              },
+              {
                 pattern: "^(Array|Map|Set)<(.+)>$",
                 replace: "Readonly$1<$2>",
+                message: "Use Readonly$1 instead of $1.",
               },
-              { pattern: "^(.+)$", replace: "Readonly<$1>" },
+            ],
+            [
+              {
+                pattern: "^(.+)$",
+                replace: "Readonly<$1>",
+                message: "Surround with Readonly.",
+              },
             ],
           ],
           ReadonlyDeep: [
@@ -139,6 +152,7 @@ export async function functional(
               {
                 pattern: "^(?:Readonly<(.+)>|(.+))$",
                 replace: "ReadonlyDeep<$1$2>",
+                message: "Surround with ReadonlyDeep.",
               },
             ],
           ],
@@ -147,6 +161,7 @@ export async function functional(
               {
                 pattern: "^(?:Readonly(?:Deep)?<(.+)>|(.+))$",
                 replace: "Immutable<$1$2>",
+                message: "Surround with Immutable.",
               },
             ],
           ],
@@ -173,7 +188,8 @@ export async function functional(
             comparator: "AtLeast",
             fixer: [
               {
-                pattern: "^([A-Za-z0-9_\\.]+\\[\\])$",
+                pattern:
+                  "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
                 replace: "readonly $1",
               },
               {
