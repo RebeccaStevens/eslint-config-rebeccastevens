@@ -173,6 +173,10 @@ export async function functional(
             comparator: "AtLeast",
             fixer: [
               {
+                pattern: "^([A-Za-z0-9_\\.]+\\[\\])$",
+                replace: "readonly $1",
+              },
+              {
                 pattern: "^(Array|Map|Set)<(.+)>$",
                 replace: "Readonly$1<$2>",
               },
