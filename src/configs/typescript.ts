@@ -187,7 +187,7 @@ export async function typescript(
             allowTernary: true,
           },
         ],
-        "ts/no-useless-template-literals": "error",
+        "ts/no-unnecessary-template-expression": "error",
         "ts/non-nullable-type-assertion-style": "error",
         "ts/prefer-as-const": "error",
         "ts/prefer-for-of": "error",

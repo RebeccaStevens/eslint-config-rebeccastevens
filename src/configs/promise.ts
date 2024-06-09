@@ -17,11 +17,11 @@ export async function promise(): Promise<FlatConfigItem[]> {
       rules: {
         "promise/avoid-new": "warn",
         "promise/no-callback-in-promise": "error",
-        // "promise/no-nesting": "error", // Doesn't work with eslint 9 yet
+        "promise/no-nesting": "error",
         "promise/no-new-statics": "error",
-        // "promise/no-promise-in-callback": "error", // Doesn't work with eslint 9 yet
+        "promise/no-promise-in-callback": "error",
         "promise/no-return-in-finally": "error",
-        // "promise/no-return-wrap": "error", // Doesn't work with eslint 9 yet
+        "promise/no-return-wrap": "error",
         "promise/param-names": "error",
         "promise/valid-params": "error",
       },
