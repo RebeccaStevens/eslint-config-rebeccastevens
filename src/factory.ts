@@ -128,7 +128,7 @@ export function rsEslint(
     ...typeScriptSubOptions,
     filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
     parserOptions: {
-      project: tsconfig ?? null,
+      projectService: true,
       ...parserOptions,
     },
   };

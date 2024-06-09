@@ -200,7 +200,6 @@ export async function typescript(
         "ts/prefer-regexp-exec": "error",
         "ts/prefer-return-this-type": "error",
         "ts/prefer-string-starts-ends-with": "error",
-        // "ts/prefer-ts-expect-error": "error",
         "ts/restrict-plus-operands": [
           "error",
           {
