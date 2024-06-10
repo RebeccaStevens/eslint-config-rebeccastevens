@@ -118,19 +118,24 @@ export function rsEslint(
 
   const hasTypeScript = Boolean(typeScriptOptions);
 
-  const { filesTypeAware, parserOptions, ...typeScriptSubOptions } =
-    resolveSubOptions(options, "typescript") as OptionsTypescript &
-      OptionsTypeScriptParserOptions;
+  const {
+    filesTypeAware,
+    parserOptions,
+    enableTypeAwareEmbeddedLanguages = false,
+    ...typeScriptSubOptions
+  } = resolveSubOptions(options, "typescript") as OptionsTypescript &
+    OptionsTypeScriptParserOptions;
 
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
     ...typeScriptSubOptions,
     filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
     parserOptions: {
-      projectService: true,
-      // {
-      //   maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING:
-      //     Number.POSITIVE_INFINITY,
-      // },
+      projectService: enableTypeAwareEmbeddedLanguages
+        ? {
+            maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING:
+              Number.POSITIVE_INFINITY,
+          }
+        : true,
       ...parserOptions,
     },
   };
@@ -275,6 +280,7 @@ export function rsEslint(
       markdown({
         files: [GLOB_MARKDOWN],
         componentExts,
+        enableTypeAwareEmbeddedLanguages,
         overrides: getOverrides(options, "markdown"),
       }),
     );

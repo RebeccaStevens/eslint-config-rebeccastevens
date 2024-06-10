@@ -69,7 +69,15 @@ export type OptionsVue = {
 
 export type OptionsTypescript = OptionsTypeScriptParserOptions &
   OptionsOverrides &
-  OptionsTypeScriptUnsafeSeverity;
+  OptionsTypeScriptUnsafeSeverity &
+  OptionsTypeAwareEmbeddedLanguages;
+
+export type OptionsTypeAwareEmbeddedLanguages = {
+  /**
+   * Warning: Slow.
+   */
+  enableTypeAwareEmbeddedLanguages?: boolean;
+};
 
 export type OptionsFormatters = {
   js?: boolean;

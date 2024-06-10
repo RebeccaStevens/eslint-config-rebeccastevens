@@ -11,15 +11,22 @@ import {
   type OptionsComponentExts,
   type OptionsFiles,
   type OptionsOverrides,
+  type OptionsTypeAwareEmbeddedLanguages,
 } from "../types";
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
   options: Readonly<
-    Required<OptionsFiles & OptionsComponentExts & OptionsOverrides>
+    Required<
+      OptionsFiles &
+        OptionsComponentExts &
+        OptionsTypeAwareEmbeddedLanguages &
+        OptionsOverrides
+    >
   >,
 ): Promise<FlatConfigItem[]> {
-  const { componentExts, files, overrides } = options;
+  const { componentExts, files, enableTypeAwareEmbeddedLanguages, overrides } =
+    options;
 
   const [pluginMarkdown] = (await loadPackages(["eslint-plugin-markdown"])) as [
     ESLint.Plugin,
@@ -67,16 +74,22 @@ export async function markdown(
       ],
       languageOptions: {
         parserOptions: {
-          project: false,
-          projectService: false,
-          program: null,
+          ...(enableTypeAwareEmbeddedLanguages
+            ? {}
+            : {
+                project: false,
+                projectService: false,
+                program: null,
+              }),
           ecmaFeatures: {
             impliedStrict: true,
           },
         },
       },
       rules: {
-        ...pluginTs?.configs["disable-type-checked"]?.rules,
+        ...(enableTypeAwareEmbeddedLanguages
+          ? {}
+          : pluginTs?.configs["disable-type-checked"]?.rules),
         ...pluginFunctional?.configs.off.rules,
 
         "dot-notation": "off",
@@ -123,6 +136,7 @@ export async function markdown(
         "ts/consistent-type-definitions": "off",
         "ts/consistent-type-imports": "off",
         "ts/explicit-member-accessibility": "off",
+        "ts/naming-convention": "off",
         "ts/no-empty-function": "off",
         "ts/no-explicit-any": "off",
         "ts/no-namespace": "off",

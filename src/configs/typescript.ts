@@ -191,7 +191,7 @@ export async function typescript(
         "ts/restrict-plus-operands": [
           "error",
           {
-            allowAny: false,
+            allowAny: true,
             allowBoolean: false,
             allowNullish: false,
             allowNumberAndString: false,
