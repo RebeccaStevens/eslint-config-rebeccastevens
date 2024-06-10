@@ -126,10 +126,11 @@ export function rsEslint(
     ...typeScriptSubOptions,
     filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
     parserOptions: {
-      projectService: {
-        maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING:
-          Number.POSITIVE_INFINITY,
-      },
+      projectService: true,
+      // {
+      //   maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING:
+      //     Number.POSITIVE_INFINITY,
+      // },
       ...parserOptions,
     },
   };

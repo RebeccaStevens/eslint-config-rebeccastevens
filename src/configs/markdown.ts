@@ -67,7 +67,9 @@ export async function markdown(
       ],
       languageOptions: {
         parserOptions: {
-          project: null,
+          project: false,
+          projectService: false,
+          program: null,
           ecmaFeatures: {
             impliedStrict: true,
           },
