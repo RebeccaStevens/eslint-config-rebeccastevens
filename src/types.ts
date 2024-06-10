@@ -67,10 +67,8 @@ export type OptionsVue = {
     | false;
 } & OptionsOverrides;
 
-export type OptionsTypescript = (
-  | (OptionsTypeScriptWithTypes & OptionsOverrides)
-  | (OptionsTypeScriptParserOptions & OptionsOverrides)
-) &
+export type OptionsTypescript = OptionsTypeScriptParserOptions &
+  OptionsOverrides &
   OptionsTypeScriptUnsafeSeverity;
 
 export type OptionsFormatters = {
@@ -106,7 +104,16 @@ export type OptionsTypeScriptParserOptions = {
   /**
    * Additional parser options for TypeScript.
    */
-  parserOptions?: Partial<ParserOptions>;
+  parserOptions?: Partial<Omit<ParserOptions, "projectService">> & {
+    projectService?:
+      | boolean
+      | {
+          allowDefaultProject?: string[];
+          defaultProject?: string;
+          // eslint-disable-next-line ts/naming-convention
+          maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING?: number;
+        };
+  };
 
   /**
    * Glob patterns for files that should be type aware.
@@ -114,15 +121,6 @@ export type OptionsTypeScriptParserOptions = {
    * @default ['**\/*.{ts,tsx}']
    */
   filesTypeAware?: string[];
-};
-
-export type OptionsTypeScriptWithTypes = {
-  /**
-   * When this options is provided, type aware rules will be enabled.
-   *
-   * @see https://typescript-eslint.io/linting/typed-linting/
-   */
-  tsconfig?: true | string | string[];
 };
 
 export type OptionsTypeScriptUnsafeSeverity = {

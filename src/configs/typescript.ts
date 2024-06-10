@@ -19,7 +19,7 @@ import {
   type OptionsTypeScriptParserOptions,
   type OptionsTypeScriptUnsafeSeverity,
 } from "../types";
-import { loadPackages, toArray } from "../utils";
+import { loadPackages } from "../utils";
 
 export const defaultFilesTypesAware = [GLOB_TS, GLOB_TSX, GLOB_DTS];
 
@@ -45,14 +45,6 @@ export async function typescript(
     filesTypeAware,
   } = options;
 
-  const tsconfigPath =
-    parserOptions.project === undefined || parserOptions.project === null
-      ? undefined
-      : typeof parserOptions.project === "boolean"
-        ? parserOptions.project
-        : toArray(parserOptions.project);
-  const isTypeAware = Boolean(tsconfigPath);
-
   const [pluginTs, parserTs] = (await loadPackages([
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
@@ -74,7 +66,7 @@ export async function typescript(
           sourceType: "module",
           ...(typeAware
             ? {
-                project: tsconfigPath,
+                projectService: true,
                 tsconfigRootDir: process.cwd(),
               }
             : {}),
@@ -89,12 +81,8 @@ export async function typescript(
       name: "rs:typescript:setup",
       plugins: { ts: pluginTs },
     },
-    ...(isTypeAware
-      ? [
-          makeParser(true, filesTypeAware),
-          makeParser(false, files, filesTypeAware),
-        ]
-      : [makeParser(false, files)]),
+    makeParser(true, filesTypeAware),
+    makeParser(false, files, filesTypeAware),
     {
       name: "rs:typescript:rules",
       files,

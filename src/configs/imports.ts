@@ -41,7 +41,7 @@ export async function imports(
         "import-x/resolver": {
           typescript: {
             alwaysTryTypes: true,
-            project: parserOptions.project,
+            projectService: parserOptions.projectService,
           },
           node: {
             extensions: [".ts", ".tsx", ".js", ".jsx"],

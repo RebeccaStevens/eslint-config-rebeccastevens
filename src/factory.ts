@@ -45,7 +45,6 @@ import {
   type FlatConfigItem,
   type OptionsConfig,
   type OptionsTypeScriptParserOptions,
-  type OptionsTypeScriptWithTypes,
   type OptionsTypescript,
 } from "./types";
 
@@ -119,16 +118,18 @@ export function rsEslint(
 
   const hasTypeScript = Boolean(typeScriptOptions);
 
-  const { filesTypeAware, tsconfig, parserOptions, ...typeScriptSubOptions } =
+  const { filesTypeAware, parserOptions, ...typeScriptSubOptions } =
     resolveSubOptions(options, "typescript") as OptionsTypescript &
-      OptionsTypeScriptWithTypes &
       OptionsTypeScriptParserOptions;
 
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
     ...typeScriptSubOptions,
     filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
     parserOptions: {
-      projectService: true,
+      projectService: {
+        maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING:
+          Number.POSITIVE_INFINITY,
+      },
       ...parserOptions,
     },
   };

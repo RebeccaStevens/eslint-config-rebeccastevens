@@ -12,9 +12,7 @@ const rsEslint = jiti("./src").default;
 export default rsEslint(
   {
     mode: "none",
-    typescript: {
-      tsconfig: "./tsconfig.eslint.json",
-    },
+    typescript: true,
     formatters: true,
     functional: "lite",
     jsonc: true,
