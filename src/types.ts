@@ -112,16 +112,7 @@ export type OptionsTypeScriptParserOptions = {
   /**
    * Additional parser options for TypeScript.
    */
-  parserOptions?: Partial<Omit<ParserOptions, "projectService">> & {
-    projectService?:
-      | boolean
-      | {
-          allowDefaultProject?: string[];
-          defaultProject?: string;
-          // eslint-disable-next-line ts/naming-convention
-          maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING?: number;
-        };
-  };
+  parserOptions?: Partial<ParserOptions>;
 
   /**
    * Glob patterns for files that should be type aware.
