@@ -146,10 +146,10 @@ export function rsEslint(
     ...resolveSubOptions(options, "functional"),
   };
 
-  const configs: Array<Awaitable<FlatConfigItem[]>> = [];
+  const m_configs: Array<Awaitable<FlatConfigItem[]>> = [];
 
   // Base configs
-  configs.push(
+  m_configs.push(
     ignores({
       ignores: ignoresOptions ?? [],
     }),
@@ -177,7 +177,7 @@ export function rsEslint(
   }
 
   if (typeScriptOptions !== false) {
-    configs.push(
+    m_configs.push(
       typescript({
         files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
         unsafe: "warn",
@@ -190,7 +190,7 @@ export function rsEslint(
   }
 
   if (stylisticOptions !== false) {
-    configs.push(
+    m_configs.push(
       stylistic({
         stylistic: stylisticOptions,
         typescript: hasTypeScript,
@@ -199,7 +199,7 @@ export function rsEslint(
     );
   }
 
-  configs.push(
+  m_configs.push(
     functional({
       ...typescriptConfigOptions,
       ...functionalConfigOptions,
@@ -210,7 +210,7 @@ export function rsEslint(
   );
 
   if (testOptions !== false) {
-    configs.push(
+    m_configs.push(
       test({
         files: GLOB_TESTS,
         overrides: getOverrides(options, "test"),
@@ -219,7 +219,7 @@ export function rsEslint(
   }
 
   if (vueOptions !== false) {
-    configs.push(
+    m_configs.push(
       vue({
         files: [GLOB_VUE],
         i18n: false,
@@ -234,7 +234,7 @@ export function rsEslint(
   }
 
   if (unoCSSOptions !== false) {
-    configs.push(
+    m_configs.push(
       unocss({
         attributify: true,
         strict: true,
@@ -245,7 +245,7 @@ export function rsEslint(
   }
 
   if (jsoncOptions !== false) {
-    configs.push(
+    m_configs.push(
       jsonc({
         files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
         overrides: getOverrides(options, "jsonc"),
@@ -256,7 +256,7 @@ export function rsEslint(
   }
 
   if (yamlOptions !== false) {
-    configs.push(
+    m_configs.push(
       yaml({
         files: [GLOB_YAML],
         overrides: getOverrides(options, "yaml"),
@@ -266,7 +266,7 @@ export function rsEslint(
   }
 
   if (tomlOptions !== false) {
-    configs.push(
+    m_configs.push(
       toml({
         files: [GLOB_TOML],
         overrides: getOverrides(options, "toml"),
@@ -276,7 +276,7 @@ export function rsEslint(
   }
 
   if (markdownOptions !== false) {
-    configs.push(
+    m_configs.push(
       markdown({
         files: [GLOB_MARKDOWN],
         componentExts,
@@ -287,7 +287,7 @@ export function rsEslint(
   }
 
   if (formattersOptions !== false) {
-    configs.push(
+    m_configs.push(
       formatters(
         formattersOptions,
         stylisticOptions === false ? {} : stylisticOptions,
@@ -296,13 +296,13 @@ export function rsEslint(
   }
 
   if (isInEditor) {
-    configs.push(inEditor());
+    m_configs.push(inEditor());
   }
 
-  configs.push(overrides());
+  m_configs.push(overrides());
 
   let m_composer = new FlatConfigComposer<FlatConfigItem>().append(
-    ...configs,
+    ...m_configs,
     ...userConfigs,
   );
 
