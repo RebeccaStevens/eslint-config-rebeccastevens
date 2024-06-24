@@ -1,4 +1,4 @@
-/CHANGELOG.md
+/coverage*/
 /dist/
-/.eslintrc.preview.json
+/CHANGELOG.md
 /pnpm-lock.yaml

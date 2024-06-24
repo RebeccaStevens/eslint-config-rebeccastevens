@@ -7,7 +7,7 @@ on:
 
 jobs:
   run:
-    name: "Update Labels"
+    name: Update Labels
     runs-on: ubuntu-latest
     steps:
       - uses: RebeccaStevens/issue-closed-labeler-action@v1

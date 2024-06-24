@@ -1,64 +1,53 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
-
-import rollupPluginCommonjs from "@rollup/plugin-commonjs";
-import rollupPluginNodeResolve from "@rollup/plugin-node-resolve";
-import rollupPluginTypescript from "@rollup/plugin-typescript";
+import { rollupPlugin as rollupPluginDeassert } from "deassert";
 import { type RollupOptions } from "rollup";
-import rollupPluginAutoExternal from "rollup-plugin-auto-external";
+import rollupPluginTs from "rollup-plugin-ts";
 
-const configDir = "./src/configs/";
+import pkg from "./package.json" assert { type: "json" };
 
-const configFiles: ReadonlyArray<string> = fs
-  .readdirSync(configDir)
-  .filter((file) => file !== "index.ts" && file.endsWith(".ts"));
+const treeshake = {
+  annotations: true,
+  moduleSideEffects: ["src/typegen.ts"],
+  propertyReadSideEffects: false,
+  unknownGlobalSideEffects: false,
+} satisfies RollupOptions["treeshake"];
 
-const common: Partial<RollupOptions> = {
-  output: {
-    dir: "./dist",
-    sourcemap: false,
-    exports: "default",
-  },
+export default {
+  input: "src/index.ts",
 
-  treeshake: {
-    annotations: true,
-    moduleSideEffects: [],
-    propertyReadSideEffects: false,
-    unknownGlobalSideEffects: false,
-  },
-};
-
-/**
- * Get the rollup config for the given eslint config.
- */
-function getConfig(filename: string): RollupOptions {
-  return {
-    ...common,
-
-    input: `${configDir}${filename}`,
-
-    output: [
-      {
-        ...common.output,
-        entryFileNames: `${path.basename(filename, ".ts")}.cjs`,
-        format: "cjs",
+  output: [
+    {
+      file: pkg.exports.import,
+      format: "esm",
+      sourcemap: false,
+      generatedCode: {
+        preset: "es2015",
       },
-      {
-        ...common.output,
-        entryFileNames: `${path.basename(filename, ".ts")}.mjs`,
-        format: "esm",
+    },
+    {
+      file: pkg.exports.import,
+      format: "esm",
+      sourcemap: false,
+      generatedCode: {
+        preset: "es2015",
       },
-    ],
+    },
+  ],
 
-    plugins: [
-      rollupPluginAutoExternal(),
-      rollupPluginNodeResolve(),
-      rollupPluginCommonjs(),
-      rollupPluginTypescript({
-        tsconfig: "tsconfig.build.json",
-      }),
-    ],
-  };
-}
+  external: [
+    ...Object.keys(pkg.dependencies),
+    ...Object.keys(pkg.peerDependencies),
+  ],
 
-export default configFiles.map((filename) => getConfig(filename));
+  plugins: [
+    rollupPluginTs({
+      transpileOnly: true,
+      tsconfig: "tsconfig.build.json",
+    }),
+    rollupPluginDeassert({
+      include: ["**/*.{js,ts}"],
+      exclude: ["**/*.d.ts"],
+    }),
+  ],
+
+  treeshake,
+} satisfies RollupOptions;
