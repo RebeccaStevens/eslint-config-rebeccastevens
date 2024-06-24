@@ -106,8 +106,8 @@ importers:
         specifier: 0.1.2
         version: 0.1.2(eslint@9.5.0)
       eslint-plugin-functional:
-        specifier: 7.0.0-alpha.8
-        version: 7.0.0-alpha.8(eslint@9.5.0)(typescript@5.4.5)
+        specifier: 7.0.0-alpha.9
+        version: 7.0.0-alpha.9(eslint@9.5.0)(typescript@5.4.5)
       eslint-plugin-import-x:
         specifier: 0.5.1
         version: 0.5.1(eslint@9.5.0)(typescript@5.4.5)
@@ -1967,8 +1967,8 @@ packages:
     peerDependencies:
       eslint: ^8.40.0 || ^9.0.0
 
-  eslint-plugin-functional@7.0.0-alpha.8:
-    resolution: {integrity: sha512-fm4ygumKgwL29bFHBZbsXHWZeRb7ZNC5UvDscnZEAPbH8CGWhz+qhRf8XBzb1zU/aPuozVdWruLDC5jpT7YQfA==}
+  eslint-plugin-functional@7.0.0-alpha.9:
+    resolution: {integrity: sha512-YZUylI/VH7tjJ9yfxyPr0cP0gmJzfsLsWEmWRv/S85o4cgfM6mjpLG3ai3i8YXsYhwibcR9kGt5iNYv+OrxhCw==}
     engines: {node: '>=v18.18.0'}
     peerDependencies:
       eslint: ^9.0.0
@@ -6307,7 +6307,7 @@ snapshots:
       prettier: 3.3.2
       synckit: 0.9.0
 
-  eslint-plugin-functional@7.0.0-alpha.8(eslint@9.5.0)(typescript@5.4.5):
+  eslint-plugin-functional@7.0.0-alpha.9(eslint@9.5.0)(typescript@5.4.5):
     dependencies:
       '@typescript-eslint/utils': 8.0.0-alpha.30(eslint@9.5.0)(typescript@5.4.5)
       deepmerge-ts: 7.0.3
