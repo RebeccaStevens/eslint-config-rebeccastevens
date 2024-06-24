@@ -74,7 +74,7 @@ export async function functional(
     "functional/no-throw-statements": [
       "error",
       {
-        allowInAsyncFunctions: true,
+        allowToRejectPromises: true,
       },
     ],
 
