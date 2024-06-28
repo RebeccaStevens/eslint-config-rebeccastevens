@@ -27,7 +27,7 @@ devDependencies:
     version: 15.2.3(rollup@4.13.0)
   '@rollup/plugin-typescript':
     specifier: 11.1.6
-    version: 11.1.6(rollup@4.13.0)(tslib@2.6.2)(typescript@5.4.3)
+    version: 11.1.6(rollup@4.13.0)(tslib@2.6.3)(typescript@5.4.3)
   '@semantic-release/changelog':
     specifier: 6.0.3
     version: 6.0.3(semantic-release@23.0.6)
@@ -155,8 +155,8 @@ devDependencies:
     specifier: 4.2.0
     version: 4.2.0
   tslib:
-    specifier: 2.6.2
-    version: 2.6.2
+    specifier: 2.6.3
+    version: 2.6.3
   typescript:
     specifier: 5.4.3
     version: 5.4.3
@@ -1196,7 +1196,7 @@ packages:
       rollup: 4.13.0
     dev: true
 
-  /@rollup/plugin-typescript@11.1.6(rollup@4.13.0)(tslib@2.6.2)(typescript@5.4.3):
+  /@rollup/plugin-typescript@11.1.6(rollup@4.13.0)(tslib@2.6.3)(typescript@5.4.3):
     resolution: {integrity: sha512-R92yOmIACgYdJ7dJ97p4K69I8gg6IEHt8M7dUBxN3W6nrO8uUxX5ixl0yU/N3aZTi8WhPuICvOHXQvF6FaykAA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1212,7 +1212,7 @@ packages:
       '@rollup/pluginutils': 5.1.0(rollup@4.13.0)
       resolve: 1.22.4
       rollup: 4.13.0
-      tslib: 2.6.2
+      tslib: 2.6.3
       typescript: 5.4.3
     dev: true
 
@@ -6026,7 +6026,7 @@ packages:
   /rxjs@7.8.0:
     resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /safe-array-concat@1.1.2:
@@ -6493,7 +6493,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /synckit@0.9.0:
@@ -6501,7 +6501,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /tapable@2.2.1:
@@ -6655,8 +6655,8 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
-  /tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+  /tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
     dev: true
 
   /type-check@0.4.0:
