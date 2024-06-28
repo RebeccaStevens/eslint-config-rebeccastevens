@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   deepmerge-ts:
-    specifier: ^5.1.0
-    version: 5.1.0
+    specifier: ^7.0.0
+    version: 7.0.0
 
 devDependencies:
   '@commitlint/cli':
@@ -2665,6 +2665,12 @@ packages:
   /deepmerge-ts@5.1.0:
     resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
     engines: {node: '>=16.0.0'}
+    dev: true
+
+  /deepmerge-ts@7.0.0:
+    resolution: {integrity: sha512-a2IkrQBawdHV081Njp4ETr6EF10PPQhk+6oyqFJ01QCmRYzahx+c3XaXU4/imJEMU2xBfH/5sH4gqUiqsNi7tQ==}
+    engines: {node: '>=16.0.0'}
+    dev: false
 
   /deepmerge@4.3.0:
     resolution: {integrity: sha512-z2wJZXrmeHdvYJp/Ux55wIjqo81G5Bp4c+oELTW+7ar6SogWHajt5a9gO3s3IDaGSAXjDk0vlQKN3rms8ab3og==}
