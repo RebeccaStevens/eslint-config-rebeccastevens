@@ -179,6 +179,7 @@ export function rsEslint(
   if (typeScriptOptions !== false) {
     m_configs.push(
       typescript({
+        mode,
         files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
         unsafe: "warn",
         ...typescriptConfigOptions,

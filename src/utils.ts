@@ -23,14 +23,6 @@ export async function interopDefault<T>(
   return (resolved as any).default ?? resolved;
 }
 
-export function toArray<T>(value: T | ReadonlyArray<T>): ReadonlyArray<T>;
-
-export function toArray<T>(value: T | T[]): T[];
-
-export function toArray<T>(value: T | T[]): T[] {
-  return Array.isArray(value) ? value : [value];
-}
-
 export const parserPlain = {
   meta: {
     name: "parser-plain",

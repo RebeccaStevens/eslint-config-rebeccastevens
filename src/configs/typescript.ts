@@ -15,6 +15,7 @@ import {
   type OptionsComponentExts,
   type OptionsFiles,
   type OptionsFunctional,
+  type OptionsMode,
   type OptionsOverrides,
   type OptionsTypeScriptParserOptions,
   type OptionsTypeScriptUnsafeSeverity,
@@ -26,16 +27,18 @@ export const defaultFilesTypesAware = [GLOB_TS, GLOB_TSX, GLOB_DTS];
 export async function typescript(
   options: Readonly<
     Required<
-      OptionsFiles &
-        OptionsComponentExts &
+      OptionsComponentExts &
+        OptionsFiles &
+        OptionsFunctional &
+        OptionsMode &
         OptionsOverrides &
         OptionsTypeScriptParserOptions &
-        OptionsTypeScriptUnsafeSeverity &
-        OptionsFunctional
+        OptionsTypeScriptUnsafeSeverity
     >
   >,
 ): Promise<FlatConfigItem[]> {
   const {
+    mode,
     functionalEnforcement,
     componentExts,
     overrides,
@@ -101,17 +104,6 @@ export async function typescript(
         ],
         "ts/await-thenable": "error",
         "ts/ban-ts-comment": ["error", { minimumDescriptionLength: 10 }],
-        "ts/ban-types": [
-          "error",
-          {
-            extendDefaults: true,
-            types: {
-              "{}": false,
-              object: false,
-              Object: { fixWith: "object", message: "Use `object` instead" },
-            },
-          },
-        ],
         "ts/explicit-function-return-type": [
           "off",
           {
@@ -165,6 +157,7 @@ export async function typescript(
         "ts/no-unsafe-call": unsafe,
         "ts/no-unsafe-declaration-merging": unsafe,
         "ts/no-unsafe-enum-comparison": unsafe,
+        "ts/no-unsafe-function-type": unsafe,
         "ts/no-unsafe-member-access": unsafe,
         "ts/no-unsafe-return": unsafe,
         "ts/no-unused-expressions": [
@@ -176,6 +169,7 @@ export async function typescript(
           },
         ],
         "ts/no-unnecessary-template-expression": "error",
+        "ts/no-wrapper-object-types": "error",
         "ts/non-nullable-type-assertion-style": "error",
         "ts/prefer-as-const": "error",
         "ts/prefer-for-of": "error",
@@ -317,6 +311,17 @@ export async function typescript(
 
         "require-await": "off",
         "ts/require-await": "error",
+
+        ...(mode === "application"
+          ? {
+              "ts/no-empty-object-type": [
+                "error",
+                {
+                  allowInterfaces: "with-single-extends",
+                },
+              ],
+            }
+          : {}),
 
         ...(functionalEnforcement === "none"
           ? {}
