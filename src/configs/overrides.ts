@@ -58,8 +58,9 @@ export async function overrides(): Promise<FlatConfigItem[]> {
         "jsdoc/multiline-blocks": "off",
 
         "ts/consistent-type-definitions": "off",
-        "ts/no-unused-vars": "off",
+        "ts/no-empty-object-type": "off",
         "ts/no-explicit-any": "off",
+        "ts/no-unused-vars": "off",
       },
     },
     {
