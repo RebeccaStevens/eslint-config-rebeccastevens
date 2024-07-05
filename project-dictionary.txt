@@ -21,6 +21,7 @@ nocheck
 noreply
 nums
 nuxt
+nvim
 plugh
 quux
 qux

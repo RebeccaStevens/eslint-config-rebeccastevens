@@ -80,7 +80,8 @@ export function rsEslint(
       (Boolean(process.env["VSCODE_PID"]) ||
         Boolean(process.env["VSCODE_CWD"]) ||
         Boolean(process.env["JETBRAINS_IDE"]) ||
-        Boolean(process.env["VIM"])),
+        Boolean(process.env["VIM"]) ||
+        Boolean(process.env["NVIM"])),
     ignores: ignoresOptions,
     typescript: typeScriptOptions = isPackageExists("typescript"),
     unocss: unoCSSOptions = isPackageExists("unocss"),
