@@ -11,16 +11,21 @@ import {
   type OptionsComponentExts,
   type OptionsFiles,
   type OptionsOverrides,
+  type OptionsTypeRequiredRules,
 } from "../types";
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
   options: Readonly<
-    Required<OptionsFiles & OptionsComponentExts & OptionsOverrides>
+    Required<
+      OptionsFiles &
+        OptionsComponentExts &
+        OptionsTypeRequiredRules &
+        OptionsOverrides
+    >
   >,
 ): Promise<FlatConfigItem[]> {
-  const { componentExts, files, overrides } = options;
-  const enableTypeRequiredRules = false as boolean; // TODO: finish setting up.
+  const { componentExts, files, overrides, enableTypeRequiredRules } = options;
 
   const [pluginMarkdown] = (await loadPackages(["eslint-plugin-markdown"])) as [
     ESLint.Plugin,
@@ -61,20 +66,16 @@ export async function markdown(
       },
     },
     {
-      name: "rs:markdown:disables",
+      name: "rs:markdown:code",
       files: [
         GLOB_MARKDOWN_CODE,
-        ...componentExts.map((ext) => `${GLOB_MARKDOWN}/**/*.${ext}`),
+        ...componentExts.map((ext) => `${GLOB_MARKDOWN}/*.${ext}`),
       ],
       languageOptions: {
         parserOptions: {
           ...(enableTypeRequiredRules
-            ? {}
-            : {
-                project: false,
-                projectService: false,
-                program: null,
-              }),
+            ? undefined
+            : { project: false, projectService: false, program: null }),
           ecmaFeatures: {
             impliedStrict: true,
           },
@@ -82,9 +83,11 @@ export async function markdown(
       },
       rules: {
         ...(enableTypeRequiredRules
-          ? {}
-          : pluginTs?.configs["disable-type-checked"]?.rules),
-        ...pluginFunctional?.configs.off.rules,
+          ? undefined
+          : {
+              ...pluginTs?.configs["disable-type-checked"]?.rules,
+              ...pluginFunctional?.configs.off.rules,
+            }),
 
         "dot-notation": "off",
         "init-declarations": "off",

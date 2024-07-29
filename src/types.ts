@@ -133,6 +133,10 @@ export type OptionsHasTypeScript = {
   typescript?: boolean;
 };
 
+export type OptionsTypeRequiredRules = {
+  enableTypeRequiredRules?: boolean;
+};
+
 export type OptionsStylistic = {
   stylistic?: StylisticConfig | false;
 };
@@ -257,7 +261,7 @@ export type OptionsConfig = {
    *
    * For formatting Markdown content, enable also `formatters.markdown`.
    */
-  markdown?: boolean | OptionsOverrides;
+  markdown?: boolean | (OptionsOverrides & OptionsTypeRequiredRules);
 
   /**
    * Enable stylistic rules.

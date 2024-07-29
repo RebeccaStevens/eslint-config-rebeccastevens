@@ -137,10 +137,12 @@ export function rsEslint(
     OptionsTypeScriptParserOptions &
     OptionsTypeScriptShorthands;
 
-  const projectServiceUserConfig =
-    typeof parserOptions?.projectService === "object"
+  const projectServiceUserConfig = {
+    defaultProject: "./tsconfig.json",
+    ...(typeof parserOptions?.projectService === "object"
       ? parserOptions.projectService
-      : {};
+      : undefined),
+  };
 
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
     ...typeScriptSubOptions,
@@ -154,7 +156,6 @@ export function rsEslint(
           : useDefaultDefaultProject === false
             ? projectServiceUserConfig
             : {
-                defaultProject: "./tsconfig.json",
                 allowDefaultProject: [
                   path.join(projectRoot, GLOB_ROOT_JS),
                   path.join(projectRoot, GLOB_ROOT_JSX),
@@ -310,6 +311,10 @@ export function rsEslint(
   if (markdownOptions !== false) {
     m_configs.push(
       markdown({
+        enableTypeRequiredRules: !(
+          markdownOptions === true ||
+          markdownOptions.enableTypeRequiredRules === false
+        ),
         files: [GLOB_MARKDOWN],
         componentExts,
         overrides: getOverrides(options, "markdown"),

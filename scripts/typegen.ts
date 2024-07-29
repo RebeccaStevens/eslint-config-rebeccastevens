@@ -67,6 +67,7 @@ const configs = (await combine(
   }),
   markdown({
     files: [],
+    enableTypeRequiredRules: false,
     componentExts: [],
     overrides: undefined,
   }),
@@ -107,6 +108,8 @@ const configs = (await combine(
     unsafe: "off",
     functionalEnforcement: "none",
     ignoreNamePattern: [],
+    projectRoot: process.cwd(),
+    mode: "none",
   }),
   unicorn(),
   unocss({
@@ -122,6 +125,8 @@ const configs = (await combine(
     typescript: false,
     stylistic: false,
     files: [],
+    filesTypeAware: [],
+    parserOptions: {},
   }),
   yaml({
     overrides: undefined,
