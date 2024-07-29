@@ -70,14 +70,7 @@ export type OptionsVue = {
 export type OptionsTypescript = OptionsTypeScriptParserOptions &
   OptionsOverrides &
   OptionsTypeScriptUnsafeSeverity &
-  OptionsTypeAwareEmbeddedLanguages;
-
-export type OptionsTypeAwareEmbeddedLanguages = {
-  /**
-   * Warning: Slow.
-   */
-  enableTypeAwareEmbeddedLanguages?: boolean;
-};
+  OptionsTypeScriptShorthands;
 
 export type OptionsFormatters = {
   js?: boolean;
@@ -120,6 +113,16 @@ export type OptionsTypeScriptParserOptions = {
    * @default ['**\/*.{ts,tsx}']
    */
   filesTypeAware?: string[];
+};
+
+export type OptionsTypeScriptShorthands = {
+  /**
+   * Any easy way to disable the default project.
+   * Has no effect if `parserOptions.projectService` is set.
+   *
+   * @default true
+   */
+  enableDefaultProject?: boolean;
 };
 
 export type OptionsTypeScriptUnsafeSeverity = {
@@ -170,7 +173,11 @@ export type OptionsFunctional = {
 };
 
 export type OptionsMode = {
-  mode?: "library" | "application" | "none";
+  mode: "library" | "application" | "none";
+};
+
+export type OptionsProjectRoot = {
+  projectRoot: string;
 };
 
 export type OptionsIgnores =
@@ -182,9 +189,14 @@ export type OptionsIgnores =
 
 export type OptionsConfig = {
   /**
+   * The root directory of the project.
+   */
+  projectRoot: OptionsProjectRoot["projectRoot"];
+
+  /**
    * What are we linting?
    */
-  mode: Required<OptionsMode>["mode"];
+  mode: OptionsMode["mode"];
 
   /**
    * Core rules. Can't be disabled.

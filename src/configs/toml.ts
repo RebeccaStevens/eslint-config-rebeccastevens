@@ -20,7 +20,7 @@ export async function toml(
   const [pluginToml, parserToml] = (await loadPackages([
     "eslint-plugin-toml",
     "toml-eslint-parser",
-  ])) as [ESLint.Plugin, Linter.FlatConfigParserModule];
+  ])) as [ESLint.Plugin, Linter.Parser];
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 

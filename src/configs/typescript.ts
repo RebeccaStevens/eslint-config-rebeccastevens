@@ -17,6 +17,7 @@ import {
   type OptionsFunctional,
   type OptionsMode,
   type OptionsOverrides,
+  type OptionsProjectRoot,
   type OptionsTypeScriptParserOptions,
   type OptionsTypeScriptUnsafeSeverity,
 } from "../types";
@@ -32,6 +33,7 @@ export async function typescript(
         OptionsFunctional &
         OptionsMode &
         OptionsOverrides &
+        OptionsProjectRoot &
         OptionsTypeScriptParserOptions &
         OptionsTypeScriptUnsafeSeverity
     >
@@ -46,12 +48,13 @@ export async function typescript(
     unsafe,
     files,
     filesTypeAware,
+    projectRoot,
   } = options;
 
   const [pluginTs, parserTs] = (await loadPackages([
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
-  ])) as [ESLint.Plugin, Linter.FlatConfigParserModule];
+  ])) as [ESLint.Plugin, Linter.Parser];
 
   function makeParser(
     typeAware: boolean,
@@ -70,7 +73,7 @@ export async function typescript(
           ...(typeAware
             ? {
                 projectService: true,
-                tsconfigRootDir: process.cwd(),
+                tsconfigRootDir: projectRoot,
               }
             : {}),
           ...(parserOptions as Linter.ParserOptions),

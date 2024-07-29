@@ -6,6 +6,7 @@ import {
   type OptionsFiles,
   type OptionsHasTypeScript,
   type OptionsOverrides,
+  type OptionsTypeScriptParserOptions,
   type OptionsVue,
   type RequiredOptionsStylistic,
 } from "../types";
@@ -29,14 +30,23 @@ export async function vue(
   options: Readonly<
     Required<
       OptionsVue &
+        OptionsFiles &
         OptionsHasTypeScript &
         OptionsOverrides &
-        RequiredOptionsStylistic &
-        OptionsFiles
+        OptionsTypeScriptParserOptions &
+        RequiredOptionsStylistic
     >
   >,
 ): Promise<FlatConfigItem[]> {
-  const { files, overrides, stylistic, vueVersion, typescript, i18n } = options;
+  const {
+    files,
+    i18n,
+    overrides,
+    parserOptions,
+    stylistic,
+    typescript,
+    vueVersion,
+  } = options;
 
   const sfcBlocks = options.sfcBlocks === true ? {} : options.sfcBlocks;
 
@@ -104,6 +114,7 @@ export async function vue(
           },
           extraFileExtensions: [".vue"],
           parser: typescript ? parserTs : null,
+          ...(typescript ? parserOptions : {}),
           sourceType: "module",
         },
       },

@@ -555,7 +555,7 @@ export async function formatters(
         ? []
         : options.slidev === true
           ? ["**/slides.md"]
-          : options.slidev.files ?? [];
+          : (options.slidev.files ?? []);
 
     m_configs.push({
       name: "rs:formatter:markdown",

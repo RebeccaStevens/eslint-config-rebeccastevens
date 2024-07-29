@@ -1,3 +1,5 @@
+import * as path from "node:path";
+
 import { FlatConfigComposer } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
@@ -34,6 +36,11 @@ import {
   GLOB_JSON5,
   GLOB_JSONC,
   GLOB_MARKDOWN,
+  GLOB_ROOT_DTS,
+  GLOB_ROOT_JS,
+  GLOB_ROOT_JSX,
+  GLOB_ROOT_TS,
+  GLOB_ROOT_TSX,
   GLOB_SRC,
   GLOB_TESTS,
   GLOB_TOML,
@@ -45,6 +52,7 @@ import {
   type FlatConfigItem,
   type OptionsConfig,
   type OptionsTypeScriptParserOptions,
+  type OptionsTypeScriptShorthands,
   type OptionsTypescript,
 } from "./types";
 
@@ -95,6 +103,7 @@ export function rsEslint(
     markdown: markdownOptions = false,
     formatters: formattersOptions = true,
     mode,
+    projectRoot,
   } = options;
 
   const stylisticOptions =
@@ -112,7 +121,7 @@ export function rsEslint(
     typeof functionalOptions === "string"
       ? functionalOptions
       : typeof functionalOptions === "object"
-        ? functionalOptions.functionalEnforcement ?? "recommended"
+        ? (functionalOptions.functionalEnforcement ?? "recommended")
         : functionalOptions
           ? "recommended"
           : "none";
@@ -122,22 +131,39 @@ export function rsEslint(
   const {
     filesTypeAware,
     parserOptions,
-    enableTypeAwareEmbeddedLanguages = false,
+    enableDefaultProject,
     ...typeScriptSubOptions
   } = resolveSubOptions(options, "typescript") as OptionsTypescript &
-    OptionsTypeScriptParserOptions;
+    OptionsTypeScriptParserOptions &
+    OptionsTypeScriptShorthands;
+
+  const projectServiceUserConfig =
+    typeof parserOptions?.projectService === "object"
+      ? parserOptions.projectService
+      : {};
 
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
     ...typeScriptSubOptions,
     filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
     parserOptions: {
-      projectService: enableTypeAwareEmbeddedLanguages
-        ? {
-            maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING:
-              Number.POSITIVE_INFINITY,
-          }
-        : true,
+      tsconfigRootDir: projectRoot,
       ...parserOptions,
+      projectService:
+        parserOptions?.projectService === false
+          ? false
+          : enableDefaultProject === false
+            ? projectServiceUserConfig
+            : {
+                defaultProject: "./tsconfig.json",
+                allowDefaultProject: [
+                  path.join(projectRoot, GLOB_ROOT_JS),
+                  path.join(projectRoot, GLOB_ROOT_JSX),
+                  path.join(projectRoot, GLOB_ROOT_TS),
+                  path.join(projectRoot, GLOB_ROOT_TSX),
+                  path.join(projectRoot, GLOB_ROOT_DTS),
+                ],
+                ...projectServiceUserConfig,
+              },
     },
   };
 
@@ -180,6 +206,7 @@ export function rsEslint(
   if (typeScriptOptions !== false) {
     m_configs.push(
       typescript({
+        projectRoot,
         mode,
         files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
         unsafe: "warn",
@@ -201,15 +228,17 @@ export function rsEslint(
     );
   }
 
-  m_configs.push(
-    functional({
-      ...typescriptConfigOptions,
-      ...functionalConfigOptions,
-      overrides: getOverrides(options, "functional"),
-      stylistic: stylisticOptions,
-      mode,
-    }),
-  );
+  if (functionalEnforcement !== "none" || mode === "library") {
+    m_configs.push(
+      functional({
+        ...typescriptConfigOptions,
+        ...functionalConfigOptions,
+        overrides: getOverrides(options, "functional"),
+        stylistic: stylisticOptions,
+        mode,
+      }),
+    );
+  }
 
   if (testOptions !== false) {
     m_configs.push(
@@ -223,6 +252,8 @@ export function rsEslint(
   if (vueOptions !== false) {
     m_configs.push(
       vue({
+        ...typescriptConfigOptions,
+        typescript: hasTypeScript,
         files: [GLOB_VUE],
         i18n: false,
         vueVersion: 3,
@@ -230,7 +261,6 @@ export function rsEslint(
         ...resolveSubOptions(options, "vue"),
         overrides: getOverrides(options, "vue"),
         stylistic: stylisticOptions,
-        typescript: hasTypeScript,
       }),
     );
   }
@@ -282,7 +312,6 @@ export function rsEslint(
       markdown({
         files: [GLOB_MARKDOWN],
         componentExts,
-        enableTypeAwareEmbeddedLanguages,
         overrides: getOverrides(options, "markdown"),
       }),
     );
@@ -328,7 +357,7 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
   return (
     typeof options[key] === "boolean" || typeof options[key] === "string"
       ? {}
-      : options[key] ?? {}
+      : (options[key] ?? {})
   ) as ResolvedOptions<OptionsConfig[K]>;
 }
 

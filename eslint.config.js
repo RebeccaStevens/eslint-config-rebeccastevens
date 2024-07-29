@@ -1,4 +1,5 @@
 // @ts-check
+// @ts-expect-error - Untyped.
 import styleMigrate from "@stylistic/eslint-plugin-migrate";
 import JITI from "jiti";
 
@@ -11,8 +12,11 @@ const rsEslint = jiti("./src").default;
 
 export default rsEslint(
   {
+    projectRoot: import.meta.dirname,
     mode: "none",
-    typescript: true,
+    typescript: {
+      enableDefaultProject: false,
+    },
     formatters: true,
     functional: "lite",
     jsonc: true,

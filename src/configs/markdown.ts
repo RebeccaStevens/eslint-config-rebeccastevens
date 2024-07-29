@@ -11,22 +11,16 @@ import {
   type OptionsComponentExts,
   type OptionsFiles,
   type OptionsOverrides,
-  type OptionsTypeAwareEmbeddedLanguages,
 } from "../types";
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
   options: Readonly<
-    Required<
-      OptionsFiles &
-        OptionsComponentExts &
-        OptionsTypeAwareEmbeddedLanguages &
-        OptionsOverrides
-    >
+    Required<OptionsFiles & OptionsComponentExts & OptionsOverrides>
   >,
 ): Promise<FlatConfigItem[]> {
-  const { componentExts, files, enableTypeAwareEmbeddedLanguages, overrides } =
-    options;
+  const { componentExts, files, overrides } = options;
+  const enableTypeRequiredRules = false as boolean; // TODO: finish setting up.
 
   const [pluginMarkdown] = (await loadPackages(["eslint-plugin-markdown"])) as [
     ESLint.Plugin,
@@ -74,7 +68,7 @@ export async function markdown(
       ],
       languageOptions: {
         parserOptions: {
-          ...(enableTypeAwareEmbeddedLanguages
+          ...(enableTypeRequiredRules
             ? {}
             : {
                 project: false,
@@ -87,7 +81,7 @@ export async function markdown(
         },
       },
       rules: {
-        ...(enableTypeAwareEmbeddedLanguages
+        ...(enableTypeRequiredRules
           ? {}
           : pluginTs?.configs["disable-type-checked"]?.rules),
         ...pluginFunctional?.configs.off.rules,
