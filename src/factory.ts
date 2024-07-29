@@ -131,7 +131,7 @@ export function rsEslint(
   const {
     filesTypeAware,
     parserOptions,
-    enableDefaultProject,
+    useDefaultDefaultProject,
     ...typeScriptSubOptions
   } = resolveSubOptions(options, "typescript") as OptionsTypescript &
     OptionsTypeScriptParserOptions &
@@ -151,7 +151,7 @@ export function rsEslint(
       projectService:
         parserOptions?.projectService === false
           ? false
-          : enableDefaultProject === false
+          : useDefaultDefaultProject === false
             ? projectServiceUserConfig
             : {
                 defaultProject: "./tsconfig.json",

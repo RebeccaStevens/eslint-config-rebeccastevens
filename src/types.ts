@@ -122,7 +122,7 @@ export type OptionsTypeScriptShorthands = {
    *
    * @default true
    */
-  enableDefaultProject?: boolean;
+  useDefaultDefaultProject?: boolean;
 };
 
 export type OptionsTypeScriptUnsafeSeverity = {

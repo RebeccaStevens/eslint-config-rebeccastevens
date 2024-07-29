@@ -15,7 +15,7 @@ export default rsEslint(
     projectRoot: import.meta.dirname,
     mode: "none",
     typescript: {
-      enableDefaultProject: false,
+      useDefaultDefaultProject: false,
     },
     formatters: true,
     functional: "lite",
