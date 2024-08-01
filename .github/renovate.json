@@ -50,6 +50,10 @@
       "rangeStrategy": "replace",
       "semanticCommitScope": "dev-deps",
       "semanticCommitType": "ci"
+    },
+    {
+      "allowedVersions": "<5.5",
+      "matchPackageNames": ["typescript"]
     }
   ],
   "postUpdateOptions": ["pnpmDedupe"]

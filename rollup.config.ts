@@ -24,8 +24,8 @@ export default {
       },
     },
     {
-      file: pkg.exports.import,
-      format: "esm",
+      file: pkg.exports.require,
+      format: "cjs",
       sourcemap: false,
       generatedCode: {
         preset: "es2015",
