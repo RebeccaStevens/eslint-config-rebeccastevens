@@ -105,7 +105,7 @@
     "eslint-plugin-unicorn": "51.0.1",
     "husky": "9.0.11",
     "knip": "5.5.0",
-    "lint-staged": "15.2.2",
+    "lint-staged": "15.2.8",
     "markdownlint-cli": "0.39.0",
     "prettier": "3.2.5",
     "prettier-plugin-packagejson": "2.4.12",
