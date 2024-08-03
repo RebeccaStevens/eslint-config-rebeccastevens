@@ -19,21 +19,20 @@ declare module "eslint" {
 
 export type Awaitable<T> = T | Promise<T>;
 
-export type FlatConfigItem = Omit<Linter.FlatConfig, "plugins" | "rules"> & {
+export type FlatConfigItem = Omit<Linter.Config, "plugins" | "rules"> & {
   /**
    * Custom name of each config item
    */
-  name?: string;
+  name?: string | undefined;
 
-  plugins?: Record<
-    string,
-    Readonly<ESLint.Plugin | TSESLint.FlatConfig.Plugin>
-  >;
+  plugins?:
+    | Record<string, Readonly<ESLint.Plugin | TSESLint.FlatConfig.Plugin>>
+    | undefined;
 
   /**
    * An object containing a name-value mapping of rules to use.
    */
-  rules?: Record<string, Linter.RuleEntry> & Rules;
+  rules?: (TSESLint.FlatConfig.Config["rules"] & Rules) | undefined;
 };
 
 export type OptionsFiles = {
