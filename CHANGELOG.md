@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [2.1.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.11...v2.1.0) (2024-08-05)
+
+
+### Features
+
+* migrate to eslint 9 and add more plugins ([#1177](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/1177)) ([c80da05](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c80da05089f5df6610d814167c56c2cbc8d619f6))
+
 # [3.0.0-next.49](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.0-next.48...v3.0.0-next.49) (2024-08-05)
 
 
