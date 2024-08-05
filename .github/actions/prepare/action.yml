@@ -5,10 +5,10 @@ inputs:
   node-version:
     required: false
     description: "`node-version` passed to `actions/setup-node`."
-    default: v20
+    default: "20"
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Configure Git
       run: |
@@ -16,9 +16,9 @@ runs:
         git config --global user.name ${GITHUB_ACTOR}
       shell: bash
     - uses: pnpm/action-setup@v2
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
-        cache: "pnpm"
+        cache: pnpm
     - run: pnpm install --frozen-lockfile --ignore-scripts
       shell: bash

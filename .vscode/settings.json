@@ -1,26 +1,40 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": false,
+  "editor.rulers": [80],
+  "eslint.probe": [
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "markdown",
+    "toml",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "yaml"
+  ],
+  "files.associations": {
+    ".markdownlint.json": "jsonc",
+    ".markdownlintignore": "ignore"
+  },
+  "files.exclude": {
+    "coverage/": true
+  },
   "files.trimTrailingWhitespace": true,
   "search.exclude": {
     "**/.git/": true,
+    ".nyc_output/": true,
     ".vscode/": true,
     "dist/": true,
     "pnpm-lock.yaml": true
   },
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "files.associations": {
-    ".markdownlint.json": "jsonc",
-    ".markdownlintignore": "ignore"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
+  "[markdown]": {
+    "editor.rulers": [120]
   }
 }

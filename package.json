@@ -2,140 +2,273 @@
   "name": "@rebeccastevens/eslint-config",
   "version": "0.0.0-development",
   "description": "My ESLint shareable config.",
-  "keywords": [
-    "eslint config"
-  ],
+  "keywords": ["eslint config"],
   "homepage": "https://github.com/RebeccaStevens/eslint-config-rebeccastevens#readme",
   "bugs": {
     "url": "https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues"
   },
-  "repository": "git@github.com:RebeccaStevens/eslint-config-rebeccastevens.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RebeccaStevens/eslint-config-rebeccastevens"
+  },
   "license": "BSD-3-Clause",
   "author": {
     "name": "Rebecca Stevens",
     "email": "rebecca.stevens@outlook.co.nz"
   },
+  "type": "module",
   "exports": {
-    "./common-overrides": {
-      "import": "./dist/common-overrides.mjs",
-      "require": "./dist/common-overrides.cjs"
+    "types": {
+      "require": "./dist/index.d.cts",
+      "import": "./dist/index.d.mts"
     },
-    "./modern": {
-      "import": "./dist/modern.mjs",
-      "require": "./dist/modern.cjs"
-    },
-    "./script": {
-      "import": "./dist/script.mjs",
-      "require": "./dist/script.cjs"
-    },
-    "./test": {
-      "import": "./dist/test.mjs",
-      "require": "./dist/test.cjs"
-    },
-    "./typescript": {
-      "import": "./dist/typescript.mjs",
-      "require": "./dist/typescript.cjs"
-    }
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.mjs"
   },
-  "files": [
-    "dist/",
-    "package.json",
-    "LICENSE",
-    "README.md"
-  ],
+  "files": ["dist/", "package.json", "LICENSE"],
   "scripts": {
     "build": "pnpm run build:node",
-    "build:node": "rimraf dist && rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "build:node": "rimraf dist && pnpm run typegen && rollup -c rollup.config.ts --configPlugin rollup-plugin-ts",
     "cz": "git-cz",
-    "generate-preview": "ts-node -P scripts/tsconfig.json -r tsconfig-paths/register scripts/generate-preview.ts",
-    "lint": "pnpm run lint:js && pnpm run lint:md && pnpm run lint:prettier && pnpm run lint:knip && pnpm run lint:spelling",
-    "lint:js": "pnpm run build && eslint .",
-    "lint:js-fix": "pnpm run build && eslint . --fix",
+    "lint": "pnpm run typegen && pnpm run lint:eslint && pnpm run lint:md && pnpm run lint:knip && pnpm run lint:spelling && pnpm run lint:packages",
+    "lint-fix": "pnpm run typegen && pnpm run lint:eslint-fix && pnpm run lint:packages-fix",
+    "lint:eslint": "eslint .",
+    "lint:eslint-fix": "eslint . --fix",
     "lint:knip": "pnpm run lint:knip:development && pnpm run lint:knip:production",
-    "lint:knip:development": "knip --exclude exports",
-    "lint:knip:production": "knip --production --strict --exclude exports",
+    "lint:knip:development": "knip --exclude exports,nsExports,types,nsTypes",
+    "lint:knip:production": "knip --production --strict --exclude exports,nsExports,types,nsTypes",
     "lint:md": "markdownlint \"**/*.md\" --config=.markdownlint.json --ignore-path=.markdownlintignore",
-    "lint:prettier": "prettier \"**/*\" --ignore-unknown --list-different",
-    "lint:prettier-fix": "prettier \"**/*\" --ignore-unknown --write",
+    "lint:packages": "pnpm dedupe --check",
+    "lint:packages-fix": "pnpm dedupe",
     "lint:spelling": "cspell \"**\" \".github/**/*\"",
-    "prepare": "husky install",
+    "prepare": "husky && pnpm run typegen",
     "release": "semantic-release",
-    "test": "echo no tests",
-    "type-check": "tsc --noEmit --skipLibCheck"
+    "typecheck": "pnpm run typegen && tsc --noEmit -p tsconfig.build.json",
+    "typegen": "tsx scripts/typegen.ts"
   },
   "dependencies": {
-    "deepmerge-ts": "^5.1.0"
+    "@antfu/install-pkg": "^0.3.3",
+    "@clack/prompts": "^0.7.0",
+    "eslint-flat-config-utils": "^0.3.0",
+    "eslint-merge-processors": "^0.1.0",
+    "globals": "^15.9.0",
+    "local-pkg": "^0.5.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.2.1",
-    "@commitlint/config-conventional": "19.1.0",
+    "@commitlint/cli": "19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
     "@cspell/dict-cryptocurrencies": "5.0.0",
-    "@rollup/plugin-commonjs": "25.0.7",
-    "@rollup/plugin-node-resolve": "15.2.3",
-    "@rollup/plugin-typescript": "11.1.6",
+    "@eslint/compat": "1.1.1",
+    "@intlify/eslint-plugin-vue-i18n": "3.0.0",
     "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/commit-analyzer": "12.0.0",
+    "@semantic-release/commit-analyzer": "13.0.0",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "10.0.2",
-    "@semantic-release/npm": "12.0.0",
-    "@semantic-release/release-notes-generator": "13.0.0",
-    "@types/eslint": "8.56.6",
-    "@types/eslint-config-prettier": "6.11.3",
-    "@types/eslint-plugin-prettier": "3.1.3",
-    "@types/node": "18.11.9",
-    "@types/rollup-plugin-auto-external": "2.0.5",
-    "@typescript-eslint/eslint-plugin": "7.3.1",
-    "@typescript-eslint/parser": "7.3.1",
+    "@semantic-release/github": "10.1.3",
+    "@semantic-release/npm": "12.0.1",
+    "@semantic-release/release-notes-generator": "14.0.1",
+    "@stylistic/eslint-plugin": "2.6.1",
+    "@stylistic/eslint-plugin-migrate": "2.6.1",
+    "@types/eslint": "9.6.0",
+    "@types/node": "22.1.0",
+    "@typescript-eslint/eslint-plugin": "8.0.0",
+    "@typescript-eslint/parser": "8.0.0",
+    "@typescript-eslint/utils": "8.0.0",
+    "@unocss/eslint-plugin": "0.61.9",
     "commitizen": "4.3.0",
-    "cspell": "8.6.1",
+    "cspell": "8.13.1",
     "cz-conventional-changelog": "3.3.0",
-    "eslint": "9.6.0",
+    "deassert": "1.0.2",
+    "eslint": "9.8.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-eslint-comments": "3.2.0",
-    "eslint-plugin-functional": "6.3.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsdoc": "48.2.1",
-    "eslint-plugin-markdown": "3.0.1",
-    "eslint-plugin-n": "16.6.2",
+    "eslint-plugin-format": "0.1.2",
+    "eslint-plugin-functional": "7.0.0-rc.1",
+    "eslint-plugin-import-x": "3.1.0",
+    "eslint-plugin-jsdoc": "48.11.0",
+    "eslint-plugin-jsonc": "2.16.0",
+    "eslint-plugin-markdown": "5.1.0",
+    "eslint-plugin-n": "17.10.2",
+    "eslint-plugin-no-only-tests": "3.1.0",
     "eslint-plugin-optimize-regex": "1.2.1",
-    "eslint-plugin-prettier": "5.1.3",
-    "eslint-plugin-promise": "6.1.1",
-    "eslint-plugin-sonarjs": "0.24.0",
-    "eslint-plugin-unicorn": "51.0.1",
-    "husky": "9.0.11",
-    "knip": "5.5.0",
-    "lint-staged": "15.2.2",
-    "markdownlint-cli": "0.39.0",
-    "prettier": "3.2.5",
-    "prettier-plugin-packagejson": "2.4.12",
-    "rimraf": "5.0.5",
-    "rollup": "4.13.0",
-    "rollup-plugin-auto-external": "2.0.0",
-    "semantic-release": "23.0.6",
-    "ts-node": "10.9.2",
-    "tsconfig-paths": "4.2.0",
-    "tslib": "2.6.2",
-    "typescript": "5.4.3"
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-promise": "7.0.0",
+    "eslint-plugin-regexp": "2.6.0",
+    "eslint-plugin-sonarjs": "1.0.4",
+    "eslint-plugin-toml": "0.11.1",
+    "eslint-plugin-unicorn": "55.0.0",
+    "eslint-plugin-vitest": "0.5.4",
+    "eslint-plugin-vue": "9.27.0",
+    "eslint-plugin-yml": "1.14.0",
+    "eslint-processor-vue-blocks": "0.1.2",
+    "eslint-typegen": "0.3.0",
+    "husky": "9.1.4",
+    "jiti": "1.21.6",
+    "jsonc-eslint-parser": "2.4.0",
+    "knip": "5.27.0",
+    "lint-staged": "15.2.8",
+    "markdownlint": "0.34.0",
+    "markdownlint-cli": "0.41.0",
+    "prettier": "3.3.3",
+    "prettier-plugin-packagejson": "2.5.1",
+    "rimraf": "6.0.1",
+    "rollup": "4.20.0",
+    "rollup-plugin-ts": "3.4.5",
+    "semantic-release": "24.0.0",
+    "toml-eslint-parser": "0.10.0",
+    "tsc-files": "1.1.4",
+    "tsx": "4.16.5",
+    "typescript": "5.4.5",
+    "vue-eslint-parser": "9.4.3",
+    "yaml-eslint-parser": "1.2.3"
   },
   "peerDependencies": {
-    "@typescript-eslint/eslint-plugin": ">=6.0.0",
-    "@typescript-eslint/parser": ">=6.0.0",
-    "eslint": ">=8.24.0",
+    "@stylistic/eslint-plugin": "*",
+    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/parser": "*",
+    "@typescript-eslint/utils": "*",
+    "@unocss/eslint-plugin": "*",
+    "eslint": "*",
+    "eslint-config-prettier": "*",
+    "eslint-flat-config-utils": "*",
     "eslint-import-resolver-typescript": "*",
+    "eslint-merge-processors": "*",
     "eslint-plugin-eslint-comments": "*",
-    "eslint-plugin-functional": ">=5.0.0",
-    "eslint-plugin-import": "*",
+    "eslint-plugin-format": "*",
+    "eslint-plugin-functional": "*",
+    "eslint-plugin-import-x": "*",
     "eslint-plugin-jsdoc": "*",
+    "eslint-plugin-jsonc": "*",
     "eslint-plugin-markdown": "*",
     "eslint-plugin-n": "*",
+    "eslint-plugin-no-only-tests": "*",
     "eslint-plugin-optimize-regex": "*",
+    "eslint-plugin-prettier": "*",
     "eslint-plugin-promise": "*",
+    "eslint-plugin-regexp": "*",
     "eslint-plugin-sonarjs": "*",
-    "eslint-plugin-unicorn": "*"
+    "eslint-plugin-toml": "*",
+    "eslint-plugin-unicorn": "*",
+    "eslint-plugin-vitest": "*",
+    "eslint-plugin-vue": "*",
+    "eslint-plugin-yml": "*",
+    "eslint-processor-vue-blocks": "*",
+    "jsonc-eslint-parser": "*",
+    "prettier": "*",
+    "prettier-plugin-packagejson": "*",
+    "toml-eslint-parser": "*",
+    "vue-eslint-parser": "*",
+    "yaml-eslint-parser": "*"
   },
-  "packageManager": "pnpm@8.6.2",
+  "peerDependenciesMeta": {
+    "@stylistic/eslint-plugin": {
+      "optional": true
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "optional": true
+    },
+    "@typescript-eslint/parser": {
+      "optional": true
+    },
+    "@typescript-eslint/utils": {
+      "optional": true
+    },
+    "@unocss/eslint-plugin": {
+      "optional": true
+    },
+    "eslint-config-prettier": {
+      "optional": true
+    },
+    "eslint-flat-config-utils": {
+      "optional": true
+    },
+    "eslint-import-resolver-typescript": {
+      "optional": true
+    },
+    "eslint-merge-processors": {
+      "optional": true
+    },
+    "eslint-plugin-eslint-comments": {
+      "optional": true
+    },
+    "eslint-plugin-format": {
+      "optional": true
+    },
+    "eslint-plugin-functional": {
+      "optional": true
+    },
+    "eslint-plugin-import-x": {
+      "optional": true
+    },
+    "eslint-plugin-jsdoc": {
+      "optional": true
+    },
+    "eslint-plugin-jsonc": {
+      "optional": true
+    },
+    "eslint-plugin-markdown": {
+      "optional": true
+    },
+    "eslint-plugin-n": {
+      "optional": true
+    },
+    "eslint-plugin-no-only-tests": {
+      "optional": true
+    },
+    "eslint-plugin-optimize-regex": {
+      "optional": true
+    },
+    "eslint-plugin-prettier": {
+      "optional": true
+    },
+    "eslint-plugin-promise": {
+      "optional": true
+    },
+    "eslint-plugin-regexp": {
+      "optional": true
+    },
+    "eslint-plugin-sonarjs": {
+      "optional": true
+    },
+    "eslint-plugin-toml": {
+      "optional": true
+    },
+    "eslint-plugin-unicorn": {
+      "optional": true
+    },
+    "eslint-plugin-vitest": {
+      "optional": true
+    },
+    "eslint-plugin-vue": {
+      "optional": true
+    },
+    "eslint-plugin-yml": {
+      "optional": true
+    },
+    "eslint-processor-vue-blocks": {
+      "optional": true
+    },
+    "jsonc-eslint-parser": {
+      "optional": true
+    },
+    "prettier": {
+      "optional": true
+    },
+    "prettier-plugin-packagejson": {
+      "optional": true
+    },
+    "toml-eslint-parser": {
+      "optional": true
+    },
+    "vue-eslint-parser": {
+      "optional": true
+    },
+    "yaml-eslint-parser": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@9.6.0",
   "engines": {
-    "node": ">=18.12.1"
+    "node": ">=20.0.0"
   }
 }

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - next
 
 permissions:
   contents: write
@@ -15,30 +16,33 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  lint_js:
-    uses: ./.github/workflows/lint-js.yml
+  lint_eslint:
+    uses: ./.github/workflows/lint-eslint.yml
+  lint_knip_dev:
+    uses: ./.github/workflows/lint-knip-dev.yml
   lint_knip_prod:
     uses: ./.github/workflows/lint-knip-prod.yml
   lint_markdown:
     uses: ./.github/workflows/lint-markdown.yml
+  lint_packages:
+    uses: ./.github/workflows/lint-packages.yml
   lint_spelling:
     uses: ./.github/workflows/lint-spelling.yml
-  lint_prettier:
-    uses: ./.github/workflows/lint-prettier.yml
   type_check:
-    uses: ./.github/workflows/type-check.yml
+    uses: ./.github/workflows/typecheck.yml
 
   release:
     needs:
-      - lint_js
+      - lint_eslint
+      - lint_knip_dev
       - lint_knip_prod
       - lint_markdown
+      - lint_packages
       - lint_spelling
-      - lint_prettier
       - type_check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
