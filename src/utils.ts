@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 
-import { type Awaitable } from "eslint-flat-config-utils";
+import type { Awaitable } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
-import { type FlatConfigItem } from "./types";
+import type { FlatConfigItem } from "./types";
 
 /**
  * Combine array and non-array configs into a single array.

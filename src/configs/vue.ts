@@ -1,14 +1,14 @@
-import { type ESLint, type Linter } from "eslint";
+import type { ESLint, Linter } from "eslint";
 import { mergeProcessors } from "eslint-merge-processors";
 
-import {
-  type FlatConfigItem,
-  type OptionsFiles,
-  type OptionsHasTypeScript,
-  type OptionsOverrides,
-  type OptionsTypeScriptParserOptions,
-  type OptionsVue,
-  type RequiredOptionsStylistic,
+import type {
+  FlatConfigItem,
+  OptionsFiles,
+  OptionsHasTypeScript,
+  OptionsOverrides,
+  OptionsTypeScriptParserOptions,
+  OptionsVue,
+  RequiredOptionsStylistic,
 } from "../types";
 import { interopDefault, loadPackages } from "../utils";
 

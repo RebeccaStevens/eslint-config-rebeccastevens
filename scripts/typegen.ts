@@ -44,7 +44,9 @@ const configs = (await combine(
     mode: "none",
   }),
   ignores({
+    projectRoot: process.cwd(),
     ignores: [],
+    ignoreFiles: [],
   }),
   imports({
     stylistic: false,

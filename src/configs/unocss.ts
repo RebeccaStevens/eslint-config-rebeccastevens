@@ -1,6 +1,6 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
-import { type FlatConfigItem, type OptionsUnoCSS } from "../types";
+import type { FlatConfigItem, OptionsUnoCSS } from "../types";
 import { loadPackages } from "../utils";
 
 export async function unocss(

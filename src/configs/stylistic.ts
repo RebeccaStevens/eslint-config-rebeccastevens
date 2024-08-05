@@ -1,11 +1,11 @@
-import { type StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
-import { type ESLint } from "eslint";
+import type { StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
+import type { ESLint } from "eslint";
 
-import {
-  type FlatConfigItem,
-  type OptionsHasTypeScript,
-  type OptionsOverrides,
-  type StylisticConfig,
+import type {
+  FlatConfigItem,
+  OptionsHasTypeScript,
+  OptionsOverrides,
+  StylisticConfig,
 } from "../types";
 import { loadPackages } from "../utils";
 

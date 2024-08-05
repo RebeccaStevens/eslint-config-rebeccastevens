@@ -1,6 +1,6 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
-import { type FlatConfigItem } from "../types";
+import type { FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
 export async function promise(): Promise<FlatConfigItem[]> {

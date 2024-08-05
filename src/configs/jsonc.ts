@@ -1,10 +1,10 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
-import {
-  type FlatConfigItem,
-  type OptionsFiles,
-  type OptionsOverrides,
-  type RequiredOptionsStylistic,
+import type {
+  FlatConfigItem,
+  OptionsFiles,
+  OptionsOverrides,
+  RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 

@@ -1,13 +1,13 @@
-import { type StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
-import { type ParserOptions } from "@typescript-eslint/parser";
-import { type TSESLint } from "@typescript-eslint/utils";
-import { type ESLint, type Linter } from "eslint";
-import { type Options as VueBlocksOptions } from "eslint-processor-vue-blocks";
-import { type Options as PrettierOptions } from "prettier";
+import type { StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
+import type { ParserOptions } from "@typescript-eslint/parser";
+import type { TSESLint } from "@typescript-eslint/utils";
+import type { ESLint, Linter } from "eslint";
+import type { Options as VueBlocksOptions } from "eslint-processor-vue-blocks";
+import type { Options as PrettierOptions } from "prettier";
 
-import { type SettingsVueI18nLocaleDir } from "../typings/eslint-plugin-vue-i18n";
+import type { SettingsVueI18nLocaleDir } from "../typings/eslint-plugin-vue-i18n";
 
-import { type RuleOptions as Rules } from "./typegen";
+import type { RuleOptions as Rules } from "./typegen";
 
 declare module "eslint" {
   // eslint-disable-next-line ts/no-namespace
@@ -183,6 +183,15 @@ export type OptionsProjectRoot = {
   projectRoot: string;
 };
 
+export type OptionsIgnoreFiles = {
+  /**
+   * Files that contain ignore patterns.
+   *
+   * @default [".gitignore"]
+   */
+  ignoreFiles: string[];
+};
+
 export type OptionsIgnores =
   | NonNullable<Linter.FlatConfig["ignores"]>
   | {
@@ -290,6 +299,13 @@ export type OptionsConfig = {
   autoRenamePlugins?: boolean;
 
   ignores?: OptionsIgnores;
+
+  /**
+   * Files that contain ignore patterns.
+   *
+   * @default [".gitignore"]
+   */
+  ignoresFiles?: OptionsIgnoreFiles["ignoreFiles"];
 } & OptionsComponentExts;
 
 export { type RuleOptions as Rules } from "./typegen";

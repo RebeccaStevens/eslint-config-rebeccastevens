@@ -1,5 +1,5 @@
 import { GLOB_DTS, GLOB_SRC, GLOB_SRC_EXT, GLOB_TYPINGS } from "../globs";
-import { type FlatConfigItem } from "../types";
+import type { FlatConfigItem } from "../types";
 import { interopDefault } from "../utils";
 
 export async function overrides(): Promise<FlatConfigItem[]> {

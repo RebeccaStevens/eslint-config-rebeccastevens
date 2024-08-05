@@ -1,10 +1,10 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
 import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_TS, GLOB_TSX } from "../globs";
-import {
-  type FlatConfigItem,
-  type OptionsTypeScriptParserOptions,
-  type RequiredOptionsStylistic,
+import type {
+  FlatConfigItem,
+  OptionsTypeScriptParserOptions,
+  RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
@@ -49,7 +49,7 @@ export async function imports(
         },
       },
       rules: {
-        "import/consistent-type-specifier-style": ["error", "prefer-inline"],
+        // "import/consistent-type-specifier-style": ["error", "prefer-inline"], -- using ts/consistent-type-imports instead
         "import/default": "error",
         // "import/dynamic-import-chunkname": "off",
         "import/export": "error",
@@ -175,7 +175,7 @@ export async function imports(
         "import/default": "off",
         "import/namespace": "off",
 
-        // "ts/no-import-type-side-effects": "off",
+        "ts/no-import-type-side-effects": "error",
         "ts/consistent-type-imports": [
           stylisticEnforcement,
           {

@@ -1,9 +1,9 @@
 import globals from "globals";
 
-import {
-  type FlatConfigItem,
-  type OptionsFunctional,
-  type OptionsOverrides,
+import type {
+  FlatConfigItem,
+  OptionsFunctional,
+  OptionsOverrides,
 } from "../types";
 
 const useNumberIsFinite = "Please use Number.isFinite instead";

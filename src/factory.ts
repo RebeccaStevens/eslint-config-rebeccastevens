@@ -47,13 +47,13 @@ import {
   GLOB_VUE,
   GLOB_YAML,
 } from "./globs";
-import {
-  type Awaitable,
-  type FlatConfigItem,
-  type OptionsConfig,
-  type OptionsTypeScriptParserOptions,
-  type OptionsTypeScriptShorthands,
-  type OptionsTypescript,
+import type {
+  Awaitable,
+  FlatConfigItem,
+  OptionsConfig,
+  OptionsTypeScriptParserOptions,
+  OptionsTypeScriptShorthands,
+  OptionsTypescript,
 } from "./types";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
@@ -91,6 +91,7 @@ export function rsEslint(
         Boolean(process.env["VIM"]) ||
         Boolean(process.env["NVIM"])),
     ignores: ignoresOptions,
+    ignoresFiles: ignoresFilesOptions = [".gitignore"],
     typescript: typeScriptOptions = isPackageExists("typescript"),
     unocss: unoCSSOptions = isPackageExists("unocss"),
     vue: vueOptions = VuePackages.some((i) => isPackageExists(i)),
@@ -179,7 +180,9 @@ export function rsEslint(
   // Base configs
   m_configs.push(
     ignores({
+      projectRoot,
       ignores: ignoresOptions ?? [],
+      ignoreFiles: ignoresFilesOptions,
     }),
     javascript({
       ...functionalConfigOptions,

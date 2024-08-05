@@ -1,6 +1,6 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
-import { type FlatConfigItem, type RequiredOptionsStylistic } from "../types";
+import type { FlatConfigItem, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
 export async function jsdoc(

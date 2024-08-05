@@ -1,7 +1,7 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
 import { GLOB_DTS, GLOB_MJS, GLOB_TS, GLOB_TSX } from "../globs";
-import { type FlatConfigItem } from "../types";
+import type { FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
 export async function node(): Promise<FlatConfigItem[]> {

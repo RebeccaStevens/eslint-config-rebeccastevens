@@ -1,5 +1,4 @@
-
-// From https://github.com/intlify/eslint-plugin-vue-i18n/blob/v3.0.0-next.11/lib/types/settings.ts
+// From https://github.com/intlify/eslint-plugin-vue-i18n/blob/v3.0.0/lib/types/settings.ts
 
 /**
  * How to determine the locale for localization messages.
@@ -28,7 +27,7 @@ export type SettingsVueI18nLocaleDirGlob = string;
 /**
  * Specifies a glob and messages format type.
  */
-export type SettingsVueI18nLocaleDirObject = {
+export interface SettingsVueI18nLocaleDirObject {
   /**
    * A glob for specifying files that store localization messages of project.
    */
@@ -47,4 +46,4 @@ export type SettingsVueI18nLocaleDirObject = {
    * If you omit it, it will be captured from the resource path with the same regular expression pattern as `vue-cli-plugin-i18n`.
    */
   localePattern?: string | RegExp;
-};
+}

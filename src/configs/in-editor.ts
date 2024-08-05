@@ -1,4 +1,4 @@
-import { type FlatConfigItem } from "../types";
+import type { FlatConfigItem } from "../types";
 
 export function inEditor(): FlatConfigItem[] {
   return [

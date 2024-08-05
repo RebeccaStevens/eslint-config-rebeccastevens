@@ -1,10 +1,10 @@
-import {
-  type FlatConfigItem,
-  type OptionsFunctional,
-  type OptionsMode,
-  type OptionsOverrides,
-  type OptionsTypeScriptParserOptions,
-  type RequiredOptionsStylistic,
+import type {
+  FlatConfigItem,
+  OptionsFunctional,
+  OptionsMode,
+  OptionsOverrides,
+  OptionsTypeScriptParserOptions,
+  RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 

@@ -1,6 +1,6 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 import { isPackageExists } from "local-pkg";
-import { type Options as PrettierOptions } from "prettier";
+import type { Options as PrettierOptions } from "prettier";
 
 import {
   GLOB_CSS,
@@ -19,10 +19,10 @@ import {
   GLOB_TSX,
   GLOB_YAML,
 } from "../globs";
-import {
-  type FlatConfigItem,
-  type OptionsFormatters,
-  type StylisticConfig,
+import type {
+  FlatConfigItem,
+  OptionsFormatters,
+  StylisticConfig,
 } from "../types";
 import { loadPackages, parserPlain } from "../utils";
 

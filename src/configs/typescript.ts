@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { type ESLint, type Linter } from "eslint";
+import type { ESLint, Linter } from "eslint";
 
 import {
   GLOB_DTS,
@@ -10,16 +10,16 @@ import {
   GLOB_TS,
   GLOB_TSX,
 } from "../globs";
-import {
-  type FlatConfigItem,
-  type OptionsComponentExts,
-  type OptionsFiles,
-  type OptionsFunctional,
-  type OptionsMode,
-  type OptionsOverrides,
-  type OptionsProjectRoot,
-  type OptionsTypeScriptParserOptions,
-  type OptionsTypeScriptUnsafeSeverity,
+import type {
+  FlatConfigItem,
+  OptionsComponentExts,
+  OptionsFiles,
+  OptionsFunctional,
+  OptionsMode,
+  OptionsOverrides,
+  OptionsProjectRoot,
+  OptionsTypeScriptParserOptions,
+  OptionsTypeScriptUnsafeSeverity,
 } from "../types";
 import { loadPackages } from "../utils";
 

@@ -1,4 +1,4 @@
-import { type ESLint, type Linter } from "eslint";
+import type { ESLint, Linter } from "eslint";
 import { mergeProcessors, processorPassThrough } from "eslint-merge-processors";
 
 import {
@@ -6,12 +6,12 @@ import {
   GLOB_MARKDOWN_CODE,
   GLOB_MARKDOWN_IN_MARKDOWN,
 } from "../globs";
-import {
-  type FlatConfigItem,
-  type OptionsComponentExts,
-  type OptionsFiles,
-  type OptionsOverrides,
-  type OptionsTypeRequiredRules,
+import type {
+  FlatConfigItem,
+  OptionsComponentExts,
+  OptionsFiles,
+  OptionsOverrides,
+  OptionsTypeRequiredRules,
 } from "../types";
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 

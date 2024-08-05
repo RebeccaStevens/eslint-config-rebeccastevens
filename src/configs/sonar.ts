@@ -1,6 +1,6 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
-import { type FlatConfigItem, type OptionsFunctional } from "../types";
+import type { FlatConfigItem, OptionsFunctional } from "../types";
 import { loadPackages } from "../utils";
 
 export async function sonar(

@@ -1,10 +1,6 @@
-import { type ESLint } from "eslint";
+import type { ESLint } from "eslint";
 
-import {
-  type FlatConfigItem,
-  type OptionsFiles,
-  type OptionsOverrides,
-} from "../types";
+import type { FlatConfigItem, OptionsFiles, OptionsOverrides } from "../types";
 import { interopDefault, loadPackages } from "../utils";
 
 export async function test(
