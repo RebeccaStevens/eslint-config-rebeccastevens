@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.0.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.3...v3.0.4) (2024-08-06)
+
+
+### Bug Fixes
+
+* functional/no-return-void turn of in app mode with recommened fp enforcement ([443373e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/443373e6d9c58f668d9e44ba125cfe21d6fd4737))
+
 ## [3.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.2...v3.0.3) (2024-08-06)
 
 
