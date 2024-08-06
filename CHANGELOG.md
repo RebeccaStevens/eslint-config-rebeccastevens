@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.0.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.0...v3.0.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* make more dependencies peer dependencies and allow auto installing them as needed ([7df777d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/7df777d94aa13ee1b5bcd71355e243d1972b151e))
+
 # [3.0.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.1.0...v3.0.0) (2024-08-05)
 
 # [2.1.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v2.0.11...v2.1.0) (2024-08-05)
