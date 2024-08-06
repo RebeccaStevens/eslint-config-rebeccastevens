@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.1...v3.0.2) (2024-08-06)
+
+
+### Bug Fixes
+
+* no-promise-executor-return - allowVoid ([6690509](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/669050937fc4a12871154c94f75dceaaedc60743))
+
 ## [3.0.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.0...v3.0.1) (2024-08-06)
 
 
