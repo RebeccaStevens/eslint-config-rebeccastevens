@@ -127,7 +127,12 @@ export function javascript(
         "no-obj-calls": "error",
         "no-octal-escape": "error",
         "no-octal": "error",
-        "no-promise-executor-return": "error",
+        "no-promise-executor-return": [
+          "error",
+          {
+            allowVoid: true,
+          },
+        ],
         "no-proto": "error",
         "no-prototype-builtins": "error",
         "no-redeclare": ["error", { builtinGlobals: false }],
