@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.2...v3.0.3) (2024-08-06)
+
+
+### Bug Fixes
+
+* functional/prefer-tacit switch to a warning ([52ac3cb](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/52ac3cb0e15b8cd97d4f3ce3f513f84f7a74d716))
+
 ## [3.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.1...v3.0.2) (2024-08-06)
 
 
