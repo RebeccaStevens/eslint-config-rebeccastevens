@@ -100,7 +100,7 @@ export async function functional(
         ignoreVoid: true,
       },
     ],
-    "functional/no-return-void": "error",
+    "functional/no-return-void": mode === "library" ? "error" : "off",
     "ts/prefer-readonly-parameter-types": "off",
     "functional/prefer-immutable-types": [
       mode === "library" ? "warn" : "off",
