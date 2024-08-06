@@ -29,8 +29,6 @@ export async function functional(
     // ignoreTypePattern,
   } = options;
 
-  const stylisticEnforcement = stylistic === false ? "off" : "error";
-
   const [pluginFunctional] = (await loadPackages([
     "eslint-plugin-functional",
   ])) as [(typeof import("eslint-plugin-functional"))["default"]];
@@ -50,9 +48,10 @@ export async function functional(
     "functional/no-conditional-statements": "error",
     "functional/no-expression-statements": "error",
     "functional/no-return-void": "error",
-    "functional/prefer-property-signatures": stylisticEnforcement,
-    "functional/prefer-tacit": stylisticEnforcement,
-    "functional/readonly-type": stylisticEnforcement,
+    "functional/prefer-property-signatures":
+      stylistic === false ? "off" : "error",
+    "functional/prefer-tacit": stylistic === false ? "off" : "warn",
+    "functional/readonly-type": stylistic === false ? "off" : "error",
   } as const satisfies FlatConfigItem["rules"];
 
   const recommendedRules = {
@@ -221,9 +220,10 @@ export async function functional(
       },
     ],
 
-    "functional/prefer-property-signatures": stylisticEnforcement,
-    "functional/prefer-tacit": stylisticEnforcement,
-    "functional/readonly-type": stylisticEnforcement,
+    "functional/prefer-property-signatures":
+      stylistic === false ? "off" : "error",
+    "functional/prefer-tacit": stylistic === false ? "off" : "warn",
+    "functional/readonly-type": stylistic === false ? "off" : "error",
   } as const satisfies FlatConfigItem["rules"];
 
   const liteRules = {
