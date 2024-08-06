@@ -1,5 +1,4 @@
 import type { ESLint, Linter } from "eslint";
-import { mergeProcessors, processorPassThrough } from "eslint-merge-processors";
 
 import {
   GLOB_MARKDOWN,
@@ -27,9 +26,11 @@ export async function markdown(
 ): Promise<FlatConfigItem[]> {
   const { componentExts, files, overrides, enableTypeRequiredRules } = options;
 
-  const [pluginMarkdown] = (await loadPackages(["eslint-plugin-markdown"])) as [
-    ESLint.Plugin,
-  ];
+  const [pluginMarkdown, { mergeProcessors, processorPassThrough }] =
+    (await loadPackages([
+      "eslint-plugin-markdown",
+      "eslint-merge-processors",
+    ])) as [ESLint.Plugin, typeof import("eslint-merge-processors")];
 
   const [pluginTs, pluginFunctional] = await Promise.all([
     interopDefault(import("@typescript-eslint/eslint-plugin")).catch(

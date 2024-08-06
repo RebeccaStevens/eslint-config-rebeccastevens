@@ -1,5 +1,4 @@
 import type { ESLint, Linter } from "eslint";
-import { mergeProcessors } from "eslint-merge-processors";
 
 import type {
   FlatConfigItem,
@@ -52,18 +51,25 @@ export async function vue(
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const [pluginVue, pluginVueI18n, parserVue, processorVueBlocks] =
-    (await loadPackages([
-      "eslint-plugin-vue",
-      "@intlify/eslint-plugin-vue-i18n",
-      "vue-eslint-parser",
-      "eslint-processor-vue-blocks",
-    ])) as [
-      PluginVue,
-      ESLint.Plugin,
-      typeof import("vue-eslint-parser"),
-      (typeof import("eslint-processor-vue-blocks"))["default"],
-    ];
+  const [
+    pluginVue,
+    pluginVueI18n,
+    parserVue,
+    processorVueBlocks,
+    { mergeProcessors },
+  ] = (await loadPackages([
+    "eslint-plugin-vue",
+    "@intlify/eslint-plugin-vue-i18n",
+    "vue-eslint-parser",
+    "eslint-processor-vue-blocks",
+    "eslint-merge-processors",
+  ])) as [
+    PluginVue,
+    ESLint.Plugin,
+    typeof import("vue-eslint-parser"),
+    (typeof import("eslint-processor-vue-blocks"))["default"],
+    typeof import("eslint-merge-processors"),
+  ];
 
   const parserTs = await interopDefault(
     import("@typescript-eslint/parser"),

@@ -14,12 +14,6 @@ importers:
       '@clack/prompts':
         specifier: ^0.7.0
         version: 0.7.0
-      eslint-flat-config-utils:
-        specifier: ^0.3.0
-        version: 0.3.0
-      eslint-merge-processors:
-        specifier: ^0.1.0
-        version: 0.1.0(eslint@9.8.0)
       globals:
         specifier: ^15.9.0
         version: 15.9.0
@@ -102,9 +96,15 @@ importers:
       eslint-config-prettier:
         specifier: 9.1.0
         version: 9.1.0(eslint@9.8.0)
+      eslint-flat-config-utils:
+        specifier: 0.3.0
+        version: 0.3.0
       eslint-import-resolver-typescript:
         specifier: 3.6.1
         version: 3.6.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.4.5))(eslint-plugin-import@2.29.1)(eslint@9.8.0)
+      eslint-merge-processors:
+        specifier: 0.1.0
+        version: 0.1.0(eslint@9.8.0)
       eslint-plugin-eslint-comments:
         specifier: 3.2.0
         version: 3.2.0(eslint@9.8.0)
@@ -112,8 +112,8 @@ importers:
         specifier: 0.1.2
         version: 0.1.2(eslint@9.8.0)
       eslint-plugin-functional:
-        specifier: 7.0.0-rc.1
-        version: 7.0.0-rc.1(eslint@9.8.0)(typescript@5.4.5)
+        specifier: 7.0.0
+        version: 7.0.0(eslint@9.8.0)(typescript@5.4.5)
       eslint-plugin-import-x:
         specifier: 3.1.0
         version: 3.1.0(eslint@9.8.0)(typescript@5.4.5)
@@ -1104,16 +1104,6 @@ packages:
     resolution: {integrity: sha512-NpixInP5dm7uukMiRyiHjRKkom5RIFA4dfiHvalanD2cF0CLUuQqxfg8PtEUo9yqJI2bBhF+pcSafqnG3UBnRQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript-eslint/type-utils@7.18.0':
-    resolution: {integrity: sha512-XL0FJXuCLaDuX2sYqZUUSOJ2sG5/i1AAze+axqmLnSkNEVMVYLF+cbwlB2w8D1tinFuSikHmFta+P+HOofrLeA==}
-    engines: {node: ^18.18.0 || >=20.0.0}
-    peerDependencies:
-      eslint: ^8.56.0
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   '@typescript-eslint/type-utils@8.0.1':
     resolution: {integrity: sha512-+/UT25MWvXeDX9YaHv1IS6KI1fiuTto43WprE7pgSMswHbn1Jm9GEM4Txp+X74ifOWV8emu2AWcbLhpJAvD5Ng==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1937,8 +1927,8 @@ packages:
     peerDependencies:
       eslint: ^8.40.0 || ^9.0.0
 
-  eslint-plugin-functional@7.0.0-rc.1:
-    resolution: {integrity: sha512-CNFH2sDr+NQ4RLYPJkZWKxK6tYL3t1Pr0TvzzykkOT1dk3SS8qMpDSSICm+nPTwXCTv1Y/FhGeWpzUqObJaRGw==}
+  eslint-plugin-functional@7.0.0:
+    resolution: {integrity: sha512-j3ZISQBQDs8rjRfMeEKtXb/wg+PV7NXfxshgIq/XR8j8SBlt64nzT6RTO58sJ3nMP5R/DRypofIoW4wMYsGhAQ==}
     engines: {node: '>=v18.18.0'}
     peerDependencies:
       eslint: ^9.0.0
@@ -2633,8 +2623,8 @@ packages:
   is-hexadecimal@1.0.4:
     resolution: {integrity: sha512-gyPJuv83bHMpocVYoqof5VDiZveEoGoFL8m3BXNb2VW8Xs+rz9kqO8LOQ5DH6EsuvilT1ApazU0pyl+ytbPtlw==}
 
-  is-immutable-type@4.0.0:
-    resolution: {integrity: sha512-gyFBCXv+NikTs8/PGZhgjbMmFZQ5jvHGZIsVu6+/9Bk4K7imlWBIDN7hTr9fNioGzFg71I4YM3z8f0aKXarTAw==}
+  is-immutable-type@5.0.0:
+    resolution: {integrity: sha512-mcvHasqbRBWJznuPqqHRKiJgYAz60sZ0mvO3bN70JbkuK7ksfmgc489aKZYxMEjIbRvyOseaTjaRZLRF/xFeRA==}
     peerDependencies:
       eslint: '*'
       typescript: '>=4.7.4'
@@ -5176,18 +5166,6 @@ snapshots:
       '@typescript-eslint/types': 8.0.1
       '@typescript-eslint/visitor-keys': 8.0.1
 
-  '@typescript-eslint/type-utils@7.18.0(eslint@9.8.0)(typescript@5.4.5)':
-    dependencies:
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.4.5)
-      '@typescript-eslint/utils': 7.18.0(eslint@9.8.0)(typescript@5.4.5)
-      debug: 4.3.6
-      eslint: 9.8.0
-      ts-api-utils: 1.3.0(typescript@5.4.5)
-    optionalDependencies:
-      typescript: 5.4.5
-    transitivePeerDependencies:
-      - supports-color
-
   '@typescript-eslint/type-utils@8.0.1(eslint@9.8.0)(typescript@5.4.5)':
     dependencies:
       '@typescript-eslint/typescript-estree': 8.0.1(typescript@5.4.5)
@@ -6197,13 +6175,13 @@ snapshots:
       prettier: 3.3.3
       synckit: 0.9.1
 
-  eslint-plugin-functional@7.0.0-rc.1(eslint@9.8.0)(typescript@5.4.5):
+  eslint-plugin-functional@7.0.0(eslint@9.8.0)(typescript@5.4.5):
     dependencies:
       '@typescript-eslint/utils': 8.0.1(eslint@9.8.0)(typescript@5.4.5)
       deepmerge-ts: 7.1.0
       escape-string-regexp: 5.0.0
       eslint: 9.8.0
-      is-immutable-type: 4.0.0(eslint@9.8.0)(typescript@5.4.5)
+      is-immutable-type: 5.0.0(eslint@9.8.0)(typescript@5.4.5)
       ts-api-utils: 1.3.0(typescript@5.4.5)
       ts-declaration-location: 1.0.4(typescript@5.4.5)
     optionalDependencies:
@@ -7060,9 +7038,9 @@ snapshots:
 
   is-hexadecimal@1.0.4: {}
 
-  is-immutable-type@4.0.0(eslint@9.8.0)(typescript@5.4.5):
+  is-immutable-type@5.0.0(eslint@9.8.0)(typescript@5.4.5):
     dependencies:
-      '@typescript-eslint/type-utils': 7.18.0(eslint@9.8.0)(typescript@5.4.5)
+      '@typescript-eslint/type-utils': 8.0.1(eslint@9.8.0)(typescript@5.4.5)
       eslint: 9.8.0
       ts-api-utils: 1.3.0(typescript@5.4.5)
       ts-declaration-location: 1.0.4(typescript@5.4.5)

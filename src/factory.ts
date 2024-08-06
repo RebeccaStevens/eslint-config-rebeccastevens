@@ -1,6 +1,6 @@
 import * as path from "node:path";
 
-import { FlatConfigComposer } from "eslint-flat-config-utils";
+import type { FlatConfigComposer } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
 import {
@@ -55,6 +55,7 @@ import type {
   OptionsTypeScriptShorthands,
   OptionsTypescript,
 } from "./types";
+import { loadPackages } from "./utils";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
@@ -77,10 +78,19 @@ export const defaultPluginRenaming = {
  * @param {Awaitable<FlatConfigItem | FlatConfigItem[]>[]} userConfigs - The user configurations to be merged with the generated configurations.
  * @returns {Promise<FlatConfigItem[]>} The merged ESLint configurations.
  */
-export function rsEslint(
+export async function rsEslint(
   options: OptionsConfig,
   ...userConfigs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
-): FlatConfigComposer<FlatConfigItem> {
+): Promise<FlatConfigComposer<FlatConfigItem>> {
+  const [FlatConfigComposer] = await loadPackages([
+    "eslint-flat-config-utils",
+  ]).then(
+    ([a]) =>
+      [
+        (a as typeof import("eslint-flat-config-utils")).FlatConfigComposer,
+      ] as const,
+  );
+
   const {
     autoRenamePlugins = true,
     componentExts = [],
