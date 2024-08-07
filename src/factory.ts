@@ -1,6 +1,5 @@
 import * as path from "node:path";
 
-import type { FlatConfigComposer } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
 import {
@@ -81,7 +80,7 @@ export const defaultPluginRenaming = {
 export async function rsEslint(
   options: OptionsConfig,
   ...userConfigs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
-): Promise<FlatConfigComposer<FlatConfigItem>> {
+): Promise<FlatConfigItem[]> {
   const [FlatConfigComposer] = await loadPackages([
     "eslint-flat-config-utils",
   ]).then(
@@ -360,7 +359,7 @@ export async function rsEslint(
     m_composer = m_composer.renamePlugins(defaultPluginRenaming);
   }
 
-  return m_composer;
+  return m_composer.toConfigs();
 }
 
 export type ResolvedOptions<T> = T extends boolean
