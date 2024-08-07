@@ -3,6 +3,7 @@ import type { ESLint } from "eslint";
 import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_TS, GLOB_TSX } from "../globs";
 import type {
   FlatConfigItem,
+  OptionsHasTypeScript,
   OptionsTypeScriptParserOptions,
   RequiredOptionsStylistic,
 } from "../types";
@@ -10,17 +11,23 @@ import { loadPackages } from "../utils";
 
 export async function imports(
   options: Readonly<
-    Required<RequiredOptionsStylistic & OptionsTypeScriptParserOptions>
+    Required<
+      RequiredOptionsStylistic &
+        OptionsTypeScriptParserOptions &
+        OptionsHasTypeScript
+    >
   >,
 ): Promise<FlatConfigItem[]> {
-  const { stylistic, parserOptions } = options;
+  const { stylistic, parserOptions, typescript } = options;
 
-  const [pluginImport] = (await loadPackages([
-    "eslint-plugin-import-x",
-    "eslint-import-resolver-typescript",
-  ])) as [ESLint.Plugin, ESLint.Plugin];
-
-  const stylisticEnforcement = stylistic === false ? "off" : "error";
+  const [pluginImport] = (await loadPackages(
+    typescript
+      ? [
+          "eslint-plugin-import-x",
+          "eslint-import-resolver-typescript", // make sure it exists - we only implicitly use it
+        ]
+      : ["eslint-plugin-import-x"],
+  )) as [ESLint.Plugin] | [ESLint.Plugin, unknown];
 
   return [
     {
@@ -36,16 +43,24 @@ export async function imports(
         "import-x/internal-regex": "^(?:#|(?:@|~)\\/).*",
         "import-x/extensions": [".ts", ".tsx", ".js", ".jsx"],
         "import-x/parsers": {
-          "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
+          ...(typescript
+            ? {
+                "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
+              }
+            : undefined),
         },
         "import-x/resolver": {
-          typescript: {
-            alwaysTryTypes: true,
-            projectService: parserOptions.projectService,
-          },
           node: {
             extensions: [".ts", ".tsx", ".js", ".jsx"],
           },
+          ...(typescript
+            ? {
+                typescript: {
+                  alwaysTryTypes: true,
+                  projectService: parserOptions.projectService,
+                },
+              }
+            : undefined),
         },
       },
       rules: {
@@ -139,9 +154,12 @@ export async function imports(
         // "import/prefer-default-export": "off",
         // "import/unambiguous": "off",
 
-        "import/newline-after-import": [stylisticEnforcement, { count: 1 }],
+        "import/newline-after-import": [
+          stylistic === false ? "off" : "error",
+          { count: 1 },
+        ],
         "import/order": [
-          stylisticEnforcement,
+          stylistic === false ? "off" : "error",
           {
             alphabetize: {
               caseInsensitive: false,
@@ -167,24 +185,28 @@ export async function imports(
         "import/no-dynamic-require": "error",
       },
     },
-    {
-      files: [GLOB_TS, GLOB_TSX, GLOB_DTS],
-      rules: {
-        "import/no-unresolved": "off",
-        "import/named": "off",
-        "import/default": "off",
-        "import/namespace": "off",
-
-        "ts/no-import-type-side-effects": "error",
-        "ts/consistent-type-imports": [
-          stylisticEnforcement,
+    ...((typescript
+      ? [
           {
-            prefer: "type-imports",
-            fixStyle: "inline-type-imports",
-            disallowTypeAnnotations: false,
+            files: [GLOB_TS, GLOB_TSX, GLOB_DTS],
+            rules: {
+              "import/no-unresolved": "off",
+              "import/named": "off",
+              "import/default": "off",
+              "import/namespace": "off",
+
+              "ts/no-import-type-side-effects": "error",
+              "ts/consistent-type-imports": [
+                stylistic === false ? "off" : "error",
+                {
+                  prefer: "type-imports",
+                  fixStyle: "inline-type-imports",
+                  disallowTypeAnnotations: false,
+                },
+              ],
+            },
           },
-        ],
-      },
-    },
+        ]
+      : []) satisfies FlatConfigItem[]),
   ];
 }

@@ -50,6 +50,7 @@ const configs = (await combine(
   }),
   imports({
     stylistic: false,
+    typescript: false,
     parserOptions: {},
     filesTypeAware: [],
   }),

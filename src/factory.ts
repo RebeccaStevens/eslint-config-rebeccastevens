@@ -201,6 +201,7 @@ export async function rsEslint(
     imports({
       ...typescriptConfigOptions,
       stylistic: stylisticOptions,
+      typescript: hasTypeScript,
     }),
     jsdoc({
       stylistic: stylisticOptions,
