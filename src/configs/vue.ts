@@ -57,7 +57,7 @@ export async function vue(
     typeof import("eslint-merge-processors"),
   ];
 
-  const parserTs = await interopDefault(import("@typescript-eslint/parser")).catch(() => undefined);
+  const parserTs = typescript ? await interopDefault(import("@typescript-eslint/parser")) : undefined;
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 
@@ -104,7 +104,7 @@ export async function vue(
           },
           extraFileExtensions: [".vue"],
           parser: typescript ? parserTs : null,
-          ...(typescript ? parserOptions : {}),
+          ...(typescript ? parserOptions : undefined),
           sourceType: "module",
         },
       },
