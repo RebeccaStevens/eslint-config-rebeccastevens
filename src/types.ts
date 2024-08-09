@@ -40,6 +40,14 @@ export type OptionsFiles = {
   files?: string[];
 };
 
+export type OptionsReact = {
+  i18n?:
+    | ({
+        library: "i18next";
+      } & OptionsOverrides)
+    | false;
+} & OptionsOverrides;
+
 export type OptionsVue = {
   /**
    * Create virtual files for Vue SFC blocks to enable linting.
@@ -233,6 +241,13 @@ export type OptionsConfig = {
    * Enforce functional programming.
    */
   functional?: boolean | OptionsFunctional["functionalEnforcement"] | (OptionsOverrides & OptionsFunctional);
+
+  /**
+   * Enable React support.
+   *
+   * @default auto-detect based on the dependencies
+   */
+  react?: boolean | OptionsReact;
 
   /**
    * Enable Vue support.
