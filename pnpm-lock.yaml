@@ -102,6 +102,9 @@ importers:
       eslint-flat-config-utils:
         specifier: 0.3.0
         version: 0.3.0
+      eslint-formatting-reporter:
+        specifier: 0.0.0
+        version: 0.0.0(eslint@9.8.0)
       eslint-import-resolver-typescript:
         specifier: 3.6.1
         version: 3.6.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.4.5))(eslint-plugin-import@2.29.1)(eslint@9.8.0)
@@ -204,9 +207,6 @@ importers:
       prettier:
         specifier: 3.3.3
         version: 3.3.3
-      prettier-plugin-packagejson:
-        specifier: 2.5.1
-        version: 2.5.1(prettier@3.3.3)
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -219,6 +219,9 @@ importers:
       semantic-release:
         specifier: 24.0.0
         version: 24.0.0(typescript@5.4.5)
+      sort-package-json:
+        specifier: 2.10.0
+        version: 2.10.0
       toml-eslint-parser:
         specifier: 0.10.0
         version: 0.10.0
@@ -3574,14 +3577,6 @@ packages:
   prettier-linter-helpers@1.0.0:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
-
-  prettier-plugin-packagejson@2.5.1:
-    resolution: {integrity: sha512-6i4PW1KxEA+VrokYNGeI/q8qQX3u5DNBc7eLr9GX4OrvWr9DMls1lhbuNopkKG7Li9rTNxerWnYQyjxoUO4ROA==}
-    peerDependencies:
-      prettier: '>= 1.16.0'
-    peerDependenciesMeta:
-      prettier:
-        optional: true
 
   prettier@3.3.3:
     resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
@@ -8115,13 +8110,6 @@ snapshots:
   prettier-linter-helpers@1.0.0:
     dependencies:
       fast-diff: 1.3.0
-
-  prettier-plugin-packagejson@2.5.1(prettier@3.3.3):
-    dependencies:
-      sort-package-json: 2.10.0
-      synckit: 0.9.1
-    optionalDependencies:
-      prettier: 3.3.3
 
   prettier@3.3.3: {}
 

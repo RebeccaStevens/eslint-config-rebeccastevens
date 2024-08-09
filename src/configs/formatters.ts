@@ -62,12 +62,19 @@ export async function formatters(
     options.prettierOptions ?? {},
   );
 
-  const [pluginFormat, configPrettier] = (await loadPackages([
+  const [pluginFormat, configPrettier, sortPackageJson, formattingReporter] = (await loadPackages([
     "eslint-plugin-format",
     "eslint-config-prettier",
+    "sort-package-json",
+    "eslint-formatting-reporter",
     "prettier",
-    "prettier-plugin-packagejson",
-  ])) as [ESLint.Plugin, ESLint.ConfigData, unknown, unknown];
+  ])) as [
+    ESLint.Plugin,
+    ESLint.ConfigData,
+    (typeof import("sort-package-json"))["default"],
+    typeof import("eslint-formatting-reporter"),
+    unknown,
+  ];
 
   const turnOffRulesForPrettier = {
     ...Object.fromEntries(Object.entries(configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
@@ -391,6 +398,7 @@ export async function formatters(
       {
         name: "rs:formatter:json",
         files: [GLOB_JSON],
+        ignores: ["**/package.json"],
         languageOptions: {
           parser: parserPlain,
         },
@@ -440,21 +448,61 @@ export async function formatters(
         },
       },
       {
-        name: "rs:formatter:json",
+        name: "rs:formatter:packagejson",
         files: ["**/package.json"],
         languageOptions: {
           parser: parserPlain,
         },
-        rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "json",
-              plugins: ["prettier-plugin-packagejson"],
+        plugins: {
+          "package-json": {
+            meta: {
+              name: "rs:formatter:packagejson",
             },
-          ],
+            rules: {
+              sort: {
+                meta: {
+                  type: "layout",
+                  fixable: "whitespace",
+                  messages: formattingReporter.messages,
+                  schema: [
+                    {
+                      type: "object",
+                      properties: {
+                        parser: {
+                          type: "string",
+                          required: true,
+                        },
+                      },
+                      additionalProperties: true,
+                    },
+                  ],
+                },
+                create(context) {
+                  return {
+                    Program() {
+                      const sourceCode = context.sourceCode.text;
+                      try {
+                        const formatted = sortPackageJson(sourceCode);
+                        formattingReporter.reportDifferences(context, sourceCode, formatted);
+                      } catch (error) {
+                        console.error(error);
+                        context.report({
+                          loc: {
+                            start: { line: 1, column: 0 },
+                            end: { line: 1, column: 0 },
+                          },
+                          message: "Failed to format package.json",
+                        });
+                      }
+                    },
+                  };
+                },
+              },
+            },
+          } satisfies ESLint.Plugin,
+        },
+        rules: {
+          "package-json/sort": "error",
         },
       },
     );
