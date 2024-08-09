@@ -19,11 +19,7 @@ import {
   GLOB_TSX,
   GLOB_YAML,
 } from "../globs";
-import type {
-  FlatConfigItem,
-  OptionsFormatters,
-  StylisticConfig,
-} from "../types";
+import type { FlatConfigItem, OptionsFormatters, StylisticConfig } from "../types";
 import { loadPackages, parserPlain } from "../utils";
 
 export async function formatters(
@@ -46,14 +42,8 @@ export async function formatters(
         }
       : opts;
 
-  if (
-    options.slidev !== false &&
-    options.slidev !== undefined &&
-    options.markdown !== true
-  ) {
-    throw new Error(
-      "`slidev` option only works when `markdown` is enabled with `prettier`",
-    );
+  if (options.slidev !== false && options.slidev !== undefined && options.markdown !== true) {
+    throw new Error("`slidev` option only works when `markdown` is enabled with `prettier`");
   }
 
   const { indent, quotes, semi } = stylistic;
@@ -61,6 +51,7 @@ export async function formatters(
   const prettierOptions: PrettierOptions = Object.assign(
     {
       endOfLine: "lf",
+      printWidth: 120,
       semi: semi ?? true,
       singleQuote: quotes === "single",
       tabWidth: typeof indent === "number" ? indent : 2,
@@ -79,11 +70,7 @@ export async function formatters(
   ])) as [ESLint.Plugin, ESLint.ConfigData, unknown, unknown];
 
   const turnOffRulesForPrettier = {
-    ...Object.fromEntries(
-      Object.entries(configPrettier.rules ?? {}).filter(
-        ([, value]) => value === "off",
-      ),
-    ),
+    ...Object.fromEntries(Object.entries(configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
 
     "no-irregular-whitespace": "off",
     // "style/lines-around-comment": "off",
@@ -569,7 +556,6 @@ export async function formatters(
         "format/prettier": [
           "error",
           {
-            printWidth: 120,
             ...prettierOptions,
             embeddedLanguageFormatting: "off",
             parser: "markdown",
@@ -590,7 +576,6 @@ export async function formatters(
           "format/prettier": [
             "error",
             {
-              printWidth: 120,
               ...prettierOptions,
               embeddedLanguageFormatting: "off",
               parser: "slidev",
