@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.0.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.6...v3.0.7) (2024-08-09)
+
+
+### Bug Fixes
+
+* default prettier printWidth to 120 ([aa56492](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/aa5649236fc99246a46a132fbdf1b438a03c75ed))
+
 ## [3.0.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.5...v3.0.6) (2024-08-07)
 
 
