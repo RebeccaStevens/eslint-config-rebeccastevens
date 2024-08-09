@@ -14,10 +14,12 @@ import {
   javascript,
   jsdoc,
   jsonc,
+  jsx,
   markdown,
   node,
   overrides,
   promise,
+  react,
   regexp,
   sonar,
   sortTsconfig,
@@ -57,6 +59,8 @@ import type {
 import { loadPackages } from "./utils";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
+
+const ReactPackages = ["react", "next", "remix"];
 
 export const defaultPluginRenaming = {
   "@intlify/vue-i18n": "vue-i18n",
@@ -99,6 +103,7 @@ export async function rsEslint(
     typescript: typeScriptOptions = isPackageExists("typescript"),
     unocss: unoCSSOptions = isPackageExists("unocss"),
     vue: vueOptions = VuePackages.some((i) => isPackageExists(i)),
+    react: reactOptions = ReactPackages.some((i) => isPackageExists(i)),
     test: testOptions = true,
     jsx: jsxOptions = true,
     functional: functionalOptions = true,
@@ -206,6 +211,10 @@ export async function rsEslint(
     componentExts.push("vue");
   }
 
+  if (jsxOptions) {
+    m_configs.push(jsx());
+  }
+
   if (typeScriptOptions !== false) {
     m_configs.push(
       typescript({
@@ -264,6 +273,19 @@ export async function rsEslint(
         ...resolveSubOptions(options, "vue"),
         overrides: getOverrides(options, "vue"),
         stylistic: stylisticOptions,
+      }),
+    );
+  }
+
+  if (reactOptions !== false) {
+    m_configs.push(
+      react({
+        ...typescriptConfigOptions,
+        typescript: hasTypeScript,
+        files: [GLOB_SRC],
+        i18n: false,
+        ...resolveSubOptions(options, "react"),
+        overrides: getOverrides(options, "react"),
       }),
     );
   }
