@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.1.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.7...v3.1.0) (2024-08-09)
+
+
+### Bug Fixes
+
+* directly use sort-package-json instead of prettier ([6c2a7fe](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/6c2a7fed5ece698e00378384918d02e13e35736b))
+
+
+### Features
+
+* add react support ([e489186](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/e489186e1c600b5f8b6dd11a8412627e8e375fac))
+
 ## [3.0.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.6...v3.0.7) (2024-08-09)
 
 
