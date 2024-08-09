@@ -33,10 +33,7 @@ export default {
     },
   ],
 
-  external: [
-    ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.peerDependencies),
-  ],
+  external: [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)],
 
   plugins: [
     rollupPluginTs({

@@ -15,9 +15,7 @@ export async function combine(
   return resolved.flat();
 }
 
-export async function interopDefault<T>(
-  value: Awaitable<T>,
-): Promise<T extends { default: infer U } ? U : T> {
+export async function interopDefault<T>(value: Awaitable<T>): Promise<T extends { default: infer U } ? U : T> {
   const resolved = await value;
   // eslint-disable-next-line ts/no-unsafe-return, ts/no-explicit-any, ts/no-unsafe-member-access
   return (resolved as any).default ?? resolved;
@@ -61,9 +59,7 @@ export async function loadPackages<T extends string[]>(
 
 const installPackagesToLoad = new Set<string>();
 let m_installPackagesAction: Promise<void> | null = null;
-let m_installPackagesActionResolver:
-  | ((value: string[] | PromiseLike<string[]>) => void)
-  | null = null;
+let m_installPackagesActionResolver: ((value: string[] | PromiseLike<string[]>) => void) | null = null;
 let m_installPackagesTimeout: NodeJS.Timeout | null = null;
 
 /* eslint-disable functional/no-loop-statements */
@@ -105,9 +101,7 @@ async function installPackages(packages: ReadonlyArray<string>) {
       });
 
       if (result !== false) {
-        await import("@antfu/install-pkg").then(({ installPackage }) =>
-          installPackage(allPackages, { dev: true }),
-        );
+        await import("@antfu/install-pkg").then(({ installPackage }) => installPackage(allPackages, { dev: true }));
       }
     });
   }

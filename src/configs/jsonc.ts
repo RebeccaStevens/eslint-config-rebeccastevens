@@ -1,26 +1,19 @@
 import type { ESLint } from "eslint";
 
-import type {
-  FlatConfigItem,
-  OptionsFiles,
-  OptionsOverrides,
-  RequiredOptionsStylistic,
-} from "../types";
+import type { FlatConfigItem, OptionsFiles, OptionsOverrides, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
 export async function jsonc(
-  options: Readonly<
-    Required<OptionsFiles & RequiredOptionsStylistic & OptionsOverrides>
-  >,
+  options: Readonly<Required<OptionsFiles & RequiredOptionsStylistic & OptionsOverrides>>,
 ): Promise<FlatConfigItem[]> {
   const { files, overrides, stylistic } = options;
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const [pluginJsonc, parserJsonc] = (await loadPackages([
-    "eslint-plugin-jsonc",
-    "jsonc-eslint-parser",
-  ])) as [ESLint.Plugin, typeof import("jsonc-eslint-parser")];
+  const [pluginJsonc, parserJsonc] = (await loadPackages(["eslint-plugin-jsonc", "jsonc-eslint-parser"])) as [
+    ESLint.Plugin,
+    typeof import("jsonc-eslint-parser"),
+  ];
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 
@@ -69,19 +62,10 @@ export async function jsonc(
         "jsonc/comma-dangle": [stylisticEnforcement, "never"],
         "jsonc/comma-style": [stylisticEnforcement, "last"],
         "jsonc/indent": [stylisticEnforcement, indent],
-        "jsonc/key-spacing": [
-          stylisticEnforcement,
-          { afterColon: true, beforeColon: false },
-        ],
-        "jsonc/object-curly-newline": [
-          stylisticEnforcement,
-          { consistent: true, multiline: true },
-        ],
+        "jsonc/key-spacing": [stylisticEnforcement, { afterColon: true, beforeColon: false }],
+        "jsonc/object-curly-newline": [stylisticEnforcement, { consistent: true, multiline: true }],
         "jsonc/object-curly-spacing": [stylisticEnforcement, "always"],
-        "jsonc/object-property-newline": [
-          stylisticEnforcement,
-          { allowMultiplePropertiesPerLine: true },
-        ],
+        "jsonc/object-property-newline": [stylisticEnforcement, { allowMultiplePropertiesPerLine: true }],
         "jsonc/quote-props": stylisticEnforcement,
         "jsonc/quotes": stylisticEnforcement,
 

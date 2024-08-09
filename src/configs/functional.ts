@@ -11,11 +11,7 @@ import { loadPackages } from "../utils";
 export async function functional(
   options: Readonly<
     Required<
-      OptionsFunctional &
-        RequiredOptionsStylistic &
-        OptionsOverrides &
-        OptionsTypeScriptParserOptions &
-        OptionsMode
+      OptionsFunctional & RequiredOptionsStylistic & OptionsOverrides & OptionsTypeScriptParserOptions & OptionsMode
     >
   >,
 ): Promise<FlatConfigItem[]> {
@@ -29,9 +25,9 @@ export async function functional(
     // ignoreTypePattern,
   } = options;
 
-  const [pluginFunctional] = (await loadPackages([
-    "eslint-plugin-functional",
-  ])) as [(typeof import("eslint-plugin-functional"))["default"]];
+  const [pluginFunctional] = (await loadPackages(["eslint-plugin-functional"])) as [
+    (typeof import("eslint-plugin-functional"))["default"],
+  ];
 
   const strictRules = {
     "functional/functional-parameters": "error",
@@ -48,8 +44,7 @@ export async function functional(
     "functional/no-conditional-statements": "error",
     "functional/no-expression-statements": "error",
     "functional/no-return-void": "error",
-    "functional/prefer-property-signatures":
-      stylistic === false ? "off" : "error",
+    "functional/prefer-property-signatures": stylistic === false ? "off" : "error",
     "functional/prefer-tacit": stylistic === false ? "off" : "warn",
     "functional/readonly-type": stylistic === false ? "off" : "error",
   } as const satisfies FlatConfigItem["rules"];
@@ -127,8 +122,7 @@ export async function functional(
           ReadonlyShallow: [
             [
               {
-                pattern:
-                  "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
+                pattern: "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
                 replace: "readonly $1",
                 message: "Prepend with readonly.",
               },
@@ -187,8 +181,7 @@ export async function functional(
             comparator: "AtLeast",
             fixer: [
               {
-                pattern:
-                  "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
+                pattern: "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
                 replace: "readonly $1",
               },
               {
@@ -220,8 +213,7 @@ export async function functional(
       },
     ],
 
-    "functional/prefer-property-signatures":
-      stylistic === false ? "off" : "error",
+    "functional/prefer-property-signatures": stylistic === false ? "off" : "error",
     "functional/prefer-tacit": stylistic === false ? "off" : "warn",
     "functional/readonly-type": stylistic === false ? "off" : "error",
   } as const satisfies FlatConfigItem["rules"];
@@ -237,8 +229,7 @@ export async function functional(
         ...recommendedRules["functional/prefer-immutable-types"][1],
         overrides: [
           {
-            ...recommendedRules["functional/prefer-immutable-types"][1]
-              .overrides[0],
+            ...recommendedRules["functional/prefer-immutable-types"][1].overrides[0],
             specifiers: [
               {
                 from: "file",
@@ -251,12 +242,8 @@ export async function functional(
   } as const satisfies FlatConfigItem["rules"];
 
   const noneLibraryRules = {
-    "functional/prefer-immutable-types":
-      liteRules["functional/prefer-immutable-types"],
-    "functional/type-declaration-immutability": [
-      "warn",
-      liteRules["functional/type-declaration-immutability"][1],
-    ],
+    "functional/prefer-immutable-types": liteRules["functional/prefer-immutable-types"],
+    "functional/type-declaration-immutability": ["warn", liteRules["functional/type-declaration-immutability"][1]],
   } as const satisfies FlatConfigItem["rules"];
 
   return [

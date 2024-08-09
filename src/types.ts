@@ -25,9 +25,7 @@ export type FlatConfigItem = Omit<Linter.Config, "plugins" | "rules"> & {
    */
   name?: string | undefined;
 
-  plugins?:
-    | Record<string, Readonly<ESLint.Plugin | TSESLint.FlatConfig.Plugin>>
-    | undefined;
+  plugins?: Record<string, Readonly<ESLint.Plugin | TSESLint.FlatConfig.Plugin>> | undefined;
 
   /**
    * An object containing a name-value mapping of rules to use.
@@ -144,10 +142,7 @@ export type RequiredOptionsStylistic = {
   stylistic: Required<StylisticConfig> | false;
 };
 
-export type StylisticConfig = {} & Pick<
-  StylisticCustomizeOptions,
-  "indent" | "quotes" | "jsx" | "semi"
->;
+export type StylisticConfig = {} & Pick<StylisticCustomizeOptions, "indent" | "quotes" | "jsx" | "semi">;
 
 export type OptionsOverrides = {
   overrides?: FlatConfigItem["rules"];
@@ -237,10 +232,7 @@ export type OptionsConfig = {
   /**
    * Enforce functional programming.
    */
-  functional?:
-    | boolean
-    | OptionsFunctional["functionalEnforcement"]
-    | (OptionsOverrides & OptionsFunctional);
+  functional?: boolean | OptionsFunctional["functionalEnforcement"] | (OptionsOverrides & OptionsFunctional);
 
   /**
    * Enable Vue support.

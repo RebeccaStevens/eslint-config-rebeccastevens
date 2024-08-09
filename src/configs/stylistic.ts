@@ -1,12 +1,7 @@
 import type { StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
 import type { ESLint } from "eslint";
 
-import type {
-  FlatConfigItem,
-  OptionsHasTypeScript,
-  OptionsOverrides,
-  StylisticConfig,
-} from "../types";
+import type { FlatConfigItem, OptionsHasTypeScript, OptionsOverrides, StylisticConfig } from "../types";
 import { loadPackages } from "../utils";
 
 export const StylisticConfigDefaults: Required<StylisticConfig> = {
@@ -17,12 +12,7 @@ export const StylisticConfigDefaults: Required<StylisticConfig> = {
 };
 
 export async function stylistic(
-  options: Readonly<
-    Required<
-      { stylistic: Required<StylisticConfig> } & OptionsOverrides &
-        OptionsHasTypeScript
-    >
-  >,
+  options: Readonly<Required<{ stylistic: Required<StylisticConfig> } & OptionsOverrides & OptionsHasTypeScript>>,
 ): Promise<FlatConfigItem[]> {
   const {
     stylistic: { indent, jsx, quotes, semi },
@@ -30,9 +20,9 @@ export async function stylistic(
     typescript,
   } = options;
 
-  const [pluginStylistic] = (await loadPackages([
-    "@stylistic/eslint-plugin",
-  ])) as [typeof import("@stylistic/eslint-plugin")];
+  const [pluginStylistic] = (await loadPackages(["@stylistic/eslint-plugin"])) as [
+    typeof import("@stylistic/eslint-plugin"),
+  ];
 
   const config = pluginStylistic.configs.customize({
     flat: true,
@@ -103,10 +93,7 @@ export async function stylistic(
               },
             ],
         "style/indent-binary-ops": "error",
-        "style/key-spacing": [
-          "error",
-          { beforeColon: false, afterColon: true },
-        ],
+        "style/key-spacing": ["error", { beforeColon: false, afterColon: true }],
         "style/keyword-spacing": ["error", { before: true, after: true }],
         "style/linebreak-style": ["error", "unix"],
         "style/lines-around-comment": [
@@ -155,15 +142,8 @@ export async function stylistic(
         "style/max-statements-per-line": ["error", { max: 1 }],
         "style/multiline-ternary": ["error", "always-multiline"],
         "style/new-parens": "error",
-        "style/newline-per-chained-call": [
-          "error",
-          { ignoreChainWithDepth: 2 },
-        ],
-        "style/no-extra-parens": [
-          "error",
-          "all",
-          { nestedBinaryExpressions: false },
-        ],
+        "style/newline-per-chained-call": ["error", { ignoreChainWithDepth: 2 }],
+        "style/no-extra-parens": ["error", "all", { nestedBinaryExpressions: false }],
         "style/no-extra-semi": "error",
         "style/no-floating-decimal": "error",
         "style/no-mixed-operators": [
@@ -185,11 +165,7 @@ export async function stylistic(
         "style/no-tabs": "error",
         "style/no-trailing-spaces": "error",
         "style/no-whitespace-before-property": "error",
-        "style/nonblock-statement-body-position": [
-          "error",
-          "beside",
-          { overrides: {} },
-        ],
+        "style/nonblock-statement-body-position": ["error", "beside", { overrides: {} }],
         "style/object-curly-newline": [
           "error",
           {
@@ -206,10 +182,7 @@ export async function stylistic(
           },
         ],
         "style/object-curly-spacing": ["error", "always"],
-        "style/object-property-newline": [
-          "error",
-          { allowAllPropertiesOnSameLine: true },
-        ],
+        "style/object-property-newline": ["error", { allowAllPropertiesOnSameLine: true }],
         "style/one-var-declaration-per-line": ["error", "always"],
         "style/operator-linebreak": [
           "error",
@@ -233,11 +206,7 @@ export async function stylistic(
           },
         ],
         "style/quote-props": ["error", "consistent-as-needed"],
-        "style/quotes": [
-          "error",
-          quotes,
-          { avoidEscape: true, allowTemplateLiterals: true },
-        ],
+        "style/quotes": ["error", quotes, { avoidEscape: true, allowTemplateLiterals: true }],
         "style/rest-spread-spacing": ["error", "never"],
         "style/semi-spacing": ["error", { before: false, after: true }],
         "style/semi-style": ["error", "last"],
@@ -272,11 +241,7 @@ export async function stylistic(
         "style/switch-colon-spacing": ["error", { after: true, before: false }],
         "style/template-curly-spacing": ["error", "never"],
         "style/template-tag-spacing": ["error", "never"],
-        "style/wrap-iife": [
-          "error",
-          "inside",
-          { functionPrototypeMethods: true },
-        ],
+        "style/wrap-iife": ["error", "inside", { functionPrototypeMethods: true }],
         "style/yield-star-spacing": ["error", "after"],
 
         ...(typescript

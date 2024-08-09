@@ -1,10 +1,6 @@
 import type { ESLint, Linter } from "eslint";
 
-import {
-  GLOB_MARKDOWN,
-  GLOB_MARKDOWN_CODE,
-  GLOB_MARKDOWN_IN_MARKDOWN,
-} from "../globs";
+import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from "../globs";
 import type {
   FlatConfigItem,
   OptionsComponentExts,
@@ -15,27 +11,17 @@ import type {
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
-  options: Readonly<
-    Required<
-      OptionsFiles &
-        OptionsComponentExts &
-        OptionsTypeRequiredRules &
-        OptionsOverrides
-    >
-  >,
+  options: Readonly<Required<OptionsFiles & OptionsComponentExts & OptionsTypeRequiredRules & OptionsOverrides>>,
 ): Promise<FlatConfigItem[]> {
   const { componentExts, files, overrides, enableTypeRequiredRules } = options;
 
-  const [pluginMarkdown, { mergeProcessors, processorPassThrough }] =
-    (await loadPackages([
-      "eslint-plugin-markdown",
-      "eslint-merge-processors",
-    ])) as [ESLint.Plugin, typeof import("eslint-merge-processors")];
+  const [pluginMarkdown, { mergeProcessors, processorPassThrough }] = (await loadPackages([
+    "eslint-plugin-markdown",
+    "eslint-merge-processors",
+  ])) as [ESLint.Plugin, typeof import("eslint-merge-processors")];
 
   const [pluginTs, pluginFunctional] = await Promise.all([
-    interopDefault(import("@typescript-eslint/eslint-plugin")).catch(
-      () => undefined,
-    ),
+    interopDefault(import("@typescript-eslint/eslint-plugin")).catch(() => undefined),
     interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
   ]);
 
@@ -68,15 +54,10 @@ export async function markdown(
     },
     {
       name: "rs:markdown:code",
-      files: [
-        GLOB_MARKDOWN_CODE,
-        ...componentExts.map((ext) => `${GLOB_MARKDOWN}/*.${ext}`),
-      ],
+      files: [GLOB_MARKDOWN_CODE, ...componentExts.map((ext) => `${GLOB_MARKDOWN}/*.${ext}`)],
       languageOptions: {
         parserOptions: {
-          ...(enableTypeRequiredRules
-            ? undefined
-            : { project: false, projectService: false, program: null }),
+          ...(enableTypeRequiredRules ? undefined : { project: false, projectService: false, program: null }),
           ecmaFeatures: {
             impliedStrict: true,
           },

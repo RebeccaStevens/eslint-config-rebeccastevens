@@ -10,13 +10,7 @@ import type {
 import { loadPackages } from "../utils";
 
 export async function imports(
-  options: Readonly<
-    Required<
-      RequiredOptionsStylistic &
-        OptionsTypeScriptParserOptions &
-        OptionsHasTypeScript
-    >
-  >,
+  options: Readonly<Required<RequiredOptionsStylistic & OptionsTypeScriptParserOptions & OptionsHasTypeScript>>,
 ): Promise<FlatConfigItem[]> {
   const { stylistic, parserOptions, typescript } = options;
 
@@ -36,10 +30,7 @@ export async function imports(
         import: pluginImport,
       },
       settings: {
-        "import-x/external-module-folders": [
-          "node_modules",
-          "node_modules/@types",
-        ],
+        "import-x/external-module-folders": ["node_modules", "node_modules/@types"],
         "import-x/internal-regex": "^(?:#|(?:@|~)\\/).*",
         "import-x/extensions": [".ts", ".tsx", ".js", ".jsx"],
         "import-x/parsers": {
@@ -154,10 +145,7 @@ export async function imports(
         // "import/prefer-default-export": "off",
         // "import/unambiguous": "off",
 
-        "import/newline-after-import": [
-          stylistic === false ? "off" : "error",
-          { count: 1 },
-        ],
+        "import/newline-after-import": [stylistic === false ? "off" : "error", { count: 1 }],
         "import/order": [
           stylistic === false ? "off" : "error",
           {
@@ -165,14 +153,7 @@ export async function imports(
               caseInsensitive: false,
               order: "asc",
             },
-            groups: [
-              "builtin",
-              "external",
-              "internal",
-              "parent",
-              "sibling",
-              "index",
-            ],
+            groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
             "newlines-between": "always",
           },
         ],

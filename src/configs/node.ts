@@ -5,9 +5,7 @@ import type { FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
 export async function node(): Promise<FlatConfigItem[]> {
-  const [pluginNode] = (await loadPackages(["eslint-plugin-n"])) as [
-    ESLint.Plugin,
-  ];
+  const [pluginNode] = (await loadPackages(["eslint-plugin-n"])) as [ESLint.Plugin];
 
   return [
     {

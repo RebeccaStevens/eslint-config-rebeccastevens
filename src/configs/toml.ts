@@ -1,26 +1,19 @@
 import type { ESLint, Linter } from "eslint";
 
-import type {
-  FlatConfigItem,
-  OptionsFiles,
-  OptionsOverrides,
-  RequiredOptionsStylistic,
-} from "../types";
+import type { FlatConfigItem, OptionsFiles, OptionsOverrides, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
 export async function toml(
-  options: Readonly<
-    Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>
-  >,
+  options: Readonly<Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>>,
 ): Promise<FlatConfigItem[]> {
   const { files, overrides, stylistic } = options;
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const [pluginToml, parserToml] = (await loadPackages([
-    "eslint-plugin-toml",
-    "toml-eslint-parser",
-  ])) as [ESLint.Plugin, Linter.Parser];
+  const [pluginToml, parserToml] = (await loadPackages(["eslint-plugin-toml", "toml-eslint-parser"])) as [
+    ESLint.Plugin,
+    Linter.Parser,
+  ];
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 

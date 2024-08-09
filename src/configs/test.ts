@@ -3,9 +3,7 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsFiles, OptionsOverrides } from "../types";
 import { interopDefault, loadPackages } from "../utils";
 
-export async function test(
-  options: Readonly<Required<OptionsFiles & OptionsOverrides>>,
-): Promise<FlatConfigItem[]> {
+export async function test(options: Readonly<Required<OptionsFiles & OptionsOverrides>>): Promise<FlatConfigItem[]> {
   const { files, overrides } = options;
 
   const [pluginVitest, pluginNoOnlyTests] = (await loadPackages([
@@ -53,10 +51,7 @@ export async function test(
         "sonar/no-duplicate-string": "off",
         "sonar/no-identical-functions": "off",
 
-        "test/consistent-test-it": [
-          "error",
-          { fn: "it", withinDescribe: "it" },
-        ],
+        "test/consistent-test-it": ["error", { fn: "it", withinDescribe: "it" }],
         "test/no-identical-title": "error",
         "test/no-import-node-test": "error",
         "test/no-only-tests": "error",

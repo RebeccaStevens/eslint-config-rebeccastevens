@@ -4,9 +4,7 @@ import type { FlatConfigItem } from "../types";
 import { loadPackages } from "../utils";
 
 export async function comments(): Promise<FlatConfigItem[]> {
-  const [pluginComments] = (await loadPackages([
-    "eslint-plugin-eslint-comments",
-  ])) as [ESLint.Plugin];
+  const [pluginComments] = (await loadPackages(["eslint-plugin-eslint-comments"])) as [ESLint.Plugin];
 
   return [
     {

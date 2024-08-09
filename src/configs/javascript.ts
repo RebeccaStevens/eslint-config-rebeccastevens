@@ -1,18 +1,12 @@
 import globals from "globals";
 
-import type {
-  FlatConfigItem,
-  OptionsFunctional,
-  OptionsOverrides,
-} from "../types";
+import type { FlatConfigItem, OptionsFunctional, OptionsOverrides } from "../types";
 
 const useNumberIsFinite = "Please use Number.isFinite instead";
 const useNumberIsNan = "Please use Number.isNaN instead";
 const useObjectDefineProperty = "Please use Object.defineProperty instead.";
 
-export function javascript(
-  options: Readonly<Required<OptionsOverrides & OptionsFunctional>>,
-): FlatConfigItem[] {
+export function javascript(options: Readonly<Required<OptionsOverrides & OptionsFunctional>>): FlatConfigItem[] {
   const { functionalEnforcement, overrides } = options;
 
   return [
@@ -148,8 +142,7 @@ export function javascript(
           "error",
           {
             property: "__proto__",
-            message:
-              "Use `Object.getPrototypeOf` or `Object.setPrototypeOf` instead.",
+            message: "Use `Object.getPrototypeOf` or `Object.setPrototypeOf` instead.",
           },
           {
             property: "__lookupGetter__",
@@ -206,12 +199,10 @@ export function javascript(
           },
           {
             selector: "WithStatement",
-            message:
-              "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
+            message: "`with` is disallowed in strict mode because it makes code impossible to predict and optimize.",
           },
           {
-            selector:
-              ':not(ArrowFunctionExpression) > UnaryExpression[operator="void"] > :not(CallExpression)',
+            selector: ':not(ArrowFunctionExpression) > UnaryExpression[operator="void"] > :not(CallExpression)',
             message: 'Don\'t use "void".',
           },
         ],
@@ -279,11 +270,7 @@ export function javascript(
         "no-useless-return": "error",
         "no-var": "error",
         "no-with": "error",
-        "object-shorthand": [
-          "error",
-          "always",
-          { avoidQuotes: true, ignoreConstructors: false },
-        ],
+        "object-shorthand": ["error", "always", { avoidQuotes: true, ignoreConstructors: false }],
         "one-var": [
           "error",
           {
@@ -293,14 +280,8 @@ export function javascript(
           },
         ],
         "operator-assignment": ["error", "always"],
-        "prefer-arrow-callback": [
-          "error",
-          { allowNamedFunctions: false, allowUnboundThis: true },
-        ],
-        "prefer-const": [
-          "error",
-          { destructuring: "all", ignoreReadBeforeAssign: true },
-        ],
+        "prefer-arrow-callback": ["error", { allowNamedFunctions: false, allowUnboundThis: true }],
+        "prefer-const": ["error", { destructuring: "all", ignoreReadBeforeAssign: true }],
         "prefer-destructuring": [
           "error",
           {
@@ -336,10 +317,7 @@ export function javascript(
         strict: ["error", "never"],
         "symbol-description": "error",
         "unicode-bom": ["error", "never"],
-        "use-isnan": [
-          "error",
-          { enforceForIndexOf: true, enforceForSwitchCase: true },
-        ],
+        "use-isnan": ["error", { enforceForIndexOf: true, enforceForSwitchCase: true }],
         "valid-typeof": ["error", { requireStringLiterals: true }],
         "vars-on-top": "error",
         yoda: ["error", "never"],

@@ -3,14 +3,10 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
-export async function jsdoc(
-  options: Readonly<Required<RequiredOptionsStylistic>>,
-): Promise<FlatConfigItem[]> {
+export async function jsdoc(options: Readonly<Required<RequiredOptionsStylistic>>): Promise<FlatConfigItem[]> {
   const { stylistic } = options;
 
-  const [pluginJSDoc] = (await loadPackages(["eslint-plugin-jsdoc"])) as [
-    typeof import("eslint-plugin-jsdoc"),
-  ];
+  const [pluginJSDoc] = (await loadPackages(["eslint-plugin-jsdoc"])) as [typeof import("eslint-plugin-jsdoc")];
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 
@@ -32,13 +28,7 @@ export async function jsdoc(
         "jsdoc/no-bad-blocks": [
           "error",
           {
-            ignore: [
-              "ts-check",
-              "ts-expect-error",
-              "ts-ignore",
-              "ts-nocheck",
-              "vue-ignore",
-            ],
+            ignore: ["ts-check", "ts-expect-error", "ts-ignore", "ts-nocheck", "vue-ignore"],
           },
         ],
         "jsdoc/no-defaults": "warn",

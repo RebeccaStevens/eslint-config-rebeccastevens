@@ -37,27 +37,13 @@ export async function vue(
     >
   >,
 ): Promise<FlatConfigItem[]> {
-  const {
-    files,
-    i18n,
-    overrides,
-    parserOptions,
-    stylistic,
-    typescript,
-    vueVersion,
-  } = options;
+  const { files, i18n, overrides, parserOptions, stylistic, typescript, vueVersion } = options;
 
   const sfcBlocks = options.sfcBlocks === true ? {} : options.sfcBlocks;
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const [
-    pluginVue,
-    pluginVueI18n,
-    parserVue,
-    processorVueBlocks,
-    { mergeProcessors },
-  ] = (await loadPackages([
+  const [pluginVue, pluginVueI18n, parserVue, processorVueBlocks, { mergeProcessors }] = (await loadPackages([
     "eslint-plugin-vue",
     "@intlify/eslint-plugin-vue-i18n",
     "vue-eslint-parser",
@@ -71,9 +57,7 @@ export async function vue(
     typeof import("eslint-merge-processors"),
   ];
 
-  const parserTs = await interopDefault(
-    import("@typescript-eslint/parser"),
-  ).catch(() => undefined);
+  const parserTs = await interopDefault(import("@typescript-eslint/parser")).catch(() => undefined);
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 
@@ -175,12 +159,7 @@ export async function vue(
         "vue/define-macros-order": [
           "error",
           {
-            order: [
-              "defineOptions",
-              "defineProps",
-              "defineEmits",
-              "defineSlots",
-            ],
+            order: ["defineOptions", "defineProps", "defineEmits", "defineSlots"],
           },
         ],
         "vue/dot-location": ["error", "property"],
@@ -194,12 +173,7 @@ export async function vue(
         "vue/no-empty-pattern": "error",
         "vue/no-irregular-whitespace": "error",
         "vue/no-loss-of-precision": "error",
-        "vue/no-restricted-syntax": [
-          "error",
-          "DebuggerStatement",
-          "LabeledStatement",
-          "WithStatement",
-        ],
+        "vue/no-restricted-syntax": ["error", "DebuggerStatement", "LabeledStatement", "WithStatement"],
         "vue/no-restricted-v-bind": ["error", "/^v-/"],
         // "vue/no-setup-props-reactivity-loss": "off",
         "vue/no-sparse-arrays": "error",
@@ -228,10 +202,7 @@ export async function vue(
         "vue-i18n/no-v-html": i18n === false ? "off" : "error",
 
         "vue/array-bracket-spacing": [stylisticEnforcement, "never"],
-        "vue/arrow-spacing": [
-          stylisticEnforcement,
-          { after: true, before: true },
-        ],
+        "vue/arrow-spacing": [stylisticEnforcement, { after: true, before: true }],
         "vue/block-spacing": [stylisticEnforcement, "always"],
         "vue/block-tag-newline": [
           stylisticEnforcement,
@@ -247,10 +218,7 @@ export async function vue(
           { allowSingleLine: true },
         ],
         "vue/comma-dangle": [stylisticEnforcement, "always-multiline"],
-        "vue/comma-spacing": [
-          stylisticEnforcement,
-          { after: true, before: false },
-        ],
+        "vue/comma-spacing": [stylisticEnforcement, { after: true, before: false }],
         "vue/comma-style": [stylisticEnforcement, "last"],
         "vue/html-comment-content-spacing": [
           stylisticEnforcement,
@@ -259,20 +227,11 @@ export async function vue(
             exceptions: ["-"],
           },
         ],
-        "vue/key-spacing": [
-          stylisticEnforcement,
-          { afterColon: true, beforeColon: false },
-        ],
-        "vue/keyword-spacing": [
-          stylisticEnforcement,
-          { after: true, before: true },
-        ],
+        "vue/key-spacing": [stylisticEnforcement, { afterColon: true, beforeColon: false }],
+        "vue/keyword-spacing": [stylisticEnforcement, { after: true, before: true }],
         // "vue/object-curly-newline": "off",
         "vue/object-curly-spacing": [stylisticEnforcement, "always"],
-        "vue/object-property-newline": [
-          stylisticEnforcement,
-          { allowMultiplePropertiesPerLine: true },
-        ],
+        "vue/object-property-newline": [stylisticEnforcement, { allowMultiplePropertiesPerLine: true }],
         "vue/operator-linebreak": [stylisticEnforcement, "before"],
         "vue/padding-line-between-blocks": [stylisticEnforcement, "always"],
         "vue/quote-props": [stylisticEnforcement, "consistent-as-needed"],

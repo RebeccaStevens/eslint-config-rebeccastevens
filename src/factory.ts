@@ -81,13 +81,8 @@ export async function rsEslint(
   options: OptionsConfig,
   ...userConfigs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
 ): Promise<FlatConfigItem[]> {
-  const [FlatConfigComposer] = await loadPackages([
-    "eslint-flat-config-utils",
-  ]).then(
-    ([a]) =>
-      [
-        (a as typeof import("eslint-flat-config-utils")).FlatConfigComposer,
-      ] as const,
+  const [FlatConfigComposer] = await loadPackages(["eslint-flat-config-utils"]).then(
+    ([a]) => [(a as typeof import("eslint-flat-config-utils")).FlatConfigComposer] as const,
   );
 
   const {
@@ -138,20 +133,14 @@ export async function rsEslint(
 
   const hasTypeScript = Boolean(typeScriptOptions);
 
-  const {
-    filesTypeAware,
-    parserOptions,
-    useDefaultDefaultProject,
-    ...typeScriptSubOptions
-  } = resolveSubOptions(options, "typescript") as OptionsTypescript &
-    OptionsTypeScriptParserOptions &
-    OptionsTypeScriptShorthands;
+  const { filesTypeAware, parserOptions, useDefaultDefaultProject, ...typeScriptSubOptions } = resolveSubOptions(
+    options,
+    "typescript",
+  ) as OptionsTypescript & OptionsTypeScriptParserOptions & OptionsTypeScriptShorthands;
 
   const projectServiceUserConfig = {
     defaultProject: "./tsconfig.json",
-    ...(typeof parserOptions?.projectService === "object"
-      ? parserOptions.projectService
-      : undefined),
+    ...(typeof parserOptions?.projectService === "object" ? parserOptions.projectService : undefined),
   };
 
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
@@ -324,10 +313,7 @@ export async function rsEslint(
   if (markdownOptions !== false) {
     m_configs.push(
       markdown({
-        enableTypeRequiredRules: !(
-          markdownOptions === true ||
-          markdownOptions.enableTypeRequiredRules === false
-        ),
+        enableTypeRequiredRules: !(markdownOptions === true || markdownOptions.enableTypeRequiredRules === false),
         files: [GLOB_MARKDOWN],
         componentExts,
         overrides: getOverrides(options, "markdown"),
@@ -336,12 +322,7 @@ export async function rsEslint(
   }
 
   if (formattersOptions !== false) {
-    m_configs.push(
-      formatters(
-        formattersOptions,
-        stylisticOptions === false ? {} : stylisticOptions,
-      ),
-    );
+    m_configs.push(formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions));
   }
 
   if (isInEditor) {
@@ -350,10 +331,7 @@ export async function rsEslint(
 
   m_configs.push(overrides());
 
-  let m_composer = new FlatConfigComposer<FlatConfigItem>().append(
-    ...m_configs,
-    ...userConfigs,
-  );
+  let m_composer = new FlatConfigComposer<FlatConfigItem>().append(...m_configs, ...userConfigs);
 
   if (autoRenamePlugins) {
     m_composer = m_composer.renamePlugins(defaultPluginRenaming);
@@ -362,27 +340,18 @@ export async function rsEslint(
   return m_composer.toConfigs();
 }
 
-export type ResolvedOptions<T> = T extends boolean
-  ? never
-  : T extends string
-    ? never
-    : NonNullable<T>;
+export type ResolvedOptions<T> = T extends boolean ? never : T extends string ? never : NonNullable<T>;
 
 export function resolveSubOptions<K extends keyof OptionsConfig>(
   options: Readonly<OptionsConfig>,
   key: K,
 ): ResolvedOptions<OptionsConfig[K]> {
   return (
-    typeof options[key] === "boolean" || typeof options[key] === "string"
-      ? {}
-      : (options[key] ?? {})
+    typeof options[key] === "boolean" || typeof options[key] === "string" ? {} : (options[key] ?? {})
   ) as ResolvedOptions<OptionsConfig[K]>;
 }
 
-export function getOverrides<K extends keyof OptionsConfig>(
-  options: Readonly<OptionsConfig>,
-  key: K,
-) {
+export function getOverrides<K extends keyof OptionsConfig>(options: Readonly<OptionsConfig>, key: K) {
   const sub = resolveSubOptions(options, key);
   return "overrides" in sub ? sub.overrides : {};
 }

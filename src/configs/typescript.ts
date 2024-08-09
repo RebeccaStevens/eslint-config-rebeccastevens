@@ -2,14 +2,7 @@ import assert from "node:assert/strict";
 
 import type { ESLint, Linter } from "eslint";
 
-import {
-  GLOB_DTS,
-  GLOB_JS,
-  GLOB_JSX,
-  GLOB_TESTS,
-  GLOB_TS,
-  GLOB_TSX,
-} from "../globs";
+import { GLOB_DTS, GLOB_JS, GLOB_JSX, GLOB_TESTS, GLOB_TS, GLOB_TSX } from "../globs";
 import type {
   FlatConfigItem,
   OptionsComponentExts,
@@ -56,11 +49,7 @@ export async function typescript(
     "@typescript-eslint/parser",
   ])) as [ESLint.Plugin, Linter.Parser];
 
-  function makeParser(
-    typeAware: boolean,
-    files: string[],
-    ignores: string[] = [],
-  ): FlatConfigItem {
+  function makeParser(typeAware: boolean, files: string[], ignores: string[] = []): FlatConfigItem {
     return {
       name: `rs:typescript:${typeAware ? "type-aware-parser" : "parser"}`,
       files,
@@ -101,10 +90,7 @@ export async function typescript(
         "import/named": "off",
         "no-undef": "off",
 
-        "ts/array-type": [
-          "error",
-          { default: "array-simple", readonly: "generic" },
-        ],
+        "ts/array-type": ["error", { default: "array-simple", readonly: "generic" }],
         "ts/await-thenable": "error",
         "ts/ban-ts-comment": ["error", { minimumDescriptionLength: 10 }],
         "ts/explicit-function-return-type": [
@@ -116,16 +102,10 @@ export async function typescript(
             allowTypedFunctionExpressions: true,
           },
         ],
-        "ts/explicit-member-accessibility": [
-          "error",
-          { accessibility: "explicit" },
-        ],
+        "ts/explicit-member-accessibility": ["error", { accessibility: "explicit" }],
         "ts/no-array-delete": "error",
         "ts/no-base-to-string": "error",
-        "ts/no-confusing-void-expression": [
-          "error",
-          { ignoreArrowShorthand: false, ignoreVoidOperator: true },
-        ],
+        "ts/no-confusing-void-expression": ["error", { ignoreArrowShorthand: false, ignoreVoidOperator: true }],
         "ts/no-duplicate-enum-values": "error",
         "ts/no-duplicate-type-constituents": "error",
         "ts/no-dynamic-delete": "error",
@@ -148,10 +128,7 @@ export async function typescript(
         "ts/no-redundant-type-constituents": "error",
         "ts/no-this-alias": "error",
         "ts/no-unnecessary-boolean-literal-compare": "error",
-        "ts/no-unnecessary-condition": [
-          "error",
-          { allowConstantLoopConditions: true },
-        ],
+        "ts/no-unnecessary-condition": ["error", { allowConstantLoopConditions: true }],
         "ts/no-unnecessary-type-arguments": "error",
         "ts/no-unnecessary-type-assertion": "error",
         "ts/no-unnecessary-type-constraint": "error",
@@ -222,10 +199,7 @@ export async function typescript(
         ],
         "ts/switch-exhaustiveness-check": "error",
         "ts/unbound-method": ["error", { ignoreStatic: true }],
-        "ts/unified-signatures": [
-          "error",
-          { ignoreDifferentlyNamedParameters: true },
-        ],
+        "ts/unified-signatures": ["error", { ignoreDifferentlyNamedParameters: true }],
         "ts/use-unknown-in-catch-callback-variable": "error",
 
         "no-use-before-define": "off",
@@ -276,10 +250,7 @@ export async function typescript(
         "ts/only-throw-error": "error",
 
         "dot-notation": "off",
-        "ts/dot-notation": [
-          "error",
-          { allowIndexSignaturePropertyAccess: true },
-        ],
+        "ts/dot-notation": ["error", { allowIndexSignaturePropertyAccess: true }],
 
         "ts/consistent-indexed-object-style": "error",
         "ts/consistent-type-definitions": ["error", "type"],
@@ -418,12 +389,7 @@ export async function typescript(
                   trailingUnderscore: "forbid",
                 },
                 {
-                  selector: [
-                    "accessor",
-                    "classMethod",
-                    "typeMethod",
-                    "typeProperty",
-                  ],
+                  selector: ["accessor", "classMethod", "typeMethod", "typeProperty"],
                   format: ["camelCase", "PascalCase", "UPPER_CASE"],
                   leadingUnderscore: "allow",
                   trailingUnderscore: "forbid",
@@ -454,8 +420,9 @@ export async function typescript(
       name: "rs:typescript:rules-non-type-aware",
       files,
       ignores: filesTypeAware,
-      rules: ((pluginTs.configs?.["disable-type-checked"] as Linter.FlatConfig)
-        .rules ?? {}) as NonNullable<FlatConfigItem["rules"]>,
+      rules: ((pluginTs.configs?.["disable-type-checked"] as Linter.FlatConfig).rules ?? {}) as NonNullable<
+        FlatConfigItem["rules"]
+      >,
     },
     {
       name: "rs:typescript:tests-overrides",

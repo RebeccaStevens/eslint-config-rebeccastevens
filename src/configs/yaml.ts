@@ -1,27 +1,16 @@
 import type { ESLint } from "eslint";
 
-import type {
-  FlatConfigItem,
-  OptionsFiles,
-  OptionsOverrides,
-  RequiredOptionsStylistic,
-} from "../types";
+import type { FlatConfigItem, OptionsFiles, OptionsOverrides, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
 export async function yaml(
-  options: Readonly<
-    Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>
-  >,
+  options: Readonly<Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>>,
 ): Promise<FlatConfigItem[]> {
   const { files, overrides, stylistic } = options;
 
-  const { indent = 2, quotes = "single" } =
-    typeof stylistic === "boolean" ? {} : stylistic;
+  const { indent = 2, quotes = "single" } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const [pluginYaml, parserYaml] = (await loadPackages([
-    "eslint-plugin-yml",
-    "yaml-eslint-parser",
-  ])) as [
+  const [pluginYaml, parserYaml] = (await loadPackages(["eslint-plugin-yml", "yaml-eslint-parser"])) as [
     typeof import("eslint-plugin-yml"),
     typeof import("yaml-eslint-parser"),
   ];
@@ -62,10 +51,7 @@ export async function yaml(
         "yaml/indent": [stylisticEnforcement, indent === "tab" ? 2 : indent],
         "yaml/key-spacing": stylisticEnforcement,
         "yaml/no-tab-indent": stylisticEnforcement,
-        "yaml/quotes": [
-          stylisticEnforcement,
-          { avoidEscape: true, prefer: quotes },
-        ],
+        "yaml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes }],
         "yaml/spaced-comment": stylisticEnforcement,
 
         ...overrides,

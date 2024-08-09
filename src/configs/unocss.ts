@@ -3,14 +3,10 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsUnoCSS } from "../types";
 import { loadPackages } from "../utils";
 
-export async function unocss(
-  options: Readonly<Required<OptionsUnoCSS>>,
-): Promise<FlatConfigItem[]> {
+export async function unocss(options: Readonly<Required<OptionsUnoCSS>>): Promise<FlatConfigItem[]> {
   const { attributify, strict } = options;
 
-  const [pluginUnoCSS] = (await loadPackages(["@unocss/eslint-plugin"])) as [
-    ESLint.Plugin,
-  ];
+  const [pluginUnoCSS] = (await loadPackages(["@unocss/eslint-plugin"])) as [ESLint.Plugin];
 
   return [
     {

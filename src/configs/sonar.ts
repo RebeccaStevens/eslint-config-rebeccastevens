@@ -3,14 +3,10 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsFunctional } from "../types";
 import { loadPackages } from "../utils";
 
-export async function sonar(
-  options: Readonly<Required<OptionsFunctional>>,
-): Promise<FlatConfigItem[]> {
+export async function sonar(options: Readonly<Required<OptionsFunctional>>): Promise<FlatConfigItem[]> {
   const { functionalEnforcement = "none" } = options;
 
-  const [pluginSonar] = (await loadPackages(["eslint-plugin-sonarjs"])) as [
-    ESLint.Plugin,
-  ];
+  const [pluginSonar] = (await loadPackages(["eslint-plugin-sonarjs"])) as [ESLint.Plugin];
 
   return [
     {
@@ -47,8 +43,7 @@ export async function sonar(
         "sonar/prefer-single-boolean-return": "error",
         "sonar/prefer-while": "error",
 
-        ...(functionalEnforcement === "recommended" ||
-        functionalEnforcement === "strict"
+        ...(functionalEnforcement === "recommended" || functionalEnforcement === "strict"
           ? {
               "sonar/elseif-without-else": "error",
             }
