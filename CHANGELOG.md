@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.2.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.1.1...v3.2.0) (2024-08-10)
+
+
+### Bug Fixes
+
+* increase wait time to find needed dependencies ([b48029f](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/b48029ff27f51007529d95dc4992270961b8cf9c))
+
+
+### Features
+
+* add tailwind ([6716896](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/67168964418365ddf50a21e839587daa9a254447))
+
 ## [3.1.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.1.0...v3.1.1) (2024-08-10)
 
 
