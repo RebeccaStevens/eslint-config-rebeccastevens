@@ -160,6 +160,8 @@ export type OptionsIsInEditor = {
   isInEditor?: boolean;
 };
 
+export type OptionsTailwindCSS = OptionsOverrides;
+
 export type OptionsUnoCSS = {
   /**
    * Enable attributify support.
@@ -282,6 +284,11 @@ export type OptionsConfig = {
    * Enable stylistic rules.
    */
   stylistic?: boolean | (StylisticConfig & OptionsOverrides);
+
+  /**
+   * Enable tailwind rules.
+   */
+  tailwind?: boolean | OptionsTailwindCSS;
 
   /**
    * Enable unocss rules.

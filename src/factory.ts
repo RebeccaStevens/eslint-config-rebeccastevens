@@ -24,6 +24,7 @@ import {
   sonar,
   sortTsconfig,
   stylistic,
+  tailwind,
   test,
   toml,
   typescript,
@@ -102,6 +103,7 @@ export async function rsEslint(
     ignoresFiles: ignoresFilesOptions = [".gitignore"],
     typescript: typeScriptOptions = isPackageExists("typescript"),
     unocss: unoCSSOptions = isPackageExists("unocss"),
+    tailwind: tailwindOptions = isPackageExists("tailwindcss"),
     vue: vueOptions = VuePackages.some((i) => isPackageExists(i)),
     react: reactOptions = ReactPackages.some((i) => isPackageExists(i)),
     test: testOptions = true,
@@ -286,6 +288,14 @@ export async function rsEslint(
         i18n: false,
         ...resolveSubOptions(options, "react"),
         overrides: getOverrides(options, "react"),
+      }),
+    );
+  }
+
+  if (tailwindOptions !== false) {
+    m_configs.push(
+      tailwind({
+        overrides: getOverrides(options, "tailwind"),
       }),
     );
   }

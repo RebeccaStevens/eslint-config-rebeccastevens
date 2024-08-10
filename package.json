@@ -104,8 +104,10 @@
     "eslint-plugin-promise": "7.0.0",
     "eslint-plugin-react-hooks": "4.6.2",
     "eslint-plugin-react-refresh": "0.4.9",
+    "eslint-plugin-readable-tailwind": "1.6.0",
     "eslint-plugin-regexp": "2.6.0",
     "eslint-plugin-sonarjs": "1.0.4",
+    "eslint-plugin-tailwindcss": "3.17.4",
     "eslint-plugin-toml": "0.11.1",
     "eslint-plugin-unicorn": "55.0.0",
     "eslint-plugin-vitest": "0.5.4",
@@ -157,8 +159,10 @@
     "eslint-plugin-optimize-regex": "*",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-promise": "*",
+    "eslint-plugin-readable-tailwind": "*",
     "eslint-plugin-regexp": "*",
     "eslint-plugin-sonarjs": "*",
+    "eslint-plugin-tailwindcss": "*",
     "eslint-plugin-toml": "*",
     "eslint-plugin-unicorn": "*",
     "eslint-plugin-vitest": "*",
@@ -251,10 +255,16 @@
     "eslint-plugin-react-refresh": {
       "optional": true
     },
+    "eslint-plugin-readable-tailwind": {
+      "optional": true
+    },
     "eslint-plugin-regexp": {
       "optional": true
     },
     "eslint-plugin-sonarjs": {
+      "optional": true
+    },
+    "eslint-plugin-tailwindcss": {
       "optional": true
     },
     "eslint-plugin-toml": {

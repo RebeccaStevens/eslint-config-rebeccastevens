@@ -23,6 +23,7 @@ import {
   sonar,
   sortTsconfig,
   stylistic,
+  tailwind,
   test,
   toml,
   typescript,
@@ -103,6 +104,9 @@ const configs = (await combine(
     },
     overrides: undefined,
     typescript: false
+  }),
+  tailwind({
+    overrides: undefined,
   }),
   test({
     files: [],
