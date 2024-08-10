@@ -80,7 +80,7 @@ async function installPackages(packages: ReadonlyArray<string>) {
     assert(m_installPackagesActionResolver !== null);
     m_installPackagesActionResolver(allPackages);
     m_installPackagesActionResolver = null;
-  }, 10);
+  }, 100);
 
   if (m_installPackagesAction === null) {
     m_installPackagesAction = new Promise<string[]>((resolve) => {
