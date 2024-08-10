@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.1.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.1.0...v3.1.1) (2024-08-10)
+
+
+### Bug Fixes
+
+* import/no-extraneous-dependencies ignore config dirs ([416dc78](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/416dc786aaa5e46e9e6dbc8129099719f8cb83db))
+
 # [3.1.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.0.7...v3.1.0) (2024-08-09)
 
 
