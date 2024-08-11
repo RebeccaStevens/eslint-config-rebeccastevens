@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.2.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.0...v3.2.1) (2024-08-11)
+
+
+### Bug Fixes
+
+* allow adjusting the print width and have tailwind config use stylistic settings ([3bb9d9c](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/3bb9d9cd2a14b8ea4fd0e5a4c2620bd4e89fcde9))
+* rename tailwindcss to tailwind ([274a1eb](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/274a1eb654b9d6256c5e2e72849d4336ef73b824))
+
 # [3.2.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.1.1...v3.2.0) (2024-08-10)
 
 
