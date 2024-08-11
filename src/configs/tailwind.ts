@@ -17,23 +17,23 @@ export async function tailwind(
     {
       name: "js:tailwindcss",
       plugins: {
-        tailwindcss: pluginTailwindCSS,
-        "tailwindcss-readable": pluginReadableTailwind,
+        tailwind: pluginTailwindCSS,
+        "tailwind-readable": pluginReadableTailwind,
       },
       rules: {
-        "tailwindcss/no-contradicting-classname": "error",
-        "tailwindcss/no-arbitrary-value": "off",
-        "tailwindcss/no-custom-classname": "off",
+        "tailwind/no-contradicting-classname": "error",
+        "tailwind/no-arbitrary-value": "off",
+        "tailwind/no-custom-classname": "off",
 
         ...(stylistic === false
           ? {}
           : {
-              "tailwindcss/classnames-order": "warn",
-              "tailwindcss/enforces-negative-arbitrary-values": "warn",
-              "tailwindcss/enforces-shorthand": "warn",
-              "tailwindcss/no-unnecessary-arbitrary-value": "warn",
+              "tailwind/classnames-order": "warn",
+              "tailwind/enforces-negative-arbitrary-values": "warn",
+              "tailwind/enforces-shorthand": "warn",
+              "tailwind/no-unnecessary-arbitrary-value": "warn",
 
-              "tailwindcss-readable/multiline": [
+              "tailwind-readable/multiline": [
                 "warn",
                 {
                   group: "newLine",
@@ -41,7 +41,7 @@ export async function tailwind(
                   printWidth: stylistic.printWidth,
                 },
               ],
-              "tailwindcss-readable/no-unnecessary-whitespace": "warn",
+              "tailwind-readable/no-unnecessary-whitespace": "warn",
             }),
 
         ...overrides,
