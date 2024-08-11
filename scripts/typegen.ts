@@ -101,11 +101,19 @@ const configs = (await combine(
       jsx: true,
       quotes: "double",
       semi: true,
+      printWidth: 120,
     },
     overrides: undefined,
     typescript: false
   }),
   tailwind({
+    stylistic: {
+      indent: 2,
+      jsx: true,
+      quotes: "double",
+      semi: true,
+      printWidth: 120,
+    },
     overrides: undefined,
   }),
   test({

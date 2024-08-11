@@ -295,6 +295,7 @@ export async function rsEslint(
   if (tailwindOptions !== false) {
     m_configs.push(
       tailwind({
+        stylistic: stylisticOptions,
         overrides: getOverrides(options, "tailwind"),
       }),
     );

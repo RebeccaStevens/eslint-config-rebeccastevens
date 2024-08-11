@@ -150,7 +150,9 @@ export type RequiredOptionsStylistic = {
   stylistic: Required<StylisticConfig> | false;
 };
 
-export type StylisticConfig = {} & Pick<StylisticCustomizeOptions, "indent" | "quotes" | "jsx" | "semi">;
+export type StylisticConfig = {
+  printWidth?: number;
+} & Pick<StylisticCustomizeOptions, "indent" | "quotes" | "jsx" | "semi">;
 
 export type OptionsOverrides = {
   overrides?: FlatConfigItem["rules"];

@@ -9,6 +9,7 @@ export const StylisticConfigDefaults: Required<StylisticConfig> = {
   jsx: true,
   quotes: "double",
   semi: true,
+  printWidth: 120,
 };
 
 export async function stylistic(

@@ -46,12 +46,12 @@ export async function formatters(
     throw new Error("`slidev` option only works when `markdown` is enabled with `prettier`");
   }
 
-  const { indent, quotes, semi } = stylistic;
+  const { indent, printWidth, quotes, semi } = stylistic;
 
   const prettierOptions: PrettierOptions = Object.assign(
     {
       endOfLine: "lf",
-      printWidth: 120,
+      printWidth: printWidth ?? 120,
       semi: semi ?? true,
       singleQuote: quotes === "single",
       tabWidth: typeof indent === "number" ? indent : 2,
