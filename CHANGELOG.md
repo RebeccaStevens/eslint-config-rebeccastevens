@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.2.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.1...v3.2.2) (2024-08-12)
+
+
+### Bug Fixes
+
+* naming convention - don't enforce on getters ([b39bb31](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/b39bb315d9391db1a87b2d2532b709f6d67d0c26))
+
 ## [3.2.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.0...v3.2.1) (2024-08-11)
 
 
