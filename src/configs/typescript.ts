@@ -359,21 +359,21 @@ export async function typescript(
                   modifiers: ["destructured"],
                 },
                 {
-                  selector: "memberLike",
+                  selector: ["autoAccessor", "parameterProperty", "property"],
                   filter: { regex: "^[A-Z0-9_]+$", match: true },
                   format: ["UPPER_CASE"],
                   leadingUnderscore: "forbid",
                   trailingUnderscore: "forbid",
                 },
                 {
-                  selector: "memberLike",
+                  selector: ["autoAccessor", "parameterProperty", "property"],
                   format: ["camelCase", "PascalCase"],
                   prefix: ["m_", "M_"],
                   leadingUnderscore: "forbid",
                   trailingUnderscore: "forbid",
                 },
                 {
-                  selector: "memberLike",
+                  selector: ["autoAccessor", "parameterProperty", "property"],
                   filter: { regex: "_[^_]+", match: true },
                   format: ["camelCase", "PascalCase"],
                   modifiers: ["readonly"],
@@ -382,7 +382,7 @@ export async function typescript(
                   trailingUnderscore: "forbid",
                 },
                 {
-                  selector: "memberLike",
+                  selector: ["autoAccessor", "parameterProperty", "property"],
                   format: ["camelCase", "PascalCase", "UPPER_CASE"],
                   modifiers: ["readonly"],
                   leadingUnderscore: "allow",
