@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.2.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.2...v3.2.3) (2024-10-06)
+
+
+### Bug Fixes
+
+* allow disabling sonar rules ([f35b2d1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f35b2d193a6e2e10c015fef41a27e3b799bed161))
+* names of some configs ([c1ea0a0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c1ea0a079e56cbbb5e78963dcbd789a721d060cf))
+
 ## [3.2.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.1...v3.2.2) (2024-08-12)
 
 
