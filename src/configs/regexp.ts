@@ -11,7 +11,7 @@ export async function regexp(): Promise<FlatConfigItem[]> {
 
   return [
     {
-      name: "rs:node",
+      name: "rs:regexp",
       plugins: {
         regexp: {
           ...pluginRegexp,

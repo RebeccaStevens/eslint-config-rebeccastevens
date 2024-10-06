@@ -15,7 +15,7 @@ export async function tailwind(
 
   return [
     {
-      name: "js:tailwindcss",
+      name: "rs:tailwindcss",
       plugins: {
         tailwind: pluginTailwindCSS,
         "tailwind-readable": pluginReadableTailwind,

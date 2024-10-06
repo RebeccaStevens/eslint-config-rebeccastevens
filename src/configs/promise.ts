@@ -8,7 +8,7 @@ export async function promise(): Promise<FlatConfigItem[]> {
 
   return [
     {
-      name: "rs:node",
+      name: "rs:promise",
       plugins: {
         promise: pluginPromise,
       },

@@ -10,7 +10,7 @@ export async function sonar(options: Readonly<Required<OptionsFunctional>>): Pro
 
   return [
     {
-      name: "rs:node",
+      name: "rs:sonar",
       plugins: {
         sonar: pluginSonar,
       },
