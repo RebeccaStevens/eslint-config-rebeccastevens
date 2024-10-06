@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.2.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.3...v3.2.4) (2024-10-06)
+
+
+### Bug Fixes
+
+* update to @vitest/eslint-plugin ([2d0f6df](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2d0f6df7019193d3d5d2fcde1fc0e79b86be8e5a))
+
 ## [3.2.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.2...v3.2.3) (2024-10-06)
 
 
