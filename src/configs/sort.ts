@@ -9,7 +9,7 @@ export function sortTsconfig(): FlatConfigItem[] {
   return [
     {
       files: ["**/tsconfig.json", "**/tsconfig.*.json"],
-      name: "",
+      name: "rs:sort:tsconfig",
       rules: {
         "jsonc/sort-keys": [
           "error",
