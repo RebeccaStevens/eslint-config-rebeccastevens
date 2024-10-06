@@ -7,9 +7,9 @@ export async function test(options: Readonly<Required<OptionsFiles & OptionsOver
   const { files, overrides } = options;
 
   const [pluginVitest, pluginNoOnlyTests] = (await loadPackages([
-    "eslint-plugin-vitest",
+    "@vitest/eslint-plugin",
     "eslint-plugin-no-only-tests",
-  ])) as [typeof import("eslint-plugin-vitest"), ESLint.Plugin];
+  ])) as [typeof import("@vitest/eslint-plugin"), ESLint.Plugin];
 
   const [pluginFunctional] = await Promise.all([
     interopDefault(import("eslint-plugin-functional")).catch(() => undefined),

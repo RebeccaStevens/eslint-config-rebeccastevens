@@ -81,6 +81,9 @@ importers:
       '@unocss/eslint-plugin':
         specifier: 0.63.1
         version: 0.63.1(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)
+      '@vitest/eslint-plugin':
+        specifier: 1.0.1
+        version: 1.0.1(@typescript-eslint/utils@8.8.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)
       commitizen:
         specifier: 4.3.0
         version: 4.3.0(@types/node@22.2.0)(typescript@5.4.5)
@@ -174,9 +177,6 @@ importers:
       eslint-plugin-unicorn:
         specifier: 55.0.0
         version: 55.0.0(eslint@9.11.1(jiti@2.1.0))
-      eslint-plugin-vitest:
-        specifier: 0.5.4
-        version: 0.5.4(@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)
       eslint-plugin-vue:
         specifier: 9.27.0
         version: 9.27.0(eslint@9.11.1(jiti@2.1.0))
@@ -1899,6 +1899,21 @@ packages:
     resolution: {integrity: sha512-Y9krw/c/FRSK22SPeJsNWkeeOIRY5LIJKOzhjm6AXZaelHy+8Nn7f7Xl2LSgL87eZodPvED5rqGQEHyt0mgE0A==}
     engines: {node: '>=14'}
 
+  '@vitest/eslint-plugin@1.0.1':
+    resolution: {integrity: sha512-albpL56cL9XMwHJWCWZqjDxkuDkBXBF3WpPGOv6q2WA3cipCP41cKEwfSGktoRNGmPN77wuX452O8pM+z+ApNw==}
+    peerDependencies:
+      '@typescript-eslint/utils': '>= 8.0'
+      eslint: '>= 8.57.0'
+      typescript: '>= 5.0.0'
+      vitest: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/utils':
+        optional: true
+      typescript:
+        optional: true
+      vitest:
+        optional: true
+
   '@vue/compiler-core@3.4.27':
     resolution: {integrity: sha512-E+RyqY24KnyDXsCuQrI+mlcdW3ALND6U7Gqa/+bVwbcpcR3BRRIckFoz7Qyd4TTlnugtwuI7YgjbvsLmxb+yvg==}
 
@@ -2945,19 +2960,6 @@ packages:
     engines: {node: '>=18.18'}
     peerDependencies:
       eslint: '>=8.56.0'
-
-  eslint-plugin-vitest@0.5.4:
-    resolution: {integrity: sha512-um+odCkccAHU53WdKAw39MY61+1x990uXjSPguUCq3VcEHdqJrOb8OTMrbYlY6f9jAKx7x98kLVlIe3RJeJqoQ==}
-    engines: {node: ^18.0.0 || >= 20.0.0}
-    peerDependencies:
-      '@typescript-eslint/eslint-plugin': '*'
-      eslint: ^8.57.0 || ^9.0.0
-      vitest: '*'
-    peerDependenciesMeta:
-      '@typescript-eslint/eslint-plugin':
-        optional: true
-      vitest:
-        optional: true
 
   eslint-plugin-vue@9.27.0:
     resolution: {integrity: sha512-5Dw3yxEyuBSXTzT5/Ge1X5kIkRTQ3nvBn/VwPwInNiZBSJOO/timWMUaflONnFBzU6NhB68lxnCda7ULV5N7LA==}
@@ -4720,7 +4722,6 @@ packages:
   rollup-plugin-ts@3.4.5:
     resolution: {integrity: sha512-9iCstRJpEZXSRQuXitlSZAzcGlrqTbJg1pE4CMbEi6xYldxVncdPyzA2I+j6vnh73wBymZckerS+Q/iEE/M3Ow==}
     engines: {node: '>=16.15.1', npm: '>=7.0.0', pnpm: '>=3.2.0', yarn: '>=1.13'}
-    deprecated: please use @rollup/plugin-typescript and rollup-plugin-dts instead
     peerDependencies:
       '@babel/core': '>=7.x'
       '@babel/plugin-transform-runtime': '>=7.x'
@@ -7435,6 +7436,13 @@ snapshots:
       - supports-color
       - typescript
 
+  '@vitest/eslint-plugin@1.0.1(@typescript-eslint/utils@8.8.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)':
+    dependencies:
+      eslint: 9.11.1(jiti@2.1.0)
+    optionalDependencies:
+      '@typescript-eslint/utils': 8.8.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)
+      typescript: 5.4.5
+
   '@vue/compiler-core@3.4.27':
     dependencies:
       '@babel/parser': 7.25.6
@@ -8847,16 +8855,6 @@ snapshots:
       regjsparser: 0.10.0
       semver: 7.6.3
       strip-indent: 3.0.0
-
-  eslint-plugin-vitest@0.5.4(@typescript-eslint/eslint-plugin@8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5):
-    dependencies:
-      '@typescript-eslint/utils': 7.18.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)
-      eslint: 9.11.1(jiti@2.1.0)
-    optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.8.0(@typescript-eslint/parser@8.8.0(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5))(eslint@9.11.1(jiti@2.1.0))(typescript@5.4.5)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
 
   eslint-plugin-vue@9.27.0(eslint@9.11.1(jiti@2.1.0)):
     dependencies:
