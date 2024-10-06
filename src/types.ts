@@ -314,6 +314,11 @@ export type OptionsConfig = {
    */
   autoRenamePlugins?: boolean;
 
+  /**
+   * Enable SonarJS rules.
+   */
+  sonar?: boolean;
+
   ignores?: OptionsIgnores;
 
   /**

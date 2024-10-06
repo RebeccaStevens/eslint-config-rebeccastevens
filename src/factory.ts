@@ -114,6 +114,7 @@ export async function rsEslint(
     toml: tomlOptions = false,
     markdown: markdownOptions = false,
     formatters: formattersOptions = true,
+    sonar: sonarOptions = true,
     mode,
     projectRoot,
   } = options;
@@ -203,7 +204,6 @@ export async function rsEslint(
     }),
     promise(),
     regexp(),
-    sonar(functionalConfigOptions),
     comments(),
     unicorn(),
     node(),
@@ -211,6 +211,10 @@ export async function rsEslint(
 
   if (vueOptions !== false) {
     componentExts.push("vue");
+  }
+
+  if (sonarOptions) {
+    m_configs.push(sonar(functionalConfigOptions));
   }
 
   if (jsxOptions) {
