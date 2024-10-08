@@ -74,7 +74,7 @@ export function javascript(options: Readonly<Required<OptionsOverrides & Options
         "no-console": ["error", { allow: ["warn", "error"] }],
         "no-const-assign": "error",
         "no-constant-binary-expression": "error",
-        "no-constant-condition": "error",
+        // "no-constant-condition": "error",
         "no-constructor-return": "error",
         "no-control-regex": "error",
         "no-debugger": "error",
