@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.2.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.4...v3.2.5) (2024-10-08)
+
+
+### Bug Fixes
+
+* disable no-constant-condition ([d0cecff](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/d0cecff1fd5e8b18bc351be45a0f86e8fa65d451))
+
 ## [3.2.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.3...v3.2.4) (2024-10-06)
 
 
