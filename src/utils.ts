@@ -58,9 +58,9 @@ export async function loadPackages<T extends string[]>(
 }
 
 const installPackagesToLoad = new Set<string>();
-let m_installPackagesAction: Promise<void> | null = null;
-let m_installPackagesActionResolver: ((value: string[] | PromiseLike<string[]>) => void) | null = null;
-let m_installPackagesTimeout: NodeJS.Timeout | null = null;
+let mut_installPackagesAction: Promise<void> | null = null;
+let mut_installPackagesActionResolver: ((value: string[] | PromiseLike<string[]>) => void) | null = null;
+let mut_installPackagesTimeout: NodeJS.Timeout | null = null;
 
 /* eslint-disable functional/no-loop-statements */
 async function installPackages(packages: ReadonlyArray<string>) {
@@ -68,23 +68,23 @@ async function installPackages(packages: ReadonlyArray<string>) {
     installPackagesToLoad.add(p);
   }
 
-  if (m_installPackagesTimeout !== null) {
-    clearTimeout(m_installPackagesTimeout);
+  if (mut_installPackagesTimeout !== null) {
+    clearTimeout(mut_installPackagesTimeout);
   }
 
-  m_installPackagesTimeout = setTimeout(() => {
+  mut_installPackagesTimeout = setTimeout(() => {
     const allPackages = [...installPackagesToLoad.values()];
-    m_installPackagesTimeout = null;
+    mut_installPackagesTimeout = null;
     installPackagesToLoad.clear();
-    m_installPackagesAction = null;
-    assert(m_installPackagesActionResolver !== null);
-    m_installPackagesActionResolver(allPackages);
-    m_installPackagesActionResolver = null;
+    mut_installPackagesAction = null;
+    assert(mut_installPackagesActionResolver !== null);
+    mut_installPackagesActionResolver(allPackages);
+    mut_installPackagesActionResolver = null;
   }, 100);
 
-  if (m_installPackagesAction === null) {
-    m_installPackagesAction = new Promise<string[]>((resolve) => {
-      m_installPackagesActionResolver = resolve;
+  if (mut_installPackagesAction === null) {
+    mut_installPackagesAction = new Promise<string[]>((resolve) => {
+      mut_installPackagesActionResolver = resolve;
     }).then(async (allPackages: string[]) => {
       const allPackagesString = allPackages.join(", ");
 
@@ -106,6 +106,6 @@ async function installPackages(packages: ReadonlyArray<string>) {
     });
   }
 
-  return m_installPackagesAction;
+  return mut_installPackagesAction;
 }
 /* eslint-enable functional/no-loop-statements */

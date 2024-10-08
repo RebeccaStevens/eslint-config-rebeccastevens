@@ -331,7 +331,7 @@ export function javascript(options: Readonly<Required<OptionsOverrides & Options
                   ? { props: false }
                   : {
                       props: true,
-                      ignorePropertyModificationsForRegex: ["^[mM]_"],
+                      ignorePropertyModificationsForRegex: ["^[mM]ut_"],
                     },
               ],
             }),

@@ -177,14 +177,14 @@ export async function rsEslint(
 
   const functionalConfigOptions = {
     functionalEnforcement,
-    ignoreNamePattern: ["^mutable", "^[mM]_"],
+    ignoreNamePattern: ["^[mM]ut_"],
     ...resolveSubOptions(options, "functional"),
   };
 
-  const m_configs: Array<Awaitable<FlatConfigItem[]>> = [];
+  const mut_configs: Array<Awaitable<FlatConfigItem[]>> = [];
 
   // Base configs
-  m_configs.push(
+  mut_configs.push(
     ignores({
       projectRoot,
       ignores: ignoresOptions ?? [],
@@ -214,15 +214,15 @@ export async function rsEslint(
   }
 
   if (sonarOptions) {
-    m_configs.push(sonar(functionalConfigOptions));
+    mut_configs.push(sonar(functionalConfigOptions));
   }
 
   if (jsxOptions) {
-    m_configs.push(jsx());
+    mut_configs.push(jsx());
   }
 
   if (typeScriptOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       typescript({
         projectRoot,
         mode,
@@ -237,7 +237,7 @@ export async function rsEslint(
   }
 
   if (stylisticOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       stylistic({
         stylistic: stylisticOptions,
         typescript: hasTypeScript,
@@ -247,7 +247,7 @@ export async function rsEslint(
   }
 
   if (functionalEnforcement !== "none" || mode === "library") {
-    m_configs.push(
+    mut_configs.push(
       functional({
         ...typescriptConfigOptions,
         ...functionalConfigOptions,
@@ -259,7 +259,7 @@ export async function rsEslint(
   }
 
   if (testOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       test({
         files: GLOB_TESTS,
         overrides: getOverrides(options, "test"),
@@ -268,7 +268,7 @@ export async function rsEslint(
   }
 
   if (vueOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       vue({
         ...typescriptConfigOptions,
         typescript: hasTypeScript,
@@ -284,7 +284,7 @@ export async function rsEslint(
   }
 
   if (reactOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       react({
         ...typescriptConfigOptions,
         typescript: hasTypeScript,
@@ -297,7 +297,7 @@ export async function rsEslint(
   }
 
   if (tailwindOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       tailwind({
         stylistic: stylisticOptions,
         overrides: getOverrides(options, "tailwind"),
@@ -306,7 +306,7 @@ export async function rsEslint(
   }
 
   if (unoCSSOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       unocss({
         attributify: true,
         strict: true,
@@ -317,7 +317,7 @@ export async function rsEslint(
   }
 
   if (jsoncOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       jsonc({
         files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
         overrides: getOverrides(options, "jsonc"),
@@ -328,7 +328,7 @@ export async function rsEslint(
   }
 
   if (yamlOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       yaml({
         files: [GLOB_YAML],
         overrides: getOverrides(options, "yaml"),
@@ -338,7 +338,7 @@ export async function rsEslint(
   }
 
   if (tomlOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       toml({
         files: [GLOB_TOML],
         overrides: getOverrides(options, "toml"),
@@ -348,7 +348,7 @@ export async function rsEslint(
   }
 
   if (markdownOptions !== false) {
-    m_configs.push(
+    mut_configs.push(
       markdown({
         enableTypeRequiredRules: !(markdownOptions === true || markdownOptions.enableTypeRequiredRules === false),
         files: [GLOB_MARKDOWN],
@@ -359,22 +359,22 @@ export async function rsEslint(
   }
 
   if (formattersOptions !== false) {
-    m_configs.push(formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions));
+    mut_configs.push(formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions));
   }
 
   if (isInEditor) {
-    m_configs.push(inEditor());
+    mut_configs.push(inEditor());
   }
 
-  m_configs.push(overrides());
+  mut_configs.push(overrides());
 
-  let m_composer = new FlatConfigComposer<FlatConfigItem>().append(...m_configs, ...userConfigs);
+  let mut_composer = new FlatConfigComposer<FlatConfigItem>().append(...mut_configs, ...userConfigs);
 
   if (autoRenamePlugins) {
-    m_composer = m_composer.renamePlugins(defaultPluginRenaming);
+    mut_composer = mut_composer.renamePlugins(defaultPluginRenaming);
   }
 
-  return m_composer.toConfigs();
+  return mut_composer.toConfigs();
 }
 
 export type ResolvedOptions<T> = T extends boolean ? never : T extends string ? never : NonNullable<T>;
