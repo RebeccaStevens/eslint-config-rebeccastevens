@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.3.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.5...v3.3.0) (2024-10-08)
+
+
+### Features
+
+* use "mut_" over "m_" ([49f44d4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/49f44d461e8d11910b7b1cd70d25d61982b1f29a))
+
 ## [3.2.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.4...v3.2.5) (2024-10-08)
 
 
