@@ -75,7 +75,7 @@ export async function functional(
     "functional/immutable-data": [
       "error",
       {
-        ignoreAccessorPattern: ["**.mutable*.**", "**.m_*.**"],
+        ignoreAccessorPattern: ["**.mut_*.**"],
         ignoreClasses: "fieldsOnly",
         ignoreImmediateMutation: true,
         ignoreNonConstDeclarations: true,

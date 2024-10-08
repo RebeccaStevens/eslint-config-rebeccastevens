@@ -329,7 +329,7 @@ export async function formatters(
     "yaml/block-sequence-hyphen-indicator-newline": "off",
   } satisfies FlatConfigItem["rules"];
 
-  const m_configs: FlatConfigItem[] = [
+  const mut_configs: FlatConfigItem[] = [
     {
       name: "rs:formatters:setup",
       plugins: {
@@ -339,7 +339,7 @@ export async function formatters(
   ];
 
   if (options.js !== undefined && options.js) {
-    m_configs.push({
+    mut_configs.push({
       name: "rs:formatter:javascript",
       files: [GLOB_JS, GLOB_JSX],
       rules: {
@@ -356,7 +356,7 @@ export async function formatters(
   }
 
   if (options.ts !== undefined && options.ts) {
-    m_configs.push({
+    mut_configs.push({
       name: "rs:formatter:typescript",
       files: [GLOB_TS, GLOB_TSX],
       ignores: options.dts === true ? [] : [GLOB_DTS],
@@ -374,7 +374,7 @@ export async function formatters(
   }
 
   if (options.yaml !== undefined && options.yaml) {
-    m_configs.push({
+    mut_configs.push({
       name: "rs:formatter:yaml",
       files: [GLOB_YAML],
       languageOptions: {
@@ -394,7 +394,7 @@ export async function formatters(
   }
 
   if (options.json !== undefined && options.json) {
-    m_configs.push(
+    mut_configs.push(
       {
         name: "rs:formatter:json",
         files: [GLOB_JSON],
@@ -509,7 +509,7 @@ export async function formatters(
   }
 
   if (options.css !== undefined && options.css) {
-    m_configs.push(
+    mut_configs.push(
       {
         name: "rs:formatter:css",
         files: [GLOB_CSS, GLOB_POSTCSS],
@@ -565,7 +565,7 @@ export async function formatters(
   }
 
   if (options.html !== undefined && options.html) {
-    m_configs.push({
+    mut_configs.push({
       name: "rs:formatter:html",
       files: ["**/*.html"],
       languageOptions: {
@@ -592,7 +592,7 @@ export async function formatters(
           ? ["**/slides.md"]
           : (options.slidev.files ?? []);
 
-    m_configs.push({
+    mut_configs.push({
       name: "rs:formatter:markdown",
       files: [GLOB_MARKDOWN],
       ignores: GLOB_SLIDEV,
@@ -613,7 +613,7 @@ export async function formatters(
     });
 
     if (options.slidev !== undefined && options.slidev !== false) {
-      m_configs.push({
+      mut_configs.push({
         name: "rs:formatter:slidev",
         files: GLOB_SLIDEV,
         languageOptions: {
@@ -636,7 +636,7 @@ export async function formatters(
   }
 
   if (options.graphql !== undefined && options.graphql) {
-    m_configs.push({
+    mut_configs.push({
       files: [GLOB_GRAPHQL],
       languageOptions: {
         parser: parserPlain,
@@ -655,5 +655,5 @@ export async function formatters(
     });
   }
 
-  return m_configs;
+  return mut_configs;
 }
