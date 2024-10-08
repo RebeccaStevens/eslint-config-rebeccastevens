@@ -23,6 +23,7 @@
     "eslint-plugin-import-x",
     "eslint-plugin-jsdoc",
     "eslint-plugin-jsonc",
+    "eslint-plugin-jsx-a11y",
     "eslint-plugin-markdown",
     "eslint-plugin-n",
     "eslint-plugin-no-only-tests",
