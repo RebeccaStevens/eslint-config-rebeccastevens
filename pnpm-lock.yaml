@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  dts-bundle-generator: 9.2.1
+  dts-bundle-generator: 9.5.1
 
 importers:
 
@@ -138,6 +138,9 @@ importers:
       eslint-plugin-jsonc:
         specifier: 2.16.0
         version: 2.16.0(eslint@9.12.0(jiti@2.3.3))
+      eslint-plugin-jsx-a11y:
+        specifier: 6.10.0
+        version: 6.10.0(eslint@9.12.0(jiti@2.3.3))
       eslint-plugin-markdown:
         specifier: 5.1.0
         version: 5.1.0(eslint@9.12.0(jiti@2.3.3))
@@ -2575,8 +2578,8 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
-  dts-bundle-generator@9.2.1:
-    resolution: {integrity: sha512-sMyIGJcn+FSc4f4VzRgX4muZS2uG91c/DjC++HkpZJyudGedSpGNR5bY9HEkSyyYFay0ERzjoDM7uKgUycaRvw==}
+  dts-bundle-generator@9.5.1:
+    resolution: {integrity: sha512-DxpJOb2FNnEyOzMkG11sxO2dmxPjthoVWxfKqWYJ/bI/rT1rvTMktF5EKjAYrRZu6Z6t3NhOUZ0sZ5ZXevOfbA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -8182,7 +8185,7 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dts-bundle-generator@9.2.1:
+  dts-bundle-generator@9.5.1:
     dependencies:
       typescript: 5.6.2
       yargs: 17.7.2
@@ -10607,7 +10610,7 @@ snapshots:
 
   rollup-plugin-dts-bundle-generator@1.4.0:
     dependencies:
-      dts-bundle-generator: 9.2.1
+      dts-bundle-generator: 9.5.1
       rollup: 2.79.2
 
   rollup@2.79.2:
