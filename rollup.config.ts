@@ -1,15 +1,14 @@
-import { rollupPlugin as rollupPluginDeassert } from "deassert";
+import rollupPluginTypescript from "@rollup/plugin-typescript";
 import type { RollupOptions } from "rollup";
-import rollupPluginTs from "rollup-plugin-ts";
+import rollupPluginDeassert from "rollup-plugin-deassert";
+import { generateDtsBundle } from "rollup-plugin-dts-bundle-generator";
 
 import pkg from "./package.json" with { type: "json" };
 
-const treeshake = {
-  annotations: true,
-  moduleSideEffects: ["src/typegen.ts"],
-  propertyReadSideEffects: false,
-  unknownGlobalSideEffects: false,
-} satisfies RollupOptions["treeshake"];
+const externalDependencies = [
+  ...Object.keys((pkg as any).dependencies ?? {}),
+  ...Object.keys((pkg as any).peerDependencies ?? {}),
+];
 
 export default {
   input: "src/index.ts",
@@ -22,6 +21,14 @@ export default {
       generatedCode: {
         preset: "es2015",
       },
+      plugins: [
+        generateDtsBundle({
+          compilation: {
+            preferredConfigPath: "tsconfig.build.json",
+          },
+          outFile: pkg.exports.types.import,
+        }) as any,
+      ],
     },
     {
       file: pkg.exports.require,
@@ -30,21 +37,44 @@ export default {
       generatedCode: {
         preset: "es2015",
       },
+      plugins: [
+        generateDtsBundle({
+          compilation: {
+            preferredConfigPath: "tsconfig.build.json",
+          },
+          outFile: pkg.exports.types.require,
+        }) as any,
+      ],
     },
   ],
 
-  external: [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)],
+  external: (source) => {
+    if (source.startsWith("node:")) {
+      return true;
+    }
+    if (externalDependencies.some((dep) => source.startsWith(dep))) {
+      return true;
+    }
+    return undefined;
+  },
 
   plugins: [
-    rollupPluginTs({
-      transpileOnly: true,
+    rollupPluginTypescript({
+      compilerOptions: {
+        noCheck: true,
+        declaration: false,
+      },
       tsconfig: "tsconfig.build.json",
     }),
     rollupPluginDeassert({
       include: ["**/*.{js,ts}"],
-      exclude: ["**/*.d.ts"],
     }),
   ],
 
-  treeshake,
+  treeshake: {
+    annotations: true,
+    moduleSideEffects: [],
+    propertyReadSideEffects: false,
+    unknownGlobalSideEffects: false,
+  },
 } satisfies RollupOptions;
