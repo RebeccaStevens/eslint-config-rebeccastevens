@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.3.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.0...v3.3.1) (2024-10-08)
+
+
+### Bug Fixes
+
+* add eslint-plugin-jsx-a11y ([2e13bb6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2e13bb60ba77a778782f820cb17a331e9519551a))
+
 # [3.3.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.2.5...v3.3.0) (2024-10-08)
 
 
