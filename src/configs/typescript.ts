@@ -339,7 +339,7 @@ export async function typescript(
                 },
                 {
                   selector: "variable",
-                  filter: { regex: "_[^_]+", match: true },
+                  filter: { regex: "^[mM]ut_[^_]+", match: true },
                   format: ["camelCase", "PascalCase"],
                   modifiers: ["const"],
                   prefix: ["mut_", "Mut_"],
@@ -367,16 +367,8 @@ export async function typescript(
                 },
                 {
                   selector: ["autoAccessor", "parameterProperty", "property"],
+                  filter: { regex: "^[mM]ut_[^_]+", match: true },
                   format: ["camelCase", "PascalCase"],
-                  prefix: ["mut_", "Mut_"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: ["autoAccessor", "parameterProperty", "property"],
-                  filter: { regex: "_[^_]+", match: true },
-                  format: ["camelCase", "PascalCase"],
-                  modifiers: ["readonly"],
                   prefix: ["mut_", "Mut_"],
                   leadingUnderscore: "forbid",
                   trailingUnderscore: "forbid",
