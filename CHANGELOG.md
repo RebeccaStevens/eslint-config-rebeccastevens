@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.3.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.2...v3.3.3) (2024-10-20)
+
+
+### Bug Fixes
+
+* only enforce max-classes-per-file when not functional ([096d7ed](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/096d7ed66ccd800056409e31c1ab71ab21660ce2))
+* use functional/no-class-inheritance over functional/no-classes ([68fb811](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/68fb811ea9194ab2b518694a308abed17668495d))
+
 ## [3.3.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.1...v3.3.2) (2024-10-09)
 
 
