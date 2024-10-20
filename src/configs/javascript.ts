@@ -52,7 +52,6 @@ export function javascript(options: Readonly<Required<OptionsOverrides & Options
         "grouped-accessor-pairs": "error",
         "guard-for-in": "error",
         "logical-assignment-operators": "error",
-        "max-classes-per-file": ["error", 1],
         "max-depth": ["error", 10],
         "new-cap": [
           "error",
@@ -323,7 +322,9 @@ export function javascript(options: Readonly<Required<OptionsOverrides & Options
         yoda: ["error", "never"],
 
         ...(functionalEnforcement === "none"
-          ? {}
+          ? {
+              "max-classes-per-file": ["error", 1],
+            }
           : {
               "no-param-reassign": [
                 "error",
