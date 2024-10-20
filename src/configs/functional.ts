@@ -34,7 +34,7 @@ export async function functional(
     "functional/no-throw-statements": "error",
     "functional/no-try-statements": "error",
     "functional/no-let": "error",
-    "functional/no-classes": "error",
+    "functional/no-class-inheritance": "error",
     "functional/no-this-expressions": "error",
     "functional/no-loop-statements": "error",
     "functional/immutable-data": "error",
