@@ -85,7 +85,7 @@
     "@unocss/eslint-plugin": "0.63.6",
     "@vitest/eslint-plugin": "1.1.7",
     "commitizen": "4.3.1",
-    "cspell": "8.15.4",
+    "cspell": "8.15.5",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "9.13.0",
     "eslint-config-prettier": "9.1.0",
