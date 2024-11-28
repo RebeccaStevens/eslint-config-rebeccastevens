@@ -197,7 +197,13 @@ export async function typescript(
             allowString: false,
           },
         ],
-        "ts/switch-exhaustiveness-check": "error",
+        "ts/switch-exhaustiveness-check": [
+          "error",
+          {
+            allowDefaultCaseForExhaustiveSwitch: true,
+            considerDefaultExhaustiveForUnions: true,
+          },
+        ],
         "ts/unbound-method": ["error", { ignoreStatic: true }],
         "ts/unified-signatures": ["error", { ignoreDifferentlyNamedParameters: true }],
         "ts/use-unknown-in-catch-callback-variable": "error",
