@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.3.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.3...v3.3.4) (2024-11-28)
+
+
+### Bug Fixes
+
+* **ts/switch-exhaustiveness-check:** considerDefaultExhaustiveForUnions: true ([2e4b7c4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2e4b7c48abd0de4cf0bad99d34e48c491b7bae66))
+* yaml/quotes ([94cf07b](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/94cf07b0f8e5610fdef1384acb91304cd56e96c7))
+
 ## [3.3.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.2...v3.3.3) (2024-10-20)
 
 
