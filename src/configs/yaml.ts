@@ -51,7 +51,7 @@ export async function yaml(
         "yaml/indent": [stylisticEnforcement, indent === "tab" ? 2 : indent],
         "yaml/key-spacing": stylisticEnforcement,
         "yaml/no-tab-indent": stylisticEnforcement,
-        "yaml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes }],
+        "yaml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes === "backtick" ? "double" : quotes }],
         "yaml/spaced-comment": stylisticEnforcement,
 
         ...overrides,
