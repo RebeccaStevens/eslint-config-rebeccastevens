@@ -32,6 +32,7 @@ export async function jsdoc(options: Readonly<Required<RequiredOptionsStylistic>
           },
         ],
         "jsdoc/no-defaults": "warn",
+        "jsdoc/no-undefined-types": ["error", { disableReporting: true }],
         "jsdoc/require-asterisk-prefix": "error",
         "jsdoc/require-description": "warn",
         // Rule is too strict.
