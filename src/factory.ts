@@ -198,6 +198,7 @@ export async function rsEslint(
       ...typescriptConfigOptions,
       stylistic: stylisticOptions,
       typescript: hasTypeScript,
+      mode,
     }),
     jsdoc({
       stylistic: stylisticOptions,

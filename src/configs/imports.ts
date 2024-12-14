@@ -1,16 +1,19 @@
 import type { ESLint } from "eslint";
 
-import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_SRC_EXT, GLOB_TS, GLOB_TSX } from "../globs";
+import { GLOB_DTS, GLOB_MJS, GLOB_MTS, GLOB_SRC, GLOB_SRC_EXT, GLOB_TS, GLOB_TSX } from "../globs";
 import type {
   FlatConfigItem,
   OptionsHasTypeScript,
+  OptionsMode,
   OptionsTypeScriptParserOptions,
   RequiredOptionsStylistic,
 } from "../types";
 import { loadPackages } from "../utils";
 
 export async function imports(
-  options: Readonly<Required<RequiredOptionsStylistic & OptionsTypeScriptParserOptions & OptionsHasTypeScript>>,
+  options: Readonly<
+    Required<RequiredOptionsStylistic & OptionsTypeScriptParserOptions & OptionsHasTypeScript & OptionsMode>
+  >,
 ): Promise<FlatConfigItem[]> {
   const { stylistic, parserOptions, typescript } = options;
 
@@ -187,6 +190,25 @@ export async function imports(
                   disallowTypeAnnotations: false,
                 },
               ],
+            },
+          },
+        ]
+      : []) satisfies FlatConfigItem[]),
+    ...((options.mode === "library"
+      ? [
+          {
+            files: [GLOB_SRC],
+            rules: {
+              // Use non-sloppy imports. See: https://jsr.io/docs/publishing-packages#relative-imports
+              "import/extensions": [
+                "error",
+                "always",
+                {
+                  checkTypeImports: true,
+                  ignorePackages: true,
+                },
+              ],
+              "import/no-useless-path-segments": ["error", { noUselessIndex: false }],
             },
           },
         ]

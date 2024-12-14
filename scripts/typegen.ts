@@ -56,6 +56,7 @@ const configs = (await combine(
     typescript: false,
     parserOptions: {},
     filesTypeAware: [],
+    mode: "none",
   }),
   inEditor(),
   javascript({
