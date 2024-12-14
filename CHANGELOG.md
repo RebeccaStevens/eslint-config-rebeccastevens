@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.4.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.5...v3.4.0) (2024-12-14)
+
+
+### Bug Fixes
+
+* update glob patterns ([332eaca](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/332eaca392a00ac6808d27bcd916e03cfae02be9))
+
+
+### Features
+
+* enforce non-sloppy imports for library code ([0490a67](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/0490a67ac44c6a1202ceb6f6282d596c0fbe66a4))
+
 ## [3.3.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.4...v3.3.5) (2024-12-14)
 
 
