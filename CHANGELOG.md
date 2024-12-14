@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.3.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.4...v3.3.5) (2024-12-14)
+
+
+### Bug Fixes
+
+* check jsdoc used types ([1958508](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/1958508698a48585e20841ec6eb630c20a488950))
+
 ## [3.3.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.3...v3.3.4) (2024-11-28)
 
 
