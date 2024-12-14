@@ -23,7 +23,8 @@ export const GLOB_MTS = "**/?(.)*.mts";
 export const GLOB_CJS = "**/?(.)*.cjs";
 export const GLOB_CTS = "**/?(.)*.cts";
 
-export const GLOB_STYLE = "**/?(.)*.{c,le,sc}ss";
+// cspell:disable-next-line
+export const GLOB_STYLE = "**/?(.)*.{c,le,sc,pc,postc}ss";
 export const GLOB_CSS = "**/?(.)*.css";
 export const GLOB_POSTCSS = "**/?(.)*.{p,post}css";
 export const GLOB_LESS = "**/?(.)*.less";
@@ -56,10 +57,13 @@ export const GLOB_ALL_SRC = [
   GLOB_STYLE,
   GLOB_JSON,
   GLOB_JSON5,
+  GLOB_JSONC,
   GLOB_MARKDOWN,
   GLOB_VUE,
   GLOB_YAML,
   GLOB_HTML,
+  GLOB_TOML,
+  GLOB_GRAPHQL,
 ];
 
 export const GLOB_EXCLUDE = [
