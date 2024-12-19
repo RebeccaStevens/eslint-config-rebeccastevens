@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.5.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.4.0...v3.5.0) (2024-12-19)
+
+
+### Bug Fixes
+
+* **functional/no-conditional-statements:** ignore import.meta.vitest conditions ([4b6990d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/4b6990d6be854e666728aa4da8aa0ca062355c20))
+* update import rules for apps ([723a40d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/723a40d453bc1ef2ec056dceb3f43ef7c9e2d773))
+
+
+### Features
+
+* add support for ReactRouter 7 ([83cf882](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/83cf8821c5064a1f4896b994738f6d1a3bee488a))
+
 # [3.4.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.3.5...v3.4.0) (2024-12-14)
 
 
