@@ -41,7 +41,12 @@ export async function functional(
     "functional/prefer-immutable-types": "error",
     "functional/type-declaration-immutability": "error",
     "functional/no-mixed-types": "error",
-    "functional/no-conditional-statements": "error",
+    "functional/no-conditional-statements": [
+      "error",
+      {
+        ignoreCodePattern: ["import.meta.vitest"],
+      },
+    ],
     "functional/no-expression-statements": "error",
     "functional/no-return-void": "error",
     "functional/prefer-property-signatures": stylistic === false ? "off" : "error",
@@ -85,6 +90,7 @@ export async function functional(
       "error",
       {
         allowReturningBranches: true,
+        ignoreCodePattern: ["import.meta.vitest"],
       },
     ],
     "functional/no-expression-statements": [
