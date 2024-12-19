@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
   issues: write
   pull-requests: write
 
@@ -16,8 +17,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  lint_eslint:
-    uses: ./.github/workflows/lint-eslint.yml
+  lint_js:
+    uses: ./.github/workflows/lint-js.yml
   lint_knip_dev:
     uses: ./.github/workflows/lint-knip-dev.yml
   lint_knip_prod:
@@ -28,18 +29,21 @@ jobs:
     uses: ./.github/workflows/lint-packages.yml
   lint_spelling:
     uses: ./.github/workflows/lint-spelling.yml
-  type_check:
+  lint_yaml:
+    uses: ./.github/workflows/lint-yaml.yml
+  typecheck:
     uses: ./.github/workflows/typecheck.yml
 
   release:
     needs:
-      - lint_eslint
+      - lint_js
       - lint_knip_dev
       - lint_knip_prod
       - lint_markdown
       - lint_packages
       - lint_spelling
-      - type_check
+      - lint_yaml
+      - typecheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

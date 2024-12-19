@@ -1,11 +1,11 @@
-$schema: http://json.schemastore.org/prettierrc
+"$schema": http://json.schemastore.org/prettierrc
 
-trailingComma: all
+trailingComma: "all"
 
 overrides:
   - files: "*.md"
     options:
-      embeddedLanguageFormatting: off
-  - files: .nvmrc
+      embeddedLanguageFormatting: "off"
+  - files: ".nvmrc"
     options:
-      parser: yaml
+      parser: "yaml"

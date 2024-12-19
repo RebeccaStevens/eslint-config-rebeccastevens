@@ -16,7 +16,7 @@ import type {
 } from "../types";
 import { loadPackages } from "../utils";
 
-export const defaultFilesTypesAware = [GLOB_TS, GLOB_TSX, GLOB_DTS];
+export const defaultFilesTypesAware: string[] = [GLOB_TS, GLOB_TSX, GLOB_DTS];
 
 export async function typescript(
   options: Readonly<

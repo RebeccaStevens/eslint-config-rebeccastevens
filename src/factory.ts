@@ -1,5 +1,6 @@
 import * as path from "node:path";
 
+import type { SharedConfig } from "@typescript-eslint/utils/ts-eslint";
 import { isPackageExists } from "local-pkg";
 
 import {
@@ -49,6 +50,7 @@ import {
   GLOB_VUE,
   GLOB_YAML,
 } from "./globs";
+import type { RuleOptions } from "./typegen";
 import type {
   Awaitable,
   FlatConfigItem,
@@ -389,7 +391,10 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
   ) as ResolvedOptions<OptionsConfig[K]>;
 }
 
-export function getOverrides<K extends keyof OptionsConfig>(options: Readonly<OptionsConfig>, key: K) {
+export function getOverrides<K extends keyof OptionsConfig>(
+  options: Readonly<OptionsConfig>,
+  key: K,
+): (Partial<Record<string, SharedConfig.RuleEntry>> & RuleOptions) | undefined {
   const sub = resolveSubOptions(options, key);
   return "overrides" in sub ? sub.overrides : {};
 }

@@ -1,4 +1,4 @@
-name: Close stale issues and PRs
+name: "Close stale issues and PRs"
 
 on:
   schedule:
@@ -22,6 +22,6 @@ jobs:
           stale-issue-label: "Status: Stale"
           stale-pr-label: "Status: Stale"
 
-          stale-issue-message: This issue is stale because it has been open 60 days with no activity. Remove stale label or comment or this will be closed in 7 days.
-          close-issue-message: This issue was closed because it has been stalled for 7 days with no activity.
-          stale-pr-message: This PR is stale because it has been open 60 days with no activity.
+          stale-issue-message: "This issue is stale because it has been open 60 days with no activity. Remove stale label or comment or this will be closed in 7 days."
+          close-issue-message: "This issue was closed because it has been stalled for 7 days with no activity."
+          stale-pr-message: "This PR is stale because it has been open 60 days with no activity."

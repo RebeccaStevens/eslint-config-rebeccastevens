@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import type { Linter } from "eslint";
 import type { Awaitable } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
@@ -21,7 +22,7 @@ export async function interopDefault<T>(value: Awaitable<T>): Promise<T extends 
   return (resolved as any).default ?? resolved;
 }
 
-export const parserPlain = {
+export const parserPlain: Linter.Parser = {
   meta: {
     name: "parser-plain",
   },

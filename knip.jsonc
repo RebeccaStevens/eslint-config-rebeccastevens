@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/knip/schema-jsonc.json",
-  "entry": ["src/index.ts!", "tests/**/*.test.ts"],
-  "project": ["src/**/*.ts!", "tests/**/*.ts"],
+  "entry": ["src/index.ts!", "scripts/typegen.ts"],
+  "project": ["src/**/*.ts!"],
   "ignoreDependencies": [
     "@eslint-react/eslint-plugin",
     "@intlify/eslint-plugin-vue-i18n",
@@ -49,4 +49,5 @@
     "vue-eslint-parser",
     "yaml-eslint-parser",
   ],
+  "ignore": ["src/utils.ts"],
 }
