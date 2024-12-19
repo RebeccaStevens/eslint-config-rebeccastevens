@@ -16,6 +16,7 @@ import { interopDefault, loadPackages } from "../utils";
 const ReactRefreshAllowConstantExportPackages = ["vite"];
 const RemixPackages = ["@remix-run/node", "@remix-run/react", "@remix-run/serve", "@remix-run/dev"];
 const NextJsPackages = ["next"];
+const ReactRouterPackages = ["react-router"];
 
 export async function react(
   options: Readonly<
@@ -36,6 +37,7 @@ export async function react(
   const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some((i) => isPackageExists(i));
   const isUsingRemix = RemixPackages.some((i) => isPackageExists(i));
   const isUsingNext = NextJsPackages.some((i) => isPackageExists(i));
+  const isUsingReactRouter = ReactRouterPackages.some((i) => isPackageExists(i));
 
   const plugins =
     ((pluginReact.configs?.["all"] as any)?.plugins as Record<string, ESLint.Plugin> | undefined) ??
@@ -98,6 +100,21 @@ export async function react(
                 ? ["config", "generateStaticParams", "metadata", "generateMetadata", "viewport", "generateViewport"]
                 : []),
               ...(isUsingRemix ? ["meta", "links", "headers", "loader", "action"] : []),
+              ...(isUsingReactRouter
+                ? [
+                    "action",
+                    "clientAction",
+                    "clientloader",
+                    "ErrorBoundary",
+                    "handle",
+                    "headers",
+                    "HydrateFallback",
+                    "links",
+                    "loader",
+                    "meta",
+                    "shouldRevalidate",
+                  ]
+                : []),
             ],
           },
         ],
