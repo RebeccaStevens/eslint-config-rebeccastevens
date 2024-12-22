@@ -116,7 +116,6 @@ export async function typescript(
         "ts/no-floating-promises": "error",
         "ts/no-for-in-array": "error",
         "ts/no-invalid-void-type": "error",
-        "ts/no-loop-func": "error",
         // "ts/no-meaningless-void-operator": "error",
         "ts/no-misused-new": "error",
         "ts/no-misused-promises": "error",
@@ -207,6 +206,9 @@ export async function typescript(
         "ts/unbound-method": ["error", { ignoreStatic: true }],
         "ts/unified-signatures": ["error", { ignoreDifferentlyNamedParameters: true }],
         "ts/use-unknown-in-catch-callback-variable": "error",
+
+        "no-loop-func": "off",
+        "ts/no-loop-func": "error",
 
         "no-use-before-define": "off",
         "ts/no-use-before-define": [
