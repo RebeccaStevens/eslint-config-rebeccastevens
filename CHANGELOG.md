@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.5.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.0...v3.5.1) (2024-12-22)
+
+
+### Bug Fixes
+
+* only use ts version of no-loop-func when using ts ([48dc0b0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/48dc0b05705d3af72b4966e861c16f8747f855ad))
+
 # [3.5.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.4.0...v3.5.0) (2024-12-19)
 
 
