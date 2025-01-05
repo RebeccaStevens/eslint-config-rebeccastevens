@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.5.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.1...v3.5.2) (2025-01-05)
+
+
+### Bug Fixes
+
+* add more vue-i18n rules ([94ca078](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/94ca078f62c842d4585a0dad574cdc74de403505))
+
 ## [3.5.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.0...v3.5.1) (2024-12-22)
 
 
