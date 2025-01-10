@@ -1,5 +1,7 @@
 import type { ESLint, Linter } from "eslint";
+import { isPackageExists } from "local-pkg";
 
+import { GLOB_SRC_EXT } from "../globs";
 import type {
   FlatConfigItem,
   OptionsFiles,
@@ -25,6 +27,8 @@ type PluginVue = ESLint.Plugin & {
 };
 /* eslint-enable ts/naming-convention */
 
+const NuxtPackages = ["nuxt"];
+
 export async function vue(
   options: Readonly<
     Required<
@@ -42,6 +46,8 @@ export async function vue(
   const sfcBlocks = options.sfcBlocks === true ? {} : options.sfcBlocks;
 
   const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
+
+  const isUsingNuxt = NuxtPackages.some((i) => isPackageExists(i));
 
   const [pluginVue, pluginVueI18n, parserVue, processorVueBlocks, { mergeProcessors }] = (await loadPackages([
     "eslint-plugin-vue",
@@ -255,5 +261,43 @@ export async function vue(
         ...overrides,
       },
     },
+
+    ...((isUsingNuxt
+      ? [
+          {
+            name: "rs:nuxt:rules:off",
+            files,
+            rules: {
+              "import/default": "off",
+              "import/named": "off",
+              "import/namespace": "off",
+              "import/no-unresolved": "off",
+            },
+          },
+          {
+            name: "rs:nuxt:rules",
+            files: [
+              // These pages are not used directly by users so they can have one-word names.
+              `**/pages/**/*.{${GLOB_SRC_EXT},vue}`,
+              `**/layouts/**/*.{${GLOB_SRC_EXT},vue}`,
+              `**/app.{${GLOB_SRC_EXT},vue}`,
+              `**/error.{${GLOB_SRC_EXT},vue}`,
+
+              // These files shouldn't have multiple words in their names as they are within subdirectories.
+              `**/components/*/**/*.{${GLOB_SRC_EXT},vue}`,
+            ],
+            rules: {
+              "vue/multi-word-component-names": "off",
+            },
+          },
+          {
+            // Pages and layouts are required to have a single root element if transitions are enabled.
+            files: [`**/pages/**/*.{${GLOB_SRC_EXT},vue}`, `**/layouts/**/*.{${GLOB_SRC_EXT},vue}`],
+            rules: {
+              "vue/no-multiple-template-root": "error",
+            },
+          },
+        ]
+      : []) satisfies FlatConfigItem[]),
   ];
 }
