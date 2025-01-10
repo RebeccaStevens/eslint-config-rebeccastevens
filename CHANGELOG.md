@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.5.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.2...v3.5.3) (2025-01-10)
+
+
+### Bug Fixes
+
+* add nuxt overrides ([143b6c1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/143b6c19a1f059664c25d53d00387c0dead83350))
+
 ## [3.5.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.1...v3.5.2) (2025-01-05)
 
 
