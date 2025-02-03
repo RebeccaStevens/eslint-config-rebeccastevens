@@ -103,8 +103,8 @@ importers:
         specifier: 10.0.1
         version: 10.0.1(eslint@9.19.0(jiti@2.4.2))
       eslint-flat-config-utils:
-        specifier: 0.4.0
-        version: 0.4.0
+        specifier: 2.0.1
+        version: 2.0.1
       eslint-formatting-reporter:
         specifier: 0.0.0
         version: 0.0.0(eslint@9.19.0(jiti@2.4.2))
@@ -2597,8 +2597,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-flat-config-utils@0.4.0:
-    resolution: {integrity: sha512-kfd5kQZC+BMO0YwTol6zxjKX1zAsk8JfSAopbKjKqmENTJcew+yBejuvccAg37cvOrN0Mh+DVbeyznuNWEjt4A==}
+  eslint-flat-config-utils@2.0.1:
+    resolution: {integrity: sha512-brf0eAgQ6JlKj3bKfOTuuI7VcCZvi8ZCD1MMTVoEvS/d38j8cByZViLFALH/36+eqB17ukmfmKq3bWzGvizejA==}
 
   eslint-formatting-reporter@0.0.0:
     resolution: {integrity: sha512-k9RdyTqxqN/wNYVaTk/ds5B5rA8lgoAmvceYN7bcZMBwU7TuXx5ntewJv81eF3pIL/CiJE+pJZm36llG8yhyyw==}
@@ -8064,9 +8064,9 @@ snapshots:
     dependencies:
       eslint: 9.19.0(jiti@2.4.2)
 
-  eslint-flat-config-utils@0.4.0:
+  eslint-flat-config-utils@2.0.1:
     dependencies:
-      pathe: 1.1.2
+      pathe: 2.0.2
 
   eslint-formatting-reporter@0.0.0(eslint@9.19.0(jiti@2.4.2)):
     dependencies:
