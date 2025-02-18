@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.6.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.5...v3.6.0) (2025-02-18)
+
+
+### Bug Fixes
+
+* type errors ([f861b82](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/f861b821f0c95ac07d78ee787bfd47ee5ae0f592))
+
+
+### Features
+
+* configure tailwind v4 ([ed24a2e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/ed24a2ed8b3869f1689f05b65bde7b7c5e9008fa))
+
 ## [3.5.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.4...v3.5.5) (2025-02-03)
 
 ## [3.5.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.5.3...v3.5.4) (2025-02-02)
