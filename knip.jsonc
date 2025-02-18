@@ -47,6 +47,7 @@
     "eslint-plugin-yml",
     "eslint-processor-vue-blocks",
     "jsonc-eslint-parser",
+    "prettier-plugin-tailwindcss",
     "prettier",
     "sort-package-json",
     "toml-eslint-parser",

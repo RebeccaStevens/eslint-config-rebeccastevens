@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  lint_knip_dev:
+  lint_knip:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

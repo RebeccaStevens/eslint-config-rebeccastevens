@@ -1,5 +1,4 @@
 // @ts-check
-// @ts-expect-error - Untyped.
 import styleMigrate from "@stylistic/eslint-plugin-migrate";
 import JITI from "jiti";
 
