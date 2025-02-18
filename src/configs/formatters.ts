@@ -39,6 +39,7 @@ export async function formatters(
           html: true,
           markdown: true,
           slidev: isPackageExists("@slidev/cli"),
+          tailwind: isPackageExists("tailwindcss"),
         }
       : opts;
 
@@ -62,19 +63,32 @@ export async function formatters(
     options.prettierOptions ?? {},
   );
 
-  const [pluginFormat, configPrettier, sortPackageJson, formattingReporter] = (await loadPackages([
+  const packages = loadPackages([
     "eslint-plugin-format",
     "eslint-config-prettier",
     "sort-package-json",
     "eslint-formatting-reporter",
     "prettier",
-  ])) as [
-    ESLint.Plugin,
-    ESLint.ConfigData,
-    (typeof import("sort-package-json"))["default"],
-    typeof import("eslint-formatting-reporter"),
-    unknown,
-  ];
+  ]) as Promise<
+    [
+      ESLint.Plugin,
+      ESLint.ConfigData,
+      (typeof import("sort-package-json"))["default"],
+      typeof import("eslint-formatting-reporter"),
+      unknown,
+    ]
+  >;
+
+  const prettierPluginTailwindcssPromise = (
+    ((options.js !== undefined && options.js) || (options.ts !== undefined && options.ts)) &&
+    options.tailwind !== undefined &&
+    options.tailwind
+      ? loadPackages(["prettier-plugin-tailwindcss"])
+      : [undefined]
+  ) as Promise<[typeof import("prettier-plugin-tailwindcss") | undefined]>;
+
+  const [[pluginFormat, configPrettier, sortPackageJson, formattingReporter], [prettierPluginTailwindcss]] =
+    await Promise.all([packages, prettierPluginTailwindcssPromise]);
 
   const turnOffRulesForPrettier = {
     ...Object.fromEntries(Object.entries(configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
@@ -349,6 +363,15 @@ export async function formatters(
           {
             ...prettierOptions,
             parser: "babel",
+
+            ...(options.tailwind !== undefined && options.tailwind
+              ? {
+                  plugins: [
+                    ...(prettierOptions.plugins ?? []),
+                    ...(prettierPluginTailwindcss === undefined ? [] : ["prettier-plugin-tailwindcss"]),
+                  ],
+                }
+              : {}),
           },
         ],
       },
@@ -367,6 +390,15 @@ export async function formatters(
           {
             ...prettierOptions,
             parser: "typescript",
+
+            ...(options.tailwind !== undefined && options.tailwind
+              ? {
+                  plugins: [
+                    ...(prettierOptions.plugins ?? []),
+                    ...(prettierPluginTailwindcss === undefined ? [] : ["prettier-plugin-tailwindcss"]),
+                  ],
+                }
+              : {}),
           },
         ],
       },

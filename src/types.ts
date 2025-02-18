@@ -87,6 +87,7 @@ export type OptionsFormatters = {
   html?: boolean;
   markdown?: boolean;
   graphql?: boolean;
+  tailwind?: boolean;
   prettierOptions?: PrettierOptions;
   slidev?:
     | boolean
@@ -162,7 +163,12 @@ export type OptionsIsInEditor = {
   isInEditor?: boolean;
 };
 
-export type OptionsTailwindCSS = OptionsOverrides;
+export type OptionsTailwindCSS = {
+  /**
+   * @default 4
+   */
+  tailwindVersion?: 3 | 4;
+} & OptionsOverrides;
 
 export type OptionsUnoCSS = {
   /**

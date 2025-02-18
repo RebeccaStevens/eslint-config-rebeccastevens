@@ -115,6 +115,7 @@ const configs = (await combine(
       semi: true,
       printWidth: 120,
     },
+    tailwindVersion: 4,
     overrides: undefined,
   }),
   test({
@@ -146,7 +147,7 @@ const configs = (await combine(
   }),
   vue({
     sfcBlocks: false,
-    vueVersion: 2,
+    vueVersion: 3,
     i18n: false,
     overrides: undefined,
     typescript: false,

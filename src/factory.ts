@@ -303,6 +303,7 @@ export async function rsEslint(
     mut_configs.push(
       tailwind({
         stylistic: stylisticOptions,
+        tailwindVersion: (tailwindOptions === true ? undefined : tailwindOptions.tailwindVersion) ?? 4,
         overrides: getOverrides(options, "tailwind"),
       }),
     );
