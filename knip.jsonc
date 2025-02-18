@@ -5,7 +5,12 @@
   "ignoreDependencies": [
     "@eslint-react/eslint-plugin",
     "@intlify/eslint-plugin-vue-i18n",
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/github",
+    "@semantic-release/npm",
+    "@semantic-release/release-notes-generator",
     "@stylistic/eslint-plugin",
+    "@types/eslint",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
     "@typescript-eslint/utils",
