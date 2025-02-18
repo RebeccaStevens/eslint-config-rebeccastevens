@@ -512,10 +512,13 @@ export async function formatters(
                 create(context) {
                   return {
                     Program() {
+                      if (!("text" in context.sourceCode)) {
+                        return;
+                      }
                       const sourceCode = context.sourceCode.text;
                       try {
                         const formatted = sortPackageJson(sourceCode);
-                        formattingReporter.reportDifferences(context, sourceCode, formatted);
+                        formattingReporter.reportDifferences(context as any, sourceCode, formatted);
                       } catch (error) {
                         console.error(error);
                         context.report({
