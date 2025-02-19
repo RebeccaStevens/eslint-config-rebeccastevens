@@ -109,7 +109,6 @@ export async function typescript(
         "ts/no-duplicate-enum-values": "error",
         "ts/no-duplicate-type-constituents": "error",
         "ts/no-dynamic-delete": "error",
-        "ts/no-empty-interface": ["error", { allowSingleExtends: true }],
         "ts/no-explicit-any": unsafe,
         "ts/no-extra-non-null-assertion": "error",
         "ts/no-extraneous-class": "error",
@@ -251,9 +250,6 @@ export async function typescript(
           },
         ],
 
-        "no-loss-of-precision": "off",
-        "ts/no-loss-of-precision": "error",
-
         "no-throw-literal": "off",
         "ts/only-throw-error": "error",
 
@@ -273,7 +269,7 @@ export async function typescript(
         "ts/no-implied-eval": "error",
 
         "no-return-await": "off",
-        "ts/return-await": ["error", "never"],
+        "ts/return-await": ["error", "in-try-catch"],
 
         "no-useless-constructor": "off",
         "ts/no-useless-constructor": "error",
