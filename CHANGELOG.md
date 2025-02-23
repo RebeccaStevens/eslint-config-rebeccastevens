@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.6.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.6.1...v3.6.2) (2025-02-23)
+
+
+### Bug Fixes
+
+* rely on upstream for turning off rules for prettier ([9d2cf76](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/9d2cf76eef5717aa81809800489b523a7ce265a8))
+
 ## [3.6.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.6.0...v3.6.1) (2025-02-19)
 
 
