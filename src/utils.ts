@@ -58,7 +58,7 @@ export async function loadPackages<T extends string[]>(
   return Promise.all(packageIds.map((id) => interopDefault(import(id)))) as any;
 }
 
-const installPackagesToLoad = new Set<string>();
+const mut_installPackagesToLoad = new Set<string>();
 let mut_installPackagesAction: Promise<void> | null = null;
 let mut_installPackagesActionResolver: ((value: string[] | PromiseLike<string[]>) => void) | null = null;
 let mut_installPackagesTimeout: NodeJS.Timeout | null = null;
@@ -66,7 +66,7 @@ let mut_installPackagesTimeout: NodeJS.Timeout | null = null;
 /* eslint-disable functional/no-loop-statements */
 async function installPackages(packages: ReadonlyArray<string>) {
   for (const p of packages) {
-    installPackagesToLoad.add(p);
+    mut_installPackagesToLoad.add(p);
   }
 
   if (mut_installPackagesTimeout !== null) {
@@ -74,9 +74,9 @@ async function installPackages(packages: ReadonlyArray<string>) {
   }
 
   mut_installPackagesTimeout = setTimeout(() => {
-    const allPackages = [...installPackagesToLoad.values()];
+    const allPackages = [...mut_installPackagesToLoad.values()];
     mut_installPackagesTimeout = null;
-    installPackagesToLoad.clear();
+    mut_installPackagesToLoad.clear();
     mut_installPackagesAction = null;
     assert(mut_installPackagesActionResolver !== null);
     mut_installPackagesActionResolver(allPackages);
