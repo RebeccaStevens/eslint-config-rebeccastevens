@@ -13,7 +13,7 @@ export async function promise(): Promise<FlatConfigItem[]> {
         promise: pluginPromise,
       },
       rules: {
-        "promise/avoid-new": "warn",
+        // "promise/avoid-new": "warn",
         "promise/no-callback-in-promise": "error",
         "promise/no-nesting": "error",
         "promise/no-new-statics": "error",

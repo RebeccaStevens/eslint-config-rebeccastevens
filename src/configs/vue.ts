@@ -13,19 +13,12 @@ import type {
 } from "../types";
 import { interopDefault, loadPackages } from "../utils";
 
-/* eslint-disable ts/naming-convention */
-type PluginVue = ESLint.Plugin & {
-  configs: {
-    base: Linter.FlatConfig;
-    essential: Linter.FlatConfig;
-    "strongly-recommended": Linter.FlatConfig;
-    recommended: Linter.FlatConfig;
-    "vue3-essential": Linter.FlatConfig;
-    "vue3-strongly-recommended": Linter.FlatConfig;
-    "vue3-recommended": Linter.FlatConfig;
+type PluginVueImported = typeof import("eslint-plugin-vue");
+
+type PluginVue = ESLint.Plugin &
+  Omit<PluginVueImported, "processors"> & {
+    processors: Record<keyof PluginVueImported["processors"], Linter.Processor>;
   };
-};
-/* eslint-enable ts/naming-convention */
 
 const NuxtPackages = ["nuxt"];
 
@@ -57,7 +50,7 @@ export async function vue(
     "eslint-merge-processors",
   ])) as [
     PluginVue,
-    ESLint.Plugin,
+    ESLint.Plugin & typeof import("@intlify/eslint-plugin-vue-i18n"),
     typeof import("vue-eslint-parser"),
     (typeof import("eslint-processor-vue-blocks"))["default"],
     typeof import("eslint-merge-processors"),
@@ -116,9 +109,9 @@ export async function vue(
       },
       processor:
         sfcBlocks === false
-          ? pluginVue.processors![".vue"]!
+          ? pluginVue.processors[".vue"]
           : mergeProcessors([
-              pluginVue.processors![".vue"]!,
+              pluginVue.processors[".vue"],
               processorVueBlocks({
                 ...sfcBlocks,
                 blocks: {
@@ -137,17 +130,9 @@ export async function vue(
       rules: {
         ...pluginVue.configs.base.rules,
 
-        ...(vueVersion === 2
-          ? {
-              ...pluginVue.configs.essential.rules,
-              ...pluginVue.configs["strongly-recommended"].rules,
-              ...pluginVue.configs.recommended.rules,
-            }
-          : {
-              ...pluginVue.configs["vue3-essential"].rules,
-              ...pluginVue.configs["vue3-strongly-recommended"].rules,
-              ...pluginVue.configs["vue3-recommended"].rules,
-            }),
+        ...pluginVue.configs[vueVersion === 2 ? "flat/vue2-recommended" : "flat/recommended"]
+          .map((config) => config.rules ?? {})
+          .reduce((acc, rules) => Object.assign(acc, rules), {}),
 
         "node/prefer-global/process": "off",
         "vue/block-order": [
@@ -218,7 +203,10 @@ export async function vue(
         "vue-i18n/no-dynamic-keys": i18n === false ? "off" : "error",
         "vue-i18n/no-unknown-locale": i18n === false ? "off" : "error",
         // "vue-i18n/no-missing-keys-in-other-locales": i18n === false ? "off" : "error",
-        // "@intlify/vue-i18n/no-unused-keys": i18n === false ? "off" : "error",
+        // "vue-i18n/no-unused-keys": i18n === false ? "off" : "error",
+        // "vue-i18n/prefer-sfc-lang-attr": i18n === false ? "off" : "error",
+        // "vue-i18n/no-duplicate-keys-in-locale": i18n === false ? "off" : "error",
+        // "vue-i18n/sfc-locale-attr": i18n === false ? "off" : "error",
 
         "vue/array-bracket-spacing": [stylisticEnforcement, "never"],
         "vue/arrow-spacing": [stylisticEnforcement, { after: true, before: true }],

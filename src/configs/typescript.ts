@@ -105,7 +105,14 @@ export async function typescript(
         "ts/explicit-member-accessibility": ["error", { accessibility: "explicit" }],
         "ts/no-array-delete": "error",
         "ts/no-base-to-string": "error",
-        "ts/no-confusing-void-expression": ["error", { ignoreArrowShorthand: false, ignoreVoidOperator: true }],
+        "ts/no-confusing-void-expression": [
+          "error",
+          {
+            ignoreArrowShorthand: false,
+            ignoreVoidOperator: true,
+            ignoreVoidReturningFunctions: true,
+          },
+        ],
         "ts/no-duplicate-enum-values": "error",
         "ts/no-duplicate-type-constituents": "error",
         "ts/no-dynamic-delete": "error",
