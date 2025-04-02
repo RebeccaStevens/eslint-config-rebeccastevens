@@ -166,8 +166,8 @@ importers:
         specifier: 0.4.19
         version: 0.4.19(eslint@9.23.0(jiti@2.4.2))
       eslint-plugin-readable-tailwind:
-        specifier: 1.9.1
-        version: 1.9.1(eslint@9.23.0(jiti@2.4.2))(tailwindcss@3.4.17)
+        specifier: 2.0.0
+        version: 2.0.0(eslint@9.23.0(jiti@2.4.2))(tailwindcss@3.4.17)
       eslint-plugin-regexp:
         specifier: 2.7.0
         version: 2.7.0(eslint@9.23.0(jiti@2.4.2))
@@ -2408,12 +2408,12 @@ packages:
       typescript:
         optional: true
 
-  eslint-plugin-readable-tailwind@1.9.1:
-    resolution: {integrity: sha512-vZtTdQ2pDZt1cr0IeYQCI6lR0HANbOzfokEIVI9qqByZ0jUDiwxkFIDue/XXpGL3EdLVM8my7hoLKCJzgbSgWQ==}
-    engines: {node: '>=16'}
+  eslint-plugin-readable-tailwind@2.0.0:
+    resolution: {integrity: sha512-JXvB2Wx9JP4wYlkGWiDStbTHlyIuw3+ydPEL6LSNLvvw6XSjSK3LuHV0IpgoMf7DDhe7L429PyR4KP12iP7slA==}
+    engines: {node: '>=v20.11.0'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-      tailwindcss: '>=3.3.0'
+      tailwindcss: ^3.3.0 || ^4.0.0
 
   eslint-plugin-regexp@2.7.0:
     resolution: {integrity: sha512-U8oZI77SBtH8U3ulZ05iu0qEzIizyEDXd+BWHvyVxTOjGwcDcvy/kEpgFG4DYca2ByRLiVPFZ2GeH7j1pdvZTA==}
@@ -3988,6 +3988,12 @@ packages:
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+
+  postcss-import@16.1.0:
+    resolution: {integrity: sha512-7hsAZ4xGXl4MW+OKEWCnF6T5jqBw80/EE9aXg1r2yyn1RsVEU8EtKXbijEODa+rg7iih4bKf7vlvTGYR4CnPNg==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
       postcss: ^8.0.0
 
@@ -7347,9 +7353,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-readable-tailwind@1.9.1(eslint@9.23.0(jiti@2.4.2))(tailwindcss@3.4.17):
+  eslint-plugin-readable-tailwind@2.0.0(eslint@9.23.0(jiti@2.4.2))(tailwindcss@3.4.17):
     dependencies:
+      enhanced-resolve: 5.18.1
       eslint: 9.23.0(jiti@2.4.2)
+      jiti: 2.4.2
+      postcss: 8.5.3
+      postcss-import: 16.1.0(postcss@8.5.3)
+      synckit: 0.9.2
       tailwindcss: 3.4.17
 
   eslint-plugin-regexp@2.7.0(eslint@9.23.0(jiti@2.4.2)):
@@ -9059,6 +9070,13 @@ snapshots:
   possible-typed-array-names@1.1.0: {}
 
   postcss-import@15.1.0(postcss@8.5.3):
+    dependencies:
+      postcss: 8.5.3
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.10
+
+  postcss-import@16.1.0(postcss@8.5.3):
     dependencies:
       postcss: 8.5.3
       postcss-value-parser: 4.2.0
