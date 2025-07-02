@@ -137,6 +137,7 @@ export async function typescript(
         "ts/no-unnecessary-type-arguments": "error",
         "ts/no-unnecessary-type-assertion": "error",
         "ts/no-unnecessary-type-constraint": "error",
+        "ts/no-unnecessary-type-conversion": "error",
         "ts/no-unsafe-argument": unsafe,
         "ts/no-unsafe-assignment": unsafe,
         "ts/no-unsafe-call": unsafe,
@@ -258,7 +259,14 @@ export async function typescript(
         ],
 
         "no-throw-literal": "off",
-        "ts/only-throw-error": "error",
+        "ts/only-throw-error": [
+          "error",
+          {
+            allowRethrowing: true,
+            allowThrowingAny: true,
+            allowThrowingUnknown: false,
+          },
+        ],
 
         "dot-notation": "off",
         "ts/dot-notation": ["error", { allowIndexSignaturePropertyAccess: true }],

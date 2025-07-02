@@ -79,16 +79,7 @@ export async function formatters(
     ]
   >;
 
-  const prettierPluginTailwindcssPromise = (
-    ((options.js !== undefined && options.js) || (options.ts !== undefined && options.ts)) &&
-    options.tailwind !== undefined &&
-    options.tailwind
-      ? loadPackages(["prettier-plugin-tailwindcss"])
-      : [undefined]
-  ) as Promise<[typeof import("prettier-plugin-tailwindcss") | undefined]>;
-
-  const [[pluginFormat, configPrettier, sortPackageJson, formattingReporter], [prettierPluginTailwindcss]] =
-    await Promise.all([packages, prettierPluginTailwindcssPromise]);
+  const [pluginFormat, configPrettier, sortPackageJson, formattingReporter] = await packages;
 
   const turnOffRulesForPrettier = {
     ...Object.fromEntries(Object.entries(configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
@@ -144,10 +135,7 @@ export async function formatters(
 
             ...(options.tailwind !== undefined && options.tailwind
               ? {
-                  plugins: [
-                    ...(prettierOptions.plugins ?? []),
-                    ...(prettierPluginTailwindcss === undefined ? [] : ["prettier-plugin-tailwindcss"]),
-                  ],
+                  plugins: prettierOptions.plugins ?? [],
                 }
               : {}),
           },
@@ -171,10 +159,7 @@ export async function formatters(
 
             ...(options.tailwind !== undefined && options.tailwind
               ? {
-                  plugins: [
-                    ...(prettierOptions.plugins ?? []),
-                    ...(prettierPluginTailwindcss === undefined ? [] : ["prettier-plugin-tailwindcss"]),
-                  ],
+                  plugins: prettierOptions.plugins ?? [],
                 }
               : {}),
           },

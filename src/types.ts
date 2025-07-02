@@ -163,12 +163,34 @@ export type OptionsIsInEditor = {
   isInEditor?: boolean;
 };
 
-export type OptionsTailwindCSS = {
-  /**
-   * @default 4
-   */
-  tailwindVersion?: 3 | 4;
-} & OptionsOverrides;
+export type OptionsTailwindCSS = (
+  | {
+      tailwindVersion?: 4;
+
+      /**
+       * The path to the entry file of the css based tailwind config (eg: `src/global.css`)
+       */
+      tailwindEntryPoint: string;
+    }
+  | {
+      tailwindVersion?: 3;
+
+      /**
+       * The path to the tailwind config file.
+       *
+       * @default "tailwind.config.js"
+       */
+      tailwindConfig?: string;
+    }
+) &
+  OptionsOverrides;
+
+// TODO: Generate this type.
+export type RequiredOptionsTailwindCSS = {
+  tailwindVersion: 3 | 4;
+  tailwindEntryPoint: string | undefined;
+  tailwindConfig: string | undefined;
+} & Required<OptionsOverrides>;
 
 export type OptionsUnoCSS = {
   /**

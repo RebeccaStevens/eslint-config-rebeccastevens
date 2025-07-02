@@ -300,10 +300,36 @@ export async function rsEslint(
   }
 
   if (tailwindOptions !== false) {
+    const tailwindVersion =
+      (tailwindOptions === true
+        ? undefined
+        : (tailwindOptions.tailwindVersion ??
+          ("tailwindEntryPoint" in tailwindOptions ? 4 : "tailwindConfig" in tailwindOptions ? 3 : undefined))) ?? 3;
+
+    const tailwindConfig =
+      tailwindVersion === 3
+        ? ((tailwindOptions === true
+            ? undefined
+            : "tailwindConfig" in tailwindOptions
+              ? tailwindOptions.tailwindConfig
+              : undefined) ?? "tailwind.config.js")
+        : undefined;
+
+    const tailwindEntryPoint =
+      tailwindVersion === 4
+        ? tailwindOptions === true
+          ? undefined
+          : "tailwindEntryPoint" in tailwindOptions
+            ? tailwindOptions.tailwindEntryPoint
+            : undefined
+        : undefined;
+
     mut_configs.push(
       tailwind({
         stylistic: stylisticOptions,
-        tailwindVersion: (tailwindOptions === true ? undefined : tailwindOptions.tailwindVersion) ?? 4,
+        tailwindVersion,
+        tailwindConfig,
+        tailwindEntryPoint,
         overrides: getOverrides(options, "tailwind"),
       }),
     );

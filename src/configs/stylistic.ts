@@ -22,7 +22,7 @@ export async function stylistic(
   } = options;
 
   const [pluginStylistic] = (await loadPackages(["@stylistic/eslint-plugin"])) as [
-    typeof import("@stylistic/eslint-plugin"),
+    typeof import("@stylistic/eslint-plugin").default,
   ];
 
   const config = pluginStylistic.configs.customize({
@@ -71,7 +71,7 @@ export async function stylistic(
         "style/computed-property-spacing": "error",
         "style/dot-location": ["error", "property"],
         "style/eol-last": "error",
-        "style/func-call-spacing": ["error", "never"],
+        "style/function-call-spacing": ["error", "never"],
         "style/generator-star-spacing": ["error", "after"],
         "style/indent": typescript
           ? "off"
@@ -190,11 +190,12 @@ export async function stylistic(
           "after",
           {
             overrides: {
-              "=": "none",
+              // "=": "none",
               "==": "none",
               "===": "none",
               "?": "before",
               ":": "before",
+              "|": "before",
             },
           },
         ],

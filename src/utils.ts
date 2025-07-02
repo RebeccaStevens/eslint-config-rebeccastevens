@@ -83,29 +83,27 @@ async function installPackages(packages: ReadonlyArray<string>) {
     mut_installPackagesActionResolver = null;
   }, 100);
 
-  if (mut_installPackagesAction === null) {
-    mut_installPackagesAction = new Promise<string[]>((resolve) => {
-      mut_installPackagesActionResolver = resolve;
-    }).then(async (allPackages: string[]) => {
-      const allPackagesString = allPackages.join(", ");
+  mut_installPackagesAction ??= new Promise<string[]>((resolve) => {
+    mut_installPackagesActionResolver = resolve;
+  }).then(async (allPackages: string[]) => {
+    const allPackagesString = allPackages.join(", ");
 
-      if (Boolean(process.env["CI"]) || !process.stdout.isTTY) {
-        throw new Error(`Missing packages: ${allPackagesString}`);
-      }
+    if (Boolean(process.env["CI"]) || !process.stdout.isTTY) {
+      throw new Error(`Missing packages: ${allPackagesString}`);
+    }
 
-      const prompt = await import("@clack/prompts");
-      const result = await prompt.confirm({
-        message:
-          allPackages.length === 1
-            ? `${allPackages[0]} is required for this config. Do you want to install it?`
-            : `Packages are required for this config: ${allPackagesString}.\nDo you want to install them?`,
-      });
-
-      if (result !== false) {
-        await import("@antfu/install-pkg").then(({ installPackage }) => installPackage(allPackages, { dev: true }));
-      }
+    const prompt = await import("@clack/prompts");
+    const result = await prompt.confirm({
+      message:
+        allPackages.length === 1
+          ? `${allPackages[0]} is required for this config. Do you want to install it?`
+          : `Packages are required for this config: ${allPackagesString}.\nDo you want to install them?`,
     });
-  }
+
+    if (result !== false) {
+      await import("@antfu/install-pkg").then(({ installPackage }) => installPackage(allPackages, { dev: true }));
+    }
+  });
 
   return mut_installPackagesAction;
 }

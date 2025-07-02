@@ -116,6 +116,8 @@ const configs = (await combine(
       printWidth: 120,
     },
     tailwindVersion: 4,
+    tailwindEntryPoint: "src/global.css",
+    tailwindConfig: undefined,
     overrides: undefined,
   }),
   test({

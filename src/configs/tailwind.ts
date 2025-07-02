@@ -1,88 +1,76 @@
 import type { ESLint } from "eslint";
-import semver from "semver";
 
-import type { FlatConfigItem, OptionsTailwindCSS, RequiredOptionsStylistic } from "../types";
+import type { FlatConfigItem, RequiredOptionsStylistic, RequiredOptionsTailwindCSS } from "../types";
 import { loadPackages } from "../utils";
 
 export async function tailwind(
-  options: Readonly<Required<OptionsTailwindCSS> & RequiredOptionsStylistic>,
+  options: Readonly<Required<RequiredOptionsTailwindCSS> & RequiredOptionsStylistic>,
 ): Promise<FlatConfigItem[]> {
-  const { overrides, stylistic, tailwindVersion = 4 } = options;
+  const { overrides, stylistic, tailwindVersion, tailwindEntryPoint, tailwindConfig } = options;
 
-  const [pluginReadableTailwind] = (await loadPackages(["eslint-plugin-readable-tailwind"])) as [ESLint.Plugin];
-
-  if (
-    tailwindVersion === 4 &&
-    pluginReadableTailwind.meta?.version !== undefined &&
-    !semver.satisfies(pluginReadableTailwind.meta.version, ">=2.0.0 || >=2.0.0-beta.0")
-  ) {
-    console.warn("Please update eslint-plugin-readable-tailwind to version 2.0.0 or higher for tailwindcss v4 support");
-  }
-
-  const [pluginTailwindCSS] = (await (tailwindVersion === 3 ? loadPackages(["eslint-plugin-tailwindcss"]) : [])) as [
-    ESLint.Plugin | undefined,
-  ];
+  const [pluginBetterTailwind] = (await loadPackages(["eslint-plugin-better-tailwindcss"])) as [ESLint.Plugin];
 
   return [
     {
-      name: "rs:tailwind-readable",
+      name: "rs:tailwind-better",
       plugins: {
-        "tailwind-readable": pluginReadableTailwind,
+        "tailwind-better": pluginBetterTailwind,
+      },
+      settings: {
+        "better-tailwindcss":
+          tailwindVersion === 4
+            ? {
+                entryPoint: tailwindEntryPoint,
+              }
+            : // eslint-disable-next-line ts/no-unnecessary-condition
+              tailwindVersion === 3
+              ? {
+                  tailwindConfig,
+                }
+              : undefined,
       },
       rules: {
         ...(stylistic === false
           ? {}
           : {
-              "tailwind-readable/multiline": [
-                "warn",
+              "tailwind-better/enforce-consistent-line-wrapping": [
+                "error",
                 {
+                  classesPerLine: 0,
                   group: "newLine",
                   indent: stylistic.indent,
+                  lineBreakStyle: "unix",
+                  preferSingleLine: false,
                   printWidth: stylistic.printWidth,
                 },
               ],
-              "tailwind-readable/no-unnecessary-whitespace": "warn",
+              "tailwind-better/no-unnecessary-whitespace": "warn",
+              "tailwind-better/enforce-consistent-class-order": [
+                "error",
+                {
+                  order: "improved",
+                },
+              ],
+              "tailwind-better/no-duplicate-classes": "error",
+              "tailwind-better/enforce-consistent-variable-syntax": [
+                "error",
+                {
+                  syntax: "parentheses",
+                },
+              ],
+
+              "tailwind-better/no-unregistered-classes": [
+                "off",
+                {
+                  detectComponentClasses: true,
+                },
+              ],
+              "tailwind-better/no-conflicting-classes": "error",
+              "tailwind-better/no-restricted-classes": "error",
             }),
 
         ...overrides,
       },
     },
-    ...((tailwindVersion === 3
-      ? [
-          {
-            name: "rs:tailwind-3",
-            plugins: {
-              tailwind: pluginTailwindCSS!,
-            },
-            rules: {
-              "tailwind/no-contradicting-classname": "error",
-              "tailwind/no-arbitrary-value": "off",
-              "tailwind/no-custom-classname": "off",
-
-              ...(stylistic === false
-                ? {}
-                : {
-                    "tailwind/classnames-order": "warn",
-                    "tailwind/enforces-negative-arbitrary-values": "warn",
-                    "tailwind/enforces-shorthand": "warn",
-                    "tailwind/no-unnecessary-arbitrary-value": "warn",
-                  }),
-
-              ...overrides,
-            },
-          },
-        ]
-      : []) satisfies FlatConfigItem[]),
-    // ...((tailwindVersion === 4
-    //   ? [
-    //       {
-    //         name: "rs:tailwind-4",
-    //         plugins: {},
-    //         rules: {
-    //           ...overrides,
-    //         },
-    //       },
-    //     ]
-    //   : []) satisfies FlatConfigItem[]),
   ];
 }
