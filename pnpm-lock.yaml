@@ -61,8 +61,8 @@ importers:
         specifier: 14.1.0
         version: 14.1.0(semantic-release@25.0.2(typescript@5.9.2))
       '@stylistic/eslint-plugin':
-        specifier: 5.5.0
-        version: 5.5.0(eslint@9.36.0(jiti@2.5.1))
+        specifier: 5.6.1
+        version: 5.6.1(eslint@9.36.0(jiti@2.5.1))
       '@stylistic/eslint-plugin-migrate':
         specifier: 4.4.1
         version: 4.4.1(eslint@9.36.0(jiti@2.5.1))(typescript@5.9.2)
@@ -1332,8 +1332,8 @@ packages:
     resolution: {integrity: sha512-9HgQi6MfLp2ctYnrHbqkgEFHNwwSKoU7rGV7dJsVwWyVhlgglh8AvkfcYxY1mnyMCMZulFNs5XEQsxUaaS0UrQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@stylistic/eslint-plugin@5.5.0':
-    resolution: {integrity: sha512-IeZF+8H0ns6prg4VrkhgL+yrvDXWDH2cKchrbh80ejG9dQgZWp10epHMbgRuQvgchLII/lfh6Xn3lu6+6L86Hw==}
+  '@stylistic/eslint-plugin@5.6.1':
+    resolution: {integrity: sha512-JCs+MqoXfXrRPGbGmho/zGS/jMcn3ieKl/A8YImqib76C8kjgZwq5uUFzc30lJkMvcchuRn6/v8IApLxli3Jyw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=9.0.0'
@@ -6328,7 +6328,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@stylistic/eslint-plugin@5.5.0(eslint@9.36.0(jiti@2.5.1))':
+  '@stylistic/eslint-plugin@5.6.1(eslint@9.36.0(jiti@2.5.1))':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.36.0(jiti@2.5.1))
       '@typescript-eslint/types': 8.48.0
