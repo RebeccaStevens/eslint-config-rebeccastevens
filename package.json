@@ -140,7 +140,7 @@
     "rollup-plugin-dts-bundle-generator-2": "2.0.0",
     "semantic-release": "25.0.2",
     "sort-package-json": "3.4.0",
-    "toml-eslint-parser": "0.10.0",
+    "toml-eslint-parser": "1.0.3",
     "tsc-files": "1.1.4",
     "tsx": "4.20.3",
     "typescript": "5.9.2",
