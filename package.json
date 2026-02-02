@@ -98,7 +98,7 @@
     "cz-conventional-changelog": "3.3.0",
     "eslint": "9.36.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-flat-config-utils": "2.1.1",
+    "eslint-flat-config-utils": "3.0.0",
     "eslint-formatting-reporter": "0.0.0",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-merge-processors": "2.0.0",
