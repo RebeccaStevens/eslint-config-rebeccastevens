@@ -3,12 +3,14 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsFiles, OptionsOverrides, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
+import { StylisticConfigDefaults } from "./stylistic";
+
 export async function jsonc(
   options: Readonly<Required<OptionsFiles & RequiredOptionsStylistic & OptionsOverrides>>,
 ): Promise<FlatConfigItem[]> {
   const { files, overrides, stylistic } = options;
 
-  const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
+  const { indent = StylisticConfigDefaults.indent } = typeof stylistic === "boolean" ? {} : stylistic;
 
   const [pluginJsonc, parserJsonc] = (await loadPackages(["eslint-plugin-jsonc", "jsonc-eslint-parser"])) as [
     ESLint.Plugin,
@@ -63,7 +65,21 @@ export async function jsonc(
         "jsonc/comma-style": [stylisticEnforcement, "last"],
         "jsonc/indent": [
           stylisticEnforcement,
-          ...(Array.isArray(indent) ? (indent as [number | "tab", any]) : ([indent] as const)),
+          indent,
+          {
+            SwitchCase: 1,
+            VariableDeclarator: 1,
+            outerIIFEBody: 1,
+            MemberExpression: 1,
+            FunctionDeclaration: { parameters: 1, body: 1 },
+            FunctionExpression: { parameters: 1, body: 1 },
+            CallExpression: { arguments: 1 },
+            ArrayExpression: 1,
+            ObjectExpression: 1,
+            ImportDeclaration: 1,
+            flatTernaryExpressions: false,
+            ignoreComments: false,
+          },
         ],
         "jsonc/key-spacing": [stylisticEnforcement, { afterColon: true, beforeColon: false }],
         "jsonc/object-curly-newline": [stylisticEnforcement, { consistent: true, multiline: true }],
