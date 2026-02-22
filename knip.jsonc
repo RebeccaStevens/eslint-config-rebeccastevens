@@ -16,6 +16,7 @@
     "@typescript-eslint/utils",
     "@unocss/eslint-plugin",
     "@vitest/eslint-plugin",
+    "baseline-browser-mapping",
     "eslint-config-prettier",
     "eslint-flat-config-utils",
     "eslint-formatting-reporter",
