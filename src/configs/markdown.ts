@@ -16,7 +16,7 @@ export async function markdown(
   const { componentExts, files, overrides, enableTypeRequiredRules } = options;
 
   const [pluginMarkdown, { mergeProcessors, processorPassThrough }] = (await loadPackages([
-    "eslint-plugin-markdown",
+    "@eslint/markdown",
     "eslint-merge-processors",
   ])) as [ESLint.Plugin, typeof import("eslint-merge-processors")];
 
@@ -36,7 +36,7 @@ export async function markdown(
       name: "rs:markdown:processor",
       files,
       ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
-      // `eslint-plugin-markdown` only creates virtual files for code blocks,
+      // `@eslint/markdown` only creates virtual files for code blocks,
       // but not the markdown file itself. We use `eslint-merge-processors` to
       // add a pass-through processor for the markdown file itself.
       processor: mergeProcessors([

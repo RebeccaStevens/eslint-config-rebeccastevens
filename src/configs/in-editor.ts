@@ -24,7 +24,6 @@ export function inEditor(): FlatConfigItem[] {
         "sonar/no-inverted-boolean-check": "off",
         "sonar/no-nested-switch": "off",
         "sonar/no-nested-template-literals": "off",
-        "sonar/no-one-iteration-loop": "off",
         "sonar/no-redundant-boolean": "off",
         "sonar/no-redundant-jump": "off",
         "sonar/no-same-line-conditional": "off",
