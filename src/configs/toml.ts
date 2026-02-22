@@ -10,7 +10,7 @@ export async function toml(
 ): Promise<FlatConfigItem[]> {
   const { files, overrides, stylistic } = options;
 
-  const { indent = 2 } = typeof stylistic === "boolean" ? {} : stylistic;
+  const { indent = StylisticConfigDefaults.indent } = typeof stylistic === "boolean" ? {} : stylistic;
 
   const [pluginToml, parserToml] = (await loadPackages(["eslint-plugin-toml", "toml-eslint-parser"])) as [
     ESLint.Plugin,
@@ -48,16 +48,7 @@ export async function toml(
         "toml/array-bracket-newline": stylisticEnforcement,
         "toml/array-bracket-spacing": stylisticEnforcement,
         "toml/array-element-newline": stylisticEnforcement,
-        "toml/indent": [
-          stylisticEnforcement,
-          Array.isArray(indent)
-            ? typeof indent[0] === "number"
-              ? indent[0]
-              : StylisticConfigDefaults.indent[0]
-            : typeof indent === "number"
-              ? indent
-              : StylisticConfigDefaults.indent[0],
-        ],
+        "toml/indent": [stylisticEnforcement, typeof indent === "number" ? indent : StylisticConfigDefaults.indent],
         "toml/inline-table-curly-spacing": stylisticEnforcement,
         "toml/key-spacing": stylisticEnforcement,
         "toml/padding-line-between-pairs": stylisticEnforcement,

@@ -10,7 +10,8 @@ export async function yaml(
 ): Promise<FlatConfigItem[]> {
   const { files, overrides, stylistic } = options;
 
-  const { indent = 2, quotes = "single" } = typeof stylistic === "boolean" ? {} : stylistic;
+  const { indent = StylisticConfigDefaults.indent, quotes = "single" } =
+    typeof stylistic === "boolean" ? {} : stylistic;
 
   const [pluginYaml, parserYaml] = (await loadPackages(["eslint-plugin-yml", "yaml-eslint-parser"])) as [
     typeof import("eslint-plugin-yml"),
@@ -52,13 +53,11 @@ export async function yaml(
         "yaml/flow-sequence-bracket-spacing": stylisticEnforcement,
         "yaml/indent": [
           stylisticEnforcement,
-          Array.isArray(indent)
-            ? typeof indent[0] === "number"
-              ? indent[0]
-              : StylisticConfigDefaults.indent[0]
-            : typeof indent === "number"
-              ? indent
-              : StylisticConfigDefaults.indent[0],
+          typeof indent === "number"
+            ? indent
+            : typeof StylisticConfigDefaults.indent === "number"
+              ? StylisticConfigDefaults.indent
+              : 2,
         ],
         "yaml/key-spacing": stylisticEnforcement,
         "yaml/no-tab-indent": stylisticEnforcement,

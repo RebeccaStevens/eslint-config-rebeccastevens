@@ -4,29 +4,13 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsHasTypeScript, OptionsOverrides, StylisticConfig } from "../types";
 import { loadPackages } from "../utils";
 
-export const StylisticConfigDefaults = {
-  indent: [
-    2,
-    {
-      SwitchCase: 1,
-      VariableDeclarator: 1,
-      outerIIFEBody: 1,
-      MemberExpression: 1,
-      FunctionDeclaration: { parameters: 1, body: 1 },
-      FunctionExpression: { parameters: 1, body: 1 },
-      CallExpression: { arguments: 1 },
-      ArrayExpression: 1,
-      ObjectExpression: 1,
-      ImportDeclaration: 1,
-      flatTernaryExpressions: false,
-      ignoreComments: false,
-    },
-  ],
+export const StylisticConfigDefaults: Required<StylisticConfig> = {
+  indent: 2,
   jsx: true,
   quotes: "double",
   semi: true,
   printWidth: 120,
-} as const satisfies Required<StylisticConfig>;
+};
 
 export async function stylistic(
   options: Readonly<Required<{ stylistic: Required<StylisticConfig> } & OptionsOverrides & OptionsHasTypeScript>>,
@@ -91,7 +75,24 @@ export async function stylistic(
         "style/generator-star-spacing": ["error", "after"],
         "style/indent": typescript
           ? "off"
-          : ["error", ...(Array.isArray(indent) ? indent : ([indent ?? StylisticConfigDefaults.indent[0]] as const))],
+          : [
+              "error",
+              indent,
+              {
+                SwitchCase: 1,
+                VariableDeclarator: 1,
+                outerIIFEBody: 1,
+                MemberExpression: 1,
+                FunctionDeclaration: { parameters: 1, body: 1 },
+                FunctionExpression: { parameters: 1, body: 1 },
+                CallExpression: { arguments: 1 },
+                ArrayExpression: 1,
+                ObjectExpression: 1,
+                ImportDeclaration: 1,
+                flatTernaryExpressions: false,
+                ignoreComments: false,
+              },
+            ],
         "style/indent-binary-ops": "error",
         "style/key-spacing": ["error", { beforeColon: false, afterColon: true }],
         "style/keyword-spacing": ["error", { before: true, after: true }],

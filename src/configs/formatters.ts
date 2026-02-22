@@ -57,13 +57,12 @@ export async function formatters(
       printWidth: printWidth ?? 120,
       semi: semi ?? true,
       singleQuote: quotes === "single",
-      tabWidth: Array.isArray(indent)
-        ? typeof indent[0] === "number"
-          ? indent[0]
-          : StylisticConfigDefaults.indent[0]
-        : typeof indent === "number"
+      tabWidth:
+        typeof indent === "number"
           ? indent
-          : StylisticConfigDefaults.indent[0],
+          : typeof StylisticConfigDefaults.indent === "number"
+            ? StylisticConfigDefaults.indent
+            : 2,
       trailingComma: "all",
       useTabs: indent === "tab",
     } satisfies PrettierOptions,
