@@ -61,7 +61,10 @@ export async function jsonc(
         "jsonc/array-bracket-spacing": [stylisticEnforcement, "never"],
         "jsonc/comma-dangle": [stylisticEnforcement, "never"],
         "jsonc/comma-style": [stylisticEnforcement, "last"],
-        "jsonc/indent": [stylisticEnforcement, indent],
+        "jsonc/indent": [
+          stylisticEnforcement,
+          ...(Array.isArray(indent) ? (indent as [number | "tab", any]) : ([indent] as const)),
+        ],
         "jsonc/key-spacing": [stylisticEnforcement, { afterColon: true, beforeColon: false }],
         "jsonc/object-curly-newline": [stylisticEnforcement, { consistent: true, multiline: true }],
         "jsonc/object-curly-spacing": [stylisticEnforcement, "always"],

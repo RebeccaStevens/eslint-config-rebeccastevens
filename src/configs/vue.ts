@@ -1,3 +1,5 @@
+import assert from "node:assert/strict";
+
 import type { ESLint, Linter } from "eslint";
 import { isPackageExists } from "local-pkg";
 
@@ -155,7 +157,11 @@ export async function vue(
         "vue/dot-location": ["error", "property"],
         "vue/dot-notation": ["error", { allowKeywords: true }],
         "vue/eqeqeq": ["error", "smart"],
-        "vue/html-indent": ["error", indent],
+        "vue/html-indent": [
+          "error",
+          Array.isArray(indent) ? (indent[0] ?? assert.fail("Invalid option")) : indent,
+          { baseIndent: 1 },
+        ],
         "vue/html-quotes": ["error", "double"],
         // "vue/max-attributes-per-line": "off",
         "vue/multi-word-component-names": "error",

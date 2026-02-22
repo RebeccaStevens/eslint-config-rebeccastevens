@@ -1,7 +1,11 @@
+import assert from "node:assert/strict";
+
 import type { ESLint } from "eslint";
 
 import type { FlatConfigItem, RequiredOptionsStylistic, RequiredOptionsTailwindCSS } from "../types";
 import { loadPackages } from "../utils";
+
+import { StylisticConfigDefaults } from "./stylistic";
 
 export async function tailwind(
   options: Readonly<Required<RequiredOptionsTailwindCSS> & RequiredOptionsStylistic>,
@@ -38,7 +42,9 @@ export async function tailwind(
                 {
                   classesPerLine: 0,
                   group: "newLine",
-                  indent: stylistic.indent,
+                  indent: Array.isArray(stylistic.indent)
+                    ? (stylistic.indent[0] ?? assert.fail("Invalid option"))
+                    : (stylistic.indent ?? StylisticConfigDefaults.indent[0]),
                   lineBreakStyle: "unix",
                   preferSingleLine: false,
                   printWidth: stylistic.printWidth,
