@@ -4,6 +4,7 @@
   "project": ["src/**/*.ts!"],
   "ignoreDependencies": [
     "@eslint-react/eslint-plugin",
+    "@eslint/markdown",
     "@intlify/eslint-plugin-vue-i18n",
     "@semantic-release/commit-analyzer",
     "@semantic-release/github",
@@ -31,7 +32,6 @@
     "eslint-plugin-jsdoc",
     "eslint-plugin-jsonc",
     "eslint-plugin-jsx-a11y",
-    "eslint-plugin-markdown",
     "eslint-plugin-n",
     "eslint-plugin-no-only-tests",
     "eslint-plugin-optimize-regex",
