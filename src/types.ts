@@ -9,14 +9,6 @@ import type { SettingsVueI18nLocaleDir } from "../typings/eslint-plugin-vue-i18n
 
 import type { RuleOptions as Rules } from "./typegen";
 
-declare module "eslint" {
-  // eslint-disable-next-line ts/no-namespace
-  namespace Linter {
-    // eslint-disable-next-line ts/consistent-type-definitions
-    interface RulesRecord extends Rules {}
-  }
-}
-
 export type Awaitable<T> = T | Promise<T>;
 
 export type FlatConfigItem = Omit<Linter.Config, "plugins" | "rules"> & {
@@ -153,7 +145,8 @@ export type RequiredOptionsStylistic = {
 
 export type StylisticConfig = {
   printWidth?: number;
-} & Pick<StylisticCustomizeOptions, "indent" | "quotes" | "jsx" | "semi">;
+  indent?: "tab" | number;
+} & Pick<StylisticCustomizeOptions, "quotes" | "jsx" | "semi">;
 
 export type OptionsOverrides = {
   overrides?: FlatConfigItem["rules"];
