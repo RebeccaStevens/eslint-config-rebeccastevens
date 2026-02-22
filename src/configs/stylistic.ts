@@ -208,7 +208,7 @@ export async function stylistic(
           },
         ],
         "style/quote-props": ["error", "consistent-as-needed"],
-        "style/quotes": ["error", quotes, { avoidEscape: true, allowTemplateLiterals: true }],
+        "style/quotes": ["error", quotes, { avoidEscape: true, allowTemplateLiterals: "never" }],
         "style/rest-spread-spacing": ["error", "never"],
         "style/semi-spacing": ["error", { before: false, after: true }],
         "style/semi-style": ["error", "last"],
