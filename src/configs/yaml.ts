@@ -3,6 +3,8 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsFiles, OptionsOverrides, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
+import { StylisticConfigDefaults } from "./stylistic";
+
 export async function yaml(
   options: Readonly<Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>>,
 ): Promise<FlatConfigItem[]> {
@@ -48,7 +50,16 @@ export async function yaml(
         "yaml/flow-mapping-curly-spacing": stylisticEnforcement,
         "yaml/flow-sequence-bracket-newline": stylisticEnforcement,
         "yaml/flow-sequence-bracket-spacing": stylisticEnforcement,
-        "yaml/indent": [stylisticEnforcement, indent === "tab" ? 2 : indent],
+        "yaml/indent": [
+          stylisticEnforcement,
+          Array.isArray(indent)
+            ? typeof indent[0] === "number"
+              ? indent[0]
+              : StylisticConfigDefaults.indent[0]
+            : typeof indent === "number"
+              ? indent
+              : StylisticConfigDefaults.indent[0],
+        ],
         "yaml/key-spacing": stylisticEnforcement,
         "yaml/no-tab-indent": stylisticEnforcement,
         "yaml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes === "backtick" ? "double" : quotes }],

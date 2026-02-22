@@ -22,6 +22,8 @@ import {
 import type { FlatConfigItem, OptionsFormatters, StylisticConfig } from "../types";
 import { loadPackages, parserPlain } from "../utils";
 
+import { StylisticConfigDefaults } from "./stylistic";
+
 export async function formatters(
   opts: Readonly<OptionsFormatters | true>,
   stylistic: Readonly<StylisticConfig>,
@@ -55,7 +57,13 @@ export async function formatters(
       printWidth: printWidth ?? 120,
       semi: semi ?? true,
       singleQuote: quotes === "single",
-      tabWidth: typeof indent === "number" ? indent : 2,
+      tabWidth: Array.isArray(indent)
+        ? typeof indent[0] === "number"
+          ? indent[0]
+          : StylisticConfigDefaults.indent[0]
+        : typeof indent === "number"
+          ? indent
+          : StylisticConfigDefaults.indent[0],
       trailingComma: "all",
       useTabs: indent === "tab",
     } satisfies PrettierOptions,

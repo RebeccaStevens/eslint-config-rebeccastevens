@@ -3,6 +3,8 @@ import type { ESLint, Linter } from "eslint";
 import type { FlatConfigItem, OptionsFiles, OptionsOverrides, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
+import { StylisticConfigDefaults } from "./stylistic";
+
 export async function toml(
   options: Readonly<Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>>,
 ): Promise<FlatConfigItem[]> {
@@ -46,7 +48,16 @@ export async function toml(
         "toml/array-bracket-newline": stylisticEnforcement,
         "toml/array-bracket-spacing": stylisticEnforcement,
         "toml/array-element-newline": stylisticEnforcement,
-        "toml/indent": [stylisticEnforcement, indent === "tab" ? 2 : indent],
+        "toml/indent": [
+          stylisticEnforcement,
+          Array.isArray(indent)
+            ? typeof indent[0] === "number"
+              ? indent[0]
+              : StylisticConfigDefaults.indent[0]
+            : typeof indent === "number"
+              ? indent
+              : StylisticConfigDefaults.indent[0],
+        ],
         "toml/inline-table-curly-spacing": stylisticEnforcement,
         "toml/key-spacing": stylisticEnforcement,
         "toml/padding-line-between-pairs": stylisticEnforcement,
