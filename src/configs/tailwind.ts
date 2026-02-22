@@ -30,6 +30,15 @@ export async function tailwind(
               : undefined,
       },
       rules: {
+        "tailwind-better/no-unknown-classes": [
+          "off",
+          {
+            detectComponentClasses: true,
+          },
+        ],
+        "tailwind-better/no-conflicting-classes": "error",
+        "tailwind-better/no-restricted-classes": "error",
+
         ...(stylistic === false
           ? {}
           : {
@@ -44,29 +53,30 @@ export async function tailwind(
                   printWidth: stylistic.printWidth,
                 },
               ],
-              "tailwind-better/no-unnecessary-whitespace": "warn",
               "tailwind-better/enforce-consistent-class-order": [
                 "error",
                 {
-                  order: "improved",
+                  order: "strict",
+                  detectComponentClasses: true,
+                  componentClassOrder: "preserve",
+                  componentClassPosition: "start",
+                  unknownClassOrder: "preserve",
+                  unknownClassPosition: "start",
                 },
               ],
-              "tailwind-better/no-duplicate-classes": "error",
               "tailwind-better/enforce-consistent-variable-syntax": [
                 "error",
                 {
-                  syntax: "parentheses",
+                  syntax: "shorthand",
                 },
               ],
+              "tailwind-better/enforce-consistent-important-position": "off",
+              "tailwind-better/enforce-shorthand-classes": "off",
+              "tailwind-better/enforce-canonical-classes": "error",
 
-              "tailwind-better/no-unregistered-classes": [
-                "off",
-                {
-                  detectComponentClasses: true,
-                },
-              ],
-              "tailwind-better/no-conflicting-classes": "error",
-              "tailwind-better/no-restricted-classes": "error",
+              "tailwind-better/no-duplicate-classes": "error",
+              "tailwind-better/no-deprecated-classes": "warn",
+              "tailwind-better/no-unnecessary-whitespace": "warn",
             }),
 
         ...overrides,
