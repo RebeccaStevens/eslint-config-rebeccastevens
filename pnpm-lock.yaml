@@ -61,8 +61,8 @@ importers:
         specifier: 14.1.0
         version: 14.1.0(semantic-release@25.0.3(typescript@5.9.3))
       '@stylistic/eslint-plugin':
-        specifier: 5.6.1
-        version: 5.6.1(eslint@9.36.0(jiti@2.6.1))
+        specifier: 5.9.0
+        version: 5.9.0(eslint@9.36.0(jiti@2.6.1))
       '@stylistic/eslint-plugin-migrate':
         specifier: 4.4.1
         version: 4.4.1(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3)
@@ -179,7 +179,7 @@ importers:
         version: 62.0.0(eslint@9.36.0(jiti@2.6.1))
       eslint-plugin-vue:
         specifier: 10.8.0
-        version: 10.8.0(@stylistic/eslint-plugin@5.6.1(eslint@9.36.0(jiti@2.6.1)))(@typescript-eslint/parser@8.38.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.36.0(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.36.0(jiti@2.6.1)))
+        version: 10.8.0(@stylistic/eslint-plugin@5.9.0(eslint@9.36.0(jiti@2.6.1)))(@typescript-eslint/parser@8.38.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.36.0(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.36.0(jiti@2.6.1)))
       eslint-plugin-yml:
         specifier: 3.2.1
         version: 3.2.1(@eslint/markdown@7.5.1)(eslint@9.36.0(jiti@2.6.1))
@@ -1452,11 +1452,11 @@ packages:
     resolution: {integrity: sha512-9HgQi6MfLp2ctYnrHbqkgEFHNwwSKoU7rGV7dJsVwWyVhlgglh8AvkfcYxY1mnyMCMZulFNs5XEQsxUaaS0UrQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@stylistic/eslint-plugin@5.6.1':
-    resolution: {integrity: sha512-JCs+MqoXfXrRPGbGmho/zGS/jMcn3ieKl/A8YImqib76C8kjgZwq5uUFzc30lJkMvcchuRn6/v8IApLxli3Jyw==}
+  '@stylistic/eslint-plugin@5.9.0':
+    resolution: {integrity: sha512-FqqSkvDMYJReydrMhlugc71M76yLLQWNfmGq+SIlLa7N3kHp8Qq8i2PyWrVNAfjOyOIY+xv9XaaYwvVW7vroMA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
-      eslint: '>=9.0.0'
+      eslint: ^9.0.0 || ^10.0.0
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -6534,7 +6534,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@stylistic/eslint-plugin@5.6.1(eslint@9.36.0(jiti@2.6.1))':
+  '@stylistic/eslint-plugin@5.9.0(eslint@9.36.0(jiti@2.6.1))':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.36.0(jiti@2.6.1))
       '@typescript-eslint/types': 8.56.0
@@ -8188,7 +8188,7 @@ snapshots:
       semver: 7.7.4
       strip-indent: 4.1.1
 
-  eslint-plugin-vue@10.8.0(@stylistic/eslint-plugin@5.6.1(eslint@9.36.0(jiti@2.6.1)))(@typescript-eslint/parser@8.38.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.36.0(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.36.0(jiti@2.6.1))):
+  eslint-plugin-vue@10.8.0(@stylistic/eslint-plugin@5.9.0(eslint@9.36.0(jiti@2.6.1)))(@typescript-eslint/parser@8.38.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.36.0(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@9.36.0(jiti@2.6.1))):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.36.0(jiti@2.6.1))
       eslint: 9.36.0(jiti@2.6.1)
@@ -8199,7 +8199,7 @@ snapshots:
       vue-eslint-parser: 10.4.0(eslint@9.36.0(jiti@2.6.1))
       xml-name-validator: 4.0.0
     optionalDependencies:
-      '@stylistic/eslint-plugin': 5.6.1(eslint@9.36.0(jiti@2.6.1))
+      '@stylistic/eslint-plugin': 5.9.0(eslint@9.36.0(jiti@2.6.1))
       '@typescript-eslint/parser': 8.38.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3)
 
   eslint-plugin-yml@3.2.1(@eslint/markdown@7.5.1)(eslint@9.36.0(jiti@2.6.1)):
