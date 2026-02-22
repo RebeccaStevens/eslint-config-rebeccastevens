@@ -12,6 +12,7 @@ import type { FlatConfigItem } from "./types";
 export async function combine(
   ...configs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
 ): Promise<FlatConfigItem[]> {
+  // eslint-disable-next-line ts/await-thenable -- https://github.com/typescript-eslint/typescript-eslint/issues/11694
   const resolved = await Promise.all(configs);
   return resolved.flat();
 }
