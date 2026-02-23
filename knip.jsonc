@@ -1,15 +1,11 @@
 {
   "$schema": "node_modules/knip/schema-jsonc.json",
-  "entry": ["src/index.ts!", "scripts/typegen.ts"],
+  "entry": ["src/index.ts!", "scripts/*.ts"],
   "project": ["src/**/*.ts!"],
+  "ignoreBinaries": ["semantic-release"],
   "ignoreDependencies": [
     "@eslint-react/eslint-plugin",
     "@eslint/markdown",
-    "@intlify/eslint-plugin-vue-i18n",
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/github",
-    "@semantic-release/npm",
-    "@semantic-release/release-notes-generator",
     "@stylistic/eslint-plugin",
     "@types/eslint",
     "@typescript-eslint/eslint-plugin",
@@ -28,7 +24,6 @@
     "eslint-plugin-format",
     "eslint-plugin-functional",
     "eslint-plugin-i18next",
-    "eslint-plugin-import-x",
     "eslint-plugin-jsdoc",
     "eslint-plugin-jsonc",
     "eslint-plugin-jsx-a11y",
@@ -54,5 +49,4 @@
     "vue-eslint-parser",
     "yaml-eslint-parser",
   ],
-  "ignore": ["src/utils.ts"],
 }
