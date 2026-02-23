@@ -431,9 +431,8 @@ export async function typescript(
       name: "rs:typescript:rules-non-type-aware",
       files,
       ignores: filesTypeAware,
-      rules: ((pluginTs.configs?.["disable-type-checked"] as Linter.FlatConfig).rules ?? {}) as NonNullable<
-        FlatConfigItem["rules"]
-      >,
+      rules: ((pluginTs.configs?.["disable-type-checked"] as Linter.FlatConfig | undefined)?.rules ??
+        {}) as NonNullable<FlatConfigItem["rules"]>,
     },
     {
       name: "rs:typescript:tests-overrides",
