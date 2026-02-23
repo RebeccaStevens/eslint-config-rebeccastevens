@@ -51,24 +51,22 @@ export async function formatters(
 
   const { indent, printWidth, quotes, semi } = stylistic;
 
-  const prettierOptions: PrettierOptions = Object.assign(
-    {
-      endOfLine: "lf",
-      printWidth: printWidth ?? 120,
-      semi: semi ?? true,
-      singleQuote: quotes === "single",
-      tabWidth:
-        typeof indent === "number"
-          ? indent
-          : typeof StylisticConfigDefaults.indent === "number"
-            ? StylisticConfigDefaults.indent
-            : 2,
-      trailingComma: "all",
-      useTabs: indent === "tab",
-    } satisfies PrettierOptions,
+  const prettierOptions: PrettierOptions = {
+    endOfLine: "lf",
+    printWidth: printWidth ?? 120,
+    semi: semi ?? true,
+    singleQuote: quotes === "single",
+    tabWidth:
+      typeof indent === "number"
+        ? indent
+        : typeof StylisticConfigDefaults.indent === "number"
+          ? StylisticConfigDefaults.indent
+          : 2,
+    trailingComma: "all",
+    useTabs: indent === "tab",
 
-    options.prettierOptions ?? {},
-  );
+    ...options.prettierOptions
+  };
 
   const packages = loadPackages([
     "eslint-plugin-format",

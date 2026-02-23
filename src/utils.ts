@@ -65,7 +65,7 @@ let mut_installPackagesActionResolver: ((value: string[] | PromiseLike<string[]>
 let mut_installPackagesTimeout: NodeJS.Timeout | null = null;
 
 /* eslint-disable functional/no-loop-statements */
-async function installPackages(packages: ReadonlyArray<string>) {
+function installPackages(packages: ReadonlyArray<string>) {
   for (const p of packages) {
     mut_installPackagesToLoad.add(p);
   }

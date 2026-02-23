@@ -95,7 +95,7 @@ export async function rsEslint(
   const {
     autoRenamePlugins = true,
     componentExts = [],
-    isInEditor = !Boolean(process.env["CI"]) &&
+    isInEditor = !process.env["CI"] &&
       (Boolean(process.env["VSCODE_PID"]) ||
         Boolean(process.env["VSCODE_CWD"]) ||
         Boolean(process.env["JETBRAINS_IDE"]) ||
