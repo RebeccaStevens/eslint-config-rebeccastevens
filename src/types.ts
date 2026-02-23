@@ -221,10 +221,10 @@ export type OptionsIgnoreFiles = {
 };
 
 export type OptionsIgnores =
-  | NonNullable<Linter.FlatConfig["ignores"]>
+  | NonNullable<Linter.Config["ignores"]>
   | {
       extend: boolean;
-      files: NonNullable<Linter.FlatConfig["ignores"]>;
+      files: NonNullable<Linter.Config["ignores"]>;
     };
 
 export type OptionsConfig = {

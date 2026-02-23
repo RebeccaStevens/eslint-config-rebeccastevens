@@ -163,7 +163,7 @@ const configs = (await combine(
     stylistic: false,
     files: [],
   }),
-)) as Linter.FlatConfig[];
+)) as Linter.Config[];
 
 const dts = await flatConfigsToRulesDTS(configs, {
   includeIgnoreComments: false,
