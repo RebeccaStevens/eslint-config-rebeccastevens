@@ -59,7 +59,7 @@
     "lint:yaml-fix": "eslint \"**/*.y?(a)ml\" --fix",
     "lint-fix": "pnpm run typegen && eslint --fix && pnpm run lint:md-fix && pnpm run lint:packages-fix",
     "prepare": "husky",
-    "release": "npx --package semantic-release --package @semantic-release/changelog --package @semantic-release/commit-analyzer --package @semantic-release/git --package @semantic-release/github --package @semantic-release/npm --package @semantic-release/release-notes-generator --package semantic-release-publint semantic-release",
+    "release": "pnpm dlx --package semantic-release --package @semantic-release/changelog --package @semantic-release/commit-analyzer --package @semantic-release/git --package @semantic-release/github --package @semantic-release/npm --package @semantic-release/release-notes-generator --package semantic-release-publint semantic-release",
     "typecheck": "pnpm run typegen && pnpm run typecheck:root && pnpm run typecheck:src",
     "typecheck:root": "tsc -p ./tsconfig.json --noEmit",
     "typecheck:src": "tsc -p ./src/tsconfig.json --noEmit",
