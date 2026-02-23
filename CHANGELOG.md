@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.9.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.1...v3.9.2) (2026-02-23)
+
+
+### Bug Fixes
+
+* casting a possibly undefined value to a non-undefined value ([6336855](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/6336855b2b37b6c3a357e9042ddb1d5cab911b9f))
+
 ## [3.9.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.0...v3.9.1) (2026-02-22)
 
 
