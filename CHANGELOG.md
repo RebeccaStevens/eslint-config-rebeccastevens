@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.9.4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.3...v3.9.4) (2026-02-28)
+
+
+### Bug Fixes
+
+* don't use renamed scope when defining rules ([1c66484](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/1c66484fde53abef6c839c970b8c86e004799f74))
+
 ## [3.9.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.2...v3.9.3) (2026-02-28)
 
 
