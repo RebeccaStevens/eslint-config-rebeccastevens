@@ -1,6 +1,7 @@
 import * as path from "node:path";
 
 import type { SharedConfig } from "@typescript-eslint/utils/ts-eslint";
+import type { Linter } from "eslint";
 import { isPackageExists } from "local-pkg";
 
 import {
@@ -87,7 +88,7 @@ export const defaultPluginRenaming = {
 export async function rsEslint(
   options: OptionsConfig,
   ...userConfigs: ReadonlyArray<Awaitable<FlatConfigItem | FlatConfigItem[]>>
-): Promise<FlatConfigItem[]> {
+): Promise<Linter.Config[]> {
   const [FlatConfigComposer] = await loadPackages(["eslint-flat-config-utils"]).then(
     ([a]) => [(a as typeof import("eslint-flat-config-utils")).FlatConfigComposer] as const,
   );
