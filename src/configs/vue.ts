@@ -90,7 +90,7 @@ export async function vue(
             }
           : {
               vue: pluginVue,
-              "vue-i18n": pluginVueI18n,
+              "@intlify/vue-i18n": pluginVueI18n,
             },
     },
 
@@ -127,7 +127,7 @@ export async function vue(
         i18n === false
           ? {}
           : {
-              "vue-i18n": i18n,
+              "@intlify/vue-i18n": i18n,
             },
       rules: {
         ...pluginVue.configs.base.rules,
@@ -136,7 +136,7 @@ export async function vue(
           .map((config) => config.rules ?? {})
           .reduce((acc, rules) => Object.assign(acc, rules), {}),
 
-        "node/prefer-global/process": "off",
+        "n/prefer-global/process": "off",
         "vue/block-order": [
           "error",
           {
@@ -188,27 +188,27 @@ export async function vue(
         "vue/space-infix-ops": "error",
         "vue/space-unary-ops": ["error", { nonwords: false, words: true }],
 
-        "vue-i18n/no-html-messages": i18n === false ? "off" : "error",
-        "vue-i18n/no-missing-keys": i18n === false ? "off" : "error",
-        "vue-i18n/no-raw-text": i18n === false ? "off" : "warn",
-        "vue-i18n/no-v-html": i18n === false ? "off" : "error",
-        "vue-i18n/no-deprecated-i18n-component": i18n === false ? "off" : "error",
-        "vue-i18n/no-deprecated-i18n-place-attr": i18n === false ? "off" : "error",
-        "vue-i18n/no-deprecated-i18n-places-prop": i18n === false ? "off" : "error",
-        "vue-i18n/no-deprecated-modulo-syntax": i18n === false ? "off" : "error",
-        "vue-i18n/no-deprecated-tc": i18n === false ? "off" : "error",
-        "vue-i18n/no-deprecated-v-t": i18n === false ? "off" : "error",
-        "vue-i18n/no-i18n-t-path-prop": i18n === false ? "off" : "error",
-        "vue-i18n/valid-message-syntax": i18n === false ? "off" : "error",
-        "vue-i18n/prefer-linked-key-with-paren": i18n === false ? "off" : "error",
-        "vue-i18n/key-format-style": i18n === false ? "off" : ["error", "kebab-case"],
-        "vue-i18n/no-dynamic-keys": i18n === false ? "off" : "error",
-        "vue-i18n/no-unknown-locale": i18n === false ? "off" : "error",
-        // "vue-i18n/no-missing-keys-in-other-locales": i18n === false ? "off" : "error",
-        // "vue-i18n/no-unused-keys": i18n === false ? "off" : "error",
-        // "vue-i18n/prefer-sfc-lang-attr": i18n === false ? "off" : "error",
-        // "vue-i18n/no-duplicate-keys-in-locale": i18n === false ? "off" : "error",
-        // "vue-i18n/sfc-locale-attr": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-html-messages": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-missing-keys": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-raw-text": i18n === false ? "off" : "warn",
+        "@intlify/vue-i18n/no-v-html": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-deprecated-i18n-component": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-deprecated-i18n-place-attr": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-deprecated-i18n-places-prop": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-deprecated-modulo-syntax": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-deprecated-tc": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-deprecated-v-t": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-i18n-t-path-prop": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/valid-message-syntax": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/prefer-linked-key-with-paren": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/key-format-style": i18n === false ? "off" : ["error", "kebab-case"],
+        "@intlify/vue-i18n/no-dynamic-keys": i18n === false ? "off" : "error",
+        "@intlify/vue-i18n/no-unknown-locale": i18n === false ? "off" : "error",
+        // "@intlify/vue-i18n/no-missing-keys-in-other-locales": i18n === false ? "off" : "error",
+        // "@intlify/vue-i18n/no-unused-keys": i18n === false ? "off" : "error",
+        // "@intlify/vue-i18n/prefer-sfc-lang-attr": i18n === false ? "off" : "error",
+        // "@intlify/vue-i18n/no-duplicate-keys-in-locale": i18n === false ? "off" : "error",
+        // "@intlify/vue-i18n/sfc-locale-attr": i18n === false ? "off" : "error",
 
         "vue/array-bracket-spacing": [stylisticEnforcement, "never"],
         "vue/arrow-spacing": [stylisticEnforcement, { after: true, before: true }],
@@ -257,10 +257,10 @@ export async function vue(
             name: "rs:nuxt:rules:off",
             files,
             rules: {
-              "import/default": "off",
-              "import/named": "off",
-              "import/namespace": "off",
-              "import/no-unresolved": "off",
+              "import-x/default": "off",
+              "import-x/named": "off",
+              "import-x/namespace": "off",
+              "import-x/no-unresolved": "off",
             },
           },
           {

@@ -13,7 +13,7 @@ export async function overrides(): Promise<FlatConfigItem[]> {
       name: "rs:typescript:dts-overrides",
       rules: {
         "eslint-comments/no-unlimited-disable": "off",
-        "import/no-duplicates": "off",
+        "import-x/no-duplicates": "off",
         "no-restricted-syntax": "off",
       },
     },
@@ -23,7 +23,7 @@ export async function overrides(): Promise<FlatConfigItem[]> {
       rules: {
         ...pluginFunctional?.configs.off.rules,
 
-        "import/no-unassigned-import": "off",
+        "import-x/no-unassigned-import": "off",
 
         "jsdoc/check-examples": "off",
         "jsdoc/check-indentation": "off",
@@ -57,10 +57,10 @@ export async function overrides(): Promise<FlatConfigItem[]> {
         "jsdoc/check-alignment": "off",
         "jsdoc/multiline-blocks": "off",
 
-        "ts/consistent-type-definitions": "off",
-        "ts/no-empty-object-type": "off",
-        "ts/no-explicit-any": "off",
-        "ts/no-unused-vars": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
       },
     },
     {
@@ -75,8 +75,8 @@ export async function overrides(): Promise<FlatConfigItem[]> {
         "functional/no-return-void": "off",
         "functional/no-throw-statements": "off",
 
-        "node/no-sync": "off",
-        "node/no-unpublished-import": "off",
+        "n/no-sync": "off",
+        "n/no-unpublished-import": "off",
       },
     },
   ];

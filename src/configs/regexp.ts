@@ -13,13 +13,8 @@ export async function regexp(): Promise<FlatConfigItem[]> {
     {
       name: "rs:regexp",
       plugins: {
-        regexp: {
-          ...pluginRegexp,
-          rules: {
-            ...pluginRegexp.rules,
-            ...pluginOptimizeRegex.rules,
-          },
-        },
+        regexp: pluginRegexp,
+        "optimize-regex": pluginOptimizeRegex,
       },
       rules: {
         "no-empty-character-class": "off",
@@ -72,7 +67,6 @@ export async function regexp(): Promise<FlatConfigItem[]> {
         "regexp/no-zero-quantifier": "error",
         "regexp/optimal-lookaround-quantifier": "error",
         "regexp/optimal-quantifier-concatenation": "error",
-        "regexp/optimize-regex": "error",
         "regexp/prefer-character-class": "error",
         "regexp/prefer-d": "error",
         "regexp/prefer-plus-quantifier": "error",
@@ -87,6 +81,8 @@ export async function regexp(): Promise<FlatConfigItem[]> {
         "regexp/sort-flags": "error",
         "regexp/strict": "error",
         "regexp/use-ignore-case": "error",
+
+        "optimize-regex/optimize-regex": "error",
       },
     },
   ];

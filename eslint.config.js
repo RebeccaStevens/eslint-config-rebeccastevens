@@ -34,7 +34,7 @@ export default rsEslint(
       "style-migrate": styleMigrate,
     },
     rules: {
-      "style-migrate/migrate": ["error", { namespaceTo: "style" }],
+      "style-migrate/migrate": ["error", { namespaceTo: "@stylistic" }],
     },
   },
 );

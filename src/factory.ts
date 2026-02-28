@@ -72,7 +72,7 @@ export const defaultPluginRenaming = {
   "@typescript-eslint": "ts",
   "import-x": "import",
   n: "node",
-  "optimize-regex": "regexp",
+  // "optimize-regex": "regexp",
   sonarjs: "sonar",
   vitest: "test",
   yml: "yaml",

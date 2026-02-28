@@ -11,26 +11,26 @@ export async function node(): Promise<FlatConfigItem[]> {
     {
       name: "rs:node",
       plugins: {
-        node: pluginNode,
+        n: pluginNode,
       },
       rules: {
-        "node/callback-return": "error",
-        "node/exports-style": ["error", "module.exports"],
-        "node/global-require": "off",
-        "node/handle-callback-err": ["error", "^(err|error)$"],
-        "node/no-callback-literal": "error",
-        "node/no-missing-import": "off",
-        "node/no-mixed-requires": [
+        "n/callback-return": "error",
+        "n/exports-style": ["error", "module.exports"],
+        "n/global-require": "off",
+        "n/handle-callback-err": ["error", "^(err|error)$"],
+        "n/no-callback-literal": "error",
+        "n/no-missing-import": "off",
+        "n/no-mixed-requires": [
           "error",
           {
             allowCall: true,
             grouping: true,
           },
         ],
-        "node/no-new-require": "error",
-        "node/no-path-concat": "error",
-        "node/no-process-exit": "error",
-        "node/no-restricted-import": [
+        "n/no-new-require": "error",
+        "n/no-path-concat": "error",
+        "n/no-process-exit": "error",
+        "n/no-restricted-import": [
           "error",
           [
             {
@@ -43,7 +43,7 @@ export async function node(): Promise<FlatConfigItem[]> {
             },
           ],
         ],
-        "node/no-restricted-require": [
+        "n/no-restricted-require": [
           "error",
           [
             {
@@ -56,32 +56,32 @@ export async function node(): Promise<FlatConfigItem[]> {
             },
           ],
         ],
-        "node/no-sync": "error",
-        "node/no-unpublished-import": "warn",
-        "node/prefer-global/buffer": ["error", "never"],
-        "node/prefer-global/console": ["error", "always"],
-        "node/prefer-global/process": ["error", "always"],
-        "node/prefer-global/text-decoder": ["error", "never"],
-        "node/prefer-global/text-encoder": ["error", "never"],
-        "node/prefer-global/url": ["error", "never"],
-        "node/prefer-global/url-search-params": ["error", "never"],
-        "node/prefer-promises/dns": "error",
-        "node/prefer-promises/fs": "error",
+        "n/no-sync": "error",
+        "n/no-unpublished-import": "warn",
+        "n/prefer-global/buffer": ["error", "never"],
+        "n/prefer-global/console": ["error", "always"],
+        "n/prefer-global/process": ["error", "always"],
+        "n/prefer-global/text-decoder": ["error", "never"],
+        "n/prefer-global/text-encoder": ["error", "never"],
+        "n/prefer-global/url": ["error", "never"],
+        "n/prefer-global/url-search-params": ["error", "never"],
+        "n/prefer-promises/dns": "error",
+        "n/prefer-promises/fs": "error",
       },
     },
     {
       files: [GLOB_TS, GLOB_TSX, GLOB_DTS, GLOB_MJS],
       rules: {
-        "node/no-unsupported-features/es-syntax": "off",
+        "n/no-unsupported-features/es-syntax": "off",
       },
     },
     {
       files: [GLOB_TS, GLOB_TSX, GLOB_DTS],
       rules: {
-        "node/no-extraneous-import": "off",
-        "node/no-missing-import": "off",
-        "node/no-restricted-import": "off",
-        "node/no-restricted-require": "off",
+        "n/no-extraneous-import": "off",
+        "n/no-missing-import": "off",
+        "n/no-restricted-import": "off",
+        "n/no-restricted-require": "off",
       },
     },
   ];

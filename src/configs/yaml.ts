@@ -24,7 +24,7 @@ export async function yaml(
     {
       name: "rs:yaml:setup",
       plugins: {
-        yaml: pluginYaml as unknown as ESLint.Plugin,
+        yml: pluginYaml as unknown as ESLint.Plugin,
       },
     },
     {
@@ -34,24 +34,24 @@ export async function yaml(
       },
       name: "rs:yaml:rules",
       rules: {
-        "style/spaced-comment": "off",
+        "@stylistic/spaced-comment": "off",
 
-        "yaml/block-mapping": "error",
-        "yaml/block-sequence": "error",
-        "yaml/no-empty-key": "error",
-        "yaml/no-empty-sequence-entry": "error",
-        "yaml/no-irregular-whitespace": "error",
-        "yaml/plain-scalar": "error",
+        "yml/block-mapping": "error",
+        "yml/block-sequence": "error",
+        "yml/no-empty-key": "error",
+        "yml/no-empty-sequence-entry": "error",
+        "yml/no-irregular-whitespace": "error",
+        "yml/plain-scalar": "error",
 
-        "yaml/vue-custom-block/no-parsing-error": "error",
+        "yml/vue-custom-block/no-parsing-error": "error",
 
-        "yaml/block-mapping-question-indicator-newline": stylisticEnforcement,
-        "yaml/block-sequence-hyphen-indicator-newline": stylisticEnforcement,
-        "yaml/flow-mapping-curly-newline": stylisticEnforcement,
-        "yaml/flow-mapping-curly-spacing": stylisticEnforcement,
-        "yaml/flow-sequence-bracket-newline": stylisticEnforcement,
-        "yaml/flow-sequence-bracket-spacing": stylisticEnforcement,
-        "yaml/indent": [
+        "yml/block-mapping-question-indicator-newline": stylisticEnforcement,
+        "yml/block-sequence-hyphen-indicator-newline": stylisticEnforcement,
+        "yml/flow-mapping-curly-newline": stylisticEnforcement,
+        "yml/flow-mapping-curly-spacing": stylisticEnforcement,
+        "yml/flow-sequence-bracket-newline": stylisticEnforcement,
+        "yml/flow-sequence-bracket-spacing": stylisticEnforcement,
+        "yml/indent": [
           stylisticEnforcement,
           typeof indent === "number"
             ? indent
@@ -59,10 +59,10 @@ export async function yaml(
               ? StylisticConfigDefaults.indent
               : 2,
         ],
-        "yaml/key-spacing": stylisticEnforcement,
-        "yaml/no-tab-indent": stylisticEnforcement,
-        "yaml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes === "backtick" ? "double" : quotes }],
-        "yaml/spaced-comment": stylisticEnforcement,
+        "yml/key-spacing": stylisticEnforcement,
+        "yml/no-tab-indent": stylisticEnforcement,
+        "yml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes === "backtick" ? "double" : quotes }],
+        "yml/spaced-comment": stylisticEnforcement,
 
         ...overrides,
       },

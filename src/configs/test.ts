@@ -19,13 +19,8 @@ export async function test(options: Readonly<Required<OptionsFiles & OptionsOver
     {
       name: "rs:test:setup",
       plugins: {
-        test: {
-          ...pluginVitest,
-          rules: {
-            ...(pluginVitest as ESLint.Plugin).rules,
-            ...pluginNoOnlyTests.rules,
-          },
-        },
+        vitest: pluginVitest as ESLint.Plugin,
+        "no-only-tests": pluginNoOnlyTests,
       },
       settings: {
         vitest: {
@@ -39,34 +34,35 @@ export async function test(options: Readonly<Required<OptionsFiles & OptionsOver
       rules: {
         ...pluginFunctional?.configs.off.rules,
 
-        "node/prefer-global/process": "off",
-        "node/no-sync": "off",
+        "n/prefer-global/process": "off",
+        "n/no-sync": "off",
 
-        "import/no-named-as-default-member": "off",
+        "import-x/no-named-as-default-member": "off",
 
         "jsdoc/require-jsdoc": "off",
 
         "regexp/no-super-linear-backtracking": "off",
 
-        "sonar/no-duplicate-string": "off",
-        "sonar/no-identical-functions": "off",
+        "sonarjs/no-duplicate-string": "off",
+        "sonarjs/no-identical-functions": "off",
 
-        "test/consistent-test-it": ["error", { fn: "it", withinDescribe: "it" }],
-        "test/no-identical-title": "error",
-        "test/no-import-node-test": "error",
-        "test/no-only-tests": "error",
-        "test/prefer-hooks-in-order": "error",
-        "test/prefer-lowercase-title": "error",
-        "test/valid-expect": "off", // Too many false positives.
+        "vitest/consistent-test-it": ["error", { fn: "it", withinDescribe: "it" }],
+        "vitest/no-identical-title": "error",
+        "vitest/no-import-node-test": "error",
+        "vitest/prefer-hooks-in-order": "error",
+        "vitest/prefer-lowercase-title": "error",
+        "vitest/valid-expect": "off", // Too many false positives.
 
-        "ts/consistent-type-definitions": "off",
-        "ts/no-unsafe-argument": "off",
-        "ts/no-unsafe-assignment": "off",
-        "ts/no-unsafe-call": "off",
-        "ts/no-unsafe-member-access": "off",
-        "ts/no-unsafe-return": "off",
-        "ts/no-unused-vars": "off",
-        "ts/strict-boolean-expressions": "off",
+        "no-only-tests/no-only-tests": "error",
+
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off",
 
         "unicorn/consistent-function-scoping": "off",
         "unicorn/prefer-module": "off",

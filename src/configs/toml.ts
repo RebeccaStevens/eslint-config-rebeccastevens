@@ -33,7 +33,7 @@ export async function toml(
       },
       name: "rs:toml:rules",
       rules: {
-        "style/spaced-comment": "off",
+        "@stylistic/spaced-comment": "off",
 
         "toml/comma-style": "error",
         "toml/keys-order": "error",

@@ -30,7 +30,7 @@ export async function imports(
     {
       name: "rs:imports",
       plugins: {
-        import: pluginImport,
+        "import-x": pluginImport,
       },
       settings: {
         "import-x/external-module-folders": ["node_modules", "node_modules/@types"],
@@ -58,64 +58,64 @@ export async function imports(
         },
       },
       rules: {
-        // "import/consistent-type-specifier-style": ["error", "prefer-inline"], -- using ts/consistent-type-imports instead
-        "import/default": "error",
-        // "import/dynamic-import-chunkname": "off",
-        "import/export": "error",
-        // "import/exports-last": "off",
-        // "import/extensions": "off",
-        "import/first": "error",
-        // "import/group-exports": "off",
-        // "import/max-dependencies": [
+        // "import-x/consistent-type-specifier-style": ["error", "prefer-inline"], -- using ts/consistent-type-imports instead
+        "import-x/default": "error",
+        // "import-x/dynamic-import-chunkname": "off",
+        "import-x/export": "error",
+        // "import-x/exports-last": "off",
+        // "import-x/extensions": "off",
+        "import-x/first": "error",
+        // "import-x/group-exports": "off",
+        // "import-x/max-dependencies": [
         //   "off",
         //   {
         //     max: 10,
         //   },
         // ],
-        "import/named": "error",
-        "import/namespace": [
+        "import-x/named": "error",
+        "import-x/namespace": [
           "error",
           {
             allowComputed: true,
           },
         ],
-        "import/no-absolute-path": "error",
-        "import/no-amd": "error",
-        // "import/no-anonymous-default-export": "off",
-        // "import/no-commonjs": "off",
-        // "import/no-cycle": "off",
-        // "import/no-default-export": "off",
-        // "import/no-deprecated": "warn",
-        "import/no-duplicates": ["error", { "prefer-inline": true }],
-        // "import/no-dynamic-require": "off",
-        "import/no-empty-named-blocks": "error",
-        // "import/no-internal-modules": "off",
-        "import/no-mutable-exports": "error",
-        // "import/no-named-as-default": "off",
-        // "import/no-named-as-default-member": "off",
-        "import/no-named-default": "error",
-        // "import/no-named-export": "off",
-        // "import/no-namespace": "off",
-        // "import/no-nodejs-modules": "off",
-        // "import/no-relative-parent-imports": "off",
-        // "import/no-restricted-paths": "off",
-        "import/no-self-import": "error",
-        "import/no-unassigned-import": "error",
-        // "import/no-unused-modules": "off",
-        // "import/no-unresolved": "off",
-        "import/no-useless-path-segments": [
+        "import-x/no-absolute-path": "error",
+        "import-x/no-amd": "error",
+        // "import-x/no-anonymous-default-export": "off",
+        // "import-x/no-commonjs": "off",
+        // "import-x/no-cycle": "off",
+        // "import-x/no-default-export": "off",
+        // "import-x/no-deprecated": "warn",
+        "import-x/no-duplicates": ["error", { "prefer-inline": true }],
+        // "import-x/no-dynamic-require": "off",
+        "import-x/no-empty-named-blocks": "error",
+        // "import-x/no-internal-modules": "off",
+        "import-x/no-mutable-exports": "error",
+        // "import-x/no-named-as-default": "off",
+        // "import-x/no-named-as-default-member": "off",
+        "import-x/no-named-default": "error",
+        // "import-x/no-named-export": "off",
+        // "import-x/no-namespace": "off",
+        // "import-x/no-nodejs-modules": "off",
+        // "import-x/no-relative-parent-imports": "off",
+        // "import-x/no-restricted-paths": "off",
+        "import-x/no-self-import": "error",
+        "import-x/no-unassigned-import": "error",
+        // "import-x/no-unused-modules": "off",
+        // "import-x/no-unresolved": "off",
+        "import-x/no-useless-path-segments": [
           "error",
           {
             commonjs: true,
             noUselessIndex: true,
           },
         ],
-        "import/no-webpack-loader-syntax": "error",
-        // "import/prefer-default-export": "off",
-        // "import/unambiguous": "off",
+        "import-x/no-webpack-loader-syntax": "error",
+        // "import-x/prefer-default-export": "off",
+        // "import-x/unambiguous": "off",
 
-        "import/newline-after-import": [stylistic === false ? "off" : "error", { count: 1 }],
-        "import/order": [
+        "import-x/newline-after-import": [stylistic === false ? "off" : "error", { count: 1 }],
+        "import-x/order": [
           stylistic === false ? "off" : "error",
           {
             alphabetize: {
@@ -131,8 +131,8 @@ export async function imports(
     {
       files: [GLOB_MJS, GLOB_MTS],
       rules: {
-        "import/no-commonjs": "error",
-        "import/no-dynamic-require": "error",
+        "import-x/no-commonjs": "error",
+        "import-x/no-dynamic-require": "error",
       },
     },
     ...((typescript
@@ -140,13 +140,13 @@ export async function imports(
           {
             files: [GLOB_TS, GLOB_TSX, GLOB_DTS],
             rules: {
-              "import/no-unresolved": "off",
-              "import/named": "off",
-              "import/default": "off",
-              "import/namespace": "off",
+              "import-x/no-unresolved": "off",
+              "import-x/named": "off",
+              "import-x/default": "off",
+              "import-x/namespace": "off",
 
-              "ts/no-import-type-side-effects": "error",
-              "ts/consistent-type-imports": [
+              "@typescript-eslint/no-import-type-side-effects": "error",
+              "@typescript-eslint/consistent-type-imports": [
                 stylistic === false ? "off" : "error",
                 {
                   prefer: "type-imports",
@@ -164,7 +164,7 @@ export async function imports(
             files: [GLOB_SRC],
             rules: {
               // Use non-sloppy imports. See: https://jsr.io/docs/publishing-packages#relative-imports
-              "import/extensions": [
+              "import-x/extensions": [
                 "error",
                 "always",
                 {
@@ -172,9 +172,9 @@ export async function imports(
                   ignorePackages: true,
                 },
               ],
-              "import/no-useless-path-segments": ["error", { noUselessIndex: false }],
+              "import-x/no-useless-path-segments": ["error", { noUselessIndex: false }],
 
-              "import/no-extraneous-dependencies": [
+              "import-x/no-extraneous-dependencies": [
                 "error",
                 {
                   bundledDependencies: true,
@@ -218,7 +218,7 @@ export async function imports(
             {
               files: [GLOB_SRC],
               rules: {
-                "import/no-unassigned-import": [
+                "import-x/no-unassigned-import": [
                   "error",
                   {
                     allow: ["**/*.?(s)css"],
