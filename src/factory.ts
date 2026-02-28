@@ -70,6 +70,7 @@ export const defaultPluginRenaming = {
   "@intlify/vue-i18n": "vue-i18n",
   "@stylistic": "style",
   "@typescript-eslint": "ts",
+  "eslint-comments": "comments",
   "import-x": "import",
   n: "node",
   // "optimize-regex": "regexp",
