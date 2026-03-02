@@ -19,7 +19,7 @@
     "workarounds:all"
   ],
   "automerge": true,
-  "automergeStrategy": "fast-forward",
+  "automergeStrategy": "squash",
   "automergeType": "pr",
   "configMigration": true,
   "labels": ["Type: Maintenance", ":blue_heart:"],
