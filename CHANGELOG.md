@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.9.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.5...v3.9.6) (2026-03-02)
+
+
+### Bug Fixes
+
+* use @eslint-community/eslint-plugin-eslint-comments ([24e03a4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/24e03a41038fb386dacb7b1ff390997c8d30ef41))
+
 ## [3.9.5](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.4...v3.9.5) (2026-02-28)
 
 
