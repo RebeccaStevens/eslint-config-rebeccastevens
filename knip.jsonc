@@ -4,6 +4,7 @@
   "project": ["src/**/*.ts!"],
   "ignoreBinaries": ["semantic-release"],
   "ignoreDependencies": [
+    "@eslint-community/eslint-plugin-eslint-comments",
     "@eslint-react/eslint-plugin",
     "@eslint/markdown",
     "@stylistic/eslint-plugin",
@@ -20,7 +21,6 @@
     "eslint-import-resolver-typescript",
     "eslint-merge-processors",
     "eslint-plugin-better-tailwindcss",
-    "eslint-plugin-eslint-comments",
     "eslint-plugin-format",
     "eslint-plugin-functional",
     "eslint-plugin-i18next",
