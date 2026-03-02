@@ -64,7 +64,7 @@
       },
       "matchDepTypes": ["peerDependencies"],
       "matchManagers": ["npm"],
-      "rangeStrategy": "widen",
+      "rangeStrategy": "in-range-only",
       "semanticCommitScope": "peer-deps",
       "semanticCommitType": "chore"
     },
