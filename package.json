@@ -158,7 +158,7 @@
     "eslint-import-resolver-typescript": "*",
     "eslint-merge-processors": "*",
     "eslint-plugin-better-tailwindcss": "*",
-    "eslint-plugin-eslint-comments": "*",
+    "@eslint-community/eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-format": "*",
     "eslint-plugin-functional": "*",
     "eslint-plugin-import-x": "*",
