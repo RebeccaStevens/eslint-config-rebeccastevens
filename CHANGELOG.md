@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [3.9.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.6...v3.9.7) (2026-03-08)
+
+
+### Bug Fixes
+
+* replace unicorn/no-array-push-push with unicorn/prefer-single-call ([8095c31](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/8095c310d364a6dfc4694423093c26b810c68892))
+
 ## [3.9.6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.5...v3.9.6) (2026-03-02)
 
 
