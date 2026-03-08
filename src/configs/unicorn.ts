@@ -40,7 +40,6 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
         // "unicorn/no-anonymous-default-export": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
         "unicorn/no-array-for-each": "error",
         "unicorn/no-array-method-this-argument": "error",
-        "unicorn/no-array-push-push": "error",
         "unicorn/no-await-expression-member": "error",
         // "unicorn/no-await-in-promise-methods": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
         "unicorn/no-console-spaces": "error",
@@ -113,6 +112,7 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
         "unicorn/prefer-regexp-test": "error",
         "unicorn/prefer-set-has": "error",
         "unicorn/prefer-set-size": "error",
+        "unicorn/prefer-single-call": "error",
         "unicorn/prefer-spread": "error",
         "unicorn/prefer-string-replace-all": "error",
         "unicorn/prefer-string-slice": "error",
