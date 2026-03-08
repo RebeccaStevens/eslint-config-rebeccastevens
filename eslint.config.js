@@ -1,13 +1,13 @@
 // @ts-check
 import styleMigrate from "@stylistic/eslint-plugin-migrate";
-import JITI from "jiti";
+import { createJiti } from "jiti";
 
-const jiti = JITI(import.meta.url);
+const jiti = createJiti(import.meta.url);
 
 /**
- * @type {import('./src').default}
+ * @type {typeof import('./src').default}
  */
-const rsEslint = jiti("./src").default;
+const rsEslint = await jiti.import("./src", { default: true });
 
 export default rsEslint(
   {
