@@ -139,7 +139,7 @@
     "toml-eslint-parser": "1.0.3",
     "tsc-files": "1.1.4",
     "tsx": "4.21.0",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "vue-eslint-parser": "10.4.0",
     "yaml-eslint-parser": "2.0.0"
   },
