@@ -72,8 +72,8 @@
     "local-pkg": "^1.1.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.5.3",
-    "@commitlint/config-conventional": "20.5.3",
+    "@commitlint/cli": "21.2.1",
+    "@commitlint/config-conventional": "21.2.0",
     "@cspell/dict-cryptocurrencies": "5.0.5",
     "@eslint-community/eslint-plugin-eslint-comments": "4.7.1",
     "@eslint-react/eslint-plugin": "2.13.0",
