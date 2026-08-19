@@ -29,16 +29,20 @@ jobs:
     uses: ./.github/workflows/lint-spelling.yml
   lint_yaml:
     uses: ./.github/workflows/lint-yaml.yml
+  lint_attw:
+    uses: ./.github/workflows/lint-attw.yml
   typecheck:
     uses: ./.github/workflows/typecheck.yml
 
   release:
     needs:
       - lint_js
+      - lint_knip
       - lint_markdown
       - lint_packages
       - lint_spelling
       - lint_yaml
+      - lint_attw
       - typecheck
     runs-on: ubuntu-latest
     steps:

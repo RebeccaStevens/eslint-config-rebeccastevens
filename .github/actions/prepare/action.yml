@@ -2,10 +2,10 @@ name: Prepare
 description: Prepares the repo for a typical CI job
 
 inputs:
-  node-version:
+  node-version-file:
     required: false
-    description: "`node-version` passed to `actions/setup-node`."
-    default: latest
+    description: "`node-version-file` passed to `actions/setup-node`."
+    default: ".nvmrc"
 
 runs:
   using: "composite"
@@ -18,7 +18,7 @@ runs:
     - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6
     - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version-file: ${{ inputs.node-version-file }}
         cache: "pnpm"
     - run: pnpm install --frozen-lockfile --ignore-scripts
       shell: bash

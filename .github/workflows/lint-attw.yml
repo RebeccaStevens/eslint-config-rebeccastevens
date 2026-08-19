@@ -1,4 +1,4 @@
-name: Type Check
+name: Lint ATTW
 
 on:
   pull_request:
@@ -6,13 +6,14 @@ on:
   workflow_call:
 
 concurrency:
-  group: ${{ github.workflow }}-typecheck-${{ github.ref }}
+  group: ${{ github.workflow }}-lint-attw-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  typecheck:
+  lint_attw:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - uses: ./.github/actions/prepare
-      - run: pnpm run typecheck
+      - run: pnpm run build
+      - run: pnpm run lint:attw

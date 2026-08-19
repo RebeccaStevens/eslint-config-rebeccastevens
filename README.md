@@ -6,7 +6,6 @@ An [ESLint Shareable Config](https://eslint.org/docs/developer-guide/shareable-c
 
 [![npm version](https://img.shields.io/npm/v/@rebeccastevens/eslint-config.svg)](https://www.npmjs.com/package/@rebeccastevens/eslint-config)
 [![CI](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions/workflows/release.yml/badge.svg)](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/actions/workflows/release.yml)
-[![Coverage Status](https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens/branch/main/graph/badge.svg?token=MVpR1oAbIT)](https://codecov.io/gh/RebeccaStevens/eslint-config-rebeccastevens)\
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![GitHub Discussions](https://img.shields.io/github/discussions/RebeccaStevens/eslint-config-rebeccastevens?style=flat-square)](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/discussions)
 [![BSD 3 Clause license](https://img.shields.io/github/license/RebeccaStevens/eslint-config-rebeccastevens.svg?style=flat-square)](https://opensource.org/licenses/BSD-3-Clause)

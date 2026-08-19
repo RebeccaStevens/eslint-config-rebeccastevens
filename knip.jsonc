@@ -49,4 +49,5 @@
     "vue-eslint-parser",
     "yaml-eslint-parser",
   ],
+  "exclude": ["exports", "nsExports", "types", "nsTypes"],
 }

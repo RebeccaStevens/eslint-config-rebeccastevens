@@ -60,7 +60,7 @@ export default {
                 isCallExpression(node) &&
                 isIdentifier(node.expression) &&
                 node.expression.text === "__rewriteRelativeImportExtension" &&
-                node.arguments.length === 1
+                node.arguments.length > 0
               ) {
                 return node.arguments[0]!;
               }

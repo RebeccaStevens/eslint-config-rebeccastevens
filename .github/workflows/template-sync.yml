@@ -1,0 +1,28 @@
+name: Template Sync
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # Every Monday at 00:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-template-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  template_sync:
+    name: Sync with upstream template
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - uses: AndreasAugustin/actions-template-sync@8a0f668b83c32a0f673353086d74f12b8853d4f5 # v2.5.3
+        with:
+          source_repo_path: RebeccaStevens/template-typescript-node-package
+          pr_title: "chore(template): sync updates from upstream template"
+          pr_commit_msg: "chore(template): sync updates from upstream template"
+          pr_branch_name_prefix: "template-sync"

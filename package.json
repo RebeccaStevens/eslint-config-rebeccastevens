@@ -24,6 +24,7 @@
     "name": "Rebecca Stevens",
     "email": "rebecca.stevens@outlook.co.nz"
   },
+  "sideEffects": false,
   "type": "module",
   "exports": {
     "types": {
@@ -33,17 +34,18 @@
     "import": "./dist/index.js",
     "require": "./dist/index.cjs"
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
   "files": [
-    "dist/",
-    "package.json",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
+    "dist/"
   ],
   "scripts": {
-    "build": "rimraf dist && pnpm run typegen && rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
+    "build": "wireit",
+    "build:force": "rimraf dist && pnpm run typegen && rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
     "cz": "git-cz",
-    "lint": "pnpm run build && eslint && pnpm run lint:md && pnpm run lint:spelling && pnpm run lint:knip && pnpm run lint:package && pnpm run lint:packages",
+    "lint": "pnpm run build && eslint && pnpm run lint:md && pnpm run lint:spelling && pnpm run lint:knip && pnpm run lint:package && pnpm run lint:attw && pnpm run lint:packages",
+    "lint:attw": "attw --pack .",
     "lint:js": "eslint \"**/*.?([cm])[jt]s?(x)\"",
     "lint:js-fix": "eslint \"**/*.?([cm])[jt]s?(x)\" --fix",
     "lint:knip": "knip",
@@ -65,6 +67,22 @@
     "typecheck:src": "tsc -p ./src/tsconfig.json --noEmit",
     "typegen": "tsx scripts/typegen.ts"
   },
+  "wireit": {
+    "build": {
+      "command": "pnpm run build:force",
+      "files": [
+        "src/**",
+        "scripts/**",
+        "rollup.config.ts",
+        "tsconfig.json",
+        "src/tsconfig.json",
+        "src/tsconfig.build.json"
+      ],
+      "output": [
+        "dist/**"
+      ]
+    }
+  },
   "dependencies": {
     "@antfu/install-pkg": "^1.1.0",
     "@clack/prompts": "^1.0.0",
@@ -72,6 +90,7 @@
     "local-pkg": "^1.1.1"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
     "@commitlint/cli": "21.2.1",
     "@commitlint/config-conventional": "21.2.0",
     "@cspell/dict-cryptocurrencies": "5.0.5",
@@ -139,8 +158,9 @@
     "toml-eslint-parser": "1.0.3",
     "tsc-files": "1.1.4",
     "tsx": "4.21.0",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "vue-eslint-parser": "10.4.0",
+    "wireit": "0.14.13",
     "yaml-eslint-parser": "2.0.0"
   },
   "peerDependencies": {
@@ -314,6 +334,6 @@
   },
   "packageManager": "pnpm@11.21.0",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=24.0.0"
   }
 }

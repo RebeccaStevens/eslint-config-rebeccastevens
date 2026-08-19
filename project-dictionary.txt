@@ -36,3 +36,4 @@ vitepress
 waldo
 xyzzy
 unrs
+releaserc
