@@ -13,6 +13,7 @@ export default rsEslint(
   {
     projectRoot: import.meta.dirname,
     mode: "none",
+    test: false,
     typescript: {
       useDefaultDefaultProject: false,
     },

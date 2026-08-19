@@ -3,5 +3,6 @@ node_modules/
 /coverage/
 /dist/
 /src/typegen.ts
+/.wireit/
 
 *.log

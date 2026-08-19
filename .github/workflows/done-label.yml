@@ -5,6 +5,10 @@ on:
     types:
       - closed
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   run:
     name: "Update Labels"
