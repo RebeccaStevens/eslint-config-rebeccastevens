@@ -36,7 +36,7 @@ export function inEditor(): FlatConfigItem[] {
         "sonarjs/prefer-single-boolean-return": "off",
         "sonarjs/prefer-while": "off",
 
-        "vitest/no-only-tests": "off",
+        "vitest/no-focused-tests": "off",
 
         "unicorn/no-lonely-if": "off",
       },

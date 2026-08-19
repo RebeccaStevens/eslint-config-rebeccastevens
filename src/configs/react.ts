@@ -74,7 +74,7 @@ export async function react(
       },
       rules: {
         // recommended rules from @eslint-react/dom
-        "react-dom/no-children-in-void-dom-elements": "error",
+        "react-dom/no-void-elements-with-children": "error",
         "react-dom/no-dangerously-set-innerhtml": "error",
         "react-dom/no-dangerously-set-innerhtml-with-children": "error",
         "react-dom/no-find-dom-node": "error",
@@ -120,7 +120,6 @@ export async function react(
         ],
 
         // recommended rules from @eslint-react
-        "react/ensure-forward-ref-using-ref": "error",
         "react/no-access-state-in-setstate": "error",
         "react/no-array-index-key": "error",
         "react/no-children-count": "error",
@@ -130,7 +129,7 @@ export async function react(
         "react/no-children-prop": "error",
         "react/no-children-to-array": "error",
         "react/no-clone-element": "error",
-        "react/no-comment-textnodes": "error",
+        "react/jsx-no-comment-textnodes": "error",
         "react/no-component-will-mount": "error",
         "react/no-component-will-receive-props": "error",
         "react/no-component-will-update": "error",
@@ -139,7 +138,7 @@ export async function react(
         "react/no-duplicate-key": "error",
         "react/no-implicit-key": "error",
         "react/no-missing-key": "error",
-        "react/no-nested-components": "error",
+        "react/no-nested-component-definitions": "error",
         "react/no-redundant-should-component-update": "error",
         "react/no-set-state-in-component-did-mount": "error",
         "react/no-set-state-in-component-did-update": "error",
@@ -154,8 +153,8 @@ export async function react(
         "react/no-unused-state": "error",
         "react/no-useless-fragment": "error",
         "react/prefer-destructuring-assignment": "error",
-        "react/prefer-shorthand-boolean": "error",
-        "react/prefer-shorthand-fragment": "error",
+        "react/jsx-shorthand-boolean": "error",
+        "react/jsx-shorthand-fragment": "error",
 
         "jsx-a11y/alt-text": "error",
         "jsx-a11y/anchor-has-content": "error",
