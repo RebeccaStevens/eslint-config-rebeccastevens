@@ -35,3 +35,4 @@ unocss
 vitepress
 waldo
 xyzzy
+unrs
