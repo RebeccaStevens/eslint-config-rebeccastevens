@@ -1,14 +1,12 @@
-import type { ESLint } from "eslint";
-
 import type { FlatConfigItem, RequiredOptionsStylistic, RequiredOptionsTailwindCSS } from "../types";
-import { loadPackages } from "../utils";
+import { loadPlugins } from "../utils";
 
 export async function tailwind(
   options: Readonly<Required<RequiredOptionsTailwindCSS> & RequiredOptionsStylistic>,
 ): Promise<FlatConfigItem[]> {
   const { overrides, stylistic, tailwindVersion, tailwindEntryPoint, tailwindConfig } = options;
 
-  const [pluginBetterTailwind] = (await loadPackages(["eslint-plugin-better-tailwindcss"])) as [ESLint.Plugin];
+  const [pluginBetterTailwind] = await loadPlugins(["eslint-plugin-better-tailwindcss"]);
 
   return [
     {

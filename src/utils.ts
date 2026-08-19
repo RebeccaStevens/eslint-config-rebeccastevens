@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import type { Linter } from "eslint";
+import type { ESLint, Linter } from "eslint";
 import type { Awaitable } from "eslint-flat-config-utils";
 import { isPackageExists } from "local-pkg";
 
@@ -44,7 +44,7 @@ export const parserPlain: Linter.Parser = {
   }),
 };
 
-export async function loadPackages<T extends string[]>(
+export async function loadPackages<T extends ReadonlyArray<string>>(
   packageIds: T,
 ): Promise<{
   [K in keyof T]: unknown;
@@ -57,6 +57,15 @@ export async function loadPackages<T extends string[]>(
 
   // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-return
   return Promise.all(packageIds.map((id) => interopDefault(import(id)))) as any;
+}
+
+export async function loadPlugins<const T extends ReadonlyArray<string>>(
+  packageIds: T,
+): Promise<{
+  [K in keyof T]: ESLint.Plugin;
+}> {
+  const packages = await loadPackages(packageIds);
+  return packages as { [K in keyof T]: ESLint.Plugin };
 }
 
 const mut_installPackagesToLoad = new Set<string>();

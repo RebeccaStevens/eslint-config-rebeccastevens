@@ -11,7 +11,7 @@ import type {
   OptionsReact,
   OptionsTypeScriptParserOptions,
 } from "../types";
-import { interopDefault, loadPackages } from "../utils";
+import { interopDefault, loadPlugins } from "../utils";
 
 const ReactRefreshAllowConstantExportPackages = ["vite"];
 const RemixPackages = ["@remix-run/node", "@remix-run/react", "@remix-run/serve", "@remix-run/dev"];
@@ -25,12 +25,12 @@ export async function react(
 ): Promise<FlatConfigItem[]> {
   const { files, i18n, overrides, typescript, parserOptions } = options;
 
-  const [pluginReact, pluginReactHooks, pluginReactRefresh, pluginJsxA11y] = (await loadPackages([
+  const [pluginReact, pluginReactHooks, pluginReactRefresh, pluginJsxA11y] = await loadPlugins([
     "@eslint-react/eslint-plugin",
     "eslint-plugin-react-hooks",
     "eslint-plugin-react-refresh",
     "eslint-plugin-jsx-a11y",
-  ])) as [ESLint.Plugin, ESLint.Plugin, ESLint.Plugin, ESLint.Plugin];
+  ]);
 
   const parserTs = typescript ? await interopDefault(import("@typescript-eslint/parser")) : undefined;
 
@@ -245,7 +245,7 @@ export async function react(
     return core;
   }
 
-  const [i18nPlugin] = (await loadPackages(["eslint-plugin-i18next"])) as [ESLint.Plugin];
+  const [i18nPlugin] = await loadPlugins(["eslint-plugin-i18next"]);
 
   const i18nConfigs = [
     {
