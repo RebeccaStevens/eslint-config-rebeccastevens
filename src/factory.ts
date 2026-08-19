@@ -73,7 +73,7 @@ export const defaultPluginRenaming = {
   "eslint-comments": "comments",
   "import-x": "import",
   n: "node",
-  // "optimize-regex": "regexp",
+  "optimize-regex": "regexp",
   sonarjs: "sonar",
   vitest: "test",
   yml: "yaml",
@@ -403,7 +403,9 @@ export async function rsEslint(
   let mut_composer = new FlatConfigComposer<FlatConfigItem>().append(...mut_configs, ...userConfigs);
 
   if (autoRenamePlugins) {
-    mut_composer = mut_composer.renamePlugins(defaultPluginRenaming);
+    mut_composer = mut_composer.renamePlugins(defaultPluginRenaming, {
+      mergePlugins: true,
+    });
   }
 
   return mut_composer.toConfigs();
