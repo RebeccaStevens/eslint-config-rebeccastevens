@@ -1,12 +1,10 @@
-import type { ESLint } from "eslint";
-
 import type { FlatConfigItem, OptionsFunctional } from "../types";
-import { loadPackages } from "../utils";
+import { loadPlugins } from "../utils";
 
 export async function sonar(options: Readonly<Required<OptionsFunctional>>): Promise<FlatConfigItem[]> {
   const { functionalEnforcement = "none" } = options;
 
-  const [pluginSonar] = (await loadPackages(["eslint-plugin-sonarjs"])) as [ESLint.Plugin];
+  const [pluginSonar] = await loadPlugins(["eslint-plugin-sonarjs"]);
 
   return [
     {

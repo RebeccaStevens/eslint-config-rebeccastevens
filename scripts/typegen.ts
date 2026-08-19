@@ -3,40 +3,46 @@ import fs from "node:fs/promises";
 import { type Linter } from "eslint";
 import { flatConfigsToRulesDTS } from "eslint-typegen/core";
 
-import {
-  comments,
-  formatters,
-  functional,
-  ignores,
-  imports,
-  inEditor,
-  javascript,
-  jsdoc,
-  jsonc,
-  jsx,
-  markdown,
-  node,
-  overrides,
-  promise,
-  react,
-  regexp,
-  sonar,
-  sortTsconfig,
-  stylistic,
-  tailwind,
-  test,
-  toml,
-  typescript,
-  unicorn,
-  unocss,
-  vue,
-  yaml,
-} from "../src/configs";
+import { assembleConfigs } from "../src/assembly";
+import { functional, inEditor } from "../src/configs";
 import { combine } from "../src/utils";
 
 const configs = (await combine(
-  comments(),
-  formatters({}, {}),
+  ...assembleConfigs({
+    projectRoot: process.cwd(),
+    mode: "none",
+    functional: {
+      functionalEnforcement: "none",
+      ignoreNamePattern: [],
+    },
+    typescript: {
+      unsafe: "off",
+    },
+    vue: {
+      i18n: false,
+      sfcBlocks: false,
+    },
+    react: {
+      i18n: false,
+    },
+    tailwind: {
+      tailwindEntryPoint: "src/global.css",
+      tailwindVersion: 4,
+    },
+    unocss: {
+      attributify: false,
+      strict: false,
+    },
+    markdown: {
+      enableTypeRequiredRules: false,
+    },
+    jsonc: {},
+    yaml: {},
+    toml: {},
+  }),
+  // These configs are only included by the assembly under conditions that don't
+  // hold here; include them explicitly so their rules are still part of the
+  // generated types.
   functional({
     functionalEnforcement: "none",
     ignoreNamePattern: [],
@@ -46,124 +52,38 @@ const configs = (await combine(
     filesTypeAware: [],
     mode: "none",
   }),
-  ignores({
-    projectRoot: process.cwd(),
-    ignores: [],
-    ignoreFiles: [],
-  }),
-  imports({
-    stylistic: false,
-    typescript: false,
-    parserOptions: {},
-    filesTypeAware: [],
-    mode: "none",
-  }),
   inEditor(),
-  javascript({
-    overrides: undefined,
-    functionalEnforcement: "none",
-    ignoreNamePattern: [],
-  }),
-  jsdoc({
-    stylistic: false,
-  }),
-  jsonc({
-    files: [],
-    stylistic: false,
-    overrides: undefined,
-  }),
-  jsx(),
-  markdown({
-    files: [],
-    enableTypeRequiredRules: false,
-    componentExts: [],
-    overrides: undefined,
-  }),
-  node(),
-  overrides(),
-  promise(),
-  react({
-    files: [],
-    filesTypeAware: [],
-    i18n: false,
-    overrides: undefined,
-    parserOptions: {},
-    typescript: false,
-  }),
-  regexp(),
-  sonar({
-    functionalEnforcement: "none",
-    ignoreNamePattern: [],
-  }),
-  sortTsconfig(),
-  stylistic({
-    stylistic: {
-      indent: 2,
-      jsx: true,
-      quotes: "double",
-      semi: true,
-      printWidth: 120,
-    },
-    overrides: undefined,
-    typescript: false
-  }),
-  tailwind({
-    stylistic: {
-      indent: 2,
-      jsx: true,
-      quotes: "double",
-      semi: true,
-      printWidth: 120,
-    },
-    tailwindVersion: 4,
-    tailwindEntryPoint: "src/global.css",
-    tailwindConfig: undefined,
-    overrides: undefined,
-  }),
-  test({
-    files: [],
-    overrides: undefined,
-  }),
-  toml({
-    overrides: undefined,
-    stylistic: false,
-    files: [],
-  }),
-  typescript({
-    files: [],
-    componentExts: [],
-    overrides: undefined,
-    parserOptions: {},
-    filesTypeAware: [],
-    unsafe: "off",
-    functionalEnforcement: "none",
-    ignoreNamePattern: [],
-    projectRoot: process.cwd(),
-    mode: "none",
-  }),
-  unicorn(),
-  unocss({
-    attributify: false,
-    strict: false,
-    overrides: undefined,
-  }),
-  vue({
-    sfcBlocks: false,
-    vueVersion: 3,
-    i18n: false,
-    overrides: undefined,
-    typescript: false,
-    stylistic: false,
-    files: [],
-    filesTypeAware: [],
-    parserOptions: {},
-  }),
-  yaml({
-    overrides: undefined,
-    stylistic: false,
-    files: [],
-  }),
 )) as Linter.Config[];
+
+const pluginRules = new Map<string, Record<string, unknown>>();
+for (const config of configs) {
+  for (const [name, plugin] of Object.entries(config.plugins ?? {})) {
+    pluginRules.set(name, plugin.rules ?? {});
+  }
+}
+
+const mut_errors: string[] = [];
+for (const config of configs) {
+  for (const [rule, value] of Object.entries(config.rules ?? {})) {
+    const severity = Array.isArray(value) ? value[0] : value;
+    if (severity === "off") continue;
+    const separatorIndex = rule.indexOf("/");
+    if (separatorIndex === -1) continue;
+    const pluginName = rule.slice(0, separatorIndex);
+    const ruleName = rule.slice(separatorIndex + 1);
+    if (!pluginRules.has(pluginName)) {
+      mut_errors.push(`Missing plugin "${pluginName}" referenced by rule "${rule}".`);
+      continue;
+    }
+    if (!Object.hasOwn(pluginRules.get(pluginName) ?? {}, ruleName)) {
+      mut_errors.push(`Rule "${rule}" not found in plugin "${pluginName}".`);
+    }
+  }
+}
+if (mut_errors.length > 0) {
+  console.error("Invalid rules found:\n" + mut_errors.map((error) => `  - ${error}`).join("\n"));
+  process.exitCode = 1;
+}
 
 const dts = await flatConfigsToRulesDTS(configs, {
   includeIgnoreComments: false,

@@ -1,11 +1,9 @@
-import type { ESLint } from "eslint";
-
 import { GLOB_DTS, GLOB_MJS, GLOB_TS, GLOB_TSX } from "../globs";
 import type { FlatConfigItem } from "../types";
-import { loadPackages } from "../utils";
+import { loadPlugins } from "../utils";
 
 export async function node(): Promise<FlatConfigItem[]> {
-  const [pluginNode] = (await loadPackages(["eslint-plugin-n"])) as [ESLint.Plugin];
+  const [pluginNode] = await loadPlugins(["eslint-plugin-n"]);
 
   return [
     {

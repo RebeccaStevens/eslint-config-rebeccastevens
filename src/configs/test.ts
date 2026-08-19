@@ -1,15 +1,10 @@
-import type { ESLint } from "eslint";
-
 import type { FlatConfigItem, OptionsFiles, OptionsOverrides } from "../types";
-import { interopDefault, loadPackages } from "../utils";
+import { interopDefault, loadPlugins } from "../utils";
 
 export async function test(options: Readonly<Required<OptionsFiles & OptionsOverrides>>): Promise<FlatConfigItem[]> {
   const { files, overrides } = options;
 
-  const [pluginVitest, pluginNoOnlyTests] = (await loadPackages([
-    "@vitest/eslint-plugin",
-    "eslint-plugin-no-only-tests",
-  ])) as [typeof import("@vitest/eslint-plugin"), ESLint.Plugin];
+  const [pluginVitest, pluginNoOnlyTests] = await loadPlugins(["@vitest/eslint-plugin", "eslint-plugin-no-only-tests"]);
 
   const [pluginFunctional] = await Promise.all([
     interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
@@ -19,7 +14,7 @@ export async function test(options: Readonly<Required<OptionsFiles & OptionsOver
     {
       name: "rs:test:setup",
       plugins: {
-        vitest: pluginVitest as ESLint.Plugin,
+        vitest: pluginVitest,
         "no-only-tests": pluginNoOnlyTests,
       },
       settings: {

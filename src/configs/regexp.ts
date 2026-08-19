@@ -1,13 +1,11 @@
-import type { ESLint } from "eslint";
-
 import type { FlatConfigItem } from "../types";
-import { loadPackages } from "../utils";
+import { loadPlugins } from "../utils";
 
 export async function regexp(): Promise<FlatConfigItem[]> {
-  const [pluginRegexp, pluginOptimizeRegex] = (await loadPackages([
+  const [pluginRegexp, pluginOptimizeRegex] = await loadPlugins([
     "eslint-plugin-regexp",
     "eslint-plugin-optimize-regex",
-  ])) as [ESLint.Plugin, ESLint.Plugin];
+  ]);
 
   return [
     {
