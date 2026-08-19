@@ -42,7 +42,7 @@
   ],
   "scripts": {
     "build": "wireit",
-    "build:force": "rimraf dist && pnpm run typegen && rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
+    "build:force": "rimraf dist && rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
     "cz": "git-cz",
     "lint": "pnpm run build && eslint && pnpm run lint:md && pnpm run lint:spelling && pnpm run lint:knip && pnpm run lint:package && pnpm run lint:attw && pnpm run lint:packages",
     "lint:attw": "attw --pack .",
@@ -65,11 +65,15 @@
     "typecheck": "pnpm run typegen && pnpm run typecheck:root && pnpm run typecheck:src",
     "typecheck:root": "tsc -p ./tsconfig.json --noEmit",
     "typecheck:src": "tsc -p ./src/tsconfig.json --noEmit",
-    "typegen": "tsx scripts/typegen.ts"
+    "typegen": "wireit",
+    "typegen:run": "tsx scripts/typegen.ts"
   },
   "wireit": {
     "build": {
       "command": "pnpm run build:force",
+      "dependencies": [
+        "typegen"
+      ],
       "files": [
         "src/**",
         "scripts/**",
@@ -80,6 +84,17 @@
       ],
       "output": [
         "dist/**"
+      ]
+    },
+    "typegen": {
+      "command": "pnpm run typegen:run",
+      "files": [
+        "src/**",
+        "scripts/**",
+        "!src/typegen.ts"
+      ],
+      "output": [
+        "src/typegen.ts"
       ]
     }
   },
