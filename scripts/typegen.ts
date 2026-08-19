@@ -55,6 +55,36 @@ const configs = (await combine(
   inEditor(),
 )) as Linter.Config[];
 
+const pluginRules = new Map<string, Record<string, unknown>>();
+for (const config of configs) {
+  for (const [name, plugin] of Object.entries(config.plugins ?? {})) {
+    pluginRules.set(name, plugin.rules ?? {});
+  }
+}
+
+const mut_errors: string[] = [];
+for (const config of configs) {
+  for (const [rule, value] of Object.entries(config.rules ?? {})) {
+    const severity = Array.isArray(value) ? value[0] : value;
+    if (severity === "off") continue;
+    const separatorIndex = rule.indexOf("/");
+    if (separatorIndex === -1) continue;
+    const pluginName = rule.slice(0, separatorIndex);
+    const ruleName = rule.slice(separatorIndex + 1);
+    if (!pluginRules.has(pluginName)) {
+      mut_errors.push(`Missing plugin "${pluginName}" referenced by rule "${rule}".`);
+      continue;
+    }
+    if (!Object.hasOwn(pluginRules.get(pluginName) ?? {}, ruleName)) {
+      mut_errors.push(`Rule "${rule}" not found in plugin "${pluginName}".`);
+    }
+  }
+}
+if (mut_errors.length > 0) {
+  console.error("Invalid rules found:\n" + mut_errors.map((error) => `  - ${error}`).join("\n"));
+  process.exitCode = 1;
+}
+
 const dts = await flatConfigsToRulesDTS(configs, {
   includeIgnoreComments: false,
 });
