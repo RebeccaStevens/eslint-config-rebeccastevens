@@ -174,10 +174,7 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     ...resolveSubOptions(options, "functional"),
   };
 
-  const mut_configs: Array<Awaitable<FlatConfigItem[]>> = [];
-
-  // Base configs
-  mut_configs.push(
+  const baseConfigs: ReadonlyArray<Awaitable<FlatConfigItem[]>> = [
     ignores({
       projectRoot,
       ignores: ignoresOptions ?? [],
@@ -201,193 +198,224 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     comments(),
     unicorn(),
     node(),
-  );
+  ];
 
   if (vueOptions !== false) {
     componentExts.push("vue");
   }
 
-  if (sonarOptions) {
-    mut_configs.push(sonar(functionalConfigOptions));
-  }
-
-  if (jsxOptions) {
-    mut_configs.push(jsx());
-  }
-
-  if (typeScriptOptions !== false) {
-    mut_configs.push(
-      typescript({
-        projectRoot,
-        mode,
-        files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
-        unsafe: "warn",
-        ...typescriptConfigOptions,
-        ...functionalConfigOptions,
-        componentExts,
-        overrides: getOverrides(options, "typescript"),
-      }),
-    );
-  }
-
-  if (stylisticOptions !== false) {
-    mut_configs.push(
-      stylistic({
-        stylistic: stylisticOptions,
-        typescript: hasTypeScript,
-        overrides: getOverrides(options, "stylistic"),
-      }),
-    );
-  }
-
-  if (functionalEnforcement !== "none" || mode === "library") {
-    mut_configs.push(
-      functional({
-        ...typescriptConfigOptions,
-        ...functionalConfigOptions,
-        overrides: getOverrides(options, "functional"),
-        stylistic: stylisticOptions,
-        mode,
-      }),
-    );
-  }
-
-  if (testOptions !== false) {
-    mut_configs.push(
-      test({
-        files: GLOB_TESTS,
-        overrides: getOverrides(options, "test"),
-      }),
-    );
-  }
-
-  if (vueOptions !== false) {
-    mut_configs.push(
-      vue({
-        ...typescriptConfigOptions,
-        typescript: hasTypeScript,
-        files: [GLOB_VUE],
-        i18n: false,
-        vueVersion: 3,
-        sfcBlocks: true,
-        ...resolveSubOptions(options, "vue"),
-        overrides: getOverrides(options, "vue"),
-        stylistic: stylisticOptions,
-      }),
-    );
-  }
-
-  if (reactOptions !== false) {
-    mut_configs.push(
-      react({
-        ...typescriptConfigOptions,
-        typescript: hasTypeScript,
-        files: [GLOB_SRC],
-        i18n: false,
-        ...resolveSubOptions(options, "react"),
-        overrides: getOverrides(options, "react"),
-      }),
-    );
-  }
-
-  if (tailwindOptions !== false) {
-    const tailwindVersion =
-      (tailwindOptions === true
-        ? undefined
-        : (tailwindOptions.tailwindVersion ??
-          ("tailwindEntryPoint" in tailwindOptions ? 4 : "tailwindConfig" in tailwindOptions ? 3 : undefined))) ?? 3;
-
-    const tailwindConfig =
-      tailwindVersion === 3
-        ? ((tailwindOptions === true
+  const features = [
+    {
+      build: () => (sonarOptions ? [sonar(functionalConfigOptions)] : []),
+    },
+    {
+      build: () => (jsxOptions ? [jsx()] : []),
+    },
+    {
+      build: () =>
+        typeScriptOptions === false
+          ? []
+          : [
+              typescript({
+                projectRoot,
+                mode,
+                files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
+                unsafe: "warn",
+                ...typescriptConfigOptions,
+                ...functionalConfigOptions,
+                componentExts,
+                overrides: getOverrides(options, "typescript"),
+              }),
+            ],
+    },
+    {
+      build: () =>
+        stylisticOptions === false
+          ? []
+          : [
+              stylistic({
+                stylistic: stylisticOptions,
+                typescript: hasTypeScript,
+                overrides: getOverrides(options, "stylistic"),
+              }),
+            ],
+    },
+    {
+      build: () =>
+        functionalEnforcement !== "none" || mode === "library"
+          ? [
+              functional({
+                ...typescriptConfigOptions,
+                ...functionalConfigOptions,
+                overrides: getOverrides(options, "functional"),
+                stylistic: stylisticOptions,
+                mode,
+              }),
+            ]
+          : [],
+    },
+    {
+      build: () =>
+        testOptions === false
+          ? []
+          : [
+              test({
+                files: GLOB_TESTS,
+                overrides: getOverrides(options, "test"),
+              }),
+            ],
+    },
+    {
+      build: () =>
+        vueOptions === false
+          ? []
+          : [
+              vue({
+                ...typescriptConfigOptions,
+                typescript: hasTypeScript,
+                files: [GLOB_VUE],
+                i18n: false,
+                vueVersion: 3,
+                sfcBlocks: true,
+                ...resolveSubOptions(options, "vue"),
+                overrides: getOverrides(options, "vue"),
+                stylistic: stylisticOptions,
+              }),
+            ],
+    },
+    {
+      build: () =>
+        reactOptions === false
+          ? []
+          : [
+              react({
+                ...typescriptConfigOptions,
+                typescript: hasTypeScript,
+                files: [GLOB_SRC],
+                i18n: false,
+                ...resolveSubOptions(options, "react"),
+                overrides: getOverrides(options, "react"),
+              }),
+            ],
+    },
+    {
+      build: () => {
+        if (tailwindOptions === false) {
+          return [];
+        }
+        const tailwindVersion =
+          (tailwindOptions === true
             ? undefined
-            : "tailwindConfig" in tailwindOptions
-              ? tailwindOptions.tailwindConfig
-              : undefined) ?? "tailwind.config.js")
-        : undefined;
+            : (tailwindOptions.tailwindVersion ??
+              ("tailwindEntryPoint" in tailwindOptions ? 4 : "tailwindConfig" in tailwindOptions ? 3 : undefined))) ??
+          3;
 
-    const tailwindEntryPoint =
-      tailwindVersion === 4
-        ? tailwindOptions === true
-          ? undefined
-          : "tailwindEntryPoint" in tailwindOptions
-            ? tailwindOptions.tailwindEntryPoint
-            : undefined
-        : undefined;
+        const tailwindConfig =
+          tailwindVersion === 3
+            ? ((tailwindOptions === true
+                ? undefined
+                : "tailwindConfig" in tailwindOptions
+                  ? tailwindOptions.tailwindConfig
+                  : undefined) ?? "tailwind.config.js")
+            : undefined;
 
-    mut_configs.push(
-      tailwind({
-        stylistic: stylisticOptions,
-        tailwindVersion,
-        tailwindConfig,
-        tailwindEntryPoint,
-        overrides: getOverrides(options, "tailwind"),
-      }),
-    );
-  }
+        const tailwindEntryPoint =
+          tailwindVersion === 4
+            ? tailwindOptions === true
+              ? undefined
+              : "tailwindEntryPoint" in tailwindOptions
+                ? tailwindOptions.tailwindEntryPoint
+                : undefined
+            : undefined;
 
-  if (unoCSSOptions !== false) {
-    mut_configs.push(
-      unocss({
-        attributify: true,
-        strict: true,
-        ...resolveSubOptions(options, "unocss"),
-        overrides: getOverrides(options, "unocss"),
-      }),
-    );
-  }
+        return [
+          tailwind({
+            stylistic: stylisticOptions,
+            tailwindVersion,
+            tailwindConfig,
+            tailwindEntryPoint,
+            overrides: getOverrides(options, "tailwind"),
+          }),
+        ];
+      },
+    },
+    {
+      build: () =>
+        unoCSSOptions === false
+          ? []
+          : [
+              unocss({
+                attributify: true,
+                strict: true,
+                ...resolveSubOptions(options, "unocss"),
+                overrides: getOverrides(options, "unocss"),
+              }),
+            ],
+    },
+    {
+      build: () =>
+        jsoncOptions === false
+          ? []
+          : [
+              jsonc({
+                files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
+                overrides: getOverrides(options, "jsonc"),
+                stylistic: stylisticOptions,
+              }),
+              sortTsconfig(),
+            ],
+    },
+    {
+      build: () =>
+        yamlOptions === false
+          ? []
+          : [
+              yaml({
+                files: [GLOB_YAML],
+                overrides: getOverrides(options, "yaml"),
+                stylistic: stylisticOptions,
+              }),
+            ],
+    },
+    {
+      build: () =>
+        tomlOptions === false
+          ? []
+          : [
+              toml({
+                files: [GLOB_TOML],
+                overrides: getOverrides(options, "toml"),
+                stylistic: stylisticOptions,
+              }),
+            ],
+    },
+    {
+      build: () => {
+        if (markdownOptions === false) {
+          return [];
+        }
+        return [
+          markdown({
+            enableTypeRequiredRules: !(markdownOptions === true || markdownOptions.enableTypeRequiredRules === false),
+            files: [GLOB_MARKDOWN],
+            componentExts,
+            overrides: getOverrides(options, "markdown"),
+          }),
+        ];
+      },
+    },
+    {
+      build: () =>
+        formattersOptions === false
+          ? []
+          : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions)],
+    },
+    {
+      build: () => (isInEditor ? [inEditor()] : []),
+    },
+  ] as const satisfies ReadonlyArray<{
+    build: () => ReadonlyArray<Awaitable<FlatConfigItem[]>>;
+  }>;
 
-  if (jsoncOptions !== false) {
-    mut_configs.push(
-      jsonc({
-        files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
-        overrides: getOverrides(options, "jsonc"),
-        stylistic: stylisticOptions,
-      }),
-      sortTsconfig(),
-    );
-  }
-
-  if (yamlOptions !== false) {
-    mut_configs.push(
-      yaml({
-        files: [GLOB_YAML],
-        overrides: getOverrides(options, "yaml"),
-        stylistic: stylisticOptions,
-      }),
-    );
-  }
-
-  if (tomlOptions !== false) {
-    mut_configs.push(
-      toml({
-        files: [GLOB_TOML],
-        overrides: getOverrides(options, "toml"),
-        stylistic: stylisticOptions,
-      }),
-    );
-  }
-
-  if (markdownOptions !== false) {
-    mut_configs.push(
-      markdown({
-        enableTypeRequiredRules: !(markdownOptions === true || markdownOptions.enableTypeRequiredRules === false),
-        files: [GLOB_MARKDOWN],
-        componentExts,
-        overrides: getOverrides(options, "markdown"),
-      }),
-    );
-  }
-
-  if (formattersOptions !== false) {
-    mut_configs.push(formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions));
-  }
-
-  if (isInEditor) {
-    mut_configs.push(inEditor());
-  }
-
-  mut_configs.push(overrides());
-
-  return mut_configs;
+  return [...baseConfigs, ...features.flatMap((feature) => feature.build()), overrides()];
 }
