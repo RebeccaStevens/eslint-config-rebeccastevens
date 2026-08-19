@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [3.10.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.7...v3.10.0) (2026-08-19)
+
+
+### Bug Fixes
+
+* update rule names for [@eslint-react](https://github.com/eslint-react) v2, eslint-plugin-vue v10 and [@vitest](https://github.com/vitest) ([fb7fd76](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/fb7fd7678750ee03d5bdebfd8a6c2eccc952d55c))
+
+
+### Features
+
+* merge optimize-regex plugin into regexp namespace ([#1394](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/issues/1394)) ([60e74bd](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/60e74bdb7d6eb6a8acbe349a6c0ae16c79f8672e))
+
 ## [3.9.7](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.6...v3.9.7) (2026-03-08)
 
 
