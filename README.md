@@ -51,4 +51,4 @@ export default rsEslint(
 );
 ```
 
-See [ESLint configuration](http://eslint.org/docs/user-guide/configuring) for more information.
+See [ESLint configuration](https://eslint.org/docs/user-guide/configuring) for more information.
