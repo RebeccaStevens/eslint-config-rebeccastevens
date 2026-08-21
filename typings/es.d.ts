@@ -1,6 +1,6 @@
 declare global {
   interface ArrayConstructor {
-    isArray<T = unknown>(arg: unknown): arg is T[] | ReadonlyArray<T>;
+    isArray<T = unknown>(argument: unknown): argument is T[] | ReadonlyArray<T>;
   }
 }
 
