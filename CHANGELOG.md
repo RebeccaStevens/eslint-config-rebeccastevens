@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [4.0.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v4.0.0...v4.0.1) (2026-08-21)
+
+
+### Bug Fixes
+
+* move detect-non-literal-fs-filename to strict security and disable sonar argument-type ([1b6afe6](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/1b6afe677b50719d4b71f9dffded069db1142104))
+
 # [4.0.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.10.0...v4.0.0) (2026-08-21)
 
 
