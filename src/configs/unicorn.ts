@@ -67,6 +67,7 @@ export async function unicorn(options: OptionsOverrides & { projectRoot?: string
         "unicorn/name-replacements": "off",
         "unicorn/no-non-function-verb-prefix": "off",
         "unicorn/no-null": "off",
+        "unicorn/no-unsafe-property-key": "off",
         "unicorn/prefer-await": "off",
         "unicorn/consistent-boolean-name": "off",
         "unicorn/consistent-conditional-object-spread": "off",

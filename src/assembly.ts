@@ -42,6 +42,7 @@ import {
   GLOB_JSON5,
   GLOB_JSONC,
   GLOB_MARKDOWN,
+  GLOB_MARKDOWN_CODE,
   GLOB_ROOT_DTS,
   GLOB_ROOT_JS,
   GLOB_ROOT_JSX,
@@ -233,9 +234,17 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     ...(typeof parserOptions?.projectService === "object" && parserOptions.projectService),
   };
 
+  const hasMarkdownTypeRequiredRules =
+    markdownOptions !== false && markdownOptions !== true && markdownOptions.enableTypeRequiredRules === true;
+
+  const resolvedFilesTypeAware = [
+    ...(filesTypeAware ?? defaultFilesTypesAware),
+    ...(hasMarkdownTypeRequiredRules ? [GLOB_MARKDOWN_CODE] : []),
+  ];
+
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
     ...typeScriptSubOptions,
-    filesTypeAware: filesTypeAware ?? defaultFilesTypesAware,
+    filesTypeAware: resolvedFilesTypeAware,
     parserOptions: {
       tsconfigRootDir: projectRoot,
       ...parserOptions,
@@ -441,6 +450,7 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
           markdown({
             enableTypeRequiredRules: !(markdownOptions === true || markdownOptions.enableTypeRequiredRules === false),
             files: [GLOB_MARKDOWN],
+            filesTypeAware: typescriptConfigOptions.filesTypeAware,
             componentExts: componentExtensions,
             overrides: getOverrides(options, "markdown"),
           }),

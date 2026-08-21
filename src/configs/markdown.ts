@@ -11,9 +11,13 @@ import type {
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
-  options: Readonly<Required<OptionsFiles & OptionsComponentExtensions & OptionsTypeRequiredRules & OptionsOverrides>>,
+  options: Readonly<
+    Required<OptionsFiles & OptionsComponentExtensions & OptionsTypeRequiredRules & OptionsOverrides> & {
+      filesTypeAware?: string[];
+    }
+  >,
 ): Promise<FlatConfigItem[]> {
-  const { componentExts, files, overrides, enableTypeRequiredRules } = options;
+  const { componentExts, files, overrides, enableTypeRequiredRules, filesTypeAware = [] } = options;
 
   const [pluginMarkdown, { mergeProcessors, processorPassThrough }] = (await loadPackages([
     "@eslint/markdown",
@@ -130,6 +134,15 @@ export async function markdown(
         "unicorn/switch-case-braces": "off",
 
         ...overrides,
+      },
+    },
+    {
+      name: "rs:markdown:code-disable-type-aware",
+      files: [GLOB_MARKDOWN_CODE, ...componentExts.map((extension) => `${GLOB_MARKDOWN}/*.${extension}`)],
+      ignores: enableTypeRequiredRules ? filesTypeAware : [],
+      rules: {
+        ...pluginTs?.configs["disable-type-checked"]?.rules,
+        ...pluginFunctional?.configs.disableTypeChecked.rules,
       },
     },
   ];
