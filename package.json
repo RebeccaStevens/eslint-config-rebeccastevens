@@ -188,6 +188,7 @@
     "@eslint-community/eslint-plugin-eslint-comments": "*",
     "@eslint-react/eslint-plugin": "*",
     "@eslint/markdown": "*",
+    "@intlify/eslint-plugin-vue-i18n": "*",
     "@stylistic/eslint-plugin": "*",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
@@ -201,6 +202,8 @@
     "eslint-import-resolver-typescript": "*",
     "eslint-merge-processors": "*",
     "eslint-plugin-better-tailwindcss": "*",
+    "eslint-plugin-command": "*",
+    "eslint-plugin-erasable-syntax-only": "*",
     "eslint-plugin-format": "*",
     "eslint-plugin-functional": "*",
     "eslint-plugin-i18next": "*",
@@ -211,14 +214,18 @@
     "eslint-plugin-n": "*",
     "eslint-plugin-no-only-tests": "*",
     "eslint-plugin-optimize-regex": "*",
+    "eslint-plugin-perfectionist": "*",
+    "eslint-plugin-pnpm": "*",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-promise": "*",
     "eslint-plugin-react-hooks": "*",
     "eslint-plugin-react-refresh": "*",
     "eslint-plugin-regexp": "*",
+    "eslint-plugin-security": "*",
     "eslint-plugin-sonarjs": "*",
     "eslint-plugin-toml": "*",
     "eslint-plugin-unicorn": "*",
+    "eslint-plugin-unused-imports": "*",
     "eslint-plugin-vue": "*",
     "eslint-plugin-yml": "*",
     "eslint-processor-vue-blocks": "*",
@@ -237,6 +244,9 @@
       "optional": true
     },
     "@eslint/markdown": {
+      "optional": true
+    },
+    "@intlify/eslint-plugin-vue-i18n": {
       "optional": true
     },
     "@stylistic/eslint-plugin": {
@@ -275,6 +285,12 @@
     "eslint-plugin-better-tailwindcss": {
       "optional": true
     },
+    "eslint-plugin-command": {
+      "optional": true
+    },
+    "eslint-plugin-erasable-syntax-only": {
+      "optional": true
+    },
     "eslint-plugin-format": {
       "optional": true
     },
@@ -305,6 +321,12 @@
     "eslint-plugin-optimize-regex": {
       "optional": true
     },
+    "eslint-plugin-perfectionist": {
+      "optional": true
+    },
+    "eslint-plugin-pnpm": {
+      "optional": true
+    },
     "eslint-plugin-prettier": {
       "optional": true
     },
@@ -320,6 +342,9 @@
     "eslint-plugin-regexp": {
       "optional": true
     },
+    "eslint-plugin-security": {
+      "optional": true
+    },
     "eslint-plugin-sonarjs": {
       "optional": true
     },
@@ -327,6 +352,9 @@
       "optional": true
     },
     "eslint-plugin-unicorn": {
+      "optional": true
+    },
+    "eslint-plugin-unused-imports": {
       "optional": true
     },
     "eslint-plugin-vue": {
