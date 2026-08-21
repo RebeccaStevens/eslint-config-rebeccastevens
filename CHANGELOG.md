@@ -1,6 +1,28 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+# [4.0.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.10.0...v4.0.0) (2026-08-21)
+
+
+### Bug Fixes
+
+* add missing optional peer dependencies to package.json ([2eeae72](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2eeae72c653bc2c9fe9baa4effb313eeec4e5c67))
+* disable noisy sonarjs and unicorn rules ([cbe6d48](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/cbe6d48a39dbcb6bf5df5fcb6fdcf5f6a3604bdc))
+* disable unicorn/no-unsafe-property-key and fix markdown type awareness ([c33bcc4](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c33bcc43caeed7957cdce5b88ab65d1d724e13c9))
+
+
+### Features
+
+* modernize flat config architecture and plugin presets ([90843e8](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/90843e86b939ec1743ba3d7cf23e5c9cf386e519))
+* modernize flat config architecture with new plugins and detection ([c906c3e](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/c906c3e2804f01f2cea5d3ca907ee4ae1d3839e5))
+
+
+### BREAKING CHANGES
+
+* Modernized flat config architecture, updated plugin ecosystems
+(sonarjs, unicorn, security, erasableSyntaxOnly), and automated tsconfig-based
+rule activations.
+
 # [3.10.0](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v3.9.7...v3.10.0) (2026-08-19)
 
 
