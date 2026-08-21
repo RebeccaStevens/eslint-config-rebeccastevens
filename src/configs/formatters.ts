@@ -1,4 +1,4 @@
-import type { ESLint } from "eslint";
+import type { ESLint, Rule } from "eslint";
 import { isPackageExists } from "local-pkg";
 import type { Options as PrettierOptions } from "prettier";
 
@@ -24,12 +24,59 @@ import { loadPackages, parserPlain } from "../utils";
 
 import { StylisticConfigDefaults } from "./stylistic";
 
+type FormatterType = "prettier" | "dprint";
+
+/**
+ * Create a format rule for the given formatter type.
+ *
+ * @param formatter - Which formatter to use
+ * @param prettierOpts - Prettier options (used only when formatter is "prettier")
+ * @param dprintLang - dprint language name (used only when formatter is "dprint")
+ * @param dprintGlobalOpts - dprint global options
+ * @param dprintLangOpts - dprint language-specific options
+ * @returns ESLint rule configuration
+ */
+function createFormatRule(
+  formatter: FormatterType,
+  prettierOpts: Record<string, unknown>,
+  dprintLang: string,
+  dprintGlobalOpts: Record<string, unknown>,
+  dprintLangOpts?: Record<string, unknown>,
+): [string, unknown[]] {
+  if (formatter === "dprint") {
+    return [
+      "format/dprint",
+      [
+        {
+          ...dprintGlobalOpts,
+          language: dprintLang,
+          ...(dprintLangOpts === undefined ? {} : { languageOptions: dprintLangOpts }),
+        },
+      ],
+    ] as [string, unknown[]];
+  }
+  return ["format/prettier", [prettierOpts]] as [string, unknown[]];
+}
+
+/**
+ * Enable formatting via `eslint-plugin-format` for JS/TS, JSON, YAML,
+ * CSS/SCSS/LESS, HTML, Markdown, GraphQL, and Tailwind files.
+ *
+ * Passing `true` enables all formatters and auto-detects slidev/tailwind
+ * packages. Supports both Prettier and dprint as the underlying formatter.
+ * Non-JS file types use `parserPlain`; `stylistic` drives
+ * printWidth/quotes/semi. Throws if `slidev` is enabled without `markdown`.
+ *
+ * @param optionsInput - Formatter toggles, or `true` to enable all
+ * @param stylistic - Stylistic config controlling printWidth/quotes/semi
+ * @returns Flat config items enabling formatting per file type
+ */
 export async function formatters(
-  opts: Readonly<OptionsFormatters | true>,
+  optionsInput: Readonly<OptionsFormatters | true>,
   stylistic: Readonly<StylisticConfig>,
 ): Promise<FlatConfigItem[]> {
   const options =
-    opts === true
+    optionsInput === true
       ? {
           js: true,
           ts: true,
@@ -42,12 +89,16 @@ export async function formatters(
           markdown: true,
           slidev: isPackageExists("@slidev/cli"),
           tailwind: isPackageExists("tailwindcss"),
+          formatter: "prettier" as const,
         }
-      : opts;
+      : { formatter: "prettier" as const, ...optionsInput };
 
   if (options.slidev !== false && options.slidev !== undefined && options.markdown !== true) {
-    throw new Error("`slidev` option only works when `markdown` is enabled with `prettier`");
+    throw new Error("`slidev` option only works when `markdown` is enabled");
   }
+
+  const mut_formatter: FormatterType = options.formatter;
+  const useDprint = mut_formatter === "dprint";
 
   const { indent, printWidth, quotes, semi } = stylistic;
 
@@ -70,26 +121,42 @@ export async function formatters(
     options.prettierOptions ?? {},
   );
 
-  const packages = loadPackages([
+  const dprintOptions: Record<string, unknown> = {
+    indentWidth:
+      typeof indent === "number"
+        ? indent
+        : typeof StylisticConfigDefaults.indent === "number"
+          ? StylisticConfigDefaults.indent
+          : 2,
+    lineWidth: printWidth ?? 120,
+    newLineKind: "lf",
+    useTabs: indent === "tab",
+    ...options.dprintOptions,
+  };
+
+  const dprintJsTsLanguageOptions = {
+    quoteStyle: quotes === "single" ? "alwaysSingle" : "alwaysDouble",
+    semiColons: semi === false ? "asi" : "always",
+  };
+
+  const packages = (await loadPackages([
     "eslint-plugin-format",
     "eslint-config-prettier",
     "sort-package-json",
     "eslint-formatting-reporter",
-    "prettier",
-  ]) as Promise<
-    [
-      ESLint.Plugin,
-      ESLint.ConfigData,
-      (typeof import("sort-package-json"))["default"],
-      typeof import("eslint-formatting-reporter"),
-      unknown,
-    ]
-  >;
+    ...(useDprint ? [] : ["prettier"]),
+  ])) as [
+    ESLint.Plugin,
+    ESLint.ConfigData,
+    (typeof import("sort-package-json"))["default"],
+    typeof import("eslint-formatting-reporter"),
+    unknown?,
+  ];
 
-  const [pluginFormat, configPrettier, sortPackageJson, formattingReporter] = await packages;
+  const [mut_pluginFormat, mut_configPrettier, sortPackageJson, formattingReporter] = packages;
 
-  const turnOffRulesForPrettier = {
-    ...Object.fromEntries(Object.entries(configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
+  const turnOffRules = {
+    ...Object.fromEntries(Object.entries(mut_configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
 
     // curly: "off",
     "no-unexpected-multiline": "off",
@@ -119,11 +186,27 @@ export async function formatters(
     "yml/block-sequence-hyphen-indicator-newline": "off",
   } satisfies FlatConfigItem["rules"];
 
+  // Shorthand: create format rule with current formatter.
+  function fmtRule(
+    prettierOpts: Record<string, unknown>,
+    dprintLang: string,
+    dprintLangOpts?: Record<string, unknown>,
+  ): FlatConfigItem["rules"] {
+    const [ruleName, ruleArgs] = createFormatRule(
+      mut_formatter,
+      prettierOpts,
+      dprintLang,
+      dprintOptions,
+      dprintLangOpts,
+    );
+    return { [ruleName]: ["error", ...ruleArgs] };
+  }
+
   const mut_configs: FlatConfigItem[] = [
     {
       name: "rs:formatters:setup",
       plugins: {
-        format: pluginFormat,
+        format: mut_pluginFormat,
       },
     },
   ];
@@ -133,20 +216,19 @@ export async function formatters(
       name: "rs:formatter:javascript",
       files: [GLOB_JS, GLOB_JSX],
       rules: {
-        ...turnOffRulesForPrettier,
-        "format/prettier": [
-          "error",
+        ...turnOffRules,
+        ...fmtRule(
           {
             ...prettierOptions,
             parser: "babel",
-
-            ...(options.tailwind !== undefined && options.tailwind
-              ? {
-                  plugins: prettierOptions.plugins ?? [],
-                }
-              : {}),
+            ...(options.tailwind !== undefined &&
+              options.tailwind && {
+                plugins: prettierOptions.plugins ?? [],
+              }),
           },
-        ],
+          "typescript",
+          dprintJsTsLanguageOptions,
+        ),
       },
     });
   }
@@ -157,20 +239,19 @@ export async function formatters(
       files: [GLOB_TS, GLOB_TSX],
       ignores: options.dts === true ? [] : [GLOB_DTS],
       rules: {
-        ...turnOffRulesForPrettier,
-        "format/prettier": [
-          "error",
+        ...turnOffRules,
+        ...fmtRule(
           {
             ...prettierOptions,
             parser: "typescript",
-
-            ...(options.tailwind !== undefined && options.tailwind
-              ? {
-                  plugins: prettierOptions.plugins ?? [],
-                }
-              : {}),
+            ...(options.tailwind !== undefined &&
+              options.tailwind && {
+                plugins: prettierOptions.plugins ?? [],
+              }),
           },
-        ],
+          "typescript",
+          dprintJsTsLanguageOptions,
+        ),
       },
     });
   }
@@ -183,14 +264,8 @@ export async function formatters(
         parser: parserPlain,
       },
       rules: {
-        ...turnOffRulesForPrettier,
-        "format/prettier": [
-          "error",
-          {
-            ...prettierOptions,
-            parser: "yaml",
-          },
-        ],
+        ...turnOffRules,
+        ...fmtRule({ ...prettierOptions, parser: "yaml" }, "yaml"),
       },
     });
   }
@@ -205,14 +280,8 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "json",
-            },
-          ],
+          ...turnOffRules,
+          ...fmtRule({ ...prettierOptions, parser: "json" }, "json"),
         },
       },
       {
@@ -222,14 +291,8 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "jsonc",
-            },
-          ],
+          ...turnOffRules,
+          ...fmtRule({ ...prettierOptions, parser: "jsonc" }, "json"),
         },
       },
       {
@@ -239,22 +302,13 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "json5",
-            },
-          ],
+          ...turnOffRules,
+          ...fmtRule({ ...prettierOptions, parser: "json5" }, "json"),
         },
       },
       {
         name: "rs:formatter:packagejson",
         files: ["**/package.json"],
-        languageOptions: {
-          parser: parserPlain,
-        },
         plugins: {
           "package-json": {
             meta: {
@@ -288,7 +342,11 @@ export async function formatters(
                       const sourceCode = context.sourceCode.text;
                       try {
                         const formatted = sortPackageJson(sourceCode);
-                        formattingReporter.reportDifferences(context as any, sourceCode, formatted);
+                        formattingReporter.reportDifferences(
+                          context as unknown as Rule.RuleContext,
+                          sourceCode,
+                          formatted,
+                        );
                       } catch (error) {
                         console.error(error);
                         context.report({
@@ -322,14 +380,8 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "css",
-            },
-          ],
+          ...turnOffRules,
+          ...fmtRule({ ...prettierOptions, parser: "css" }, "css"),
         },
       },
       {
@@ -339,14 +391,8 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "scss",
-            },
-          ],
+          ...turnOffRules,
+          ...fmtRule({ ...prettierOptions, parser: "scss" }, "css"),
         },
       },
       {
@@ -356,14 +402,8 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
-            {
-              ...prettierOptions,
-              parser: "less",
-            },
-          ],
+          ...turnOffRules,
+          ...fmtRule({ ...prettierOptions, parser: "less" }, "css"),
         },
       },
     );
@@ -377,14 +417,8 @@ export async function formatters(
         parser: parserPlain,
       },
       rules: {
-        ...turnOffRulesForPrettier,
-        "format/prettier": [
-          "error",
-          {
-            ...prettierOptions,
-            parser: "html",
-          },
-        ],
+        ...turnOffRules,
+        ...fmtRule({ ...prettierOptions, parser: "html" }, "html"),
       },
     });
   }
@@ -405,15 +439,8 @@ export async function formatters(
         parser: parserPlain,
       },
       rules: {
-        ...turnOffRulesForPrettier,
-        "format/prettier": [
-          "error",
-          {
-            ...prettierOptions,
-            embeddedLanguageFormatting: "off",
-            parser: "markdown",
-          },
-        ],
+        ...turnOffRules,
+        ...fmtRule({ ...prettierOptions, embeddedLanguageFormatting: "off", parser: "markdown" }, "markdown"),
       },
     });
 
@@ -425,16 +452,16 @@ export async function formatters(
           parser: parserPlain,
         },
         rules: {
-          ...turnOffRulesForPrettier,
-          "format/prettier": [
-            "error",
+          ...turnOffRules,
+          ...fmtRule(
             {
               ...prettierOptions,
               embeddedLanguageFormatting: "off",
               parser: "slidev",
               plugins: ["prettier-plugin-slidev"],
             },
-          ],
+            "markdown",
+          ),
         },
       });
     }
@@ -448,14 +475,8 @@ export async function formatters(
       },
       name: "rs:formatter:graphql",
       rules: {
-        ...turnOffRulesForPrettier,
-        "format/prettier": [
-          "error",
-          {
-            ...prettierOptions,
-            parser: "graphql",
-          },
-        ],
+        ...turnOffRules,
+        ...fmtRule({ ...prettierOptions, parser: "graphql" }, "graphql"),
       },
     });
   }

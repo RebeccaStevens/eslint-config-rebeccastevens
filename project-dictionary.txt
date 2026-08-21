@@ -5,6 +5,7 @@ baz
 boop
 corge
 deassert
+derefs
 foo
 fred
 garply
@@ -37,3 +38,4 @@ waldo
 xyzzy
 unrs
 releaserc
+unthrown

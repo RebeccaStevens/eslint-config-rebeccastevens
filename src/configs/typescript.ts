@@ -5,34 +5,39 @@ import type { ESLint, Linter } from "eslint";
 import { GLOB_DTS, GLOB_JS, GLOB_JSX, GLOB_TESTS, GLOB_TS, GLOB_TSX } from "../globs";
 import type {
   FlatConfigItem,
-  OptionsComponentExts,
+  OptionsComponentExts as OptionsComponentExtensions,
   OptionsFiles,
   OptionsFunctional,
   OptionsMode,
   OptionsOverrides,
   OptionsProjectRoot,
+  OptionsRenamePlugins,
   OptionsTypeScriptParserOptions,
+  OptionsTypeScriptShorthands,
   OptionsTypeScriptUnsafeSeverity,
 } from "../types";
-import { loadPackages } from "../utils";
+import { detectTsconfigErasableSyntaxFiles, loadPackages } from "../utils";
 
 export const defaultFilesTypesAware: string[] = [GLOB_TS, GLOB_TSX, GLOB_DTS];
 
 export async function typescript(
   options: Readonly<
     Required<
-      OptionsComponentExts &
+      OptionsComponentExtensions &
         OptionsFiles &
         OptionsFunctional &
         OptionsMode &
         OptionsOverrides &
         OptionsProjectRoot &
+        OptionsRenamePlugins &
         OptionsTypeScriptParserOptions &
         OptionsTypeScriptUnsafeSeverity
     >
-  >,
+  > &
+    OptionsTypeScriptShorthands,
 ): Promise<FlatConfigItem[]> {
   const {
+    renamePlugins = true,
     mode,
     functionalEnforcement,
     componentExts,
@@ -41,31 +46,66 @@ export async function typescript(
     unsafe,
     files,
     filesTypeAware,
-    projectRoot,
+    projectRoot = process.cwd(),
+    erasableSyntaxOnly: userErasableSyntaxOnly,
   } = options;
 
-  const [pluginTs, parserTs] = (await loadPackages([
+  const erasableFiles =
+    userErasableSyntaxOnly === true
+      ? files
+      : userErasableSyntaxOnly === false
+        ? []
+        : await detectTsconfigErasableSyntaxFiles(projectRoot);
+
+  const hasErasableRules = erasableFiles.length > 0;
+
+  const shouldRename = renamePlugins !== false;
+  let mut_erasableSubPrefix = "erasable-syntax";
+  if (typeof renamePlugins === "object") {
+    const target = renamePlugins["erasable-syntax-only"];
+    if (target !== undefined) {
+      const slashIndex = target.indexOf("/");
+      mut_erasableSubPrefix = slashIndex === -1 ? "" : target.slice(slashIndex + 1);
+    }
+  }
+
+  const [pluginTs, parserTs, pluginErasableSyntax] = (await loadPackages([
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
-  ])) as [ESLint.Plugin, Linter.Parser];
+    ...(hasErasableRules ? ["eslint-plugin-erasable-syntax-only"] : []),
+  ])) as [ESLint.Plugin, Linter.Parser, ESLint.Plugin | undefined];
 
-  function makeParser(typeAware: boolean, files: string[], ignores: string[] = []): FlatConfigItem {
+  const pluginErasableSyntaxWrapped: ESLint.Plugin | undefined =
+    pluginErasableSyntax === undefined
+      ? undefined
+      : shouldRename && mut_erasableSubPrefix.length > 0
+        ? {
+            ...pluginErasableSyntax,
+            rules: Object.fromEntries(
+              Object.entries(pluginErasableSyntax.rules ?? {}).map(([ruleName, ruleDef]) => [
+                `${mut_erasableSubPrefix}/${ruleName}`,
+                ruleDef,
+              ]),
+            ),
+          }
+        : pluginErasableSyntax;
+
+  function makeParser(typeAware: boolean, targetFiles: string[], ignores: string[] = []): FlatConfigItem {
+    // Destructure type-aware-only options so they are included only for the type-aware parser.
+    // Non-type-aware files must not receive `projectService` or `tsconfigRootDir` — doing so
+    // would cause the parser to attempt TS project resolution for JS/untracked files.
+    const { projectService, tsconfigRootDir, ...restParserOptions } = parserOptions;
     return {
       name: `rs:typescript:${typeAware ? "type-aware-parser" : "parser"}`,
-      files,
+      files: targetFiles,
       ignores,
       languageOptions: {
         parser: parserTs,
         parserOptions: {
-          extraFileExtensions: componentExts.map((ext) => `.${ext}`),
+          extraFileExtensions: componentExts.map((extension) => `.${extension}`),
           sourceType: "module",
-          ...(typeAware
-            ? {
-                projectService: true,
-                tsconfigRootDir: projectRoot,
-              }
-            : {}),
-          ...(parserOptions as Linter.ParserOptions),
+          ...(restParserOptions as Linter.ParserOptions),
+          ...(typeAware && { projectService, tsconfigRootDir }),
         },
       },
     };
@@ -74,7 +114,12 @@ export async function typescript(
   return [
     {
       name: "rs:typescript:setup",
-      plugins: { "@typescript-eslint": pluginTs },
+      plugins: {
+        "@typescript-eslint": pluginTs,
+        ...(pluginErasableSyntaxWrapped !== undefined && {
+          "erasable-syntax-only": pluginErasableSyntaxWrapped,
+        }),
+      },
     },
     makeParser(true, filesTypeAware),
     makeParser(false, files, filesTypeAware),
@@ -82,7 +127,7 @@ export async function typescript(
       name: "rs:typescript:rules",
       files,
       rules: {
-        ...(assert(!Array.isArray(pluginTs.configs?.["eslint-recommended"])),
+        ...(assert.ok(!Array.isArray(pluginTs.configs?.["eslint-recommended"])),
         pluginTs.configs?.["eslint-recommended"]?.rules),
 
         "no-extra-boolean-cast": "off",
@@ -92,6 +137,8 @@ export async function typescript(
 
         "@typescript-eslint/array-type": ["error", { default: "array-simple", readonly: "generic" }],
         "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/no-deprecated": "error",
+        "@typescript-eslint/no-unsafe-type-assertion": "off",
         "@typescript-eslint/ban-ts-comment": ["error", { minimumDescriptionLength: 10 }],
         "@typescript-eslint/explicit-function-return-type": [
           "off",
@@ -122,14 +169,14 @@ export async function typescript(
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-for-in-array": "error",
         "@typescript-eslint/no-invalid-void-type": "error",
-        // "@typescript-eslint/no-meaningless-void-operator": "error",
+        // "@typescript-eslint/no-meaningless-void-operator": "error", // Conflicts with `void fn()` used intentionally to discard promise return values.
         "@typescript-eslint/no-misused-new": "error",
         "@typescript-eslint/no-misused-promises": "error",
         "@typescript-eslint/no-mixed-enums": "error",
         "@typescript-eslint/no-namespace": "error",
         "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
         "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
-        // "@typescript-eslint/no-non-null-assertion": "error",
+        // "@typescript-eslint/no-non-null-assertion": "error", // Too strict — occasional non-null assertions are accepted; use the `mut_` prefix convention instead.
         "@typescript-eslint/no-redundant-type-constituents": "error",
         "@typescript-eslint/no-this-alias": "error",
         "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
@@ -163,7 +210,7 @@ export async function typescript(
         "@typescript-eslint/prefer-literal-enum-member": "error",
         "@typescript-eslint/prefer-nullish-coalescing": "error",
         "@typescript-eslint/prefer-optional-chain": "error",
-        // "@typescript-eslint/prefer-readonly-parameter-types": "error",
+        // "@typescript-eslint/prefer-readonly-parameter-types": "error", // Superseded by `functional/prefer-immutable-types` which is configured with finer-grained overrides.
         "@typescript-eslint/prefer-reduce-type-parameter": "error",
         "@typescript-eslint/prefer-regexp-exec": "error",
         "@typescript-eslint/prefer-return-this-type": "error",
@@ -305,135 +352,150 @@ export async function typescript(
         "require-await": "off",
         "@typescript-eslint/require-await": "error",
 
-        ...(mode === "application"
-          ? {
-              "@typescript-eslint/no-empty-object-type": [
-                "error",
-                {
-                  allowInterfaces: "with-single-extends",
-                },
-              ],
-            }
-          : {}),
+        ...(mode === "application" && {
+          "@typescript-eslint/no-empty-object-type": [
+            "error",
+            {
+              allowInterfaces: "with-single-extends",
+            },
+          ],
+        }),
 
-        ...(functionalEnforcement === "none"
-          ? {}
-          : {
-              "@typescript-eslint/naming-convention": [
-                "error",
-                {
-                  selector: "default",
-                  format: ["camelCase", "PascalCase"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variableLike",
-                  filter: { regex: "_[^_]+", match: true },
-                  format: ["camelCase", "PascalCase"],
-                  prefix: ["mut_", "Mut_"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variableLike",
-                  format: ["camelCase", "PascalCase"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variable",
-                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
-                  prefix: ["mut_", "Mut_"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variable",
-                  filter: { regex: "^[A-Z0-9_]+$", match: true },
-                  format: ["UPPER_CASE"],
-                  modifiers: ["const"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variable",
-                  filter: { regex: "^[mM]ut_[^_]+", match: true },
-                  format: ["camelCase", "PascalCase"],
-                  modifiers: ["const"],
-                  prefix: ["mut_", "Mut_"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variable",
-                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
-                  modifiers: ["const"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "variable",
-                  format: null,
-                  modifiers: ["destructured"],
-                },
-                {
-                  selector: ["autoAccessor", "parameterProperty", "property"],
-                  filter: { regex: "^[A-Z0-9_]+$", match: true },
-                  format: ["UPPER_CASE"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: ["autoAccessor", "parameterProperty", "property"],
-                  filter: { regex: "^[mM]ut_[^_]+", match: true },
-                  format: ["camelCase", "PascalCase"],
-                  prefix: ["mut_", "Mut_"],
-                  leadingUnderscore: "forbid",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: ["autoAccessor", "parameterProperty", "property"],
-                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
-                  modifiers: ["readonly"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: ["accessor", "classMethod", "typeMethod", "typeProperty"],
-                  format: ["camelCase", "PascalCase", "UPPER_CASE"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "enumMember",
-                  format: ["PascalCase", "UPPER_CASE"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: "typeLike",
-                  format: ["PascalCase"],
-                  leadingUnderscore: "allow",
-                  trailingUnderscore: "forbid",
-                },
-                {
-                  selector: ["objectLiteralProperty", "objectLiteralMethod"],
-                  format: null,
-                },
-              ],
-            }),
+        ...(functionalEnforcement !== "none" && {
+          "@typescript-eslint/naming-convention": [
+            "error",
+            {
+              selector: "default",
+              format: ["camelCase", "PascalCase"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variableLike",
+              filter: { regex: "_[^_]+", match: true },
+              format: ["camelCase", "PascalCase"],
+              prefix: ["mut_", "Mut_"],
+              leadingUnderscore: "forbid",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variableLike",
+              format: ["camelCase", "PascalCase"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variable",
+              format: ["camelCase", "PascalCase", "UPPER_CASE"],
+              prefix: ["mut_", "Mut_"],
+              leadingUnderscore: "forbid",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variable",
+              filter: { regex: "^[A-Z0-9_]+$", match: true },
+              format: ["UPPER_CASE"],
+              modifiers: ["const"],
+              leadingUnderscore: "forbid",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variable",
+              filter: { regex: "^[mM]ut_[^_]+", match: true },
+              format: ["camelCase", "PascalCase"],
+              modifiers: ["const"],
+              prefix: ["mut_", "Mut_"],
+              leadingUnderscore: "forbid",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variable",
+              format: ["camelCase", "PascalCase", "UPPER_CASE"],
+              modifiers: ["const"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "variable",
+              format: null,
+              modifiers: ["destructured"],
+            },
+            {
+              selector: ["autoAccessor", "parameterProperty", "property"],
+              filter: { regex: "^[A-Z0-9_]+$", match: true },
+              format: ["UPPER_CASE"],
+              leadingUnderscore: "forbid",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: ["autoAccessor", "parameterProperty", "property"],
+              filter: { regex: "^[mM]ut_[^_]+", match: true },
+              format: ["camelCase", "PascalCase"],
+              prefix: ["mut_", "Mut_"],
+              leadingUnderscore: "forbid",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: ["autoAccessor", "parameterProperty", "property"],
+              format: ["camelCase", "PascalCase", "UPPER_CASE"],
+              modifiers: ["readonly"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: ["accessor", "classMethod", "typeMethod", "typeProperty"],
+              format: ["camelCase", "PascalCase", "UPPER_CASE"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "enumMember",
+              format: ["PascalCase", "UPPER_CASE"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: "typeLike",
+              format: ["PascalCase"],
+              leadingUnderscore: "allow",
+              trailingUnderscore: "forbid",
+            },
+            {
+              selector: ["objectLiteralProperty", "objectLiteralMethod"],
+              format: null,
+            },
+          ],
+        }),
 
         ...overrides,
       },
     },
+    ...(hasErasableRules
+      ? [
+          {
+            name: "rs:typescript:erasable-syntax-only",
+            files: erasableFiles,
+            rules: (shouldRename && mut_erasableSubPrefix.length > 0
+              ? {
+                  [`erasable-syntax-only/${mut_erasableSubPrefix}/enums`]: "error",
+                  [`erasable-syntax-only/${mut_erasableSubPrefix}/import-aliases`]: "error",
+                  [`erasable-syntax-only/${mut_erasableSubPrefix}/namespaces`]: "error",
+                  [`erasable-syntax-only/${mut_erasableSubPrefix}/parameter-properties`]: "error",
+                }
+              : {
+                  "erasable-syntax-only/enums": "error",
+                  "erasable-syntax-only/import-aliases": "error",
+                  "erasable-syntax-only/namespaces": "error",
+                  "erasable-syntax-only/parameter-properties": "error",
+                }) as FlatConfigItem["rules"],
+          },
+        ]
+      : []),
     {
       name: "rs:typescript:rules-non-type-aware",
       files,
       ignores: filesTypeAware,
-      rules: ((pluginTs.configs?.["disable-type-checked"] as Linter.Config | undefined)?.rules ?? {}) as NonNullable<
-        FlatConfigItem["rules"]
-      >,
+      rules: (pluginTs.configs?.["disable-type-checked"] as Linter.Config | undefined)?.rules ?? {},
     },
     {
       name: "rs:typescript:tests-overrides",

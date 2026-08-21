@@ -1,14 +1,28 @@
 import type { FlatConfigItem, OptionsFiles, OptionsOverrides } from "../types";
 import { interopDefault, loadPlugins } from "../utils";
 
+/**
+ * Configure test file linting via `@vitest/eslint-plugin` and
+ * `eslint-plugin-no-only-tests`.
+ *
+ * Optionally loads `eslint-plugin-functional` (silently skipped if not
+ * installed) to disable functional rules in test files. Relaxes TypeScript
+ * strictness (no-unsafe-*, no-unused-vars, strict-boolean-expressions) and
+ * unicorn rules. Enforces vitest conventions (consistent-test-it with `it`,
+ * no-identical-title, no-import-node-test, prefer-hooks-in-order,
+ * prefer-lowercase-title). Disables `no-only-tests/no-only-tests` name
+ * collision by using the plugin's own rule.
+ *
+ * @param options - Options with files and overrides
+ * @returns Flat config items enabling vitest and no-only-tests rules
+ */
 export async function test(options: Readonly<Required<OptionsFiles & OptionsOverrides>>): Promise<FlatConfigItem[]> {
   const { files, overrides } = options;
 
   const [pluginVitest, pluginNoOnlyTests] = await loadPlugins(["@vitest/eslint-plugin", "eslint-plugin-no-only-tests"]);
 
-  const [pluginFunctional] = await Promise.all([
-    interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
-  ]);
+  // The functional plugin is optional — if it isn't installed, silently skip its rules in test overrides.
+  const pluginFunctional = await interopDefault(import("eslint-plugin-functional")).catch(() => {});
 
   return [
     {

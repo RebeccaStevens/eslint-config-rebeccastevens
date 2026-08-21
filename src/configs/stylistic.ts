@@ -4,6 +4,9 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, OptionsHasTypeScript, OptionsOverrides, StylisticConfig } from "../types";
 import { loadPackages } from "../utils";
 
+/**
+ * Default stylistic configuration: indent 2, jsx true, quotes double, semi true, printWidth 120.
+ */
 export const StylisticConfigDefaults: Required<StylisticConfig> = {
   indent: 2,
   jsx: true,
@@ -12,6 +15,15 @@ export const StylisticConfigDefaults: Required<StylisticConfig> = {
   printWidth: 120,
 };
 
+/**
+ * Generates stylistic ESLint flat config from `@stylistic/eslint-plugin`.
+ *
+ * Configures indent, quotes, semicolons, and JSX formatting rules.
+ * Disables stylistic rules when `stylistic: false`.
+ *
+ * @param options - Stylistic config, overrides, and TypeScript flag.
+ * @returns The stylistic flat config items.
+ */
 export async function stylistic(
   options: Readonly<Required<{ stylistic: Required<StylisticConfig> } & OptionsOverrides & OptionsHasTypeScript>>,
 ): Promise<FlatConfigItem[]> {
@@ -57,13 +69,11 @@ export async function stylistic(
             imports: "only-multiline",
             objects: "only-multiline",
 
-            ...(typescript
-              ? {
-                  enums: "only-multiline",
-                  generics: "only-multiline",
-                  tuples: "only-multiline",
-                }
-              : {}),
+            ...(typescript && {
+              enums: "only-multiline",
+              generics: "only-multiline",
+              tuples: "only-multiline",
+            }),
           },
         ],
         "@stylistic/comma-spacing": ["error", { before: false, after: true }],
@@ -114,18 +124,16 @@ export async function stylistic(
             allowClassStart: true,
             allowClassEnd: true,
 
-            ...(typescript
-              ? {
-                  allowEnumEnd: true,
-                  allowEnumStart: true,
-                  allowInterfaceEnd: true,
-                  allowInterfaceStart: true,
-                  allowModuleEnd: true,
-                  allowModuleStart: true,
-                  allowTypeEnd: true,
-                  allowTypeStart: true,
-                }
-              : {}),
+            ...(typescript && {
+              allowEnumEnd: true,
+              allowEnumStart: true,
+              allowInterfaceEnd: true,
+              allowInterfaceStart: true,
+              allowModuleEnd: true,
+              allowModuleStart: true,
+              allowTypeEnd: true,
+              allowTypeStart: true,
+            }),
           },
         ],
         "@stylistic/lines-between-class-members": [
@@ -133,11 +141,9 @@ export async function stylistic(
           "always",
           {
             exceptAfterSingleLine: true,
-            ...(typescript
-              ? {
-                  exceptAfterOverload: true,
-                }
-              : {}),
+            ...(typescript && {
+              exceptAfterOverload: true,
+            }),
           },
         ],
         "@stylistic/max-statements-per-line": ["error", { max: 1 }],
@@ -246,12 +252,10 @@ export async function stylistic(
         "@stylistic/wrap-iife": ["error", "inside", { functionPrototypeMethods: true }],
         "@stylistic/yield-star-spacing": ["error", "after"],
 
-        ...(typescript
-          ? {
-              "@stylistic/member-delimiter-style": "error",
-              "@stylistic/type-annotation-spacing": "error",
-            }
-          : {}),
+        ...(typescript && {
+          "@stylistic/member-delimiter-style": "error",
+          "@stylistic/type-annotation-spacing": "error",
+        }),
 
         ...overrides,
       },

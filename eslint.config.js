@@ -4,12 +4,10 @@ import { createJiti } from "jiti";
 
 const jiti = createJiti(import.meta.url);
 
-/**
- * @type {typeof import('./src').default}
- */
 const rsEslint = await jiti.import("./src", { default: true });
 
-export default rsEslint(
+export default // @ts-expect-error
+rsEslint(
   {
     projectRoot: import.meta.dirname,
     mode: "none",
@@ -19,10 +17,12 @@ export default rsEslint(
     },
     formatters: true,
     functional: "lite",
-    jsonc: true,
+    json: true,
     markdown: true,
     stylistic: true,
     yaml: true,
+    pnpm: true,
+    ignores: ["AGENTS.md"],
   },
   {
     rules: {

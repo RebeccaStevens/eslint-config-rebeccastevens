@@ -1,3 +1,4 @@
+import * as fs from "node:fs";
 import * as path from "node:path";
 
 import type { SharedConfig } from "@typescript-eslint/utils/ts-eslint";
@@ -5,7 +6,7 @@ import { isPackageExists } from "local-pkg";
 
 import {
   StylisticConfigDefaults,
-  comments,
+  command,
   defaultFilesTypesAware,
   formatters,
   functional,
@@ -19,11 +20,13 @@ import {
   markdown,
   node,
   overrides,
+  perfectionist,
+  pnpm,
   promise,
   react,
   regexp,
+  security,
   sonar,
-  sortTsconfig,
   stylistic,
   tailwind,
   test,
@@ -55,6 +58,7 @@ import type {
   Awaitable,
   FlatConfigItem,
   OptionsConfig,
+  OptionsTailwindCSS,
   OptionsTypeScriptParserOptions,
   OptionsTypeScriptShorthands,
   OptionsTypescript,
@@ -62,10 +66,22 @@ import type {
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
-const ReactPackages = ["react", "next", "remix"];
+const ReactPackages = ["react", "next", "remix", "react-router"];
 
+/**
+ * Resolves `OptionsConfig` values to non-boolean/non-string types (unwraps `boolean | T` to `T`).
+ */
 export type ResolvedOptions<T> = T extends boolean ? never : T extends string ? never : NonNullable<T>;
 
+/**
+ * Extracts sub-options for a feature key from the top-level config.
+ *
+ * Returns `{}` when the value is a boolean or string (shorthand), or the inner object when an object is passed.
+ *
+ * @param options - The top-level config options.
+ * @param key - The feature key to extract sub-options for.
+ * @returns The resolved sub-options object.
+ */
 export function resolveSubOptions<K extends keyof OptionsConfig>(
   options: Readonly<OptionsConfig>,
   key: K,
@@ -75,17 +91,76 @@ export function resolveSubOptions<K extends keyof OptionsConfig>(
   ) as ResolvedOptions<OptionsConfig[K]>;
 }
 
+/**
+ * Extracts `overrides` from sub-options for a given feature key.
+ *
+ * Returns `undefined` when the feature is disabled or has no overrides.
+ *
+ * @param options - The top-level config options.
+ * @param key - The feature key to extract overrides for.
+ * @returns The user-provided rule overrides, or `undefined`.
+ */
 export function getOverrides<K extends keyof OptionsConfig>(
   options: Readonly<OptionsConfig>,
   key: K,
 ): (Partial<Record<string, SharedConfig.RuleEntry>> & RuleOptions) | undefined {
   const sub = resolveSubOptions(options, key);
-  return "overrides" in sub ? sub.overrides : {};
+  return typeof sub === "object" && "overrides" in sub
+    ? (sub.overrides as (Partial<Record<string, SharedConfig.RuleEntry>> & RuleOptions) | undefined)
+    : undefined;
 }
 
+/**
+ * Resolve Tailwind options into a flat, concrete config object.
+ * Returns `false` when Tailwind is disabled.
+ *
+ * @param opts - Options for Tailwind CSS
+ * @returns An object containing the resolved tailwind configuration, or false if tailwind is disabled
+ */
+function resolveTailwindConfig(opts: boolean | OptionsTailwindCSS):
+  | false
+  | {
+      tailwindVersion: 3 | 4;
+      tailwindConfig: string | undefined;
+      tailwindEntryPoint: string | undefined;
+    } {
+  if (opts === false) {
+    return false;
+  }
+
+  if (opts === true) {
+    return { tailwindVersion: 3, tailwindConfig: "tailwind.config.js", tailwindEntryPoint: undefined };
+  }
+
+  // Determine version from explicit setting or infer from which property is present
+  const tailwindVersion: 3 | 4 = opts.tailwindVersion ?? ("tailwindEntryPoint" in opts ? 4 : 3);
+
+  if (tailwindVersion === 4) {
+    return {
+      tailwindVersion: 4,
+      tailwindConfig: undefined,
+      tailwindEntryPoint: "tailwindEntryPoint" in opts ? opts.tailwindEntryPoint : undefined,
+    };
+  }
+
+  return {
+    tailwindVersion: 3,
+    tailwindConfig: "tailwindConfig" in opts ? (opts.tailwindConfig ?? "tailwind.config.js") : "tailwind.config.js",
+    tailwindEntryPoint: undefined,
+  };
+}
+
+/**
+ * Core composition — builds base configs + feature configs from resolved options.
+ *
+ * @param options - The top-level config options.
+ * @returns An array of `Awaitable<FlatConfigItem[]>` consumed by the factory.
+ */
 export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatConfigItem[]>> {
+  const { projectRoot } = options;
+
   const {
-    componentExts = [],
+    componentExts: componentExtensions = [],
     isInEditor = !Boolean(process.env["CI"]) &&
       (Boolean(process.env["VSCODE_PID"]) ||
         Boolean(process.env["VSCODE_CWD"]) ||
@@ -97,19 +172,24 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     typescript: typeScriptOptions = isPackageExists("typescript"),
     unocss: unoCSSOptions = isPackageExists("unocss"),
     tailwind: tailwindOptions = isPackageExists("tailwindcss"),
-    vue: vueOptions = VuePackages.some((i) => isPackageExists(i)),
-    react: reactOptions = ReactPackages.some((i) => isPackageExists(i)),
-    test: testOptions = true,
+    vue: vueOptions = VuePackages.some((index) => isPackageExists(index)),
+    react: reactOptions = ReactPackages.some((index) => isPackageExists(index)),
+    test: testOptions = isPackageExists("vitest"),
     jsx: jsxOptions = true,
     functional: functionalOptions = true,
-    jsonc: jsoncOptions = false,
+    json: jsonOptions = false,
     yaml: yamlOptions = false,
     toml: tomlOptions = false,
     markdown: markdownOptions = false,
     formatters: formattersOptions = true,
     sonar: sonarOptions = true,
+    command: commandOptions = true,
+    security: securityOptions = true,
+    perfectionist: perfectionistOptions = false,
+    // eslint-disable-next-line node/no-sync, security/detect-non-literal-fs-filename
+    pnpm: pnpmOptions = fs.existsSync(path.join(projectRoot, "pnpm-lock.yaml")),
+    renamePlugins = true,
     mode,
-    projectRoot,
   } = options;
 
   const stylisticOptions =
@@ -132,6 +212,15 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
           ? "recommended"
           : "none";
 
+  const securitySeverity =
+    typeof securityOptions === "string"
+      ? securityOptions
+      : typeof securityOptions === "object"
+        ? (securityOptions.severity ?? "moderate")
+        : securityOptions
+          ? "moderate"
+          : "none";
+
   const hasTypeScript = Boolean(typeScriptOptions);
 
   const { filesTypeAware, parserOptions, useDefaultDefaultProject, ...typeScriptSubOptions } = resolveSubOptions(
@@ -141,7 +230,7 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
 
   const projectServiceUserConfig = {
     defaultProject: "./tsconfig.json",
-    ...(typeof parserOptions?.projectService === "object" ? parserOptions.projectService : undefined),
+    ...(typeof parserOptions?.projectService === "object" && parserOptions.projectService),
   };
 
   const typescriptConfigOptions: Required<OptionsTypeScriptParserOptions> = {
@@ -195,227 +284,172 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     }),
     promise(),
     regexp(),
-    comments(),
-    unicorn(),
-    node(),
+    unicorn({ projectRoot }),
+    node({ projectRoot, securitySeverity }),
   ];
 
   if (vueOptions !== false) {
-    componentExts.push("vue");
+    componentExtensions.push("vue");
   }
 
-  const features = [
-    {
-      build: () => (sonarOptions ? [sonar(functionalConfigOptions)] : []),
-    },
-    {
-      build: () => (jsxOptions ? [jsx()] : []),
-    },
-    {
-      build: () =>
-        typeScriptOptions === false
-          ? []
-          : [
-              typescript({
-                projectRoot,
-                mode,
-                files: [GLOB_SRC, ...componentExts.map((ext) => `**/*.${ext}`)],
-                unsafe: "warn",
-                ...typescriptConfigOptions,
-                ...functionalConfigOptions,
-                componentExts,
-                overrides: getOverrides(options, "typescript"),
-              }),
-            ],
-    },
-    {
-      build: () =>
-        stylisticOptions === false
-          ? []
-          : [
-              stylistic({
-                stylistic: stylisticOptions,
-                typescript: hasTypeScript,
-                overrides: getOverrides(options, "stylistic"),
-              }),
-            ],
-    },
-    {
-      build: () =>
-        functionalEnforcement !== "none" || mode === "library"
-          ? [
-              functional({
-                ...typescriptConfigOptions,
-                ...functionalConfigOptions,
-                overrides: getOverrides(options, "functional"),
-                stylistic: stylisticOptions,
-                mode,
-              }),
-            ]
-          : [],
-    },
-    {
-      build: () =>
-        testOptions === false
-          ? []
-          : [
-              test({
-                files: GLOB_TESTS,
-                overrides: getOverrides(options, "test"),
-              }),
-            ],
-    },
-    {
-      build: () =>
-        vueOptions === false
-          ? []
-          : [
-              vue({
-                ...typescriptConfigOptions,
-                typescript: hasTypeScript,
-                files: [GLOB_VUE],
-                i18n: false,
-                vueVersion: 3,
-                sfcBlocks: true,
-                ...resolveSubOptions(options, "vue"),
-                overrides: getOverrides(options, "vue"),
-                stylistic: stylisticOptions,
-              }),
-            ],
-    },
-    {
-      build: () =>
-        reactOptions === false
-          ? []
-          : [
-              react({
-                ...typescriptConfigOptions,
-                typescript: hasTypeScript,
-                files: [GLOB_SRC],
-                i18n: false,
-                ...resolveSubOptions(options, "react"),
-                overrides: getOverrides(options, "react"),
-              }),
-            ],
-    },
-    {
-      build: () => {
-        if (tailwindOptions === false) {
-          return [];
-        }
-        const tailwindVersion =
-          (tailwindOptions === true
-            ? undefined
-            : (tailwindOptions.tailwindVersion ??
-              ("tailwindEntryPoint" in tailwindOptions ? 4 : "tailwindConfig" in tailwindOptions ? 3 : undefined))) ??
-          3;
+  const resolvedTailwind = resolveTailwindConfig(tailwindOptions);
 
-        const tailwindConfig =
-          tailwindVersion === 3
-            ? ((tailwindOptions === true
-                ? undefined
-                : "tailwindConfig" in tailwindOptions
-                  ? tailwindOptions.tailwindConfig
-                  : undefined) ?? "tailwind.config.js")
-            : undefined;
-
-        const tailwindEntryPoint =
-          tailwindVersion === 4
-            ? tailwindOptions === true
-              ? undefined
-              : "tailwindEntryPoint" in tailwindOptions
-                ? tailwindOptions.tailwindEntryPoint
-                : undefined
-            : undefined;
-
-        return [
+  const featureConfigs: ReadonlyArray<Awaitable<FlatConfigItem[]>> = [
+    ...(sonarOptions ? [sonar({ ...functionalConfigOptions, securitySeverity })] : []),
+    ...(commandOptions ? [command()] : []),
+    ...(securitySeverity === "none"
+      ? []
+      : [
+          security({
+            severity: securitySeverity,
+            ...resolveSubOptions(options, "security"),
+            overrides: getOverrides(options, "security"),
+          }),
+        ]),
+    ...(perfectionistOptions === false ? [] : [perfectionist({ overrides: getOverrides(options, "perfectionist") })]),
+    ...(pnpmOptions === false
+      ? []
+      : [
+          pnpm({
+            projectRoot,
+            ...resolveSubOptions(options, "pnpm"),
+            overrides: getOverrides(options, "pnpm"),
+          }),
+        ]),
+    ...(jsxOptions ? [jsx()] : []),
+    ...(typeScriptOptions === false
+      ? []
+      : [
+          typescript({
+            projectRoot,
+            mode,
+            renamePlugins,
+            files: [GLOB_SRC, ...componentExtensions.map((extension) => `**/*.${extension}`)],
+            unsafe: "warn",
+            ...typescriptConfigOptions,
+            ...functionalConfigOptions,
+            componentExts: componentExtensions,
+            overrides: getOverrides(options, "typescript"),
+          }),
+        ]),
+    ...(stylisticOptions === false
+      ? []
+      : [
+          stylistic({
+            stylistic: stylisticOptions,
+            typescript: hasTypeScript,
+            overrides: getOverrides(options, "stylistic"),
+          }),
+        ]),
+    ...(functionalEnforcement !== "none" || mode === "library"
+      ? [
+          functional({
+            ...typescriptConfigOptions,
+            ...functionalConfigOptions,
+            overrides: getOverrides(options, "functional"),
+            stylistic: stylisticOptions,
+            mode,
+          }),
+        ]
+      : []),
+    ...(testOptions === false
+      ? []
+      : [
+          test({
+            files: GLOB_TESTS,
+            overrides: getOverrides(options, "test"),
+          }),
+        ]),
+    ...(vueOptions === false
+      ? []
+      : [
+          vue({
+            ...typescriptConfigOptions,
+            typescript: hasTypeScript,
+            files: [GLOB_VUE],
+            i18n: false,
+            vueVersion: 3,
+            sfcBlocks: true,
+            ...resolveSubOptions(options, "vue"),
+            overrides: getOverrides(options, "vue"),
+            stylistic: stylisticOptions,
+          }),
+        ]),
+    ...(reactOptions === false
+      ? []
+      : [
+          react({
+            ...typescriptConfigOptions,
+            typescript: hasTypeScript,
+            files: [GLOB_SRC],
+            i18n: false,
+            securitySeverity,
+            ...resolveSubOptions(options, "react"),
+            overrides: getOverrides(options, "react"),
+          }),
+        ]),
+    ...(resolvedTailwind === false
+      ? []
+      : [
           tailwind({
             stylistic: stylisticOptions,
-            tailwindVersion,
-            tailwindConfig,
-            tailwindEntryPoint,
+            ...resolvedTailwind,
             overrides: getOverrides(options, "tailwind"),
           }),
-        ];
-      },
-    },
-    {
-      build: () =>
-        unoCSSOptions === false
-          ? []
-          : [
-              unocss({
-                attributify: true,
-                strict: true,
-                ...resolveSubOptions(options, "unocss"),
-                overrides: getOverrides(options, "unocss"),
-              }),
-            ],
-    },
-    {
-      build: () =>
-        jsoncOptions === false
-          ? []
-          : [
-              jsonc({
-                files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
-                overrides: getOverrides(options, "jsonc"),
-                stylistic: stylisticOptions,
-              }),
-              sortTsconfig(),
-            ],
-    },
-    {
-      build: () =>
-        yamlOptions === false
-          ? []
-          : [
-              yaml({
-                files: [GLOB_YAML],
-                overrides: getOverrides(options, "yaml"),
-                stylistic: stylisticOptions,
-              }),
-            ],
-    },
-    {
-      build: () =>
-        tomlOptions === false
-          ? []
-          : [
-              toml({
-                files: [GLOB_TOML],
-                overrides: getOverrides(options, "toml"),
-                stylistic: stylisticOptions,
-              }),
-            ],
-    },
-    {
-      build: () => {
-        if (markdownOptions === false) {
-          return [];
-        }
-        return [
+        ]),
+    ...(unoCSSOptions === false
+      ? []
+      : [
+          unocss({
+            attributify: true,
+            strict: true,
+            ...resolveSubOptions(options, "unocss"),
+            overrides: getOverrides(options, "unocss"),
+          }),
+        ]),
+    ...(jsonOptions === false
+      ? []
+      : [
+          jsonc({
+            files: [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
+            overrides: getOverrides(options, "json"),
+            stylistic: stylisticOptions,
+            typescript: hasTypeScript,
+          }),
+        ]),
+    ...(yamlOptions === false
+      ? []
+      : [
+          yaml({
+            files: [GLOB_YAML],
+            overrides: getOverrides(options, "yaml"),
+            stylistic: stylisticOptions,
+          }),
+        ]),
+    ...(tomlOptions === false
+      ? []
+      : [
+          toml({
+            files: [GLOB_TOML],
+            overrides: getOverrides(options, "toml"),
+            stylistic: stylisticOptions,
+          }),
+        ]),
+    ...(markdownOptions === false
+      ? []
+      : [
           markdown({
             enableTypeRequiredRules: !(markdownOptions === true || markdownOptions.enableTypeRequiredRules === false),
             files: [GLOB_MARKDOWN],
-            componentExts,
+            componentExts: componentExtensions,
             overrides: getOverrides(options, "markdown"),
           }),
-        ];
-      },
-    },
-    {
-      build: () =>
-        formattersOptions === false
-          ? []
-          : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions)],
-    },
-    {
-      build: () => (isInEditor ? [inEditor()] : []),
-    },
-  ] as const satisfies ReadonlyArray<{
-    build: () => ReadonlyArray<Awaitable<FlatConfigItem[]>>;
-  }>;
+        ]),
+    ...(formattersOptions === false
+      ? []
+      : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions)]),
+    ...(isInEditor ? [inEditor()] : []),
+  ];
 
-  return [...baseConfigs, ...features.flatMap((feature) => feature.build()), overrides()];
+  return [...baseConfigs, ...featureConfigs, overrides()];
 }

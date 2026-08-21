@@ -14,16 +14,16 @@ import {
   visitNode,
 } from "typescript";
 
-import pkg from "./package.json" with { type: "json" };
+import packageJson from "./package.json" with { type: "json" };
 
-type PackageJSON = typeof pkg & {
+type PackageJSON = typeof packageJson & {
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
 };
 
 const externalDependencies = [
-  ...Object.keys((pkg as PackageJSON).dependencies),
-  ...Object.keys((pkg as PackageJSON).peerDependencies),
+  ...Object.keys((packageJson as PackageJSON).dependencies),
+  ...Object.keys((packageJson as PackageJSON).peerDependencies),
 ];
 
 export default {
@@ -31,13 +31,13 @@ export default {
 
   output: [
     {
-      file: pkg.exports.import,
+      file: packageJson.exports.import,
       format: "esm",
       sourcemap: false,
       importAttributesKey: "with",
     },
     {
-      file: pkg.exports.require,
+      file: packageJson.exports.require,
       format: "cjs",
       sourcemap: false,
     },
@@ -53,7 +53,10 @@ export default {
            *
            * Required due to
            * https://github.com/rollup/plugins/issues/1820
+           *
+           * @param context
            */
+
           (context) => (source) => {
             function visitor(node: Node) {
               if (
@@ -67,7 +70,7 @@ export default {
               return visitEachChild(node, visitor, context);
             }
             const result = visitNode(source, visitor);
-            assert(result.kind === SyntaxKind.SourceFile);
+            assert.ok(result.kind === SyntaxKind.SourceFile);
             return result as SourceFile;
           },
         ],
@@ -94,13 +97,7 @@ export default {
     unknownGlobalSideEffects: false,
   },
 
-  external: (source) => {
-    if (
-      source.startsWith("node:") ||
-      externalDependencies.some((dep) => dep === source || source.startsWith(`${dep}/`))
-    ) {
-      return true;
-    }
-    return undefined;
-  },
+  external: (source) =>
+    source.startsWith("node:") ||
+    externalDependencies.some((dependency) => dependency === source || source.startsWith(`${dependency}/`)),
 } satisfies RollupOptions;

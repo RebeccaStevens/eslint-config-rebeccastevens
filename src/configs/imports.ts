@@ -10,6 +10,19 @@ import type {
 } from "../types";
 import { loadPackages } from "../utils";
 
+/**
+ * Manage import/export linting via `eslint-plugin-import-x` and
+ * `eslint-plugin-unused-imports`.
+ *
+ * Auto-detects TypeScript to configure the typescript resolver and parser, and
+ * disables import-x rules already handled by TypeScript. `stylistic` gates
+ * ordering/type-import formatting rules. `mode: "library"` requires extensions
+ * on relative imports and disallows unassigned imports; `application` allows
+ * CSS side-effect imports.
+ *
+ * @param options - Options with stylistic, parserOptions, typescript, and mode
+ * @returns Flat config items enabling import and unused-import rules
+ */
 export async function imports(
   options: Readonly<
     Required<RequiredOptionsStylistic & OptionsTypeScriptParserOptions & OptionsHasTypeScript & OptionsMode>
@@ -17,44 +30,42 @@ export async function imports(
 ): Promise<FlatConfigItem[]> {
   const { stylistic, parserOptions, typescript } = options;
 
-  const [pluginImport] = (await loadPackages(
-    typescript
+  const [pluginImport, pluginUnusedImports] = (await loadPackages([
+    "eslint-plugin-import-x",
+    "eslint-plugin-unused-imports",
+    ...(typescript
       ? [
-          "eslint-plugin-import-x",
           "eslint-import-resolver-typescript", // make sure it exists - we only implicitly use it
         ]
-      : ["eslint-plugin-import-x"],
-  )) as [ESLint.Plugin] | [ESLint.Plugin, unknown];
+      : []),
+  ])) as [ESLint.Plugin, ESLint.Plugin, ...unknown[]];
 
   return [
     {
       name: "rs:imports",
       plugins: {
         "import-x": pluginImport,
+        "unused-imports": pluginUnusedImports,
       },
       settings: {
         "import-x/external-module-folders": ["node_modules", "node_modules/@types"],
-        "import-x/internal-regex": "^(?:#|(?:@|~)\\/).*",
+        "import-x/internal-regex": String.raw`^(?:#|(?:@|~)\/).*`,
         "import-x/extensions": [".ts", ".tsx", ".js", ".jsx"],
         "import-x/parsers": {
-          ...(typescript
-            ? {
-                "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
-              }
-            : undefined),
+          ...(typescript && {
+            "@typescript-eslint/parser": [".ts", ".tsx", ".cts", ".mts"],
+          }),
         },
         "import-x/resolver": {
           node: {
             extensions: [".ts", ".tsx", ".js", ".jsx"],
           },
-          ...(typescript
-            ? {
-                typescript: {
-                  alwaysTryTypes: true,
-                  projectService: parserOptions.projectService,
-                },
-              }
-            : undefined),
+          ...(typescript && {
+            typescript: {
+              alwaysTryTypes: true,
+              projectService: parserOptions.projectService,
+            },
+          }),
         },
       },
       rules: {
@@ -83,7 +94,7 @@ export async function imports(
         "import-x/no-amd": "error",
         // "import-x/no-anonymous-default-export": "off",
         // "import-x/no-commonjs": "off",
-        // "import-x/no-cycle": "off",
+        // "import-x/no-cycle": "off", // Excluded: requires full graph traversal — prohibitively slow on large codebases.
         // "import-x/no-default-export": "off",
         // "import-x/no-deprecated": "warn",
         "import-x/no-duplicates": ["error", { "prefer-inline": true }],
@@ -102,7 +113,7 @@ export async function imports(
         "import-x/no-self-import": "error",
         "import-x/no-unassigned-import": "error",
         // "import-x/no-unused-modules": "off",
-        // "import-x/no-unresolved": "off",
+        // "import-x/no-unresolved": "off", // TypeScript handles module resolution; explicitly disabled for TS files below.
         "import-x/no-useless-path-segments": [
           "error",
           {
@@ -126,6 +137,8 @@ export async function imports(
             "newlines-between": "always",
           },
         ],
+
+        "unused-imports/no-unused-imports": "error",
       },
     },
     {

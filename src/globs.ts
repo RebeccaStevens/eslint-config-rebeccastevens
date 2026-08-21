@@ -1,49 +1,172 @@
+/**
+ * Source file extension pattern (e.g. `.js`, `.ts`, `.mjs`).
+ */
 export const GLOB_SRC_EXT = "?([cm])[jt]s?(x)";
+
+/**
+ * Source file pattern — matches all JS/TS files including dotfiles.
+ */
 export const GLOB_SRC = "**/?(.)*.?([cm])[jt]s?(x)";
 
+/**
+ * JavaScript files (`.js`, `.mjs`, `.cjs`).
+ */
 export const GLOB_JS = "**/?(.)*.?([cm])js";
+
+/**
+ * JSX files (`.jsx`, `.mjsx`, `.cjsx`).
+ */
 export const GLOB_JSX = "**/?(.)*.?([cm])jsx";
 
+/**
+ * TypeScript files (`.ts`, `.mts`, `.cts`).
+ */
 export const GLOB_TS = "**/?(.)*.?([cm])ts";
+
+/**
+ * TSX files (`.tsx`, `.mtsx`, `.ctsx`).
+ */
 export const GLOB_TSX = "**/?(.)*.?([cm])tsx";
+
+/**
+ * TypeScript declaration files (`.d.ts`, `.d.mts`, `.d.cts`).
+ */
 export const GLOB_DTS = "**/?(.)*.d.?([cm])ts";
 
+/**
+ * Root-level JavaScript files (non-recursive).
+ */
 export const GLOB_ROOT_JS = "./?(.)*.?([cm])js";
+
+/**
+ * Root-level JSX files (non-recursive).
+ */
 export const GLOB_ROOT_JSX = "./?(.)*.?([cm])jsx";
 
+/**
+ * Root-level TypeScript files (non-recursive).
+ */
 export const GLOB_ROOT_TS = "./?(.)*.?([cm])ts";
+
+/**
+ * Root-level TSX files (non-recursive).
+ */
 export const GLOB_ROOT_TSX = "./?(.)*.?([cm])tsx";
+
+/**
+ * Root-level TypeScript declaration files (non-recursive).
+ */
 export const GLOB_ROOT_DTS = "./?(.)*.d.?([cm])ts";
 
+/**
+ * TypeScript typings directory files (typings/).
+ */
 export const GLOB_TYPINGS = "typings/**/?(.)*.?([cm])ts";
 
+/**
+ * ESM-only JavaScript files (`.mjs`).
+ */
 export const GLOB_MJS = "**/?(.)*.mjs";
+
+/**
+ * ESM-only TypeScript files (`.mts`).
+ */
 export const GLOB_MTS = "**/?(.)*.mts";
 
+/**
+ * CommonJS-only JavaScript files (`.cjs`).
+ */
 export const GLOB_CJS = "**/?(.)*.cjs";
+
+/**
+ * CommonJS-only TypeScript files (`.cts`).
+ */
 export const GLOB_CTS = "**/?(.)*.cts";
 
+/**
+ * All stylesheet files (CSS, Less, SCSS, PostCSS).
+ */
 // cspell:disable-next-line
 export const GLOB_STYLE = "**/?(.)*.{c,le,sc,pc,postc}ss";
+
+/**
+ * CSS files.
+ */
 export const GLOB_CSS = "**/?(.)*.css";
+
+/**
+ * PostCSS files (`.pcss`, `.postcss`).
+ */
 export const GLOB_POSTCSS = "**/?(.)*.{p,post}css";
+
+/**
+ * Less files.
+ */
 export const GLOB_LESS = "**/?(.)*.less";
+
+/**
+ * SCSS files.
+ */
 export const GLOB_SCSS = "**/?(.)*.scss";
 
+/**
+ * JSON files.
+ */
 export const GLOB_JSON = "**/?(.)*.json";
+
+/**
+ * JSON5 files.
+ */
 export const GLOB_JSON5 = "**/?(.)*.json5";
+
+/**
+ * JSONC files (JSON with comments).
+ */
 export const GLOB_JSONC = "**/?(.)*.jsonc";
 
+/**
+ * Markdown files.
+ */
 export const GLOB_MARKDOWN = "**/?(.)*.md";
+
+/**
+ * Markdown files nested inside other Markdown files.
+ */
 export const GLOB_MARKDOWN_IN_MARKDOWN = "**/?(.)*.md/?(.)*.md";
+
+/**
+ * Vue single-file components.
+ */
 export const GLOB_VUE = "**/?(.)*.vue";
+
+/**
+ * YAML files.
+ */
 export const GLOB_YAML = "**/?(.)*.y?(a)ml";
+
+/**
+ * TOML files.
+ */
 export const GLOB_TOML = "**/?(.)*.toml";
+
+/**
+ * HTML files (`.htm`, `.html`).
+ */
 export const GLOB_HTML = "**/?(.)*.htm?(l)";
+
+/**
+ * GraphQL files (`.gql`, `.graphql`).
+ */
 export const GLOB_GRAPHQL = "**/?(.)*.{g,graph}ql";
 
+/**
+ * Code blocks embedded in Markdown files.
+ */
 export const GLOB_MARKDOWN_CODE: string = `${GLOB_MARKDOWN}/${GLOB_SRC}`;
 
+/**
+ * Test file patterns (__tests__, *.spec.*, *.test.*, *.bench.*, *.benchmark.*).
+ */
 export const GLOB_TESTS: string[] = [
   `**/__tests__/**/?(.)*.${GLOB_SRC_EXT}`,
   `**/?(.)*.spec.${GLOB_SRC_EXT}`,
@@ -52,6 +175,9 @@ export const GLOB_TESTS: string[] = [
   `**/?(.)*.benchmark.${GLOB_SRC_EXT}`,
 ];
 
+/**
+ * All source file patterns (JS/TS + styles + JSON + Markdown + Vue + YAML + HTML + TOML + GraphQL).
+ */
 export const GLOB_ALL_SRC: string[] = [
   GLOB_SRC,
   GLOB_STYLE,
@@ -66,6 +192,9 @@ export const GLOB_ALL_SRC: string[] = [
   GLOB_GRAPHQL,
 ];
 
+/**
+ * Default ignore patterns — lockfiles, build output, caches, auto-generated files.
+ */
 export const GLOB_EXCLUDE: string[] = [
   "**/node_modules",
   "**/dist",

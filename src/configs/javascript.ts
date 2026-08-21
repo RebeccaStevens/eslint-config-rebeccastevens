@@ -1,13 +1,18 @@
 import globals from "globals";
 
 import type { FlatConfigItem, OptionsFunctional, OptionsOverrides } from "../types";
+import { loadPlugins } from "../utils";
 
 const useNumberIsFinite = "Please use Number.isFinite instead";
 const useNumberIsNan = "Please use Number.isNaN instead";
 const useObjectDefineProperty = "Please use Object.defineProperty instead.";
 
-export function javascript(options: Readonly<Required<OptionsOverrides & OptionsFunctional>>): FlatConfigItem[] {
+export async function javascript(
+  options: Readonly<Required<OptionsOverrides & OptionsFunctional>>,
+): Promise<FlatConfigItem[]> {
   const { functionalEnforcement, overrides } = options;
+
+  const [pluginComments] = await loadPlugins(["@eslint-community/eslint-plugin-eslint-comments"]);
 
   return [
     {
@@ -337,6 +342,19 @@ export function javascript(options: Readonly<Required<OptionsOverrides & Options
             }),
 
         ...overrides,
+      },
+    },
+    {
+      name: "rs:comments",
+      plugins: {
+        "eslint-comments": pluginComments,
+      },
+      rules: {
+        "eslint-comments/no-aggregating-enable": "error",
+        "eslint-comments/no-duplicate-disable": "error",
+        "eslint-comments/no-unlimited-disable": "error",
+        "eslint-comments/no-unused-enable": "error",
+        "eslint-comments/disable-enable-pair": ["error", { allowWholeFile: true }],
       },
     },
   ];

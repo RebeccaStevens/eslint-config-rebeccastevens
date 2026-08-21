@@ -5,6 +5,16 @@ import { loadPackages } from "../utils";
 
 import { StylisticConfigDefaults } from "./stylistic";
 
+/**
+ * Enable TOML linting via `eslint-plugin-toml` and `toml-eslint-parser`.
+ *
+ * Enforces structure error rules (e.g. `comma-style`, `keys-order`, `tables-order`,
+ * `precision-of-fractional-seconds`). Stylistic rules like `indent`, `key-spacing`, and
+ * padding-line rules are enabled only when `stylistic` is not `false`.
+ *
+ * @param options - Options with `files`, `overrides`, and `stylistic`
+ * @returns Flat config items enabling toml rules
+ */
 export async function toml(
   options: Readonly<Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>>,
 ): Promise<FlatConfigItem[]> {

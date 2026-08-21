@@ -1,43 +1,296 @@
 import type { FlatConfigItem } from "../types";
 
+/**
+ * In-editor ESLint config: keeps rules that catch real bugs, disables slow/stylistic rules
+ * that can be auto-fixed or are better suited for CI.
+ *
+ * Philosophy:
+ * - KEEP: rules that catch runtime errors, null derefs, dead stores, unused vars, security issues
+ * - DISABLE: complexity metrics, naming conventions, stylistic rules (auto-fixable), slow type-aware rules
+ *
+ * @returns Array containing the in-editor config
+ */
 export function inEditor(): FlatConfigItem[] {
   return [
     {
       name: "rs:in-editor",
       rules: {
+        // ── Core ESLint ────────────────────────────────────────────────────
         "no-console": "off",
         "no-debugger": "off",
-        "prefer-const": "off",
 
-        "sonarjs/no-all-duplicated-branches": "off",
+        // ── SonarJS: Naming & conventions ──────────────────────────────────
+        // Auto-fixable by formatter / IDE
+        "sonarjs/function-name": "off",
+        "sonarjs/class-name": "off",
+        "sonarjs/variable-name": "off",
+        "sonarjs/file-name-differ-from-class": "off",
+        "sonarjs/public-static-readonly": "off",
+        "sonarjs/block-scoped-var": "off",
+
+        // ── SonarJS: Complexity & readability ──────────────────────────────
+        // Slow / subjective / noisy in editor
+        "sonarjs/max-lines": "off",
+        "sonarjs/max-lines-per-function": "off",
+        "sonarjs/cyclomatic-complexity": "off",
+        "sonarjs/cognitive-complexity": "off",
+        "sonarjs/expression-complexity": "off",
+        "sonarjs/nested-control-flow": "off",
         "sonarjs/no-collapsible-if": "off",
-        "sonarjs/no-collection-size-mischeck": "off",
-        "sonarjs/no-duplicated-branches": "off",
-        "sonarjs/no-element-overwrite": "off",
-        "sonarjs/no-empty-collection": "off",
-        "sonarjs/no-extra-arguments": "off",
-        "sonarjs/no-gratuitous-expressions": "off",
-        "sonarjs/no-identical-conditions": "off",
-        "sonarjs/no-identical-expressions": "off",
-        "sonarjs/no-identical-functions": "off",
-        "sonarjs/no-ignored-return": "off",
-        "sonarjs/no-inverted-boolean-check": "off",
+        "sonarjs/no-nested-conditional": "off",
         "sonarjs/no-nested-switch": "off",
         "sonarjs/no-nested-template-literals": "off",
-        "sonarjs/no-redundant-boolean": "off",
-        "sonarjs/no-redundant-jump": "off",
-        "sonarjs/no-same-line-conditional": "off",
-        "sonarjs/no-unused-collection": "off",
-        "sonarjs/no-use-of-empty-return-value": "off",
-        "sonarjs/no-useless-catch": "off",
-        "sonarjs/non-existent-operator": "off",
-        "sonarjs/prefer-immediate-return": "off",
-        "sonarjs/prefer-object-literal": "off",
+        "sonarjs/no-nested-functions": "off",
+        "sonarjs/no-nested-assignment": "off",
+        "sonarjs/no-nested-incdec": "off",
+        "sonarjs/no-labels": "off",
+        "sonarjs/label-position": "off",
+        "sonarjs/no-unenclosed-multiline-block": "off",
+        "sonarjs/conditional-indentation": "off",
+        "sonarjs/shorthand-property-grouping": "off",
         "sonarjs/prefer-single-boolean-return": "off",
+        "sonarjs/prefer-immediate-return": "off",
+        "sonarjs/prefer-default-last": "off",
+        "sonarjs/no-redundant-parentheses": "off",
+        "sonarjs/no-redundant-boolean": "off",
+        "sonarjs/no-redundant-optional": "off",
+        "sonarjs/no-inverted-boolean-check": "off",
+        "sonarjs/inverted-assertion-arguments": "off",
+        "sonarjs/no-gratuitous-expressions": "off",
+
+        // ── SonarJS: Code style & conventions ──────────────────────────────
+        // Auto-fixable / noisy
+        "sonarjs/comment-regex": "off",
+        "sonarjs/no-commented-code": "off",
+        "sonarjs/fixme-tag": "off",
+        "sonarjs/todo-tag": "off",
+        "sonarjs/no-sonar-comments": "off",
+        "sonarjs/file-header": "off",
+        "sonarjs/no-tab": "off",
         "sonarjs/prefer-while": "off",
+        "sonarjs/no-small-switch": "off",
+        "sonarjs/max-switch-cases": "off",
+        "sonarjs/arrow-function-convention": "off",
+        "sonarjs/destructuring-assignment-syntax": "off",
+        "sonarjs/no-duplicate-string": "off",
+        "sonarjs/no-redundant-jump": "off",
+        "sonarjs/no-useless-intersection": "off",
+        "sonarjs/no-literal-call": "off",
+        "sonarjs/strings-comparison": "off",
+        "sonarjs/no-incorrect-string-concat": "off",
+        "sonarjs/reduce-initial-value": "off",
+        "sonarjs/array-constructor": "off",
+        "sonarjs/prefer-object-literal": "off",
+        "sonarjs/bitwise-operators": "off",
+        "sonarjs/no-in-misuse": "off",
+        "sonarjs/inconsistent-function-call": "off",
 
+        // ── SonarJS: Control flow ──────────────────────────────────────────
+        // Keep: no-fallthrough, no-case-label-in-switch (catch real bugs)
+        "sonarjs/elseif-without-else": "off",
+        "sonarjs/too-many-break-or-continue-in-loop": "off",
+        "sonarjs/misplaced-loop-counter": "off",
+        "sonarjs/for-loop-increment-sign": "off",
+        "sonarjs/no-equals-in-for-termination": "off",
+        "sonarjs/comma-or-logical-or-case": "off",
+
+        // ── SonarJS: Variables & scope ─────────────────────────────────────
+        // Keep: unused-import, no-unused-vars, no-parameter-reassignment, no-implicit-global
+        "sonarjs/no-unused-function-argument": "off",
+        "sonarjs/no-variable-usage-before-declaration": "off",
+        "sonarjs/no-globals-shadowing": "off",
+        "sonarjs/no-undefined-assignment": "off",
+        "sonarjs/no-undefined-argument": "off",
+        "sonarjs/updated-loop-counter": "off",
+        "sonarjs/updated-const-var": "off",
+        "sonarjs/no-built-in-override": "off",
+        "sonarjs/deprecation": "off",
+        "sonarjs/future-reserved-words": "off",
+
+        // ── SonarJS: Functions ─────────────────────────────────────────────
+        // Slow / noisy
+        "sonarjs/function-inside-loop": "off",
+        "sonarjs/no-function-declaration-in-block": "off",
+        "sonarjs/no-invariant-returns": "off",
+        "sonarjs/no-inconsistent-returns": "off",
+        "sonarjs/function-return-type": "off",
+        "sonarjs/no-return-type-any": "off",
+        "sonarjs/class-prototype": "off",
+        "sonarjs/generator-without-yield": "off",
+        "sonarjs/no-async-constructor": "off",
+        "sonarjs/bool-param-default": "off",
+        "sonarjs/arguments-order": "off",
+        "sonarjs/arguments-usage": "off",
+        "sonarjs/call-argument-line": "off",
+        "sonarjs/no-ignored-return": "off",
+
+        // ── SonarJS: Types ─────────────────────────────────────────────────
+        // Slow (type-aware) / noisy
+        "sonarjs/prefer-type-guard": "off",
+        "sonarjs/use-type-alias": "off",
+        "sonarjs/redundant-type-aliases": "off",
+        "sonarjs/no-primitive-wrappers": "off",
+        "sonarjs/max-union-size": "off",
+
+        // ── SonarJS: Data flow ─────────────────────────────────────────────
+        // Keep: no-dead-store, no-empty-collection, no-element-overwrite, null-dereference
+        "sonarjs/no-duplicate-in-composite": "off",
+        "sonarjs/no-misleading-array-reverse": "off",
+        "sonarjs/no-for-in-iterable": "off",
+        "sonarjs/index-of-compare-to-positive-number": "off",
+        "sonarjs/no-collection-size-mischeck": "off",
+        "sonarjs/no-redundant-assignments": "off",
+        "sonarjs/no-use-of-empty-return-value": "off",
+        "sonarjs/void-use": "off",
+        "sonarjs/operation-returning-nan": "off",
+        "sonarjs/values-not-convertible-to-numbers": "off",
+        "sonarjs/non-number-in-arithmetic-expression": "off",
+        "sonarjs/no-useless-catch": "off",
+        "sonarjs/no-reference-error": "off",
+        "sonarjs/no-unthrown-error": "off",
+        "sonarjs/useless-string-operation": "off",
+
+        // ── SonarJS: Classes & objects ─────────────────────────────────────
+        "sonarjs/no-associative-arrays": "off",
+        "sonarjs/declarations-in-global-scope": "off",
+        "sonarjs/no-require-or-define": "off",
+
+        // ── SonarJS: Regex ─────────────────────────────────────────────────
+        // Slow / rarely needed in editor
+        "sonarjs/regular-expr": "off",
+        "sonarjs/empty-string-repetition": "off",
+        "sonarjs/regex-complexity": "off",
+        "sonarjs/anchor-precedence": "off",
+        "sonarjs/slow-regex": "off",
+        "sonarjs/no-invalid-regexp": "off",
+        "sonarjs/unused-named-groups": "off",
+        "sonarjs/no-empty-after-reluctant": "off",
+        "sonarjs/single-character-alternation": "off",
+        "sonarjs/stateful-regex": "off",
+        "sonarjs/concise-regex": "off",
+        "sonarjs/single-char-in-character-classes": "off",
+        "sonarjs/no-empty-character-class": "off",
+        "sonarjs/no-control-regex": "off",
+        "sonarjs/no-regex-spaces": "off",
+        "sonarjs/no-empty-alternatives": "off",
+        "sonarjs/no-misleading-character-class": "off",
+        "sonarjs/duplicates-in-character-class": "off",
+        "sonarjs/existing-groups": "off",
+        "sonarjs/no-same-argument-assert": "off",
+        "sonarjs/prefer-regexp-exec": "off",
+
+        // ── SonarJS: Security ──────────────────────────────────────────────
+        // Keep: hardcoded secrets, sql-queries, xml-parser-xxe, code-eval
+        "sonarjs/no-hardcoded-ip": "off",
+        "sonarjs/weak-ssl": "off",
+        "sonarjs/no-weak-keys": "off",
+        "sonarjs/encryption": "off",
+        "sonarjs/encryption-secure-mode": "off",
+        "sonarjs/no-weak-cipher": "off",
+        "sonarjs/hashing": "off",
+        "sonarjs/csrf": "off",
+        "sonarjs/production-debug": "off",
+        "sonarjs/insecure-cookie": "off",
+        "sonarjs/cookie-no-httponly": "off",
+        "sonarjs/insecure-jwt-token": "off",
+        "sonarjs/session-regeneration": "off",
+        "sonarjs/post-message": "off",
+        "sonarjs/pseudo-random": "off",
+        "sonarjs/os-command": "off",
+        "sonarjs/no-os-command-from-path": "off",
+        "sonarjs/process-argv": "off",
+        "sonarjs/standard-input": "off",
+        "sonarjs/no-intrusive-permissions": "off",
+        "sonarjs/no-unsafe-unzip": "off",
+        "sonarjs/xpath": "off",
+        "sonarjs/sockets": "off",
+        "sonarjs/web-sql-database": "off",
+
+        // ── SonarJS: AWS & cloud ───────────────────────────────────────────
+        // Not relevant for most projects
+        "sonarjs/aws-s3-bucket-insecure-http": "off",
+        "sonarjs/aws-s3-bucket-versioning": "off",
+        "sonarjs/aws-s3-bucket-granted-access": "off",
+        "sonarjs/aws-s3-bucket-public-access": "off",
+        "sonarjs/aws-iam-public-access": "off",
+        "sonarjs/aws-iam-all-privileges": "off",
+        "sonarjs/aws-iam-all-resources-accessible": "off",
+        "sonarjs/aws-iam-privilege-escalation": "off",
+        "sonarjs/aws-ec2-unencrypted-ebs-volume": "off",
+        "sonarjs/aws-ec2-rds-dms-public": "off",
+        "sonarjs/aws-rds-unencrypted-databases": "off",
+        "sonarjs/aws-opensearchservice-domain": "off",
+        "sonarjs/aws-sagemaker-unencrypted-notebook": "off",
+        "sonarjs/aws-restricted-ip-admin-access": "off",
+        "sonarjs/aws-sns-unencrypted-topics": "off",
+        "sonarjs/aws-sqs-unencrypted-queue": "off",
+        "sonarjs/aws-efs-unencrypted": "off",
+        "sonarjs/aws-apigateway-public-api": "off",
+
+        // ── SonarJS: Web security & headers ────────────────────────────────
+        // Not relevant for most projects (frontend-specific)
+        "sonarjs/unverified-certificate": "off",
+        "sonarjs/unverified-hostname": "off",
+        "sonarjs/no-clear-text-protocols": "off",
+        "sonarjs/publicly-writable-directories": "off",
+        "sonarjs/link-with-target-blank": "off",
+        "sonarjs/disabled-auto-escaping": "off",
+        "sonarjs/no-mixed-content": "off",
+        "sonarjs/no-referrer-policy": "off",
+        "sonarjs/strict-transport-security": "off",
+        "sonarjs/certificate-transparency": "off",
+        "sonarjs/dns-prefetching": "off",
+        "sonarjs/content-security-policy": "off",
+        "sonarjs/frame-ancestors": "off",
+        "sonarjs/no-mime-sniff": "off",
+        "sonarjs/x-powered-by": "off",
+        "sonarjs/hidden-files": "off",
+        "sonarjs/content-length": "off",
+        "sonarjs/disabled-resource-integrity": "off",
+        "sonarjs/confidential-information-logging": "off",
+        "sonarjs/no-ip-forward": "off",
+        "sonarjs/file-uploads": "off",
+        "sonarjs/file-permissions": "off",
+        "sonarjs/cors": "off",
+
+        // ── SonarJS: HTML & accessibility ──────────────────────────────────
+        // Not relevant for most projects
+        "sonarjs/table-header": "off",
+        "sonarjs/no-table-as-layout": "off",
+        "sonarjs/table-header-reference": "off",
+        "sonarjs/object-alt-content": "off",
+
+        // ── SonarJS: Testing ───────────────────────────────────────────────
+        // Keep: no-skipped-tests, no-exclusive-tests (important)
+        "sonarjs/no-empty-test-file": "off",
+        "sonarjs/assertions-in-tests": "off",
+        "sonarjs/stable-tests": "off",
+        "sonarjs/test-check-exception": "off",
+        "sonarjs/chai-determinate-assertion": "off",
+        "sonarjs/disabled-timeout": "off",
+        "sonarjs/no-code-after-done": "off",
+
+        // ── SonarJS: Framework-specific ────────────────────────────────────
+        // Slow / noisy
+        "sonarjs/jsx-no-leaked-render": "off",
+        "sonarjs/no-hook-setter-in-body": "off",
+        "sonarjs/no-useless-react-setstate": "off",
+        "sonarjs/no-uniq-key": "off",
+        "sonarjs/prefer-read-only-props": "off",
+        "sonarjs/no-angular-bypass-sanitization": "off",
+        "sonarjs/no-vue-bypass-sanitization": "off",
+        "sonarjs/review-blockchain-mnemonic": "off",
+        "sonarjs/dynamically-constructed-templates": "off",
+        "sonarjs/no-session-cookies-on-static-assets": "off",
+
+        // ── SonarJS: Misc ──────────────────────────────────────────────────
+        "sonarjs/no-implicit-dependencies": "off",
+        "sonarjs/no-internal-api-use": "off",
+        "sonarjs/prefer-promise-shorthand": "off",
+
+        // ── Other plugins ──────────────────────────────────────────────────
         "vitest/no-focused-tests": "off",
-
+        "no-only-tests/no-only-tests": "off",
         "unicorn/no-lonely-if": "off",
       },
     },

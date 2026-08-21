@@ -24,6 +24,21 @@ type PluginVue = ESLint.Plugin &
 
 const NuxtPackages = ["nuxt"];
 
+/**
+ * Full Vue 3 support via `eslint-plugin-vue`, `vue-eslint-parser`, and
+ * `eslint-processor-vue-blocks`.
+ *
+ * Configures SFC block processing (virtual files for styles when `sfcBlocks`
+ * enabled), registers the plugin as `vue`, and applies recommended rules per
+ * `vueVersion` (2 or 3). Auto-detects Nuxt to relax import rules and
+ * multi-word component names for pages/layouts. Supports Vue i18n via
+ * `@intlify/eslint-plugin-vue-i18n` when `i18n` is set. Respects `stylistic`
+ * for formatting rules and wires the TypeScript parser when `typescript` is
+ * enabled.
+ *
+ * @param options - Options with files, i18n, overrides, parserOptions, stylistic, typescript, vueVersion, and sfcBlocks
+ * @returns Flat config items enabling Vue, Nuxt, and vue-i18n rules
+ */
 export async function vue(
   options: Readonly<
     Required<
@@ -42,7 +57,7 @@ export async function vue(
 
   const { indent = StylisticConfigDefaults.indent } = typeof stylistic === "boolean" ? {} : stylistic;
 
-  const isUsingNuxt = NuxtPackages.some((i) => isPackageExists(i));
+  const isUsingNuxt = NuxtPackages.some((index) => isPackageExists(index));
 
   const [pluginVue, pluginVueI18n, parserVue, processorVueBlocks, { mergeProcessors }] = (await loadPackages([
     "eslint-plugin-vue",
@@ -105,7 +120,7 @@ export async function vue(
           },
           extraFileExtensions: [".vue"],
           parser: typescript ? parserTs : null,
-          ...(typescript ? parserOptions : undefined),
+          ...(typescript && parserOptions),
           sourceType: "module",
         },
       },
@@ -134,7 +149,7 @@ export async function vue(
 
         ...pluginVue.configs[vueVersion === 2 ? "flat/vue2-recommended" : "flat/recommended"]
           .map((config) => config.rules ?? {})
-          .reduce((acc, rules) => Object.assign(acc, rules), {}),
+          .reduce((accumulator, rules) => Object.assign(accumulator, rules), {}),
 
         "n/prefer-global/process": "off",
         "vue/block-order": [
@@ -187,27 +202,31 @@ export async function vue(
         "vue/space-infix-ops": "error",
         "vue/space-unary-ops": ["error", { nonwords: false, words: true }],
 
-        "@intlify/vue-i18n/no-html-messages": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-missing-keys": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-raw-text": i18n === false ? "off" : "warn",
-        "@intlify/vue-i18n/no-v-html": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-deprecated-i18n-component": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-deprecated-i18n-place-attr": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-deprecated-i18n-places-prop": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-deprecated-modulo-syntax": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-deprecated-tc": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-deprecated-v-t": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-i18n-t-path-prop": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/valid-message-syntax": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/prefer-linked-key-with-paren": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/key-format-style": i18n === false ? "off" : ["error", "kebab-case"],
-        "@intlify/vue-i18n/no-dynamic-keys": i18n === false ? "off" : "error",
-        "@intlify/vue-i18n/no-unknown-locale": i18n === false ? "off" : "error",
-        // "@intlify/vue-i18n/no-missing-keys-in-other-locales": i18n === false ? "off" : "error",
-        // "@intlify/vue-i18n/no-unused-keys": i18n === false ? "off" : "error",
-        // "@intlify/vue-i18n/prefer-sfc-lang-attr": i18n === false ? "off" : "error",
-        // "@intlify/vue-i18n/no-duplicate-keys-in-locale": i18n === false ? "off" : "error",
-        // "@intlify/vue-i18n/sfc-locale-attr": i18n === false ? "off" : "error",
+        ...(i18n === false
+          ? {}
+          : {
+              "@intlify/vue-i18n/no-html-messages": "error",
+              "@intlify/vue-i18n/no-missing-keys": "error",
+              "@intlify/vue-i18n/no-raw-text": "warn",
+              "@intlify/vue-i18n/no-v-html": "error",
+              "@intlify/vue-i18n/no-deprecated-i18n-component": "error",
+              "@intlify/vue-i18n/no-deprecated-i18n-place-attr": "error",
+              "@intlify/vue-i18n/no-deprecated-i18n-places-prop": "error",
+              "@intlify/vue-i18n/no-deprecated-modulo-syntax": "error",
+              "@intlify/vue-i18n/no-deprecated-tc": "error",
+              "@intlify/vue-i18n/no-deprecated-v-t": "error",
+              "@intlify/vue-i18n/no-i18n-t-path-prop": "error",
+              "@intlify/vue-i18n/valid-message-syntax": "error",
+              "@intlify/vue-i18n/prefer-linked-key-with-paren": "error",
+              "@intlify/vue-i18n/key-format-style": ["error", "kebab-case"],
+              "@intlify/vue-i18n/no-dynamic-keys": "error",
+              "@intlify/vue-i18n/no-unknown-locale": "error",
+              // "@intlify/vue-i18n/no-missing-keys-in-other-locales": "error",
+              // "@intlify/vue-i18n/no-unused-keys": "error",
+              // "@intlify/vue-i18n/prefer-sfc-lang-attr": "error",
+              // "@intlify/vue-i18n/no-duplicate-keys-in-locale": "error",
+              // "@intlify/vue-i18n/sfc-locale-attr": "error",
+            }),
 
         "vue/array-bracket-spacing": [stylisticEnforcement, "never"],
         "vue/arrow-spacing": [stylisticEnforcement, { after: true, before: true }],
@@ -239,7 +258,7 @@ export async function vue(
         "vue/keyword-spacing": [stylisticEnforcement, { after: true, before: true }],
         // "vue/object-curly-newline": "off",
         "vue/object-curly-spacing": [stylisticEnforcement, "always"],
-        "vue/object-property-newline": [stylisticEnforcement, { allowMultiplePropertiesPerLine: true }],
+        "vue/object-property-newline": [stylisticEnforcement, { allowAllPropertiesOnSameLine: true }],
         "vue/operator-linebreak": [stylisticEnforcement, "before"],
         "vue/padding-line-between-blocks": [stylisticEnforcement, "always"],
         "vue/quote-props": [stylisticEnforcement, "consistent-as-needed"],

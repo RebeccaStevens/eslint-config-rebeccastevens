@@ -1,8 +1,26 @@
-import type { FlatConfigItem } from "../types";
-import { loadPlugins } from "../utils";
+import type { FlatConfigItem, OptionsOverrides } from "../types";
+import { detectEngineNodeMajor, detectNodeMajor, loadPlugins } from "../utils";
 
-export async function unicorn(): Promise<FlatConfigItem[]> {
+export async function unicorn(options: OptionsOverrides & { projectRoot?: string } = {}): Promise<FlatConfigItem[]> {
+  const { projectRoot = process.cwd(), overrides = {} } = options;
   const [pluginUnicorn] = await loadPlugins(["eslint-plugin-unicorn"]);
+
+  const mut_engineNodeMajor = await detectEngineNodeMajor(projectRoot);
+  const mut_localNodeMajor = await detectNodeMajor(projectRoot);
+
+  // If local dev version is higher than engine version, we enable modern features on non-src files.
+  const localSupportsNode20 = mut_localNodeMajor >= 20;
+  const localSupportsNode22 = mut_localNodeMajor >= 22;
+  const localSupportsNode23 = mut_localNodeMajor >= 23;
+
+  const engineSupportsNode20 = mut_engineNodeMajor >= 20;
+  const engineSupportsNode22 = mut_engineNodeMajor >= 22;
+  const engineSupportsNode23 = mut_engineNodeMajor >= 23;
+
+  const shouldOverrideNonSrc =
+    (!engineSupportsNode20 && localSupportsNode20) ||
+    (!engineSupportsNode22 && localSupportsNode22) ||
+    (!engineSupportsNode23 && localSupportsNode23);
 
   return [
     {
@@ -11,20 +29,15 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
         unicorn: pluginUnicorn,
       },
       rules: {
-        "unicorn/better-regex": "error",
-        "unicorn/catch-error-name": "error",
-        "unicorn/consistent-function-scoping": "error",
-        "unicorn/custom-error-definition": "error",
-        "unicorn/empty-brace-spaces": "error",
-        "unicorn/error-message": "error",
-        "unicorn/escape-case": "error",
-        "unicorn/expiring-todo-comments": "error",
-        "unicorn/explicit-length-check": "error",
+        ...(pluginUnicorn as { configs?: { recommended?: { rules?: Record<string, unknown> } } }).configs?.recommended
+          ?.rules,
+
+        // Specific overrides
         "unicorn/filename-case": [
           "error",
           {
             cases: { kebabCase: true, pascalCase: true },
-            ignore: ["^.*\\.md$", "FUNDING.yml"],
+            ignore: [String.raw`^.*\.md$`, "FUNDING.yml"],
           },
         ],
         "unicorn/import-style": [
@@ -34,16 +47,6 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
             styles: { typescript: { default: true, named: true } },
           },
         ],
-        "unicorn/new-for-builtins": "error",
-        // "unicorn/no-anonymous-default-export": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
-        "unicorn/no-array-for-each": "error",
-        "unicorn/no-array-method-this-argument": "error",
-        "unicorn/no-await-expression-member": "error",
-        // "unicorn/no-await-in-promise-methods": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
-        "unicorn/no-console-spaces": "error",
-        "unicorn/no-document-cookie": "error",
-        "unicorn/no-for-loop": "error",
-        "unicorn/no-hex-escape": "error",
         "unicorn/no-instanceof-builtins": [
           "error",
           {
@@ -51,83 +54,69 @@ export async function unicorn(): Promise<FlatConfigItem[]> {
             useErrorIsError: true,
           },
         ],
-        "unicorn/no-invalid-remove-event-listener": "error",
-        "unicorn/no-lonely-if": "error",
-        "unicorn/no-negated-condition": "error",
-        "unicorn/no-new-array": "error",
-        "unicorn/no-new-buffer": "error",
-        "unicorn/no-object-as-default-parameter": "error",
-        // "unicorn/no-single-promise-in-promise-methods": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
-        "unicorn/no-static-only-class": "error",
-        "unicorn/no-thenable": "error",
-        "unicorn/no-this-assignment": "error",
-        "unicorn/no-typeof-undefined": "error",
-        "unicorn/no-unnecessary-await": "error",
-        "unicorn/no-unnecessary-polyfills": "error",
-        "unicorn/no-unreadable-array-destructuring": "error",
-        "unicorn/no-unreadable-iife": "error",
-        "unicorn/no-useless-fallback-in-spread": "error",
-        "unicorn/no-useless-length-check": "error",
-        "unicorn/no-useless-promise-resolve-reject": "error",
-        // "unicorn/no-useless-spread": "error", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2018
-        "unicorn/no-useless-switch-case": "error",
-        "unicorn/no-zero-fractions": "error",
-        "unicorn/number-literal-case": "error",
-        "unicorn/numeric-separators-style": "error",
-        "unicorn/prefer-add-event-listener": "error",
-        "unicorn/prefer-array-find": "error",
-        "unicorn/prefer-array-flat-map": "error",
-        "unicorn/prefer-array-flat": "error",
-        "unicorn/prefer-array-index-of": "error",
-        "unicorn/prefer-array-some": "error",
         "unicorn/prefer-at": ["error", { checkAllIndexAccess: false }],
-        "unicorn/prefer-blob-reading-methods": "error",
-        "unicorn/prefer-code-point": "error",
-        "unicorn/prefer-date-now": "error",
-        "unicorn/prefer-default-parameters": "error",
-        "unicorn/prefer-dom-node-append": "error",
-        "unicorn/prefer-dom-node-dataset": "error",
-        "unicorn/prefer-dom-node-remove": "error",
-        "unicorn/prefer-dom-node-text-content": "error",
-        "unicorn/prefer-event-target": "error",
-        "unicorn/prefer-export-from": "error",
-        "unicorn/prefer-includes": "error",
-        "unicorn/prefer-keyboard-event-key": "error",
-        "unicorn/prefer-logical-operator-over-ternary": "error",
-        "unicorn/prefer-math-trunc": "error",
-        "unicorn/prefer-modern-dom-apis": "error",
-        "unicorn/prefer-modern-math-apis": "error",
-        // "unicorn/prefer-module": "error",
-        "unicorn/prefer-native-coercion-functions": "error",
-        "unicorn/prefer-negative-index": "error",
-        "unicorn/prefer-node-protocol": "error",
-        "unicorn/prefer-number-properties": "error",
-        "unicorn/prefer-object-from-entries": "error",
-        "unicorn/prefer-optional-catch-binding": "error",
-        "unicorn/prefer-prototype-methods": "error",
-        "unicorn/prefer-query-selector": "error",
-        "unicorn/prefer-reflect-apply": "error",
-        "unicorn/prefer-regexp-test": "error",
-        "unicorn/prefer-set-has": "error",
-        "unicorn/prefer-set-size": "error",
-        "unicorn/prefer-single-call": "error",
-        "unicorn/prefer-spread": "error",
-        "unicorn/prefer-string-replace-all": "error",
-        "unicorn/prefer-string-slice": "error",
-        "unicorn/prefer-string-starts-ends-with": "error",
-        "unicorn/prefer-string-trim-start-end": "error",
-        "unicorn/prefer-switch": "error",
-        "unicorn/prefer-ternary": "error",
-        "unicorn/prefer-top-level-await": "error",
-        "unicorn/prefer-type-error": "error",
-        "unicorn/relative-url-style": "error",
-        "unicorn/require-array-join-separator": "error",
-        "unicorn/require-number-to-fixed-digits-argument": "error",
-        "unicorn/switch-case-braces": "error",
-        "unicorn/template-indent": "error",
-        "unicorn/text-encoding-identifier-case": "error",
-        "unicorn/throw-new-error": "error",
+
+        // Explicitly disabled rules
+        "unicorn/no-anonymous-default-export": "off", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
+        "unicorn/no-await-in-promise-methods": "off", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
+        "unicorn/no-single-promise-in-promise-methods": "off", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2302
+        "unicorn/no-useless-spread": "off", // https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2018
+        "unicorn/prefer-module": "off",
+
+        // Disabling overly strict or noisy recommended rules
+        "unicorn/name-replacements": "off",
+        "unicorn/no-non-function-verb-prefix": "off",
+        "unicorn/no-null": "off",
+        "unicorn/prefer-await": "off",
+        "unicorn/consistent-boolean-name": "off",
+        "unicorn/consistent-conditional-object-spread": "off",
+        "unicorn/no-array-callback-reference": "off",
+        "unicorn/no-array-reduce": "off",
+        "unicorn/no-break-in-nested-loop": "off",
+        "unicorn/no-computed-property-existence-check": "off",
+        "unicorn/no-top-level-assignment-in-function": "off",
+        "unicorn/no-unreadable-array-destructuring": "off",
+        "unicorn/prefer-promise-with-resolvers": "off",
+        "unicorn/prevent-abbreviations": "off",
+
+        // Node >= 20 feature: Array#toSorted()
+        ...(engineSupportsNode20 ? {} : { "unicorn/no-array-sort": "off" }),
+
+        // Node >= 22 features: Iterator helpers & Set methods
+        ...(engineSupportsNode22
+          ? {}
+          : {
+              "unicorn/prefer-iterator-helpers": "off",
+              "unicorn/prefer-iterator-to-array": "off",
+              "unicorn/prefer-set-methods": "off",
+            }),
+
+        // Node >= 23 / 22.14 features: Promise.try()
+        ...(engineSupportsNode23 ? {} : { "unicorn/prefer-promise-try": "off" }),
+
+        ...overrides,
       },
     },
+    ...(shouldOverrideNonSrc
+      ? [
+          {
+            name: "rs:unicorn:version-override-non-src",
+            ignores: ["src/**", "**/src/**"],
+            rules: {
+              ...(!engineSupportsNode20 && localSupportsNode20 ? { "unicorn/no-array-sort": "error" as const } : {}),
+              ...(!engineSupportsNode22 && localSupportsNode22
+                ? {
+                    "unicorn/prefer-iterator-helpers": "error" as const,
+                    "unicorn/prefer-iterator-to-array": "error" as const,
+                    "unicorn/prefer-set-methods": "error" as const,
+                  }
+                : {}),
+              ...(!engineSupportsNode23 && localSupportsNode23
+                ? { "unicorn/prefer-promise-try": "error" as const }
+                : {}),
+            },
+          },
+        ]
+      : []),
   ];
 }

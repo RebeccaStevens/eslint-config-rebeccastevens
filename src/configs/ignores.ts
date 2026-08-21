@@ -14,7 +14,8 @@ export async function ignores(
   const includeIgnoreFile =
     ignoreFiles.length === 0
       ? undefined
-      : await loadPackages(["@eslint/compat"]).then(([p]) => (p as typeof import("@eslint/compat")).includeIgnoreFile);
+      : // eslint-disable-next-line ts/no-deprecated
+        await loadPackages(["@eslint/compat"]).then(([p]) => (p as typeof import("@eslint/compat")).includeIgnoreFile);
 
   const [extend, files] = Array.isArray(ignoresOptions)
     ? [true, ignoresOptions]
@@ -26,15 +27,18 @@ export async function ignores(
 
   const ignoreFileConfigs = await Promise.all(
     ignoreFiles.map((file) => {
-      assert(includeIgnoreFile !== undefined);
+      assert.ok(includeIgnoreFile !== undefined);
       const filePath = path.resolve(projectRoot, file);
-      return fs
-        .access(filePath)
-        .then(() => includeIgnoreFile(filePath))
-        .catch(() => {
-          console.warn(`Ignore file "${filePath}" not found.`);
-          return null;
-        });
+      return (
+        fs
+          .access(filePath)
+          // eslint-disable-next-line ts/no-deprecated
+          .then(() => includeIgnoreFile(filePath))
+          .catch(() => {
+            console.warn(`Ignore file "${filePath}" not found.`);
+            return null;
+          })
+      );
     }),
   );
 

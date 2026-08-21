@@ -36,7 +36,7 @@ const configs = (await combine(
     markdown: {
       enableTypeRequiredRules: false,
     },
-    jsonc: {},
+    json: {},
     yaml: {},
     toml: {},
   }),

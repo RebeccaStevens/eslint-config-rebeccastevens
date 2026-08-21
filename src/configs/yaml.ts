@@ -5,6 +5,17 @@ import { loadPackages } from "../utils";
 
 import { StylisticConfigDefaults } from "./stylistic";
 
+/**
+ * Enable YAML linting via `eslint-plugin-yml` and `yaml-eslint-parser`.
+ *
+ * Enforces structure error rules (e.g. `block-mapping`, `block-sequence`, `no-empty-key`,
+ * `plain-scalar`). Stylistic rules like `indent`, `key-spacing`, and `quotes` are enabled only
+ * when `stylistic` is not `false`; `quotes` defaults to `"single"` and `"backtick"` is mapped
+ * to double quotes.
+ *
+ * @param options - Options with `files`, `overrides`, and `stylistic`
+ * @returns Flat config items enabling yaml rules
+ */
 export async function yaml(
   options: Readonly<Required<OptionsOverrides & RequiredOptionsStylistic & OptionsFiles>>,
 ): Promise<FlatConfigItem[]> {
@@ -51,14 +62,7 @@ export async function yaml(
         "yml/flow-mapping-curly-spacing": stylisticEnforcement,
         "yml/flow-sequence-bracket-newline": stylisticEnforcement,
         "yml/flow-sequence-bracket-spacing": stylisticEnforcement,
-        "yml/indent": [
-          stylisticEnforcement,
-          typeof indent === "number"
-            ? indent
-            : typeof StylisticConfigDefaults.indent === "number"
-              ? StylisticConfigDefaults.indent
-              : 2,
-        ],
+        "yml/indent": [stylisticEnforcement, typeof indent === "number" ? indent : 2],
         "yml/key-spacing": stylisticEnforcement,
         "yml/no-tab-indent": stylisticEnforcement,
         "yml/quotes": [stylisticEnforcement, { avoidEscape: true, prefer: quotes === "backtick" ? "double" : quotes }],

@@ -2,17 +2,26 @@ import { GLOB_DTS, GLOB_SRC, GLOB_SRC_EXT, GLOB_TYPINGS } from "../globs";
 import type { FlatConfigItem } from "../types";
 import { interopDefault } from "../utils";
 
+/**
+ * Apply file-specific rule overrides for edge cases.
+ *
+ * Three blocks: `*.d.ts` files disable unlimited-disable, import-x/no-duplicates, and
+ * no-restricted-syntax; typings files disable functional, jsdoc, and several typescript-eslint
+ * rules; scripts files disable no-console, functional rules, and n rules.
+ * `eslint-plugin-functional` is optional and silently skipped when not installed.
+ *
+ * @returns Flat config items with file-scoped rule overrides
+ */
 export async function overrides(): Promise<FlatConfigItem[]> {
-  const [pluginFunctional] = await Promise.all([
-    interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
-  ]);
+  // The functional plugin is optional — if it isn't installed, silently skip its overrides.
+  const pluginFunctional = await interopDefault(import("eslint-plugin-functional")).catch(() => {});
 
   return [
     {
       files: [GLOB_DTS],
       name: "rs:typescript:dts-overrides",
       rules: {
-        "eslint-comments/no-unlimited-disable": "off",
+        "comments/no-unlimited-disable": "off",
         "import-x/no-duplicates": "off",
         "no-restricted-syntax": "off",
       },
@@ -61,6 +70,14 @@ export async function overrides(): Promise<FlatConfigItem[]> {
         "@typescript-eslint/no-empty-object-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-unused-vars": "off",
+      },
+    },
+    {
+      // GitHub requires `.github/ISSUE_TEMPLATE` exactly — suppress the filename-case rule.
+      name: "rs:overrides-github",
+      files: [".github/ISSUE_TEMPLATE/**"],
+      rules: {
+        "unicorn/filename-case": "off",
       },
     },
     {

@@ -9,6 +9,7 @@ import type {
   OptionsHasTypeScript,
   OptionsOverrides,
   OptionsReact,
+  OptionsSecurity,
   OptionsTypeScriptParserOptions,
 } from "../types";
 import { interopDefault, loadPlugins } from "../utils";
@@ -18,12 +19,25 @@ const RemixPackages = ["@remix-run/node", "@remix-run/react", "@remix-run/serve"
 const NextJsPackages = ["next"];
 const ReactRouterPackages = ["react-router"];
 
+/**
+ * Enable comprehensive React linting.
+ *
+ * Loads `@eslint-react/eslint-plugin`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`,
+ * and `eslint-plugin-jsx-a11y`. Auto-detects Remix, Next.js, and React Router to allow their
+ * framework-specific exports, and enables react-refresh rules when Vite is present. Uses the
+ * plugin naming convention (`@eslint-react` → `react`, `react-hooks` → `react-hooks`, etc.).
+ * When `typescript` is enabled, the TypeScript parser is configured for JSX. Security rules
+ * respect `securitySeverity`.
+ *
+ * @param options - Options with `files`, `i18n`, `overrides`, `typescript`, `parserOptions`, and optional `securitySeverity`
+ * @returns Flat config items enabling React, JSX-a11y, and optional i18next rules
+ */
 export async function react(
   options: Readonly<
     Required<OptionsReact & OptionsHasTypeScript & OptionsOverrides & OptionsFiles & OptionsTypeScriptParserOptions>
-  >,
+  > & { securitySeverity?: OptionsSecurity["severity"] },
 ): Promise<FlatConfigItem[]> {
-  const { files, i18n, overrides, typescript, parserOptions } = options;
+  const { files, i18n, overrides, typescript, parserOptions, securitySeverity = "moderate" } = options;
 
   const [pluginReact, pluginReactHooks, pluginReactRefresh, pluginJsxA11y] = await loadPlugins([
     "@eslint-react/eslint-plugin",
@@ -34,27 +48,25 @@ export async function react(
 
   const parserTs = typescript ? await interopDefault(import("@typescript-eslint/parser")) : undefined;
 
-  const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some((i) => isPackageExists(i));
-  const isUsingRemix = RemixPackages.some((i) => isPackageExists(i));
-  const isUsingNext = NextJsPackages.some((i) => isPackageExists(i));
-  const isUsingReactRouter = ReactRouterPackages.some((i) => isPackageExists(i));
+  const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some((index) => isPackageExists(index));
+  const isUsingRemix = RemixPackages.some((index) => isPackageExists(index));
+  const isUsingNext = NextJsPackages.some((index) => isPackageExists(index));
+  const isUsingReactRouter = ReactRouterPackages.some((index) => isPackageExists(index));
 
   const plugins =
-    ((pluginReact.configs?.["all"] as any)?.plugins as Record<string, ESLint.Plugin> | undefined) ??
+    (pluginReact as { configs?: { all?: { plugins?: Record<string, ESLint.Plugin> } } }).configs?.all?.plugins ??
     assert.fail("Failed to load react plugin's plugins.");
+
+  const securityRuleLevel = securitySeverity === "none" ? "off" : securitySeverity === "lite" ? "warn" : "error";
 
   const core = [
     {
       name: "rs:react:setup",
       plugins: {
         react: plugins["@eslint-react"] ?? assert.fail(`Failed to find "@eslint-react".`),
-        "react-dom": plugins["@eslint-react/dom"] ?? assert.fail(`Failed to find "@eslint-react/dom".`),
+
         "react-hooks": pluginReactHooks,
-        "react-hooks-extra":
-          plugins["@eslint-react/hooks-extra"] ?? assert.fail(`Failed to find "@eslint-react/hooks-extra".`),
-        "react-naming-convention":
-          plugins["@eslint-react/naming-convention"] ??
-          assert.fail(`Failed to find "@eslint-react/naming-convention".`),
+
         "react-refresh": pluginReactRefresh,
         "jsx-a11y": pluginJsxA11y,
       },
@@ -68,23 +80,22 @@ export async function react(
           ecmaFeatures: {
             jsx: true,
           },
-          ...(typescript ? parserOptions : undefined),
+          ...(typescript && parserOptions),
         },
         sourceType: "module",
       },
       rules: {
         // recommended rules from @eslint-react/dom
-        "react-dom/no-void-elements-with-children": "error",
-        "react-dom/no-dangerously-set-innerhtml": "error",
-        "react-dom/no-dangerously-set-innerhtml-with-children": "error",
-        "react-dom/no-find-dom-node": "error",
-        "react-dom/no-missing-button-type": "error",
-        "react-dom/no-missing-iframe-sandbox": "error",
-        "react-dom/no-namespace": "error",
-        "react-dom/no-render-return-value": "error",
-        "react-dom/no-script-url": "error",
-        "react-dom/no-unsafe-iframe-sandbox": "error",
-        "react-dom/no-unsafe-target-blank": "error",
+        "react/dom-no-void-elements-with-children": "error",
+        "react/dom-no-dangerously-set-innerhtml": securityRuleLevel,
+        "react/dom-no-dangerously-set-innerhtml-with-children": securityRuleLevel,
+        "react/dom-no-find-dom-node": "error",
+        "react/dom-no-missing-button-type": "error",
+        "react/dom-no-missing-iframe-sandbox": securityRuleLevel,
+        "react/dom-no-render-return-value": "error",
+        "react/dom-no-script-url": securityRuleLevel,
+        "react/dom-no-unsafe-iframe-sandbox": securityRuleLevel,
+        "react/dom-no-unsafe-target-blank": securityRuleLevel,
 
         // recommended rules react-hooks
         "react-hooks/exhaustive-deps": "error",
@@ -104,7 +115,7 @@ export async function react(
                 ? [
                     "action",
                     "clientAction",
-                    "clientloader",
+                    "clientLoader",
                     "ErrorBoundary",
                     "handle",
                     "headers",
@@ -126,7 +137,6 @@ export async function react(
         "react/no-children-for-each": "error",
         "react/no-children-map": "error",
         "react/no-children-only": "error",
-        "react/no-children-prop": "error",
         "react/no-children-to-array": "error",
         "react/no-clone-element": "error",
         "react/jsx-no-comment-textnodes": "error",
@@ -139,11 +149,9 @@ export async function react(
         "react/no-implicit-key": "error",
         "react/no-missing-key": "error",
         "react/no-nested-component-definitions": "error",
-        "react/no-redundant-should-component-update": "error",
         "react/no-set-state-in-component-did-mount": "error",
         "react/no-set-state-in-component-did-update": "error",
         "react/no-set-state-in-component-will-update": "error",
-        "react/no-string-refs": "error",
         "react/no-unsafe-component-will-mount": "error",
         "react/no-unsafe-component-will-receive-props": "error",
         "react/no-unsafe-component-will-update": "error",
@@ -151,10 +159,27 @@ export async function react(
         "react/no-unstable-default-props": "error",
         "react/no-unused-class-component-members": "error",
         "react/no-unused-state": "error",
-        "react/no-useless-fragment": "error",
-        "react/prefer-destructuring-assignment": "error",
-        "react/jsx-shorthand-boolean": "error",
-        "react/jsx-shorthand-fragment": "error",
+        "react/no-context-provider": "error",
+        "react/no-forward-ref": "error",
+        "react/no-nested-lazy-component-declarations": "error",
+        "react/no-unnecessary-use-prefix": "error",
+        "react/no-use-context": "error",
+
+        "react/dom-no-flush-sync": "error",
+        "react/dom-no-hydrate": "error",
+        "react/dom-no-render": "error",
+        "react/dom-no-use-form-state": "error",
+
+        "react/web-api-no-leaked-event-listener": "error",
+        "react/web-api-no-leaked-interval": "error",
+        "react/web-api-no-leaked-resize-observer": "error",
+        "react/web-api-no-leaked-timeout": "error",
+
+        "react/rsc-function-definition": "error",
+
+        "react/naming-convention-context-name": "error",
+        "react/naming-convention-id-name": "error",
+        "react/naming-convention-ref-name": "error",
 
         "jsx-a11y/alt-text": "error",
         "jsx-a11y/anchor-has-content": "error",
@@ -230,11 +255,9 @@ export async function react(
         "jsx-a11y/scope": "error",
         "jsx-a11y/tabindex-no-positive": "error",
 
-        ...(typescript
-          ? {
-              "react/no-leaked-conditional-rendering": "error",
-            }
-          : {}),
+        ...(typescript && {
+          "react/no-leaked-conditional-rendering": "error",
+        }),
 
         ...overrides,
       },
@@ -263,7 +286,7 @@ export async function react(
           ecmaFeatures: {
             jsx: true,
           },
-          ...(typescript ? parserOptions : undefined),
+          ...(typescript && parserOptions),
         },
         sourceType: "module",
       },

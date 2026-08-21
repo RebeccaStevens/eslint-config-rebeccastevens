@@ -1,6 +1,20 @@
 import type { FlatConfigItem } from "../types";
 import { loadPlugins } from "../utils";
 
+/**
+ * Comprehensive regex linting via `eslint-plugin-regexp` and
+ * `eslint-plugin-optimize-regex`.
+ *
+ * Disables core ESLint regex rules (`no-empty-character-class`,
+ * `no-invalid-regexp`, `no-useless-backreference`) in favor of the regexp
+ * plugin's stricter versions. Enables correctness rules (confusing-quantifier,
+ * control-character-escape, match-any, negation, no-dupe-disjunctions,
+ * no-empty-alternative, no-super-linear-backtracking, prefer-regex-literals,
+ * sort-character-class-alternatives, unicode-set-property) plus
+ * `optimize-regex/recommend-optimizations`. Takes no options.
+ *
+ * @returns Flat config items enabling regexp and optimize-regex rules
+ */
 export async function regexp(): Promise<FlatConfigItem[]> {
   const [pluginRegexp, pluginOptimizeRegex] = await loadPlugins([
     "eslint-plugin-regexp",

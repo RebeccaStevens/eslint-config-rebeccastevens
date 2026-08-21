@@ -8,6 +8,18 @@ import type {
 } from "../types";
 import { loadPackages } from "../utils";
 
+/**
+ * Enforce functional programming patterns via `eslint-plugin-functional`.
+ *
+ * `functionalEnforcement` selects the rule set: `strict` enables no-let,
+ * no-class-inheritance, no-this-expressions, no-loop-statements, immutable-data,
+ * prefer-immutable-types, etc.; `lite` only enables no-param-reassign.
+ * `ignoreNamePattern` exempts matching identifiers. `mode: "library"` forces
+ * stricter immutability/void-return rules even at lower enforcement levels.
+ *
+ * @param options - Options with functionalEnforcement, ignoreNamePattern, mode, stylistic, filesTypeAware, and overrides
+ * @returns Flat config items enabling functional rules (type-aware rules disabled for non-type-aware files)
+ */
 export async function functional(
   options: Readonly<
     Required<
@@ -22,7 +34,7 @@ export async function functional(
     filesTypeAware,
     functionalEnforcement,
     ignoreNamePattern,
-    // ignoreTypePattern,
+    // ignoreTypePattern, // Deferred: only some plugin rules support it; see OptionsFunctional in types.ts.
   } = options;
 
   const [pluginFunctional] = (await loadPackages(["eslint-plugin-functional"])) as [
@@ -128,7 +140,7 @@ export async function functional(
           ReadonlyShallow: [
             [
               {
-                pattern: "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
+                pattern: String.raw`^([_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*\[\])$`,
                 replace: "readonly $1",
                 message: "Prepend with readonly.",
               },
@@ -187,7 +199,7 @@ export async function functional(
             comparator: "AtLeast",
             fixer: [
               {
-                pattern: "^([_$a-zA-Z\\xA0-\\uFFFF][_$a-zA-Z0-9\\xA0-\\uFFFF]*\\[\\])$",
+                pattern: String.raw`^([_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*\[\])$`,
                 replace: "readonly $1",
               },
               {
@@ -235,12 +247,12 @@ export async function functional(
         ...recommendedRules["functional/prefer-immutable-types"][1],
         overrides: [
           {
-            ...recommendedRules["functional/prefer-immutable-types"][1].overrides[0],
             specifiers: [
               {
                 from: "file",
               },
             ],
+            options: recommendedRules["functional/prefer-immutable-types"][1].overrides[0].options,
           },
         ],
       },

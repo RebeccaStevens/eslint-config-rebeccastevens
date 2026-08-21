@@ -3,7 +3,7 @@ import type { ESLint, Linter } from "eslint";
 import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from "../globs";
 import type {
   FlatConfigItem,
-  OptionsComponentExts,
+  OptionsComponentExts as OptionsComponentExtensions,
   OptionsFiles,
   OptionsOverrides,
   OptionsTypeRequiredRules,
@@ -11,7 +11,7 @@ import type {
 import { interopDefault, loadPackages, parserPlain } from "../utils";
 
 export async function markdown(
-  options: Readonly<Required<OptionsFiles & OptionsComponentExts & OptionsTypeRequiredRules & OptionsOverrides>>,
+  options: Readonly<Required<OptionsFiles & OptionsComponentExtensions & OptionsTypeRequiredRules & OptionsOverrides>>,
 ): Promise<FlatConfigItem[]> {
   const { componentExts, files, overrides, enableTypeRequiredRules } = options;
 
@@ -21,15 +21,15 @@ export async function markdown(
   ])) as [ESLint.Plugin, typeof import("eslint-merge-processors")];
 
   const [pluginTs, pluginFunctional] = await Promise.all([
-    interopDefault(import("@typescript-eslint/eslint-plugin")).catch(() => undefined),
-    interopDefault(import("eslint-plugin-functional")).catch(() => undefined),
+    interopDefault(import("@typescript-eslint/eslint-plugin")).catch(() => {}),
+    interopDefault(import("eslint-plugin-functional")).catch(() => {}),
   ]);
 
   return [
     {
       name: "rs:markdown:setup",
       plugins: {
-        pluginMarkdown,
+        "@eslint/markdown": pluginMarkdown,
       },
     },
     {
@@ -54,22 +54,20 @@ export async function markdown(
     },
     {
       name: "rs:markdown:code",
-      files: [GLOB_MARKDOWN_CODE, ...componentExts.map((ext) => `${GLOB_MARKDOWN}/*.${ext}`)],
+      files: [GLOB_MARKDOWN_CODE, ...componentExts.map((extension) => `${GLOB_MARKDOWN}/*.${extension}`)],
       languageOptions: {
         parserOptions: {
-          ...(enableTypeRequiredRules ? undefined : { project: false, projectService: false, program: null }),
+          ...(!enableTypeRequiredRules && { project: false, projectService: false, program: null }),
           ecmaFeatures: {
             impliedStrict: true,
           },
         },
       },
       rules: {
-        ...(enableTypeRequiredRules
-          ? undefined
-          : {
-              ...pluginTs?.configs["disable-type-checked"]?.rules,
-              ...pluginFunctional?.configs.off.rules,
-            }),
+        ...(!enableTypeRequiredRules && {
+          ...pluginTs?.configs["disable-type-checked"]?.rules,
+          ...pluginFunctional?.configs.off.rules,
+        }),
 
         "dot-notation": "off",
         "init-declarations": "off",
@@ -124,7 +122,6 @@ export async function markdown(
         "@typescript-eslint/no-unused-expressions": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-use-before-define": "off",
-        "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/prefer-for-of": "off",
         "@typescript-eslint/prefer-function-type": "off",
 

@@ -3,10 +3,22 @@ import type { ESLint } from "eslint";
 import type { FlatConfigItem, RequiredOptionsStylistic } from "../types";
 import { loadPackages } from "../utils";
 
+/**
+ * Enforce JSDoc documentation standards via `eslint-plugin-jsdoc`.
+ *
+ * Starts from `flat/recommended-typescript` and adds stricter checks
+ * (indentation, line-alignment, param/property names, type checking). Requires
+ * JSDoc on exported functions, classes, interfaces, type aliases, and enums,
+ * plus `@param`, `@returns`, and `@throws` documentation. `stylistic` gates
+ * alignment/multiline-block formatting rules.
+ *
+ * @param options - Options with stylistic
+ * @returns Flat config items enabling JSDoc rules
+ */
 export async function jsdoc(options: Readonly<Required<RequiredOptionsStylistic>>): Promise<FlatConfigItem[]> {
   const { stylistic } = options;
 
-  const [pluginJSDoc] = (await loadPackages(["eslint-plugin-jsdoc"])) as [typeof import("eslint-plugin-jsdoc")];
+  const [pluginJSDocument] = (await loadPackages(["eslint-plugin-jsdoc"])) as [typeof import("eslint-plugin-jsdoc")];
 
   const stylisticEnforcement = stylistic === false ? "off" : "error";
 
@@ -14,11 +26,14 @@ export async function jsdoc(options: Readonly<Required<RequiredOptionsStylistic>
     {
       name: "rs:jsdoc",
       plugins: {
-        jsdoc: pluginJSDoc as ESLint.Plugin,
+        jsdoc: pluginJSDocument as ESLint.Plugin,
       },
       rules: {
         // waiting on https://github.com/eslint/eslint/issues/14745
         // "jsdoc/check-examples": "error",
+        ...(pluginJSDocument as { configs?: Record<string, { rules?: Record<string, unknown> }> }).configs?.[
+          "flat/recommended-typescript"
+        ]?.rules,
         "jsdoc/check-indentation": "error",
         "jsdoc/check-line-alignment": "error",
         "jsdoc/check-param-names": "error",
