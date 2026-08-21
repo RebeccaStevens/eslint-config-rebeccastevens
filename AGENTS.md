@@ -150,6 +150,8 @@ When adding or updating plugins, evaluate overlaps using this priority:
 
 **Currently disabled sonarjs rules (in `sonar.ts`) due to overlap:**
 
+- `sonarjs/assertions-in-tests` → covered by `vitest/expect-expect`
+- `sonarjs/no-default-utility-imports` → unnecessary restriction on default imports
 - `sonarjs/no-unused-vars` → covered by `@typescript-eslint/no-unused-vars`
 - `sonarjs/no-fallthrough` → covered by core `no-fallthrough`
 - `sonarjs/no-labels` → covered by core `no-labels`

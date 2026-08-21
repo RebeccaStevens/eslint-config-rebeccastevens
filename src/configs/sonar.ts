@@ -118,6 +118,8 @@ export async function sonar(
         }),
 
         // ── Disable sonarjs rules already handled by other plugins ─────────
+        "sonarjs/assertions-in-tests": "off", // vitest/expect-expect
+        "sonarjs/no-default-utility-imports": "off",
         "sonarjs/no-unused-vars": "off", // @typescript-eslint/no-unused-vars (TS) / no-unused-vars (JS)
         "sonarjs/no-fallthrough": "off", // no-fallthrough (core)
         "sonarjs/no-labels": "off", // no-labels (core)
