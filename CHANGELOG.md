@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [4.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v4.0.1...v4.0.2) (2026-08-21)
+
+
+### Bug Fixes
+
+* disable jsdoc rules in editor ([339883d](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/339883dc4602025fe29563695ed63cdc7c2598c2))
+
 ## [4.0.1](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v4.0.0...v4.0.1) (2026-08-21)
 
 
