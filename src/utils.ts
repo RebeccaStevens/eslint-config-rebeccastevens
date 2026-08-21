@@ -166,7 +166,6 @@ export async function detectNodeMajor(projectRoot: string): Promise<number> {
 export async function detectEngineNodeMajor(projectRoot: string): Promise<number> {
   try {
     const pkgJsonPath = path.join(projectRoot, "package.json");
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const pkgContent = await fs.readFile(pkgJsonPath, "utf8");
     const pkg = JSON.parse(pkgContent) as { engines?: { node?: string } };
     const nodeEngine = pkg.engines?.node;
@@ -192,13 +191,11 @@ export async function detectNodeVersion(projectRoot: string): Promise<string> {
   const nodeVersionPath = path.join(projectRoot, ".node-version");
 
   try {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const res = await fs.readFile(nvmrcPath, "utf8");
     return res.trim().replace(/^v/u, "");
   } catch {}
 
   try {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const res = await fs.readFile(nodeVersionPath, "utf8");
     return res.trim().replace(/^v/u, "");
   } catch {}
@@ -218,7 +215,6 @@ export async function detectPnpmCatalog(projectRoot: string): Promise<boolean> {
   const workspacePath = path.join(projectRoot, "pnpm-workspace.yaml");
 
   try {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const content = await fs.readFile(workspacePath, "utf8");
     const lines = content.split("\n");
     return lines.some((line) => /^\s*catalogs?:/u.test(line));
@@ -248,7 +244,6 @@ async function findTsconfigFiles(dir: string, maxDepth = 4, currentDepth = 0): P
     return [];
   }
   try {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const entries = await fs.readdir(dir, { withFileTypes: true });
     const results = await Promise.all(
       entries.map(async (entry) => {

@@ -68,8 +68,9 @@ const sonarNoisySecurityRules = [
  *
  * Enables `elseif-without-else` as an error when `functionalEnforcement` is
  * `recommended` or `strict`. Security rules respect `securitySeverity`.
- * Disables rules overlapping other plugins (no-unused-vars → `@typescript-eslint`,
- * no-fallthrough/no-labels/code-eval → core, no-parameter-reassignment → core)
+ * Disables rules overlapping other plugins (argument-type → TypeScript,
+ * no-unused-vars → `@typescript-eslint`, no-fallthrough/no-labels/code-eval → core,
+ * no-parameter-reassignment → core)
  * and overly strict/stylistic rules (no-nested-conditional, cognitive-complexity,
  * todo-tag, redundant-type-aliases, function-return-type, deprecation,
  * different-types-comparison, no-alphabetical-sort, use-type-alias, void-use).
@@ -118,6 +119,7 @@ export async function sonar(
         }),
 
         // ── Disable sonarjs rules already handled by other plugins ─────────
+        "sonarjs/argument-type": "off", // TypeScript compiler (tsc)
         "sonarjs/assertions-in-tests": "off", // vitest/expect-expect
         "sonarjs/no-default-utility-imports": "off",
         "sonarjs/no-unused-vars": "off", // @typescript-eslint/no-unused-vars (TS) / no-unused-vars (JS)

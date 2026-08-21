@@ -340,10 +340,10 @@ export type OptionsPnpm = {
  * Security rule enforcement options.
  *
  * - `none`: no security rules
- * - `lite`: basic rules set to "warn" (detect-object-injection off)
- * - `moderate`: standard rules set to "error" (detect-object-injection off)
+ * - `lite`: basic rules set to "warn" (detect-object-injection and detect-non-literal-fs-filename off)
+ * - `moderate`: standard rules set to "error" (detect-object-injection and detect-non-literal-fs-filename off)
  * - `recommended`: alias for `moderate`
- * - `strict`: all security rules set to "error" (including detect-object-injection)
+ * - `strict`: all security rules set to "error" (including detect-object-injection and detect-non-literal-fs-filename)
  */
 export type OptionsSecurity = {
   severity?: "none" | "lite" | "moderate" | "recommended" | "strict";

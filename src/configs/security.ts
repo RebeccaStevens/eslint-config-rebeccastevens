@@ -7,7 +7,8 @@ import { loadPlugins } from "../utils";
  * Enable `eslint-plugin-security` with configurable severity.
  *
  * `severity: "moderate"` (default) and lower turns off `security/detect-object-injection`
- * due to frequent false positives with standard object indexing.
+ * due to frequent false positives with standard object indexing, and
+ * `security/detect-non-literal-fs-filename`.
  * `security/detect-unsafe-regex` is disabled in favor of `regexp/no-super-linear-backtracking`.
  *
  * @param options - Options with severity and user rule overrides
@@ -38,7 +39,12 @@ export async function security(options: OptionsSecurity = {}): Promise<FlatConfi
       rules: {
         ...baseRules,
         "security/detect-unsafe-regex": "off",
-        ...(severity === "strict" ? {} : { "security/detect-object-injection": "off" }),
+        ...(severity === "strict"
+          ? {}
+          : {
+              "security/detect-non-literal-fs-filename": "off",
+              "security/detect-object-injection": "off",
+            }),
         ...overrides,
       },
     },

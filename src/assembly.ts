@@ -187,7 +187,7 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     command: commandOptions = true,
     security: securityOptions = true,
     perfectionist: perfectionistOptions = false,
-    // eslint-disable-next-line node/no-sync, security/detect-non-literal-fs-filename
+    // eslint-disable-next-line node/no-sync
     pnpm: pnpmOptions = fs.existsSync(path.join(projectRoot, "pnpm-lock.yaml")),
     renamePlugins = true,
     mode,
