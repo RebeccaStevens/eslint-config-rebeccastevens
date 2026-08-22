@@ -131,6 +131,7 @@ export async function markdown(
 
         "unicorn/prefer-optional-catch-binding": "off",
         "unicorn/prefer-top-level-await": "off",
+        "unicorn/prefer-type-literal-last": "off",
         "unicorn/switch-case-braces": "off",
 
         ...overrides,
