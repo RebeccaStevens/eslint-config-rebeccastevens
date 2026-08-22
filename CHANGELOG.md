@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## [4.0.3](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v4.0.2...v4.0.3) (2026-08-22)
+
+
+### Bug Fixes
+
+* **security:** disable detect-non-literal-regexp in lite/moderate severity ([2596c3a](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/commit/2596c3a48bdeba2906ebf9260209204f28cb97c9))
+
 ## [4.0.2](https://github.com/RebeccaStevens/eslint-config-rebeccastevens/compare/v4.0.1...v4.0.2) (2026-08-21)
 
 
