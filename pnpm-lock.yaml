@@ -33,6 +33,18 @@ importers:
       '@cspell/dict-cryptocurrencies':
         specifier: 5.0.5
         version: 5.0.5
+      '@dprint/formatter':
+        specifier: 0.5.1
+        version: 0.5.1
+      '@dprint/json':
+        specifier: 0.23.0
+        version: 0.23.0
+      '@dprint/markdown':
+        specifier: 0.22.1
+        version: 0.22.1
+      '@dprint/typescript':
+        specifier: 0.96.1
+        version: 0.96.1
       '@eslint-community/eslint-plugin-eslint-comments':
         specifier: 4.7.2
         version: 4.7.2(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))
@@ -695,11 +707,20 @@ packages:
   '@dprint/formatter@0.5.1':
     resolution: {integrity: sha512-cdZUrm0iv/FnnY3CKE2dEcVhNEzrC551aE2h2mTFwQCRBrqyARLDnb7D+3PlXTUVp3s34ftlnGOVCmhLT9DeKA==}
 
+  '@dprint/json@0.23.0':
+    resolution: {integrity: sha512-FYFbZyrBr343JzCNkwa87+Lk2YnElpv0gzl+i5CXfMjixXzWWAKK2vEuzKoeCsJys4B3bfxmi0ByJ/xW2CY2jw==}
+
   '@dprint/markdown@0.21.1':
     resolution: {integrity: sha512-XbZ/R7vRrBaZFYXG6vAvLvtaMVXHu8XB+xwie7OYrG+dPoGDP8UADGirIbzUyX8TmrAZcl6QBmalipTGlpzRmQ==}
 
+  '@dprint/markdown@0.22.1':
+    resolution: {integrity: sha512-L5BYR66HNxs5vmGGYze/SP9wrIJnHIhbZGCbdP2N+o5gbukhau3ulFbaG/rB7u9H51LXGePue1sFXVgS5IiU2A==}
+
   '@dprint/toml@0.7.0':
     resolution: {integrity: sha512-eFaQTcfxKHB+YyTh83x7GEv+gDPuj9q5NFOTaoj5rZmQTbj6OgjjMxUicmS1R8zYcx8YAq5oA9J3YFa5U6x2gA==}
+
+  '@dprint/typescript@0.96.1':
+    resolution: {integrity: sha512-mz/nINSFQh1R5i2Qy90SWOCCK4SgNGRkNhCZba7LYmUkE4Zi8/45p8l8pqc9yN1fb4XY5Muhrzdh5Q3jFsYimw==}
 
   '@emnapi/core@1.10.0':
     resolution: {integrity: sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw==}
@@ -5853,9 +5874,15 @@ snapshots:
 
   '@dprint/formatter@0.5.1': {}
 
+  '@dprint/json@0.23.0': {}
+
   '@dprint/markdown@0.21.1': {}
 
+  '@dprint/markdown@0.22.1': {}
+
   '@dprint/toml@0.7.0': {}
+
+  '@dprint/typescript@0.96.1': {}
 
   '@emnapi/core@1.10.0':
     dependencies:

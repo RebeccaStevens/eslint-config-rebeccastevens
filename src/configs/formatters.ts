@@ -1,3 +1,4 @@
+import type { GlobalConfiguration } from "@dprint/formatter";
 import type { ESLint, Rule } from "eslint";
 import { isPackageExists } from "local-pkg";
 import type { Options as PrettierOptions } from "prettier";
@@ -27,6 +28,16 @@ import { StylisticConfigDefaults } from "./stylistic";
 type FormatterType = "prettier" | "dprint";
 
 /**
+ * Options accepted by `eslint-plugin-format`'s `format/dprint` rule:
+ * dprint global options plus the rule's language selector fields.
+ */
+type DprintFormatOptions = GlobalConfiguration & {
+  language: string;
+  languageOptions?: Record<string, unknown>;
+  plugins?: string[];
+};
+
+/**
  * Create a format rule for the given formatter type.
  *
  * @param formatter - Which formatter to use
@@ -40,20 +51,16 @@ function createFormatRule(
   formatter: FormatterType,
   prettierOpts: Record<string, unknown>,
   dprintLang: string,
-  dprintGlobalOpts: Record<string, unknown>,
+  dprintGlobalOpts: GlobalConfiguration,
   dprintLangOpts?: Record<string, unknown>,
 ): [string, unknown[]] {
   if (formatter === "dprint") {
-    return [
-      "format/dprint",
-      [
-        {
-          ...dprintGlobalOpts,
-          language: dprintLang,
-          ...(dprintLangOpts === undefined ? {} : { languageOptions: dprintLangOpts }),
-        },
-      ],
-    ] as [string, unknown[]];
+    const dprintOptions: DprintFormatOptions = {
+      ...dprintGlobalOpts,
+      language: dprintLang,
+      ...(dprintLangOpts === undefined ? {} : { languageOptions: dprintLangOpts }),
+    };
+    return ["format/dprint", [dprintOptions]];
   }
   return ["format/prettier", [prettierOpts]] as [string, unknown[]];
 }
@@ -67,6 +74,10 @@ function createFormatRule(
  * Non-JS file types use `parserPlain`; `stylistic` drives
  * printWidth/quotes/semi. Throws if `slidev` is enabled without `markdown`.
  *
+ * When an object is passed, any unspecified per-language flag inherits the
+ * same defaults as passing `true` (all enabled except `dts`), so partial
+ * objects behave symmetrically with the `true` shorthand.
+ *
  * @param optionsInput - Formatter toggles, or `true` to enable all
  * @param stylistic - Stylistic config controlling printWidth/quotes/semi
  * @returns Flat config items enabling formatting per file type
@@ -75,25 +86,24 @@ export async function formatters(
   optionsInput: Readonly<OptionsFormatters | true>,
   stylistic: Readonly<StylisticConfig>,
 ): Promise<FlatConfigItem[]> {
-  const options =
-    optionsInput === true
-      ? {
-          js: true,
-          ts: true,
-          dts: false,
-          json: true,
-          yaml: true,
-          css: true,
-          graphql: true,
-          html: true,
-          markdown: true,
-          slidev: isPackageExists("@slidev/cli"),
-          tailwind: isPackageExists("tailwindcss"),
-          formatter: "prettier" as const,
-        }
-      : { formatter: "prettier" as const, ...optionsInput };
+  const formatterDefaults = {
+    js: true,
+    ts: true,
+    dts: false,
+    json: true,
+    yaml: true,
+    css: true,
+    graphql: true,
+    html: true,
+    markdown: true,
+    slidev: isPackageExists("@slidev/cli"),
+    tailwind: isPackageExists("tailwindcss"),
+    formatter: "prettier" as const,
+  };
 
-  if (options.slidev !== false && options.slidev !== undefined && options.markdown !== true) {
+  const options = optionsInput === true ? { ...formatterDefaults } : { ...formatterDefaults, ...optionsInput };
+
+  if (options.slidev !== false && !options.markdown) {
     throw new Error("`slidev` option only works when `markdown` is enabled");
   }
 
@@ -121,7 +131,10 @@ export async function formatters(
     options.prettierOptions ?? {},
   );
 
-  const dprintOptions: Record<string, unknown> = {
+  // `semiColons` is plugin-scoped in dprint, but eslint-plugin-format merges global and
+  // language options before handing them to the plugin; passing it globally avoids the
+  // trailing-separator behavior inside single-line type literals.
+  const dprintOptions: GlobalConfiguration & { semiColons?: "asi" | "always" } = {
     indentWidth:
       typeof indent === "number"
         ? indent
@@ -130,13 +143,13 @@ export async function formatters(
           : 2,
     lineWidth: printWidth ?? 120,
     newLineKind: "lf",
+    semiColons: semi === false ? "asi" : "always",
     useTabs: indent === "tab",
     ...options.dprintOptions,
   };
 
   const dprintJsTsLanguageOptions = {
     quoteStyle: quotes === "single" ? "alwaysSingle" : "alwaysDouble",
-    semiColons: semi === false ? "asi" : "always",
   };
 
   const packages = (await loadPackages([
@@ -184,6 +197,15 @@ export async function formatters(
     // other
     "no-irregular-whitespace": "off",
     "yml/block-sequence-hyphen-indicator-newline": "off",
+
+    // dprint controls operator line-break positioning and ternary layout.
+    ...(useDprint && {
+      "@stylistic/operator-linebreak": "off",
+      "unicorn/no-nested-ternary": "off",
+      // dprint controls import member and declaration ordering.
+      "import-x/order": "off",
+      "sort-imports": "off",
+    }),
   } satisfies FlatConfigItem["rules"];
 
   // Shorthand: create format rule with current formatter.
@@ -211,7 +233,7 @@ export async function formatters(
     },
   ];
 
-  if (options.js !== undefined && options.js) {
+  if (options.js) {
     mut_configs.push({
       name: "rs:formatter:javascript",
       files: [GLOB_JS, GLOB_JSX],
@@ -221,10 +243,9 @@ export async function formatters(
           {
             ...prettierOptions,
             parser: "babel",
-            ...(options.tailwind !== undefined &&
-              options.tailwind && {
-                plugins: prettierOptions.plugins ?? [],
-              }),
+            ...(options.tailwind && {
+              plugins: prettierOptions.plugins ?? [],
+            }),
           },
           "typescript",
           dprintJsTsLanguageOptions,
@@ -233,21 +254,20 @@ export async function formatters(
     });
   }
 
-  if (options.ts !== undefined && options.ts) {
+  if (options.ts) {
     mut_configs.push({
       name: "rs:formatter:typescript",
       files: [GLOB_TS, GLOB_TSX],
-      ignores: options.dts === true ? [] : [GLOB_DTS],
+      ignores: options.dts ? [] : [GLOB_DTS],
       rules: {
         ...turnOffRules,
         ...fmtRule(
           {
             ...prettierOptions,
             parser: "typescript",
-            ...(options.tailwind !== undefined &&
-              options.tailwind && {
-                plugins: prettierOptions.plugins ?? [],
-              }),
+            ...(options.tailwind && {
+              plugins: prettierOptions.plugins ?? [],
+            }),
           },
           "typescript",
           dprintJsTsLanguageOptions,
@@ -256,7 +276,7 @@ export async function formatters(
     });
   }
 
-  if (options.yaml !== undefined && options.yaml) {
+  if (options.yaml) {
     mut_configs.push({
       name: "rs:formatter:yaml",
       files: [GLOB_YAML],
@@ -270,7 +290,7 @@ export async function formatters(
     });
   }
 
-  if (options.json !== undefined && options.json) {
+  if (options.json) {
     mut_configs.push(
       {
         name: "rs:formatter:json",
@@ -371,7 +391,7 @@ export async function formatters(
     );
   }
 
-  if (options.css !== undefined && options.css) {
+  if (options.css) {
     mut_configs.push(
       {
         name: "rs:formatter:css",
@@ -409,7 +429,7 @@ export async function formatters(
     );
   }
 
-  if (options.html !== undefined && options.html) {
+  if (options.html) {
     mut_configs.push({
       name: "rs:formatter:html",
       files: ["**/*.html"],
@@ -423,13 +443,9 @@ export async function formatters(
     });
   }
 
-  if (options.markdown !== undefined && options.markdown) {
+  if (options.markdown) {
     const GLOB_SLIDEV =
-      options.slidev === undefined || options.slidev === false
-        ? []
-        : options.slidev === true
-          ? ["**/slides.md"]
-          : (options.slidev.files ?? []);
+      options.slidev === false ? [] : options.slidev === true ? ["**/slides.md"] : (options.slidev.files ?? []);
 
     mut_configs.push({
       name: "rs:formatter:markdown",
@@ -444,7 +460,7 @@ export async function formatters(
       },
     });
 
-    if (options.slidev !== undefined && options.slidev !== false) {
+    if (options.slidev !== false) {
       mut_configs.push({
         name: "rs:formatter:slidev",
         files: GLOB_SLIDEV,
@@ -467,7 +483,7 @@ export async function formatters(
     }
   }
 
-  if (options.graphql !== undefined && options.graphql) {
+  if (options.graphql) {
     mut_configs.push({
       files: [GLOB_GRAPHQL],
       languageOptions: {

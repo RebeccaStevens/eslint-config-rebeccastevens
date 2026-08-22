@@ -1,3 +1,4 @@
+import type { GlobalConfiguration } from "@dprint/formatter";
 import type { StylisticCustomizeOptions } from "@stylistic/eslint-plugin";
 import type { ParserOptions } from "@typescript-eslint/parser";
 import type { TSESLint } from "@typescript-eslint/utils";
@@ -84,6 +85,9 @@ export type OptionsTypescript = OptionsTypeScriptParserOptions &
 
 /**
  * Common formatter options for individual file types.
+ *
+ * When a partial object is passed to the `formatters` option, any unspecified
+ * flag inherits the same defaults as passing `true` (all enabled except `dts`).
  */
 export type OptionsFormattersBase = {
   js?: boolean;
@@ -132,9 +136,9 @@ export type OptionsFormattersDprint = OptionsFormattersBase & {
   formatter: "dprint";
 
   /**
-   * Options for dprint.
+   * Global options for dprint (`lineWidth`, `indentWidth`, `useTabs`, `newLineKind`).
    */
-  dprintOptions?: Record<string, unknown>;
+  dprintOptions?: GlobalConfiguration;
 
   /**
    * dprint language plugins to use when `formatter: "dprint"`.
@@ -148,7 +152,8 @@ export type OptionsFormattersDprint = OptionsFormattersBase & {
  * Per-language formatter enable flags.
  *
  * When `true` is passed to the `formatters` option, all flags default to `true`
- * (except `dts`). Supports Prettier and dprint under the hood.
+ * (except `dts`). Supports Prettier and dprint under the hood. A partial object
+ * inherits the same defaults as `true` for any unspecified flag.
  */
 export type OptionsFormatters = OptionsFormattersPrettier | OptionsFormattersDprint;
 
