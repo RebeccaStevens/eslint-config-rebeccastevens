@@ -405,6 +405,8 @@ export async function buildStylisticRules(options: Readonly<StylisticRulesOption
       ? {
           "@stylistic/member-delimiter-style": "error",
           "@stylistic/type-annotation-spacing": "error",
+          "@stylistic/type-generic-spacing": "error",
+          "@stylistic/type-named-tuple-spacing": "error",
         }
       : {}),
   };
