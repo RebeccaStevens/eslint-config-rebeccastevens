@@ -70,6 +70,7 @@ import type {
   OptionsTypeScriptShorthands,
   OptionsTypescript,
 } from "./types";
+import { readEditorConfigIndent } from "./utils";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
@@ -199,7 +200,7 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     mode,
   } = options;
 
-  const stylisticOptions =
+  const stylisticOptionsWithoutEditorConfig =
     options.stylistic === false
       ? false
       : typeof options.stylistic === "object"
@@ -209,6 +210,20 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
             ...options.stylistic,
           }
         : StylisticConfigDefaults;
+
+  // When the user has not explicitly set `stylistic.indent`, seed it from the
+  // project's `.editorconfig` so the `"eslint"` formatter backend — which,
+  // unlike prettier/dprint, ignores editorconfig natively — produces consistent
+  // indentation. Explicit user values always win.
+  const userIndentSet = typeof options.stylistic === "object" && options.stylistic.indent !== undefined;
+
+  const editorConfigIndent =
+    userIndentSet || options.stylistic === false ? undefined : readEditorConfigIndent(projectRoot);
+
+  const stylisticOptions =
+    stylisticOptionsWithoutEditorConfig === false || userIndentSet || editorConfigIndent === undefined
+      ? stylisticOptionsWithoutEditorConfig
+      : { ...stylisticOptionsWithoutEditorConfig, indent: editorConfigIndent };
 
   const functionalEnforcement =
     typeof functionalOptions === "string"
