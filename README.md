@@ -156,3 +156,13 @@ the standalone `stylistic` option stops applying to those files:
 - With `stylistic: false`, the backend alone defines JS/TS style: the formatter
   implies the style defaults, so you get the relaxed profile above with no
   further configuration.
+
+### Deferred to @stylistic v6
+
+Several configured rules (`array-bracket-newline`, `array-bracket-spacing`,
+`array-element-newline`, `function-call-argument-newline`,
+`function-paren-newline`, `object-curly-newline`, `object-curly-spacing`,
+`object-property-newline`) are deprecated in `@stylistic@5` in favor of the
+unified [`list-style`](https://eslint.style/rules/list-style) rule, which only
+becomes stable in `@stylistic@6`. Migration to `list-style` is deferred until
+that release; these rules keep their current configuration in the meantime.
