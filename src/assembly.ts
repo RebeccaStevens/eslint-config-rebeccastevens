@@ -316,6 +316,16 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     formattersOptions === false
       ? undefined
       : resolveFormatterCategories(formattersOptions, stylisticOptions === false ? {} : stylisticOptions);
+
+  // Format `<style>` blocks inside Vue SFCs through the virtual files the SFC
+  // block processor emits (`<file>.vue/style.<lang>`). Requires Vue support
+  // with `sfcBlocks` (default-on) plus an enabled `css` formatter category.
+  const cssInVue =
+    vueOptions !== false &&
+    formatterResolution !== undefined &&
+    formatterResolution.categories.css.enabled &&
+    (typeof vueOptions === "object" ? vueOptions.sfcBlocks !== false : true);
+
   const featureConfigs: ReadonlyArray<Awaitable<FlatConfigItem[]>> = [
     ...(sonarOptions ? [sonar({ ...functionalConfigOptions, securitySeverity })] : []),
     ...(commandOptions ? [command()] : []),
@@ -505,7 +515,14 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
         ]),
     ...(formattersOptions === false || formatterResolution === undefined
       ? []
-      : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions, formatterResolution)]),
+      : [
+          formatters(
+            formattersOptions,
+            stylisticOptions === false ? {} : stylisticOptions,
+            formatterResolution,
+            cssInVue,
+          ),
+        ]),
     ...(isInEditor ? [inEditor()] : []),
   ];
 

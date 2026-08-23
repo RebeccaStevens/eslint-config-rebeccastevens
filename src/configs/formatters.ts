@@ -303,12 +303,16 @@ export function resolveFormatterCategories(
  * @param resolution - Pre-computed category resolution from
  * `resolveFormatterCategories`; computed here when omitted so assembly and
  * this function can share a single resolution.
+ * @param cssInVue - Also emit formatter blocks for the virtual `<file>.vue/style.<lang>`
+ * files the vue SFC block processor creates; requires `vue.sfcBlocks` (default-on)
+ * and an enabled `css` category. Defaults to `false`.
  * @returns Flat config items enabling formatting per file type
  */
 export async function formatters(
   optionsInput: Readonly<OptionsFormatters | true>,
   stylistic: Readonly<StylisticConfig>,
   resolution?: Readonly<FormatterCategoriesResolution>,
+  cssInVue = false,
 ): Promise<FlatConfigItem[]> {
   const {
     categories: mut_resolved,
@@ -648,6 +652,50 @@ export async function formatters(
       {
         name: "rs:formatter:less",
         files: [GLOB_LESS],
+        languageOptions: {
+          parser: parserPlain,
+        },
+        rules: {
+          ...turnOffRules(mut_resolved.css),
+          ...fmtRule(mut_resolved.css, { ...mut_resolved.css.prettierOptions, parser: "less" }, "css"),
+        },
+      },
+    );
+  }
+
+  // Format `<style>` blocks inside Vue SFCs via the virtual files
+  // `eslint-processor-vue-blocks` emits (`<file>.vue/style.<lang>`, wired by
+  // the vue config when `vue.sfcBlocks` is enabled — its default). Requires
+  // both Vue support and an enabled `formatters.css` category; style blocks in
+  // languages without a parser mapping here (e.g. stylus, plain `sass`) are
+  // silently uncovered.
+  if (cssInVue && mut_resolved.css.enabled) {
+    mut_configs.push(
+      {
+        name: "rs:formatter:vue-style-css",
+        files: ["**/*.vue/style.css", "**/*.vue/style.pcss", "**/*.vue/style.postcss"],
+        languageOptions: {
+          parser: parserPlain,
+        },
+        rules: {
+          ...turnOffRules(mut_resolved.css),
+          ...fmtRule(mut_resolved.css, { ...mut_resolved.css.prettierOptions, parser: "css" }, "css"),
+        },
+      },
+      {
+        name: "rs:formatter:vue-style-scss",
+        files: ["**/*.vue/style.scss"],
+        languageOptions: {
+          parser: parserPlain,
+        },
+        rules: {
+          ...turnOffRules(mut_resolved.css),
+          ...fmtRule(mut_resolved.css, { ...mut_resolved.css.prettierOptions, parser: "scss" }, "css"),
+        },
+      },
+      {
+        name: "rs:formatter:vue-style-less",
+        files: ["**/*.vue/style.less"],
         languageOptions: {
           parser: parserPlain,
         },

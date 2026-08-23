@@ -70,6 +70,13 @@ Each category options object supports `formatter`, `prettierOptions`,
 `dprintOptions`, and `dprintPlugins`. Categories without an explicit `formatter`
 inherit the top-level `formatter` (default `"prettier"`).
 
+### CSS in Vue SFCs
+
+Style blocks inside Vue SFCs are formatted when both Vue support and the
+`css` category are active (`vue.sfcBlocks` defaults to enabled). The supported
+languages are `css`, `pcss`, `postcss`, `scss`, and `less`; style blocks in
+other languages are skipped.
+
 ### Migrating from the single global formatter
 
 Previously the formatter was chosen once globally, via a discriminated union on
