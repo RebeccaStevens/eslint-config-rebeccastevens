@@ -192,6 +192,12 @@ export async function buildStylisticRules(options: Readonly<StylisticRulesOption
     "@stylistic/comma-spacing": ["error", { before: false, after: true }],
     "@stylistic/comma-style": ["error", "last"],
     "@stylistic/computed-property-spacing": "error",
+    "@stylistic/curly-newline": [
+      "error",
+      {
+        consistent: true,
+      },
+    ],
     "@stylistic/dot-location": ["error", "property"],
     "@stylistic/eol-last": "error",
     "@stylistic/function-call-spacing": ["error", "never"],
