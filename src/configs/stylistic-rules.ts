@@ -33,9 +33,10 @@ export type StylisticCommaDangleOption =
 /**
  * Explicit knobs for each point where two stylistic profiles must diverge.
  *
- * Every knob defaults to the value that reproduces the historical
- * `stylistic()` output exactly; the `"eslint"` formatter backend overrides
- * only the knobs it needs (see `eslint-formatter.ts`).
+ * Default knob values yield the historical `stylistic()` output plus the
+ * adopted modernization extensions (see Task 4 / git log d9531d6, eca0c42,
+ * 649a2b5); the `"eslint"` formatter backend overrides only the knobs it
+ * needs (see `eslint-formatter.ts`).
  */
 export type StylisticRulesProfile = {
   /**
@@ -132,8 +133,11 @@ const DEFAULT_SEMI = true;
  * With default profile values the returned map is rule-for-rule identical to
  * what `stylistic()` emits: it spreads the same `configs.customize(...)` base
  * and then applies the same explicit rule entries on top, so later keys win
- * in exactly the same way. Divergences are expressed exclusively through the
- * `StylisticRulesProfile` knobs.
+ * in exactly the same way. That shared output is the historical `stylistic()`
+ * result plus the adopted modernization extensions (see Task 4 / git log
+ * d9531d6, eca0c42, 649a2b5) — not byte-compat with pre-Task-4 output.
+ * Divergences are expressed exclusively through the `StylisticRulesProfile`
+ * knobs.
  *
  * @param options - Stylistic values, TypeScript flag, and profile knobs.
  * @returns The `@stylistic/*` rule map.
