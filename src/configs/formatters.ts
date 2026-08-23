@@ -105,7 +105,7 @@ export type FormatterCategoriesResolution = {
  *
  * Merge precedence: category object > top-level > `"prettier"`.
  * A category is enabled unless explicitly `false`; when its value is
- * `undefined`, the supplied default decides.
+ * `undefined` (or a plain-JS `null`), the supplied default decides.
  *
  * @param key - Category name (used for error messages)
  * @param value - User-supplied category value (boolean / string / object)
@@ -119,8 +119,10 @@ function resolveCategory(
   value: OptionsFormatterCategoryInputEslint | undefined,
   defaults: FormatterCategoryDefaults,
 ): ResolvedFormatterCategory {
-  const enabled = value === undefined ? defaults.enabled : value !== false;
-  // Plain-JS consumers get no type checking; a runtime `null` must degrade to `{}`.
+  // Plain-JS consumers get no type checking; a runtime `null` must be treated
+  // as unset for enablement and degrade to `{}` for object fields.
+  // eslint-disable-next-line ts/no-unnecessary-condition -- see above
+  const enabled = value === undefined || value === null ? defaults.enabled : value !== false;
   const category =
     typeof value === "object" &&
     // eslint-disable-next-line ts/no-unnecessary-condition -- see above
