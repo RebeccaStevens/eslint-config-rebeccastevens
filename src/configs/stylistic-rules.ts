@@ -213,6 +213,7 @@ export async function buildStylisticRules(options: Readonly<StylisticRulesOption
               ? {
                   SwitchCase: 1,
                   VariableDeclarator: 1,
+                  assignmentOperator: 1,
                   outerIIFEBody: 1,
                   MemberExpression: 1,
                   FunctionDeclaration: { parameters: 1, body: 1, returnType: 1 },
@@ -233,6 +234,7 @@ export async function buildStylisticRules(options: Readonly<StylisticRulesOption
               : {
                   SwitchCase: 1,
                   VariableDeclarator: 1,
+                  assignmentOperator: 1,
                   outerIIFEBody: 1,
                   MemberExpression: 1,
                   FunctionDeclaration: { parameters: 1, body: 1 },
