@@ -73,6 +73,10 @@ inherit the top-level `formatter` (default `"prettier"`).
 Indented `.sass` files are not formatted (neither prettier nor dprint supports
 the indented syntax) — use `.scss` instead.
 
+Dedicated formatter categories for XML, SQL, shell scripts, CSV, and Dockerfile
+are plausible future additions — each needs parser or plugin wiring — but none
+is currently planned.
+
 ### CSS in Vue SFCs
 
 Style blocks inside Vue SFCs are formatted when both Vue support and the
