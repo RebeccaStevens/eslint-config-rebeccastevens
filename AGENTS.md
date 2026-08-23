@@ -29,6 +29,8 @@ rsEslint(options) → assembleConfigs(options) → [...baseConfigs, ...featureCo
 2. **Feature configs** (conditional): sonar, typescript, stylistic, functional, vue, react, test, json, yaml, toml, markdown, formatters, etc.
 3. **Overrides**: User-provided rule overrides applied last
 
+Formatter categories are resolved **once** per assembly via `resolveFormatterCategories()` (`src/configs/formatters.ts`); both `formatters()` and the stylistic item consume that single resolution. When the `"eslint"` backend owns both `js` and `ts`, assembly restricts the stylistic item to the files the backend does not cover (`ignores` on js/jsx/ts/tsx globs) instead of dropping it — vue SFCs and markdown code blocks keep their coverage.
+
 ### Plugin Renaming System
 
 The config renames plugins for shorter rule prefixes:
@@ -112,6 +114,8 @@ The `mode` option controls strictness levels across multiple configs. It affects
 The `stylistic` option controls formatting/style rules across many configs. It's passed to: `imports`, `stylistic`, `vue`, `react`, `tailwind`, `unocss`, `json`, `yaml`, `toml`, `markdown`, `formatters`.
 
 When `stylistic: false`, formatting rules are disabled across all these configs. When adding a new config that has formatting rules, accept and respect this option.
+
+**Shared rule source:** `src/configs/stylistic.ts` and the `"eslint"` formatter backend (`src/configs/eslint-formatter.ts`) both build their `@stylistic/*` maps from one builder — `buildStylisticRules()` in `src/configs/stylistic-rules.ts`. Divergences between the two profiles are expressed only through that builder's explicit profile knobs; do not hand-edit one side's rule entries.
 
 ## Development Commands
 
@@ -204,6 +208,7 @@ Common types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`.
 7. **Config consolidation**: Small always-on configs are merged into related configs to reduce file count:
    - `sort.ts` → `jsonc.ts`: tsconfig sorting (`jsonc/sort-keys`) requires jsonc parser, always runs when jsonc enabled. Gated on `typescript && stylistic !== false`.
    - `comments.ts` → `javascript.ts`: eslint-comments plugin is always-on with zero user options, core JS concern.
+8. **ESLint formatting backend**: The `js`/`ts` formatter categories accept `"eslint"`, emitting pure `@stylistic/*` rules that approximate prettier style (no reflow, no line-length enforcement, violations are errors). Selecting it implies the style defaults: with `stylistic: false` the backend alone defines JS/TS style; with `stylistic` enabled the standalone stylistic item keeps covering only the files the backend does not own (vue SFCs, markdown code blocks, uncovered dts).
 
 ## Common Patterns
 

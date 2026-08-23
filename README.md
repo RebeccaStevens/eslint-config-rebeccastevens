@@ -144,3 +144,15 @@ prettier plugins.
 
 In editors the backend remains active — the in-editor configuration disables no
 `@stylistic/*` rules.
+
+### Semantics: selecting the backend implies style defaults
+
+When `js` or `ts` selects `"eslint"`, that category owns JS/TS formatting, and
+the standalone `stylistic` option stops applying to those files:
+
+- With `stylistic` enabled (the default), its rules stay active everywhere the
+  backend does not reach — Vue SFCs, markdown code blocks, and declaration
+  files when `formatters.dts` is unset.
+- With `stylistic: false`, the backend alone defines JS/TS style: the formatter
+  implies the style defaults, so you get the relaxed profile above with no
+  further configuration.
