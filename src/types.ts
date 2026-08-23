@@ -83,79 +83,48 @@ export type OptionsTypescript = OptionsTypeScriptParserOptions &
   OptionsTypeScriptUnsafeSeverity &
   OptionsTypeScriptShorthands;
 
-/**
- * Common formatter options for individual file types.
- *
- * When a partial object is passed to the `formatters` option, any unspecified
- * flag inherits the same defaults as passing `true` (all enabled except `dts`).
- */
-export type OptionsFormattersBase = {
-  js?: boolean;
-  ts?: boolean;
-  json?: boolean;
-  yaml?: boolean;
-  dts?: boolean;
-  css?: boolean;
-  html?: boolean;
-  markdown?: boolean;
-  graphql?: boolean;
-  tailwind?: boolean;
-  slidev?:
-    | boolean
-    | {
-        files?: string[];
-      };
-};
+export type FormatterType = "prettier" | "dprint";
 
-/**
- * Prettier formatting options.
- */
-export type OptionsFormattersPrettier = OptionsFormattersBase & {
-  /**
-   * Formatter to use: `"prettier"` (default).
-   */
-  formatter?: "prettier";
-
-  /**
-   * Options for Prettier.
-   */
+export type OptionsFormatterCategory = {
+  formatter?: FormatterType;
   prettierOptions?: PrettierOptions;
-
-  dprintOptions?: never;
-
-  dprintPlugins?: never;
-};
-
-/**
- * dprint formatting options.
- */
-export type OptionsFormattersDprint = OptionsFormattersBase & {
-  /**
-   * Formatter to use: `"dprint"`.
-   */
-  formatter: "dprint";
-
-  /**
-   * Global options for dprint (`lineWidth`, `indentWidth`, `useTabs`, `newLineKind`).
-   */
   dprintOptions?: GlobalConfiguration;
-
-  /**
-   * dprint language plugins to use when `formatter: "dprint"`.
-   */
+  /** dprint language plugins for this category. */
   dprintPlugins?: string[];
-
-  prettierOptions?: never;
 };
 
-/**
- * Per-language formatter enable flags.
- *
- * When `true` is passed to the `formatters` option, all flags default to `true`
- * (except `dts`). Supports Prettier and dprint under the hood. A partial object
- * inherits the same defaults as `true` for any unspecified flag.
- */
-export type OptionsFormatters = OptionsFormattersPrettier | OptionsFormattersDprint;
+export type OptionsFormatterCategoryInput =
+  | boolean
+  | FormatterType
+  | OptionsFormatterCategory;
+
+/** js/ts additionally accept the eslint backend. */
+export type OptionsFormatterCategoryInputEslint =
+  OptionsFormatterCategoryInput | "eslint";
+
+export type OptionsFormattersBase = {
+  js?: OptionsFormatterCategoryInputEslint;
+  ts?: OptionsFormatterCategoryInputEslint;
+  json?: OptionsFormatterCategoryInput;
+  yaml?: OptionsFormatterCategoryInput;
+  css?: OptionsFormatterCategoryInput;
+  html?: OptionsFormatterCategoryInput;
+  markdown?: OptionsFormatterCategoryInput;
+  graphql?: OptionsFormatterCategoryInput;
+  /** Whether to format dts files. Defaults to `false`. */
+  dts?: boolean;
+  /** Whether to format Tailwind CSS class lists. Defaults to auto-detection. */
+  tailwind?: boolean;
+  /** Whether to format Slidev markdown files. Defaults to auto-detection. */
+  slidev?: boolean | ({ files?: string[] } & OptionsFormatterCategory);
+};
+
+export type OptionsFormatters = OptionsFormattersBase & {
+  /** Default formatter. `"eslint"` intentionally excluded. */
+  formatter?: FormatterType;
+  prettierOptions?: PrettierOptions;
+  dprintOptions?: GlobalConfiguration;
+};
 
 export type OptionsComponentExts = {
   /**
@@ -506,6 +475,13 @@ export type OptionsConfig = {
    * Use external formatters to format files.
    *
    * When set to `true`, it will enable all formatters.
+   *
+   * Each file category (`js`, `ts`, `json`, `yaml`, `css`, `html`, `markdown`,
+   * `graphql`) accepts `true`, `false`, a formatter name (`"prettier"`,
+   * `"dprint"`, or `"eslint"` for `js`/`ts` only), or an options object
+   * (`formatter`, `prettierOptions`, `dprintOptions`, `dprintPlugins`) to
+   * select its own backend. Categories without an explicit formatter inherit
+   * the top-level `formatter` (default `"prettier"`).
    */
   formatters?: boolean | OptionsFormatters;
 

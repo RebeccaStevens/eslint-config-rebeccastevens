@@ -51,6 +51,14 @@ export const parserPlain: Linter.Parser = {
 };
 
 /**
+ * Memoized package load promises, keyed by package id.
+ *
+ * Guarantees a single module instance per specifier, even when `loadPackages`
+ * is called concurrently with overlapping package lists.
+ */
+const mut_packageLoadPromises = new Map<string, Promise<unknown>>();
+
+/**
  * Load and interop-default a list of packages, prompting to install any that are missing.
  *
  * @param packageIds - The packages to load
@@ -68,8 +76,21 @@ export async function loadPackages<T extends ReadonlyArray<string>>(
     await installPackages(missing);
   }
 
+  const mut_promises = packageIds.map((id) => {
+    let mut_promise = mut_packageLoadPromises.get(id);
+    if (mut_promise === undefined) {
+      mut_promise = interopDefault(import(id));
+      mut_packageLoadPromises.set(id, mut_promise);
+      // Evict rejected loads so a later call can retry the import.
+      mut_promise.catch(() => {
+        mut_packageLoadPromises.delete(id);
+      });
+    }
+    return mut_promise;
+  });
+
   // eslint-disable-next-line ts/no-explicit-any, ts/no-unsafe-return
-  return Promise.all(packageIds.map((id) => interopDefault(import(id)))) as any;
+  return Promise.all(mut_promises) as any;
 }
 
 /**

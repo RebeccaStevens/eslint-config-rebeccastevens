@@ -52,3 +52,61 @@ export default rsEslint(
 ```
 
 See [ESLint configuration](https://eslint.org/docs/user-guide/configuring) for more information.
+
+## Formatters
+
+The `formatters` option enables formatting via `eslint-plugin-format`. Pass `true`
+to enable every category, or an object to configure each file category
+independently:
+
+| Category                          | Accepts                                                                          |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| `js`, `ts`                        | `true`, `false`, `"prettier"`, `"dprint"`, `"eslint"`, or an options object       |
+| `json`, `yaml`, `css`, `html`, `markdown`, `graphql` | `true`, `false`, `"prettier"`, `"dprint"`, or an options object |
+| `dts`, `tailwind`                 | `boolean`                                                                        |
+| `slidev`                          | `boolean` or `{ files?, formatter?, prettierOptions?, dprintOptions?, dprintPlugins? }` |
+
+Each category options object supports `formatter`, `prettierOptions`,
+`dprintOptions`, and `dprintPlugins`. Categories without an explicit `formatter`
+inherit the top-level `formatter` (default `"prettier"`).
+
+### Migrating from the single global formatter
+
+Previously the formatter was chosen once globally, via a discriminated union on
+`formatter: "prettier" | "dprint"`:
+
+```js
+// Before: one formatter for everything; dprintPlugins was top-level only.
+export default rsEslint({
+  formatters: {
+    formatter: "dprint",
+    dprintOptions: { lineWidth: 100 },
+    dprintPlugins: ["@dprint/typescript"],
+    ts: false,
+  },
+});
+```
+
+```js
+// After: per-category selection; dprintPlugins is per-category.
+export default rsEslint({
+  formatters: {
+    formatter: "dprint", // top-level default (unchanged)
+    dprintOptions: { lineWidth: 100 }, // top-level default (unchanged)
+    js: { dprintPlugins: ["@dprint/typescript"] },
+    ts: false,
+  },
+});
+```
+
+Mapping:
+
+- Top-level `formatter: "prettier"` with `prettierOptions` → unchanged.
+- Top-level `formatter: "dprint"` with `dprintOptions` → unchanged.
+- Top-level `dprintPlugins` → removed. Move it into each category that should
+  use dprint (e.g. `js: { dprintPlugins: [...] }`).
+- Per-category booleans (`ts: false`, ...) → unchanged.
+- New: per-category `prettierOptions`/`dprintOptions` overrides merged over
+  the top-level ones.
+- Upcoming: `"eslint"` backend for `js`/`ts` (landing in the next release
+  commit — currently falls back to prettier).
