@@ -112,6 +112,7 @@ export type FormatterCategoriesResolution = {
  * @param defaults - Resolved top-level defaults for this category
  * @returns The resolved category
  * @throws {Error} When the `"eslint"` backend is selected for a category other than `js`/`ts`
+ * @throws {Error} When the resolved formatter is not `"prettier"`, `"dprint"`, or (for `js`/`ts`) `"eslint"`
  */
 function resolveCategory(
   key: string,
@@ -138,9 +139,23 @@ function resolveCategory(
     );
   }
 
+  if (
+    mut_rawFormatter !== undefined &&
+    mut_rawFormatter !== "prettier" &&
+    mut_rawFormatter !== "dprint" &&
+    mut_rawFormatter !== "eslint"
+  ) {
+    const expectedFormatters =
+      key === "js" || key === "ts" ? '`"prettier"`, `"dprint"`, or `"eslint"`' : '`"prettier"` or `"dprint"`';
+    // eslint-disable-next-line functional/no-throw-statements -- misconfiguration must fail loudly, not silently fall through
+    throw new Error(
+      `\`formatters.${key}\` received an unsupported formatter value: ${JSON.stringify(mut_rawFormatter)} - expected ${expectedFormatters}, or no formatter to inherit the top-level default.`,
+    );
+  }
+
   return {
     enabled,
-    formatter: mut_rawFormatter === "dprint" ? "dprint" : mut_rawFormatter === "eslint" ? "eslint" : "prettier",
+    formatter: mut_rawFormatter ?? "prettier",
     prettierOptions: { ...defaults.prettierOptions, ...category.prettierOptions },
     dprintOptions: { ...defaults.dprintOptions, ...category.dprintOptions },
     dprintPlugins: category.dprintPlugins,
