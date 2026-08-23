@@ -89,18 +89,24 @@ export type OptionsFormatterCategory = {
   formatter?: FormatterType;
   prettierOptions?: PrettierOptions;
   dprintOptions?: GlobalConfiguration;
+
   /** dprint language plugins for this category. */
   dprintPlugins?: string[];
 };
 
-export type OptionsFormatterCategoryInput =
+export type OptionsFormatterCategoryInput = boolean | FormatterType | OptionsFormatterCategory;
+
+/** Category options where `formatter` may also select the eslint backend. */
+export type OptionsFormatterCategoryEslint = Omit<OptionsFormatterCategory, "formatter"> & {
+  formatter?: FormatterType | "eslint";
+};
+
+/** js/ts additionally accept the eslint backend (string shorthand or object form). */
+export type OptionsFormatterCategoryInputEslint =
   | boolean
   | FormatterType
-  | OptionsFormatterCategory;
-
-/** js/ts additionally accept the eslint backend. */
-export type OptionsFormatterCategoryInputEslint =
-  OptionsFormatterCategoryInput | "eslint";
+  | "eslint"
+  | OptionsFormatterCategoryEslint;
 
 export type OptionsFormattersBase = {
   js?: OptionsFormatterCategoryInputEslint;
@@ -111,10 +117,13 @@ export type OptionsFormattersBase = {
   html?: OptionsFormatterCategoryInput;
   markdown?: OptionsFormatterCategoryInput;
   graphql?: OptionsFormatterCategoryInput;
+
   /** Whether to format dts files. Defaults to `false`. */
   dts?: boolean;
+
   /** Whether to format Tailwind CSS class lists. Defaults to auto-detection. */
   tailwind?: boolean;
+
   /** Whether to format Slidev markdown files. Defaults to auto-detection. */
   slidev?: boolean | ({ files?: string[] } & OptionsFormatterCategory);
 };

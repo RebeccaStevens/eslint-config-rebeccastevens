@@ -59,12 +59,12 @@ The `formatters` option enables formatting via `eslint-plugin-format`. Pass `tru
 to enable every category, or an object to configure each file category
 independently:
 
-| Category                          | Accepts                                                                          |
-| --------------------------------- | -------------------------------------------------------------------------------- |
-| `js`, `ts`                        | `true`, `false`, `"prettier"`, `"dprint"`, `"eslint"`, or an options object       |
-| `json`, `yaml`, `css`, `html`, `markdown`, `graphql` | `true`, `false`, `"prettier"`, `"dprint"`, or an options object |
-| `dts`, `tailwind`                 | `boolean`                                                                        |
-| `slidev`                          | `boolean` or `{ files?, formatter?, prettierOptions?, dprintOptions?, dprintPlugins? }` |
+| Category                                             | Accepts                                                                                 |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `js`, `ts`                                           | `true`, `false`, `"prettier"`, `"dprint"`, `"eslint"`, or an options object             |
+| `json`, `yaml`, `css`, `html`, `markdown`, `graphql` | `true`, `false`, `"prettier"`, `"dprint"`, or an options object                         |
+| `dts`, `tailwind`                                    | `boolean`                                                                               |
+| `slidev`                                             | `boolean` or `{ files?, formatter?, prettierOptions?, dprintOptions?, dprintPlugins? }` |
 
 Each category options object supports `formatter`, `prettierOptions`,
 `dprintOptions`, and `dprintPlugins`. Categories without an explicit `formatter`
@@ -108,5 +108,39 @@ Mapping:
 - Per-category booleans (`ts: false`, ...) → unchanged.
 - New: per-category `prettierOptions`/`dprintOptions` overrides merged over
   the top-level ones.
-- Upcoming: `"eslint"` backend for `js`/`ts` (landing in the next release
-  commit — currently falls back to prettier).
+- New: `"eslint"` backend for `js`/`ts` — see below.
+
+### The `"eslint"` backend for `js` and `ts`
+
+The `js` and `ts` categories can skip external formatters entirely and use
+pure `@stylistic/*` rules instead:
+
+```js
+export default rsEslint({
+  formatters: {
+    js: "eslint",
+    ts: "eslint",
+  },
+});
+```
+
+This backend **approximates** prettier's style — it does not replicate it:
+
+- **No reflow.** No line-length rule is enabled (`max-len` stays off), so long
+  lines stay long instead of being wrapped.
+- **Nested ternaries are not force-broken.** `multiline-ternary` is set to
+  `"always-multiline"`; no available rule expresses prettier's nested-ternary
+  breaking (documented gap).
+- Relaxed by design: chain-break forcing (`newline-per-chained-call`) and
+  `max-statements-per-line` are disabled, `object-curly-newline` only requires
+  consistency, and trailing commas follow `comma-dangle: "only-multiline"`.
+- Indentation is enforced for TypeScript code too (`@stylistic/indent` with
+  TS-aware offsets), unlike the default stylistic profile where prettier owns it.
+- Violations are reported as lint errors rather than silently reformatted.
+
+Tailwind class sorting is unaffected:
+`tailwind-better/enforce-consistent-class-order` stays active without any
+prettier plugins.
+
+In editors the backend remains active — the in-editor configuration disables no
+`@stylistic/*` rules.

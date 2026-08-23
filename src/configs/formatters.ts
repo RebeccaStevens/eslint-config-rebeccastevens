@@ -29,6 +29,7 @@ import type {
 } from "../types";
 import { loadPackages, parserPlain } from "../utils";
 
+import { eslintFormatterStylisticRules } from "./eslint-formatter";
 import { StylisticConfigDefaults } from "./stylistic";
 
 /**
@@ -62,7 +63,7 @@ type FormatterCategoryDefaults = {
  */
 type ResolvedFormatterCategory = {
   enabled: boolean;
-  formatter: FormatterType;
+  formatter: FormatterType | "eslint";
   prettierOptions: Record<string, unknown>;
   dprintOptions: DprintGlobalOptions;
   dprintPlugins: string[] | undefined;
@@ -79,6 +80,7 @@ type ResolvedFormatterCategory = {
  * @param value - User-supplied category value (boolean / string / object)
  * @param defaults - Resolved top-level defaults for this category
  * @returns The resolved category
+ * @throws {Error} When the `"eslint"` backend is selected for a category other than `js`/`ts`
  */
 function resolveCategory(
   key: string,
@@ -93,6 +95,7 @@ function resolveCategory(
     category.formatter ?? (typeof value === "string" ? value : undefined) ?? defaults.formatter;
 
   if (mut_rawFormatter === "eslint" && key !== "js" && key !== "ts") {
+    // eslint-disable-next-line functional/no-throw-statements -- misconfiguration must fail loudly, not silently fall through
     throw new Error(
       `\`formatters.${key}\` does not support the \`"eslint"\` formatter backend - only the \`js\` and \`ts\` categories do.`,
     );
@@ -100,7 +103,7 @@ function resolveCategory(
 
   return {
     enabled,
-    formatter: mut_rawFormatter === "dprint" ? "dprint" : "prettier",
+    formatter: mut_rawFormatter === "dprint" ? "dprint" : mut_rawFormatter === "eslint" ? "eslint" : "prettier",
     prettierOptions: { ...defaults.prettierOptions, ...category.prettierOptions },
     dprintOptions: { ...defaults.dprintOptions, ...category.dprintOptions },
     dprintPlugins: category.dprintPlugins,
@@ -142,7 +145,10 @@ function createFormatRule(
  * packages. Each file category independently selects its underlying formatter
  * (`"prettier"` or `"dprint"`; `"eslint"` is additionally accepted for
  * `js`/`ts`), falling back to the top-level `formatter` (default
- * `"prettier"`). Non-JS file types use `parserPlain`; `stylistic` drives
+ * `"prettier"`). When a js/ts category selects `"eslint"`, that block skips
+ * the external formatter entirely and instead registers `@stylistic` with a
+ * relaxed rule map approximating prettier style (no reflow, no line-length
+ * enforcement). Non-JS file types use `parserPlain`; `stylistic` drives
  * printWidth/quotes/semi. Throws if `slidev` is enabled without `markdown`.
  *
  * When an object is passed, any unspecified per-language flag inherits the
@@ -246,20 +252,20 @@ export async function formatters(
 
   const formattingCategories = Object.values(mut_resolved);
 
-  if (!formattingCategories.some((category) => category.enabled)) {
+  if (formattingCategories.every((category) => !category.enabled)) {
     return [];
   }
 
-  const needsPrettier = formattingCategories.some(
-    (category) => category.enabled && category.formatter === "prettier",
-  );
-  const needsDprint = formattingCategories.some(
-    (category) => category.enabled && category.formatter === "dprint",
+  const needsPrettier = formattingCategories.some((category) => category.enabled && category.formatter === "prettier");
+  const needsDprint = formattingCategories.some((category) => category.enabled && category.formatter === "dprint");
+  const needsStylisticPlugin = formattingCategories.some(
+    (category) => category.enabled && category.formatter === "eslint",
   );
 
   const neededPackageIds = [
     "eslint-plugin-format",
     ...(needsPrettier || needsDprint ? ["eslint-config-prettier"] : []),
+    ...(needsStylisticPlugin ? ["@stylistic/eslint-plugin"] : []),
     "sort-package-json",
     "eslint-formatting-reporter",
     ...(needsPrettier ? ["prettier"] : []),
@@ -274,6 +280,12 @@ export async function formatters(
     packagesById.get("sort-package-json") as (typeof import("sort-package-json"))["default"],
     packagesById.get("eslint-formatting-reporter") as typeof import("eslint-formatting-reporter"),
   ];
+
+  // Defined when a js/ts category selects the `"eslint"` backend; the same
+  // memoized module instance `stylistic()` uses (ESM cache + loadPackages
+  // memoization), so dual registration is safe.
+  const pluginStylistic = packagesById.get("@stylistic/eslint-plugin") as
+    (typeof import("@stylistic/eslint-plugin"))["default"] | undefined;
 
   // Backend-independent rule offs, applied to every formatter block no matter
   // which formatter backs it.
@@ -355,47 +367,71 @@ export async function formatters(
   ];
 
   if (mut_resolved.js.enabled) {
+    const jsEslintBackend = mut_resolved.js.formatter === "eslint";
     mut_configs.push({
       name: "rs:formatter:javascript",
       files: [GLOB_JS, GLOB_JSX],
-      rules: {
-        ...turnOffRules(mut_resolved.js),
-        ...fmtRule(
-          mut_resolved.js,
-          {
-            ...mut_resolved.js.prettierOptions,
-            parser: "babel",
-            ...(options.tailwind && {
-              plugins: mut_resolved.js.prettierOptions["plugins"] ?? [],
-            }),
+      ...(jsEslintBackend && {
+        plugins: {
+          "@stylistic": pluginStylistic as ESLint.Plugin,
+        },
+      }),
+      rules: jsEslintBackend
+        ? {
+            // D6: backend-independent offs apply everywhere, backend included.
+            ...backendIndependentOffs,
+            ...(await eslintFormatterStylisticRules({ stylistic, typescript: false })),
+          }
+        : {
+            ...turnOffRules(mut_resolved.js),
+            ...fmtRule(
+              mut_resolved.js,
+              {
+                ...mut_resolved.js.prettierOptions,
+                parser: "babel",
+                ...(options.tailwind && {
+                  plugins: mut_resolved.js.prettierOptions["plugins"] ?? [],
+                }),
+              },
+              "typescript",
+              dprintJsTsLanguageOptions,
+            ),
           },
-          "typescript",
-          dprintJsTsLanguageOptions,
-        ),
-      },
     });
   }
 
   if (mut_resolved.ts.enabled) {
+    const tsEslintBackend = mut_resolved.ts.formatter === "eslint";
     mut_configs.push({
       name: "rs:formatter:typescript",
       files: [GLOB_TS, GLOB_TSX],
       ignores: options.dts ? [] : [GLOB_DTS],
-      rules: {
-        ...turnOffRules(mut_resolved.ts),
-        ...fmtRule(
-          mut_resolved.ts,
-          {
-            ...mut_resolved.ts.prettierOptions,
-            parser: "typescript",
-            ...(options.tailwind && {
-              plugins: mut_resolved.ts.prettierOptions["plugins"] ?? [],
-            }),
+      ...(tsEslintBackend && {
+        plugins: {
+          "@stylistic": pluginStylistic as ESLint.Plugin,
+        },
+      }),
+      rules: tsEslintBackend
+        ? {
+            // D6: backend-independent offs apply everywhere, backend included.
+            ...backendIndependentOffs,
+            ...(await eslintFormatterStylisticRules({ stylistic, typescript: true })),
+          }
+        : {
+            ...turnOffRules(mut_resolved.ts),
+            ...fmtRule(
+              mut_resolved.ts,
+              {
+                ...mut_resolved.ts.prettierOptions,
+                parser: "typescript",
+                ...(options.tailwind && {
+                  plugins: mut_resolved.ts.prettierOptions["plugins"] ?? [],
+                }),
+              },
+              "typescript",
+              dprintJsTsLanguageOptions,
+            ),
           },
-          "typescript",
-          dprintJsTsLanguageOptions,
-        ),
-      },
     });
   }
 
@@ -567,12 +603,11 @@ export async function formatters(
   }
 
   if (mut_resolved.markdown.enabled) {
-    const GLOB_SLIDEV =
-      !mut_resolved.slidev.enabled
-        ? []
-        : typeof options.slidev === "object" && options.slidev !== null
-          ? (options.slidev.files ?? [])
-          : ["**/slides.md"];
+    const GLOB_SLIDEV = mut_resolved.slidev.enabled
+      ? typeof options.slidev === "object" && options.slidev !== null
+        ? (options.slidev.files ?? [])
+        : ["**/slides.md"]
+      : [];
 
     mut_configs.push({
       name: "rs:formatter:markdown",
