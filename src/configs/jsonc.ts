@@ -126,8 +126,9 @@ const TSCONFIG_SORT_COMPILER_OPTIONS = [
  * `valid-json-number`). Stylistic rules like `indent`, `quotes`, and `comma-dangle` are
  * enabled only when `stylistic` is not `false`.
  *
- * When TypeScript is available and stylistic is enabled, also enforces tsconfig.json key ordering
- * via `jsonc/sort-keys`.
+ * When TypeScript is available, also enforces tsconfig.json key ordering
+ * via `jsonc/sort-keys` (independent of the `stylistic` option — key
+ * ordering is consistency, not styling).
  *
  * @param options - Options with `files`, `overrides`, `stylistic`, and `typescript`
  * @returns Flat config items enabling jsonc rules
@@ -219,8 +220,9 @@ export async function jsonc(
       },
     },
 
-    // Sort tsconfig.json when TypeScript is available and formatting is enabled.
-    ...(typescript && stylistic !== false
+    // Sort tsconfig.json keys whenever TypeScript is available — key ordering
+    // is consistency, not styling, so this stays independent of `stylistic`.
+    ...(typescript
       ? [
           {
             files: ["**/tsconfig.json", "**/tsconfig.*.json"],
