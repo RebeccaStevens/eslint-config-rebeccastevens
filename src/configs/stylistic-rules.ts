@@ -175,8 +175,10 @@ export async function buildStylisticRules(options: Readonly<StylisticRulesOption
       "error",
       profile.commaDangle ?? {
         arrays: "only-multiline",
+        dynamicImports: "only-multiline",
         exports: "only-multiline",
         functions: "ignore",
+        importAttributes: "only-multiline",
         imports: "only-multiline",
         objects: "only-multiline",
 
