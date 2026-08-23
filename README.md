@@ -70,6 +70,9 @@ Each category options object supports `formatter`, `prettierOptions`,
 `dprintOptions`, and `dprintPlugins`. Categories without an explicit `formatter`
 inherit the top-level `formatter` (default `"prettier"`).
 
+Indented `.sass` files are not formatted (neither prettier nor dprint supports
+the indented syntax) — use `.scss` instead.
+
 ### CSS in Vue SFCs
 
 Style blocks inside Vue SFCs are formatted when both Vue support and the

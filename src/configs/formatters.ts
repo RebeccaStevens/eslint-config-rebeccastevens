@@ -15,6 +15,7 @@ import {
   GLOB_LESS,
   GLOB_MARKDOWN,
   GLOB_POSTCSS,
+  GLOB_SASS,
   GLOB_SCSS,
   GLOB_TS,
   GLOB_TSX,
@@ -647,6 +648,10 @@ export async function formatters(
       {
         name: "rs:formatter:css",
         files: [GLOB_CSS, GLOB_POSTCSS],
+        // Indented `.sass` has no formatter support (prettier and dprint
+        // cannot parse it) — excluded defensively even though the `files`
+        // patterns above do not match it today.
+        ignores: [GLOB_SASS],
         languageOptions: {
           parser: parserPlain,
         },
@@ -658,6 +663,7 @@ export async function formatters(
       {
         name: "rs:formatter:scss",
         files: [GLOB_SCSS],
+        ignores: [GLOB_SASS],
         languageOptions: {
           parser: parserPlain,
         },
@@ -669,6 +675,7 @@ export async function formatters(
       {
         name: "rs:formatter:less",
         files: [GLOB_LESS],
+        ignores: [GLOB_SASS],
         languageOptions: {
           parser: parserPlain,
         },
