@@ -678,12 +678,18 @@ export async function formatters(
     );
   }
 
-  // Format `<style>` blocks inside Vue SFCs via the virtual files
-  // `eslint-processor-vue-blocks` emits (`<file>.vue/style.<lang>`, wired by
-  // the vue config when `vue.sfcBlocks` is enabled — its default). Requires
-  // both Vue support and an enabled `formatters.css` category; style blocks in
-  // languages without a parser mapping here (e.g. stylus, plain `sass`) are
-  // silently uncovered.
+  /**
+   * Format `<style>` blocks inside Vue SFCs via the virtual files
+   * `eslint-processor-vue-blocks` emits (`<file>.vue/style.<lang>`, wired by
+   * the vue config when `vue.sfcBlocks` is enabled — its default). Requires
+   * both Vue support and an enabled `formatters.css` category; style blocks in
+   * languages without a parser mapping here (e.g. stylus, plain `sass`) are
+   * silently uncovered.
+   *
+   * Edge case: these globs match the processor's virtual output; a real
+   * on-disk path literally shaped like `*.vue/style.css` would also match.
+   * That is pathological and accepted — formatter rules are harmless there.
+   */
   if (cssInVue && mut_resolved.css.enabled) {
     mut_configs.push(
       {

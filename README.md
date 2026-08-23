@@ -75,7 +75,9 @@ inherit the top-level `formatter` (default `"prettier"`).
 Style blocks inside Vue SFCs are formatted when both Vue support and the
 `css` category are active (`vue.sfcBlocks` defaults to enabled). The supported
 languages are `css`, `pcss`, `postcss`, `scss`, and `less`; style blocks in
-other languages are skipped.
+other languages are skipped. The matching globs target the processor's virtual
+output; a real on-disk path literally named like `*.vue/style.css` would also
+match — pathological and accepted, as formatter rules are harmless there.
 
 ### Migrating from the single global formatter
 
