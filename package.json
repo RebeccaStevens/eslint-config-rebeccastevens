@@ -194,7 +194,7 @@
     "@eslint-react/eslint-plugin": "*",
     "@eslint/markdown": "*",
     "@intlify/eslint-plugin-vue-i18n": "*",
-    "@stylistic/eslint-plugin": "*",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "@typescript-eslint/utils": "*",
