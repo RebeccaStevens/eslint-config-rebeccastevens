@@ -102,11 +102,7 @@ export type OptionsFormatterCategoryEslint = Omit<OptionsFormatterCategory, "for
 };
 
 /** js/ts additionally accept the eslint backend (string shorthand or object form). */
-export type OptionsFormatterCategoryInputEslint =
-  | boolean
-  | FormatterType
-  | "eslint"
-  | OptionsFormatterCategoryEslint;
+export type OptionsFormatterCategoryInputEslint = boolean | FormatterType | "eslint" | OptionsFormatterCategoryEslint;
 
 export type OptionsFormattersBase = {
   js?: OptionsFormatterCategoryInputEslint;

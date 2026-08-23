@@ -25,6 +25,7 @@ import {
   promise,
   react,
   regexp,
+  resolveFormatterCategories,
   security,
   sonar,
   stylistic,
@@ -38,9 +39,12 @@ import {
   yaml,
 } from "./configs";
 import {
+  GLOB_DTS,
+  GLOB_JS,
   GLOB_JSON,
   GLOB_JSON5,
   GLOB_JSONC,
+  GLOB_JSX,
   GLOB_MARKDOWN,
   GLOB_MARKDOWN_CODE,
   GLOB_ROOT_DTS,
@@ -51,6 +55,8 @@ import {
   GLOB_SRC,
   GLOB_TESTS,
   GLOB_TOML,
+  GLOB_TS,
+  GLOB_TSX,
   GLOB_VUE,
   GLOB_YAML,
 } from "./globs";
@@ -303,6 +309,13 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
 
   const resolvedTailwind = resolveTailwindConfig(tailwindOptions);
 
+  // Resolve the formatter categories once (item 13): the same resolution is
+  // consumed by `formatters()` below and by the stylistic item, which needs
+  // the resolved js/ts backends to decide suppression.
+  const formatterResolution =
+    formattersOptions === false
+      ? undefined
+      : resolveFormatterCategories(formattersOptions, stylisticOptions === false ? {} : stylisticOptions);
   const featureConfigs: ReadonlyArray<Awaitable<FlatConfigItem[]>> = [
     ...(sonarOptions ? [sonar({ ...functionalConfigOptions, securitySeverity })] : []),
     ...(commandOptions ? [command()] : []),
@@ -344,11 +357,46 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     ...(stylisticOptions === false
       ? []
       : [
-          stylistic({
-            stylistic: stylisticOptions,
-            typescript: hasTypeScript,
-            overrides: getOverrides(options, "stylistic"),
-          }),
+          (async (): Promise<FlatConfigItem[]> => {
+            // When the `"eslint"` formatter backend owns BOTH js and ts, its
+            // later-wins blocks already shadow every rule the stylistic item
+            // would set on JS/TS files. `stylistic()` emits one merged item
+            // (no `files` restriction), so instead of dropping it — which
+            // would strand vue SFCs and markdown code blocks that the backend
+            // blocks never cover — restrict it to everything except the files
+            // the backend owns. Declaration files are kept covered when the
+            // backend's ts block skips them (`formatters.dts` unset).
+            let mut_suppressionIgnores: string[] | undefined;
+            if (formatterResolution !== undefined) {
+              const { categories, options: formatterOptions } = formatterResolution;
+
+              if (
+                categories.js.enabled &&
+                categories.js.formatter === "eslint" &&
+                categories.ts.enabled &&
+                categories.ts.formatter === "eslint"
+              ) {
+                mut_suppressionIgnores = [
+                  GLOB_JS,
+                  GLOB_JSX,
+                  GLOB_TS,
+                  GLOB_TSX,
+
+                  ...(formatterOptions.dts === true ? [] : [`!${GLOB_DTS}`]),
+                ];
+              }
+            }
+
+            const items = await stylistic({
+              stylistic: stylisticOptions,
+              typescript: hasTypeScript,
+              overrides: getOverrides(options, "stylistic"),
+            });
+
+            return items.map((item) =>
+              mut_suppressionIgnores === undefined ? item : { ...item, ignores: mut_suppressionIgnores },
+            );
+          })(),
         ]),
     ...(functionalEnforcement !== "none" || mode === "library"
       ? [
@@ -455,9 +503,9 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
             overrides: getOverrides(options, "markdown"),
           }),
         ]),
-    ...(formattersOptions === false
+    ...(formattersOptions === false || formatterResolution === undefined
       ? []
-      : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions)]),
+      : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions, formatterResolution)]),
     ...(isInEditor ? [inEditor()] : []),
   ];
 

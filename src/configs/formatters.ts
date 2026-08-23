@@ -70,6 +70,37 @@ type ResolvedFormatterCategory = {
 };
 
 /**
+ * Every formatter category, fully resolved against the top-level defaults.
+ */
+export type ResolvedFormatterCategories = {
+  js: ResolvedFormatterCategory;
+  ts: ResolvedFormatterCategory;
+  json: ResolvedFormatterCategory;
+  yaml: ResolvedFormatterCategory;
+  css: ResolvedFormatterCategory;
+  html: ResolvedFormatterCategory;
+  markdown: ResolvedFormatterCategory;
+  graphql: ResolvedFormatterCategory;
+  slidev: ResolvedFormatterCategory;
+};
+
+/**
+ * The shared resolution consumed by both `formatters()` and assembly:
+ * the resolved categories plus the derived option payloads `formatters()`
+ * builds its blocks from.
+ */
+export type FormatterCategoriesResolution = {
+  categories: ResolvedFormatterCategories;
+
+  /** User options merged over the `true` shorthand defaults. */
+  options: OptionsFormatters;
+
+  prettierOptions: PrettierOptions;
+  dprintOptions: DprintGlobalOptions;
+  dprintJsTsLanguageOptions: { quoteStyle: "alwaysSingle" | "alwaysDouble" };
+};
+
+/**
  * Resolve a single formatter category against the top-level defaults.
  *
  * Merge precedence: category object > top-level > `"prettier"`.
@@ -88,7 +119,13 @@ function resolveCategory(
   defaults: FormatterCategoryDefaults,
 ): ResolvedFormatterCategory {
   const enabled = value === undefined ? defaults.enabled : value !== false;
-  const category = typeof value === "object" && value !== null ? value : {};
+  // Plain-JS consumers get no type checking; a runtime `null` must degrade to `{}`.
+  const category =
+    typeof value === "object" &&
+    // eslint-disable-next-line ts/no-unnecessary-condition -- see above
+    value !== null
+      ? value
+      : {};
 
   // String shorthand (`"prettier"` | `"dprint"` | `"eslint"`) selects the formatter directly.
   const mut_rawFormatter: unknown =
@@ -138,31 +175,18 @@ function createFormatRule(
 }
 
 /**
- * Enable formatting via `eslint-plugin-format` for JS/TS, JSON, YAML,
- * CSS/SCSS/LESS, HTML, Markdown, GraphQL, and Tailwind files.
- *
- * Passing `true` enables all formatters and auto-detects slidev/tailwind
- * packages. Each file category independently selects its underlying formatter
- * (`"prettier"` or `"dprint"`; `"eslint"` is additionally accepted for
- * `js`/`ts`), falling back to the top-level `formatter` (default
- * `"prettier"`). When a js/ts category selects `"eslint"`, that block skips
- * the external formatter entirely and instead registers `@stylistic` with a
- * relaxed rule map approximating prettier style (no reflow, no line-length
- * enforcement). Non-JS file types use `parserPlain`; `stylistic` drives
- * printWidth/quotes/semi. Throws if `slidev` is enabled without `markdown`.
- *
- * When an object is passed, any unspecified per-language flag inherits the
- * same defaults as passing `true` (all enabled except `dts`), so partial
- * objects behave symmetrically with the `true` shorthand.
+ * Resolve every formatter category against the top-level defaults — the single
+ * source of truth shared by `formatters()` and assembly (which needs the
+ * resolved js/ts backends to decide stylistic-item suppression).
  *
  * @param optionsInput - Formatter toggles, or `true` to enable all
  * @param stylistic - Stylistic config controlling printWidth/quotes/semi
- * @returns Flat config items enabling formatting per file type
+ * @returns The resolved categories and derived option payloads
  */
-export async function formatters(
+export function resolveFormatterCategories(
   optionsInput: Readonly<OptionsFormatters | true>,
   stylistic: Readonly<StylisticConfig>,
-): Promise<FlatConfigItem[]> {
+): FormatterCategoriesResolution {
   const formatterDefaults = {
     js: true,
     ts: true,
@@ -178,7 +202,8 @@ export async function formatters(
     formatter: "prettier" as const,
   };
 
-  const options = optionsInput === true ? { ...formatterDefaults } : { ...formatterDefaults, ...optionsInput };
+  const options: OptionsFormatters =
+    optionsInput === true ? { ...formatterDefaults } : { ...formatterDefaults, ...optionsInput };
 
   const { indent, printWidth, quotes, semi } = stylistic;
 
@@ -218,7 +243,7 @@ export async function formatters(
     ...options.dprintOptions,
   };
 
-  const dprintJsTsLanguageOptions = {
+  const dprintJsTsLanguageOptions: { quoteStyle: "alwaysSingle" | "alwaysDouble" } = {
     quoteStyle: quotes === "single" ? "alwaysSingle" : "alwaysDouble",
   };
 
@@ -228,7 +253,7 @@ export async function formatters(
     dprintOptions,
   };
 
-  const mut_resolved = {
+  const mut_resolved: ResolvedFormatterCategories = {
     js: resolveCategory("js", options.js, { ...topLevelDefaults, enabled: formatterDefaults.js }),
     ts: resolveCategory("ts", options.ts, { ...topLevelDefaults, enabled: formatterDefaults.ts }),
     json: resolveCategory("json", options.json, { ...topLevelDefaults, enabled: formatterDefaults.json }),
@@ -245,6 +270,51 @@ export async function formatters(
     }),
     slidev: resolveCategory("slidev", options.slidev, { ...topLevelDefaults, enabled: formatterDefaults.slidev }),
   };
+
+  return {
+    categories: mut_resolved,
+    options,
+    prettierOptions,
+    dprintOptions,
+    dprintJsTsLanguageOptions,
+  };
+}
+
+/**
+ * Enable formatting via `eslint-plugin-format` for JS/TS, JSON, YAML,
+ * CSS/SCSS/LESS, HTML, Markdown, GraphQL, and Tailwind files.
+ *
+ * Passing `true` enables all formatters and auto-detects slidev/tailwind
+ * packages. Each file category independently selects its underlying formatter
+ * (`"prettier"` or `"dprint"`; `"eslint"` is additionally accepted for
+ * `js`/`ts`), falling back to the top-level `formatter` (default
+ * `"prettier"`). When a js/ts category selects `"eslint"`, that block skips
+ * the external formatter entirely and instead registers `@stylistic` with a
+ * relaxed rule map approximating prettier style (no reflow, no line-length
+ * enforcement). Non-JS file types use `parserPlain`; `stylistic` drives
+ * printWidth/quotes/semi. Throws if `slidev` is enabled without `markdown`.
+ *
+ * When an object is passed, any unspecified per-language flag inherits the
+ * same defaults as passing `true` (all enabled except `dts`), so partial
+ * objects behave symmetrically with the `true` shorthand.
+ *
+ * @param optionsInput - Formatter toggles, or `true` to enable all
+ * @param stylistic - Stylistic config controlling printWidth/quotes/semi
+ * @param resolution - Pre-computed category resolution from
+ * `resolveFormatterCategories`; computed here when omitted so assembly and
+ * this function can share a single resolution.
+ * @returns Flat config items enabling formatting per file type
+ */
+export async function formatters(
+  optionsInput: Readonly<OptionsFormatters | true>,
+  stylistic: Readonly<StylisticConfig>,
+  resolution?: Readonly<FormatterCategoriesResolution>,
+): Promise<FlatConfigItem[]> {
+  const {
+    categories: mut_resolved,
+    options,
+    dprintJsTsLanguageOptions,
+  } = resolution ?? resolveFormatterCategories(optionsInput, stylistic);
 
   if (mut_resolved.slidev.enabled && !mut_resolved.markdown.enabled) {
     throw new Error("`slidev` option only works when `markdown` is enabled");
@@ -276,7 +346,8 @@ export async function formatters(
 
   const [mut_pluginFormat, mut_configPrettier, sortPackageJson, formattingReporter] = [
     packagesById.get("eslint-plugin-format") as ESLint.Plugin,
-    packagesById.get("eslint-config-prettier") as ESLint.ConfigData,
+    // Absent when no enabled category uses prettier/dprint (e.g. js/ts-only `"eslint"`).
+    packagesById.get("eslint-config-prettier") as ESLint.ConfigData | undefined,
     packagesById.get("sort-package-json") as (typeof import("sort-package-json"))["default"],
     packagesById.get("eslint-formatting-reporter") as typeof import("eslint-formatting-reporter"),
   ];
@@ -297,7 +368,7 @@ export async function formatters(
   // Rule offs derived from `eslint-config-prettier` plus rules whose concerns
   // are owned by prettier/dprint. Applied only to prettier/dprint-backed blocks.
   const prettierDerivedOffs = {
-    ...Object.fromEntries(Object.entries(mut_configPrettier.rules ?? {}).filter(([, value]) => value === "off")),
+    ...Object.fromEntries(Object.entries(mut_configPrettier?.rules ?? {}).filter(([, value]) => value === "off")),
 
     // curly: "off",
     "no-unexpected-multiline": "off",
@@ -389,7 +460,7 @@ export async function formatters(
               {
                 ...mut_resolved.js.prettierOptions,
                 parser: "babel",
-                ...(options.tailwind && {
+                ...(options.tailwind === true && {
                   plugins: mut_resolved.js.prettierOptions["plugins"] ?? [],
                 }),
               },
@@ -405,7 +476,7 @@ export async function formatters(
     mut_configs.push({
       name: "rs:formatter:typescript",
       files: [GLOB_TS, GLOB_TSX],
-      ignores: options.dts ? [] : [GLOB_DTS],
+      ignores: options.dts === true ? [] : [GLOB_DTS],
       ...(tsEslintBackend && {
         plugins: {
           "@stylistic": pluginStylistic as ESLint.Plugin,
@@ -424,7 +495,7 @@ export async function formatters(
               {
                 ...mut_resolved.ts.prettierOptions,
                 parser: "typescript",
-                ...(options.tailwind && {
+                ...(options.tailwind === true && {
                   plugins: mut_resolved.ts.prettierOptions["plugins"] ?? [],
                 }),
               },
@@ -603,8 +674,11 @@ export async function formatters(
   }
 
   if (mut_resolved.markdown.enabled) {
+    // Plain-JS consumers get no type checking; a runtime `null` must not crash.
     const GLOB_SLIDEV = mut_resolved.slidev.enabled
-      ? typeof options.slidev === "object" && options.slidev !== null
+      ? typeof options.slidev === "object" &&
+        // eslint-disable-next-line ts/no-unnecessary-condition -- see above
+        options.slidev !== null
         ? (options.slidev.files ?? [])
         : ["**/slides.md"]
       : [];
