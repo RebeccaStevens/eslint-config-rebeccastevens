@@ -376,6 +376,17 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
             // blocks never cover — restrict it to everything except the files
             // the backend owns. Declaration files are kept covered when the
             // backend's ts block skips them (`formatters.dts` unset).
+            //
+            // Flat-config semantics this relies on (do not "simplify" into a
+            // bug):
+            //   (a) An item carrying `rules` + `ignores` but no `files`
+            //       applies to everything EXCEPT the `ignores` patterns.
+            //   (b) Within that exclusion set, the leading-`!` entry
+            //       (`!${GLOB_DTS}`) RE-INCLUDES declaration files — they stay
+            //       under the stylistic item even though dts globs were named.
+            //   (c) Net effect: stylistic keeps covering vue SFCs, markdown
+            //       code blocks, and (unless `formatters.dts` is set) dts,
+            //       while ceding js/jsx/ts/tsx to the backend's own blocks.
             let mut_suppressionIgnores: string[] | undefined;
             if (formatterResolution !== undefined) {
               const { categories, options: formatterOptions } = formatterResolution;
