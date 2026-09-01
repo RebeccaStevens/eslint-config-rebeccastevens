@@ -244,7 +244,22 @@ export async function vue(
           "stroustrup",
           { allowSingleLine: true },
         ],
-        "vue/comma-dangle": [stylisticEnforcement, "always-multiline"],
+        "vue/comma-dangle": [
+          stylisticEnforcement,
+          {
+            arrays: "only-multiline",
+            exports: "only-multiline",
+            functions: "ignore",
+            imports: "only-multiline",
+            objects: "only-multiline",
+
+            ...(typescript && {
+              enums: "only-multiline",
+              generics: "only-multiline",
+              tuples: "only-multiline",
+            }),
+          },
+        ],
         "vue/comma-spacing": [stylisticEnforcement, { after: true, before: false }],
         "vue/comma-style": [stylisticEnforcement, "last"],
         "vue/html-comment-content-spacing": [
@@ -259,7 +274,19 @@ export async function vue(
         // "vue/object-curly-newline": "off",
         "vue/object-curly-spacing": [stylisticEnforcement, "always"],
         "vue/object-property-newline": [stylisticEnforcement, { allowAllPropertiesOnSameLine: true }],
-        "vue/operator-linebreak": [stylisticEnforcement, "before"],
+        "vue/operator-linebreak": [
+          stylisticEnforcement,
+          "after",
+          {
+            overrides: {
+              "==": "none",
+              "===": "none",
+              "?": "before",
+              ":": "before",
+              "|": "before",
+            },
+          },
+        ],
         "vue/padding-line-between-blocks": [stylisticEnforcement, "always"],
         "vue/quote-props": [stylisticEnforcement, "consistent-as-needed"],
         "vue/space-in-parens": [stylisticEnforcement, "never"],
