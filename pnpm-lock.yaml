@@ -112,10 +112,10 @@ importers:
         specifier: 4.7.0
         version: 4.7.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(tailwindcss@3.4.17)(typescript@6.0.3)
       eslint-plugin-command:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0(@typescript-eslint/typescript-estree@8.67.0(supports-color@7.2.0)(typescript@6.0.3))(@typescript-eslint/utils@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))
       eslint-plugin-erasable-syntax-only:
-        specifier: ^0.7.0
+        specifier: 0.7.1
         version: 0.7.1(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       eslint-plugin-format:
         specifier: 2.0.1
@@ -148,10 +148,10 @@ importers:
         specifier: 1.2.1
         version: 1.2.1
       eslint-plugin-perfectionist:
-        specifier: ^5.10.1
+        specifier: 5.10.1
         version: 5.10.1(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       eslint-plugin-pnpm:
-        specifier: ^1.8.0
+        specifier: 1.8.0
         version: 1.8.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))
       eslint-plugin-prettier:
         specifier: 5.5.6
@@ -169,7 +169,7 @@ importers:
         specifier: 3.2.0
         version: 3.2.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))
       eslint-plugin-security:
-        specifier: ^4.0.1
+        specifier: 4.0.1
         version: 4.0.1
       eslint-plugin-sonarjs:
         specifier: 4.2.0
@@ -181,7 +181,7 @@ importers:
         specifier: 73.0.0
         version: 73.0.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))
       eslint-plugin-unused-imports:
-        specifier: ^4.4.1
+        specifier: 4.4.1
         version: 4.4.1(@typescript-eslint/eslint-plugin@8.67.0(@typescript-eslint/parser@8.67.0(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.8.1(jiti@2.7.0)(supports-color@7.2.0))
       eslint-plugin-vue:
         specifier: 10.10.0
