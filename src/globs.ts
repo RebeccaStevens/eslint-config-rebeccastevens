@@ -90,6 +90,16 @@ export const GLOB_CTS = "**/?(.)*.cts";
 export const GLOB_STYLE = "**/?(.)*.{c,le,sc,pc,postc}ss";
 
 /**
+ * Indented Sass files (`.sass`).
+ *
+ * Kept as an explicit exclusion for style formatting: neither prettier nor
+ * dprint can parse the indented sass syntax, so these files must stay out of
+ * formatter blocks by design rather than by pattern accident.
+ */
+// cspell:disable-next-line
+export const GLOB_SASS = "**/?(.)*.sass";
+
+/**
  * CSS files.
  */
 export const GLOB_CSS = "**/?(.)*.css";

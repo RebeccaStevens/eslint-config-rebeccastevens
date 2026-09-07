@@ -25,6 +25,7 @@ import {
   promise,
   react,
   regexp,
+  resolveFormatterCategories,
   security,
   sonar,
   stylistic,
@@ -38,9 +39,12 @@ import {
   yaml,
 } from "./configs";
 import {
+  GLOB_DTS,
+  GLOB_JS,
   GLOB_JSON,
   GLOB_JSON5,
   GLOB_JSONC,
+  GLOB_JSX,
   GLOB_MARKDOWN,
   GLOB_MARKDOWN_CODE,
   GLOB_ROOT_DTS,
@@ -51,6 +55,8 @@ import {
   GLOB_SRC,
   GLOB_TESTS,
   GLOB_TOML,
+  GLOB_TS,
+  GLOB_TSX,
   GLOB_VUE,
   GLOB_YAML,
 } from "./globs";
@@ -64,6 +70,7 @@ import type {
   OptionsTypeScriptShorthands,
   OptionsTypescript,
 } from "./types";
+import { readEditorConfigIndent } from "./utils";
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
@@ -193,7 +200,7 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     mode,
   } = options;
 
-  const stylisticOptions =
+  const stylisticOptionsWithoutEditorConfig =
     options.stylistic === false
       ? false
       : typeof options.stylistic === "object"
@@ -203,6 +210,20 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
             ...options.stylistic,
           }
         : StylisticConfigDefaults;
+
+  // When the user has not explicitly set `stylistic.indent`, seed it from the
+  // project's `.editorconfig` so the `"eslint"` formatter backend — which,
+  // unlike prettier/dprint, ignores editorconfig natively — produces consistent
+  // indentation. Explicit user values always win.
+  const userIndentSet = typeof options.stylistic === "object" && options.stylistic.indent !== undefined;
+
+  const editorConfigIndent =
+    userIndentSet || options.stylistic === false ? undefined : readEditorConfigIndent(projectRoot);
+
+  const stylisticOptions =
+    stylisticOptionsWithoutEditorConfig === false || userIndentSet || editorConfigIndent === undefined
+      ? stylisticOptionsWithoutEditorConfig
+      : { ...stylisticOptionsWithoutEditorConfig, indent: editorConfigIndent };
 
   const functionalEnforcement =
     typeof functionalOptions === "string"
@@ -303,6 +324,23 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
 
   const resolvedTailwind = resolveTailwindConfig(tailwindOptions);
 
+  // Resolve the formatter categories once (item 13): the same resolution is
+  // consumed by `formatters()` below and by the stylistic item, which needs
+  // the resolved js/ts backends to decide suppression.
+  const formatterResolution =
+    formattersOptions === false
+      ? undefined
+      : resolveFormatterCategories(formattersOptions, stylisticOptions === false ? {} : stylisticOptions);
+
+  // Format `<style>` blocks inside Vue SFCs through the virtual files the SFC
+  // block processor emits (`<file>.vue/style.<lang>`). Requires Vue support
+  // with `sfcBlocks` (default-on) plus an enabled `css` formatter category.
+  const cssInVue =
+    vueOptions !== false &&
+    formatterResolution !== undefined &&
+    formatterResolution.categories.css.enabled &&
+    (typeof vueOptions === "object" ? vueOptions.sfcBlocks !== false : true);
+
   const featureConfigs: ReadonlyArray<Awaitable<FlatConfigItem[]>> = [
     ...(sonarOptions ? [sonar({ ...functionalConfigOptions, securitySeverity })] : []),
     ...(commandOptions ? [command()] : []),
@@ -344,11 +382,57 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
     ...(stylisticOptions === false
       ? []
       : [
-          stylistic({
-            stylistic: stylisticOptions,
-            typescript: hasTypeScript,
-            overrides: getOverrides(options, "stylistic"),
-          }),
+          (async (): Promise<FlatConfigItem[]> => {
+            // When the `"eslint"` formatter backend owns BOTH js and ts, its
+            // later-wins blocks already shadow every rule the stylistic item
+            // would set on JS/TS files. `stylistic()` emits one merged item
+            // (no `files` restriction), so instead of dropping it — which
+            // would strand vue SFCs and markdown code blocks that the backend
+            // blocks never cover — restrict it to everything except the files
+            // the backend owns. Declaration files are kept covered when the
+            // backend's ts block skips them (`formatters.dts` unset).
+            //
+            // Flat-config semantics this relies on (do not "simplify" into a
+            // bug):
+            //   (a) An item carrying `rules` + `ignores` but no `files`
+            //       applies to everything EXCEPT the `ignores` patterns.
+            //   (b) Within that exclusion set, the leading-`!` entry
+            //       (`!${GLOB_DTS}`) RE-INCLUDES declaration files — they stay
+            //       under the stylistic item even though dts globs were named.
+            //   (c) Net effect: stylistic keeps covering vue SFCs, markdown
+            //       code blocks, and (unless `formatters.dts` is set) dts,
+            //       while ceding js/jsx/ts/tsx to the backend's own blocks.
+            let mut_suppressionIgnores: string[] | undefined;
+            if (formatterResolution !== undefined) {
+              const { categories, options: formatterOptions } = formatterResolution;
+
+              if (
+                categories.js.enabled &&
+                categories.js.formatter === "eslint" &&
+                categories.ts.enabled &&
+                categories.ts.formatter === "eslint"
+              ) {
+                mut_suppressionIgnores = [
+                  GLOB_JS,
+                  GLOB_JSX,
+                  GLOB_TS,
+                  GLOB_TSX,
+
+                  ...(formatterOptions.dts === true ? [] : [`!${GLOB_DTS}`]),
+                ];
+              }
+            }
+
+            const items = await stylistic({
+              stylistic: stylisticOptions,
+              typescript: hasTypeScript,
+              overrides: getOverrides(options, "stylistic"),
+            });
+
+            return items.map((item) =>
+              mut_suppressionIgnores === undefined ? item : { ...item, ignores: mut_suppressionIgnores },
+            );
+          })(),
         ]),
     ...(functionalEnforcement !== "none" || mode === "library"
       ? [
@@ -455,9 +539,16 @@ export function assembleConfigs(options: OptionsConfig): Array<Awaitable<FlatCon
             overrides: getOverrides(options, "markdown"),
           }),
         ]),
-    ...(formattersOptions === false
+    ...(formattersOptions === false || formatterResolution === undefined
       ? []
-      : [formatters(formattersOptions, stylisticOptions === false ? {} : stylisticOptions)]),
+      : [
+          formatters(
+            formattersOptions,
+            stylisticOptions === false ? {} : stylisticOptions,
+            formatterResolution,
+            cssInVue,
+          ),
+        ]),
     ...(isInEditor ? [inEditor()] : []),
   ];
 

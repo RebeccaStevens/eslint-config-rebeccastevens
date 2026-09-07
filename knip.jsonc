@@ -4,6 +4,9 @@
   "project": ["src/**/*.ts!"],
   "ignoreBinaries": ["semantic-release"],
   "ignoreDependencies": [
+    "@dprint/json",
+    "@dprint/markdown",
+    "@dprint/typescript",
     "@eslint-community/eslint-plugin-eslint-comments",
     "@eslint-react/eslint-plugin",
     "@eslint/markdown",
